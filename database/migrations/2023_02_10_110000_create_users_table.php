@@ -27,8 +27,8 @@ return new class extends Migration
             $table->date('registration_date');
             $table->timestamps();
 
-            $table->foreign('rank_id')->references('id')->on('ranks')->onDelete('cascade');
-            $table->foreign('vote_id')->references('id')->on('votes')->onDelete('cascade');
+          //  $table->foreign('rank_id')->references('id')->on('ranks')->onDelete('cascade');
+          //  $table->foreign('vote_id')->references('id')->on('votes')->onDelete('cascade');
         });
     }
 
