@@ -22,7 +22,10 @@ export default ({ mode }) => {
              }),
         ],
         server: {
-            port:  process.env.VITE_PORT
-        }
+            host: '0.0.0.0',
+            hmr: {
+                host: 'localhost'
+            }
+        },
     });
 }
