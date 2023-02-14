@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('ranks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->string('name');
+            $table->foreignId('user_id')->nullable();
+            $table->enum('name', ['student', 'smartass', 'tutor', 'teacher', 'professor']);
             $table->string('image');
             $table->timestamps();
             

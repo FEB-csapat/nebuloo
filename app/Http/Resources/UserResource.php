@@ -20,11 +20,12 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'bio' => $this->bio,
             'registration_date' => $this->registration_date,
-            'rank' => RankResource::collection($this->rank),
+            'rank' => $this->rank,
           //  'votes' => VoteResource::collection($this->votes),
             'comments' => CommentResource::collection($this->comments),
             'contents' => ContentResource::collection($this->contents),
             'questions' => QuestionResource::collection($this->questions),
+            'votes' => QuestionResource::collection($this->votes),
         ];
     }
 }

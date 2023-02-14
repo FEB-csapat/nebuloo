@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('owner_user_id');
             $table->foreignId('granted_user_id');
             $table->morphs('votable');
-            $table->enum('direction', ['Up', 'Down']);
+            $table->enum('direction', ['up', 'down']);
             $table->timestamps();
             
             /*

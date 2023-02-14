@@ -16,15 +16,15 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('rank_id');
-            $table->foreignId('vote_id');
-
-            $table->foreignId('comment_id');
-            $table->foreignId('content_id');
-            $table->foreignId('question_id');
+            
+            $table->foreignId('content_id')->nullable();
+            $table->foreignId('question_id')->nullable();;
+            $table->foreignId('comment_id')->nullable();
+            $table->foreignId('vote_id')->nullable();
 
             $table->string('name');
             $table->string('bio');
-            $table->date('registration_date');
+           // $table->date('registration_date');
             $table->timestamps();
 
           //  $table->foreign('rank_id')->references('id')->on('ranks')->onDelete('cascade');
