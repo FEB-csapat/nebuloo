@@ -7,10 +7,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Tags\HasTags;
+use Spatie\Permission\Traits\HasRoles;
+use Laravel\Passport\HasApiTokens;
+
 
 class User extends Authenticatable
 {
-    use HasFactory;//, Notifiable, HasApiTokens ;
+    use HasFactory, HasApiTokens, HasRoles;//, Notifiable, HasApiTokens ;
 
     protected $table = 'users';
     protected $primaryKey = 'id';
