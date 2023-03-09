@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             
-            $table->string('google_id');
-            $table->string('email')->unique();
+            $table->string('google_id')->nullable();
+            $table->string('email')->unique()->nullable();
             $table->string('avatar')->nullable();
             $table->string('avatar_original')->nullable();
-            $table->rememberToken();
+            $table->rememberToken()->nullable();
 
             $table->foreignId('rank_id');
             
@@ -30,7 +30,7 @@ return new class extends Migration
             $table->foreignId('vote_id')->nullable();
 
             $table->string('name');
-            $table->string('bio');
+            $table->string('bio')->nullable();
            // $table->date('registration_date');
             $table->timestamps();
 

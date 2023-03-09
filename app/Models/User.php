@@ -2,22 +2,33 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use Spatie\Tags\HasTags;
 use Spatie\Permission\Traits\HasRoles;
-use Laravel\Passport\HasApiTokens;
 
+use Laravel\Socialite\Contracts\User as GoogleUser;
 
 class User extends Authenticatable
 {
-    use HasFactory, HasApiTokens, HasRoles;//, Notifiable, HasApiTokens ;
+    use HasFactory, HasRoles;
 
     protected $table = 'users';
     protected $primaryKey = 'id';
+
+    static function fromGoogle(GoogleUser $googleUser) : User {
+        
+        $newUser = new User;
+        $newUser->google_id = $googleUser->id;
+        $newUser->name = $googleUser->name;
+        $newUser->email = $googleUser->email;
+        
+        $newUser->avatar = $googleUser->avatar;
+        $newUser->avatar_original = $googleUser->avatar_original;
+        
+        return $newUser;
+    }
+    
 
 
     public function rank()

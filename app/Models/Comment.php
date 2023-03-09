@@ -9,8 +9,6 @@ class Comment extends Model
 {
     use HasFactory;
 
-
-
     public function parent()
     {
         return $this->belongsTo(Comment::class, 'parent_comment_id');
