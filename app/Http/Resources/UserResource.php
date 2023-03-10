@@ -25,7 +25,7 @@ class UserResource extends JsonResource
             'comments' => CommentResource::collection($this->comments),
             'contents' => ContentResource::collection($this->contents),
             'questions' => QuestionResource::collection($this->questions),
-            'votes' => QuestionResource::collection($this->votes),
+            'votes' => VoteResource::collection($this->votes),
         ];
     }
 }

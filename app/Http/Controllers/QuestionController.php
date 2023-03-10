@@ -13,8 +13,11 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if(!$this->authorize('viewAny', Question::class)){
+            abort(403);
+        }
         $questions = Question::all();
         return QuestionResource::collection($questions);
     }
@@ -27,6 +30,9 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
+        if(!$this->authorize('create', Question::class)){
+            abort(403);
+        }
         $data = $request->validated();
         $newQuestion = Question::create($data);
         return new QuestionResource($newQuestion);
@@ -38,9 +44,14 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $question = Question::findOrFail($id);
+
+        if(!$this->authorize('view', $question, Question::class)){
+            abort(403);
+        }
+
         return new QuestionResource($question);
     }
 
@@ -53,8 +64,14 @@ class QuestionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->validated();
         $question = Question::findOrFail($id);
+
+        if(!$this->authorize('update', $question, Question::class)){
+            abort(403);
+        }
+
+        $data = $request->validated();
+
         if($question->update($data)){
             return new QuestionResource($question);
         }
@@ -66,8 +83,12 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $question = Question::findOrFail($id);
+
+        if(!$this->authorize('delete', $question, Question::class)){
+            abort(403);
+        }
         $question->delete();
     }}

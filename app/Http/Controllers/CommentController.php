@@ -13,8 +13,11 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if(!$this->authorize('viewAny', Comment::class)){
+            abort(403);
+        }
         $comments = Comment::all();
         return CommentResource::collection($comments);
     }
@@ -27,6 +30,10 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
+        if(!$this->authorize('create', Comment::class)){
+            abort(403);
+        }
+
         $data = $request->validated();
         $newComment = Comment::create($data);
         return new CommentResource($newComment);
@@ -38,9 +45,14 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $comment = Comment::findOrFail($id);
+        
+        if(!$this->authorize('view', $comment, Comment::class)){
+            abort(403);
+        }
+
         return new CommentResource($comment);
     }
 
@@ -53,8 +65,15 @@ class CommentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->validated();
+
         $comment = Comment::findOrFail($id);
+
+        if(!$this->authorize('update', $comment, Comment::class)){
+            abort(403);
+        }
+
+        $data = $request->validated();
+        
         if($comment->update($data)){
             return new CommentResource($comment);
         }
@@ -66,9 +85,14 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $comment = Comment::findOrFail($id);
+
+        if(!$this->authorize('delete', $comment, Comment::class)){
+            abort(403);
+        }
+
         $comment->delete();
     }
 

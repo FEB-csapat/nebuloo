@@ -6,15 +6,23 @@ use App\Http\Resources\ContentResource;
 use App\Models\Content;
 use Illuminate\Http\Request;
 
+
+
 class ContentController extends Controller
 {
+
+    protected $model = Content::class;
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if(!$this->authorize('viewAny', Content::class)){
+            abort(403);
+        }
         $contents = Content::all();
         return ContentResource::collection($contents);
     }
@@ -27,6 +35,9 @@ class ContentController extends Controller
      */
     public function store(Request $request)
     {
+        if(!$this->authorize('create', Content::class)){
+            abort(403);
+        }
         $data = $request->validated();
         $newContent = Content::create($data);
         return new ContentResource($newContent);
@@ -38,9 +49,14 @@ class ContentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $content = Content::findOrFail($id);
+
+        if($this->authorize('view', [$content], Content::class)){
+            abort(403);
+        }
+        
         return new ContentResource($content);
     }
 
@@ -53,8 +69,15 @@ class ContentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->validated();
+        
         $content = Content::findOrFail($id);
+
+        if(!$this->authorize('update', $content, Content::class)){
+            abort(403);
+        }
+
+        $data = $request->validated();
+        
         if($content->update($data)){
             return new ContentResource($content);
         }
@@ -66,9 +89,14 @@ class ContentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $content = Content::findOrFail($id);
+
+        if(!$this->authorize('delete', $content, Content::class)){
+            abort(403);
+        }
+        
         $content->delete();
     }
 }

@@ -16,7 +16,7 @@ class Question extends Model
 
     public function creator()
     {
-        return $this->belongsTo(User::class, 'id', 'creator_user_id');
+        return $this->belongsTo(User::class, 'creator_user_id');
     }
 
     public function votes()

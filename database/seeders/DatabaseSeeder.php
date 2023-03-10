@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Question;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,7 +18,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             RankSeeder::class,
-            UserSeeder::class
+            UserSeeder::class,
+            ContentSeeder::class,
+            QuestionSeeder::class,
+            CommentSeeder::class,
+            VoteSeeder::class
         ]);
     }
 }

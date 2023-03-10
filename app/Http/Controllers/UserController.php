@@ -13,8 +13,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if(!$this->authorize('viewAny', User::class)){
+            abort(403);
+        }
         $users = User::all();
         return UserResource::collection($users);
     }
@@ -27,6 +30,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        if(!$this->authorize('create', User::class)){
+            abort(403);
+        }
         $data = $request->validated();
         $newUser = User::create($data);
         return new UserResource($newUser);
@@ -38,9 +44,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $user = User::findOrFail($id);
+
+        if(!$this->authorize('view', [$user], User::class)){
+            abort(403);
+        }
+        
         return new UserResource($user);
     }
 
@@ -53,8 +64,12 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->validated();
         $user = User::findOrFail($id);
+
+        if(!$this->authorize('update', $user, User::class)){
+            abort(403);
+        }
+        $data = $request->validated();
         if($user->update($data)){
             return new UserResource($user);
         }
@@ -66,9 +81,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $user = User::findOrFail($id);
+        if(!$this->authorize('delete', User::class)){
+            abort(403);
+        }
         $user->delete();
     }
 }

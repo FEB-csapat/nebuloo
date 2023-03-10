@@ -103,3 +103,23 @@ Route::put('/comments/{id}', [CommentController:: class, "update"])
 
 Route::delete('/comments/{id}', [CommentController:: class, "destroy"])
     ->name("comments.destroy");
+
+
+/*
+* API routes for comment
+*/
+Route::post('/votes', [VoteController:: class, "store"])
+    ->name("votes.store");
+
+Route::put('/votes/{id}', [VoteController:: class, "update"])
+    ->name("votes.update");
+
+Route::delete('/votes/{id}', [VoteController:: class, "destroy"])
+    ->name("votes.destroy");
+
+
+
+Route::group(['middleware' => ['role:admin']], function () {
+    //
+});
+    

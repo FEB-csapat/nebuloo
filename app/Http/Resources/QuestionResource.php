@@ -16,7 +16,7 @@ class QuestionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'creator' => UserResource::collection($this->creator),
+            'creator' => new UserResource($this->creator),
             'votes' => VoteResource::collection($this->votes),
             'comments' => CommentResource::collection($this->comments),
             'title' => $this->title,
