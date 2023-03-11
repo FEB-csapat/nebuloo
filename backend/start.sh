@@ -20,7 +20,7 @@ fi
 
 # shopt -s expand_aliases
 
-$COMPOSE -f docker-compose.yml -f docker-compose.$MODE.yml  up -d
+$COMPOSE -f docker-compose.yml -f docker-compose.$MODE.yml -p nebuloo  up -d
 $COMPOSE exec app composer install
 $COMPOSE exec app php artisan key:generate
 $COMPOSE exec app npm install
