@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RankController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
@@ -19,9 +20,77 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::get('/auth/google', [AuthController:: class, "redirectToProvider"]);
+Route::get('/auth/google/callback', [AuthController:: class, "handleProviderCallback"]);
+
+
+Route::get('/users', [UserController:: class, "index"])
+    ->name("users.index");
+Route::get('/users/{id}', [UserController:: class, "show"])
+    ->name("users.show");
+
+Route::get('/contents', [ContentController:: class, "index"])
+    ->name("contents.index");
+Route::get('/contents/{id}', [ContentController:: class, "show"])
+    ->name("contents.show");
+
+    
+Route::get('/questions', [QuestionController:: class, "index"])
+    ->name("questions.index");
+Route::get('/questions/{id}', [QuestionController:: class, "show"])
+    ->name("questions.show");
+
+Route::get('/comments', [CommentController:: class, "index"])
+    ->name("comments.index");
+Route::get('/comments/{id}', [CommentController:: class, "show"])
+    ->name("comments.show");
+
+Route::middleware(['auth:api'])->group(function () {
+    
+    
+    Route::post('/users', [UserController:: class, "store"])
+        ->name("users.store");
+    Route::put('/users/{id}', [UserController:: class, "update"])
+        ->name("users.update");
+    Route::delete('/users/{id}', [UserController:: class, "destroy"])
+        ->name("users.destroy");
+
+    Route::post('/contents', [ContentController:: class, "store"])
+        ->name("contents.store");
+    Route::put('/contents/{id}', [ContentController:: class, "update"])
+        ->name("contents.update");
+    Route::delete('/contents/{id}', [ContentController:: class, "destroy"])
+        ->name("contents.destroy");
+
+    Route::post('/questions', [QuestionController:: class, "store"])
+        ->name("questions.store");
+    Route::put('/questions/{id}', [QuestionController:: class, "update"])
+        ->name("questions.update");
+    Route::delete('/questions/{id}', [QuestionController:: class, "destroy"])
+        ->name("questions.destroy");
+
+
+    Route::post('/comments', [CommentController:: class, "store"])
+        ->name("comments.store");
+    Route::put('/comments/{id}', [CommentController:: class, "update"])
+        ->name("comments.update");
+    Route::delete('/comments/{id}', [CommentController:: class, "destroy"])
+        ->name("comments.destroy");
+
+
+    Route::post('/votes', [VoteController:: class, "store"])
+        ->name("votes.store");
+    Route::put('/votes/{id}', [VoteController:: class, "update"])
+        ->name("votes.update");
+    Route::delete('/votes/{id}', [VoteController:: class, "destroy"])
+        ->name("votes.destroy");
+
 });
+
+
+Route::get('/auth', [AuthController:: class, "handleProviderCallback"])
+    ->name("ranks.index");
 
 /*
 * API routes for rank
@@ -31,92 +100,6 @@ Route::get('/ranks', [RankController:: class, "index"])
 
 Route::get('/ranks/{id}', [RankController:: class, "show"])
     ->name("ranks.show");
-
-/*
-* API routes for user
-*/
-Route::get('/users', [UserController:: class, "index"])
-    ->name("users.index");
-
-Route::get('/users/{id}', [UserController:: class, "show"])
-    ->name("users.show");
-
-Route::post('/users', [UserController:: class, "store"])
-    ->name("users.store");
-
-Route::put('/users/{id}', [UserController:: class, "update"])
-    ->name("users.update");
-
-Route::delete('/users/{id}', [UserController:: class, "destroy"])
-    ->name("users.destroy");
-
-/*
-* API routes for content
-*/
-Route::get('/contents', [ContentController:: class, "index"])
-    ->name("contents.index");
-
-Route::get('/contents/{id}', [ContentController:: class, "show"])
-    ->name("contents.show");
-
-Route::post('/contents', [ContentController:: class, "store"])
-    ->name("contents.store");
-
-Route::put('/contents/{id}', [ContentController:: class, "update"])
-    ->name("contents.update");
-
-Route::delete('/contents/{id}', [ContentController:: class, "destroy"])
-    ->name("contents.destroy");
-
-/*
-* API routes for question
-*/
-Route::get('/questions', [QuestionController:: class, "index"])
-    ->name("questions.index");
-
-Route::get('/questions/{id}', [QuestionController:: class, "show"])
-    ->name("questions.show");
-
-Route::post('/questions', [QuestionController:: class, "store"])
-    ->name("questions.store");
-
-Route::put('/questions/{id}', [QuestionController:: class, "update"])
-    ->name("questions.update");
-
-Route::delete('/questions/{id}', [QuestionController:: class, "destroy"])
-    ->name("questions.destroy");
-
-/*
-* API routes for comment
-*/
-Route::get('/comments', [CommentController:: class, "index"])
-    ->name("comments.index");
-
-Route::get('/comments/{id}', [CommentController:: class, "show"])
-    ->name("comments.show");
-
-Route::post('/comments', [CommentController:: class, "store"])
-    ->name("comments.store");
-
-Route::put('/comments/{id}', [CommentController:: class, "update"])
-    ->name("comments.update");
-
-Route::delete('/comments/{id}', [CommentController:: class, "destroy"])
-    ->name("comments.destroy");
-
-
-/*
-* API routes for comment
-*/
-Route::post('/votes', [VoteController:: class, "store"])
-    ->name("votes.store");
-
-Route::put('/votes/{id}', [VoteController:: class, "update"])
-    ->name("votes.update");
-
-Route::delete('/votes/{id}', [VoteController:: class, "destroy"])
-    ->name("votes.destroy");
-
 
 
 Route::group(['middleware' => ['role:admin']], function () {
