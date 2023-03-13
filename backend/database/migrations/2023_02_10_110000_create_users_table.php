@@ -17,12 +17,15 @@ return new class extends Migration
             $table->id();
             
             $table->string('google_id')->nullable();
-            $table->string('email')->unique()->nullable();
-            $table->string('avatar')->nullable();
-            $table->string('avatar_original')->nullable();
-            $table->rememberToken()->nullable();
+            $table->string('email')->unique();
+            $table->string('email_verified_at')->nullable();
 
-            $table->foreignId('rank_id');
+            
+            $table->string('avatar_original')->nullable();
+
+            $table->rememberToken();
+
+            $table->foreignId('rank_id')->default(1);
             
             $table->foreignId('content_id')->nullable();
             $table->foreignId('question_id')->nullable();;

@@ -9,21 +9,25 @@ use App\Models\User;
 class AuthController extends Controller
 {
 
-    
-    public function redirectToProvider()
+    public function redirectToProvider($provider)
     {
-        return Socialite::driver('google')->stateless()->user();
+        $validated = $this->validateProvider($provider);
+        if(!is_null($validated)){
+            return $validated;
+        }
+        return Socialite::driver('google')->stateless()->redirect();
     }
 
-    /**
-     * Obtain the user information from Google.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function handleProviderCallback()
+    
+    public function handleProviderCallback($provider)
     {
+        $validated = $this->validateProvider($provider);
+        if(!is_null($validated)){
+            return $validated;
+        }
+
         try {
-            $user = Socialite::driver('google')->user();
+            $user = Socialite::driver('google')->stateless()->user();
         } catch (\Exception $e) {
             return $e;
           //  return redirect('/login');
@@ -45,36 +49,10 @@ class AuthController extends Controller
             return $token;
         }
     }
-    
 
-
-/*
-     * Obtain the user information from Google.
-     *
-     * @return \Illuminate\Http\Response
-     
-    public function handleProviderCallback()
-    {
-        try {
-            $user = Socialite::driver('google')->user();
-        } catch (\Exception $e) {
-            return redirect('/login');
-        }        // only allow people with @company.com to login
-        
-        $existingUser = User::where('email', $user->email)->first();        if($existingUser){
-            // log them in
-            auth()->login($existingUser, true);
-        } else {
-            // create a new user
-            $newUser                  = new User;
-            $newUser->name            = $user->name;
-            $newUser->email           = $user->email;
-            $newUser->google_id       = $user->id;
-            $newUser->avatar          = $user->avatar;
-            $newUser->avatar_original = $user->avatar_original;
-            $newUser->save();            auth()->login($newUser, true);
+    protected function validateProvider($provider){
+        if(!in_array($provider, ['facebook', 'google'])){
+            return response()->json(['error' => 'Please login using facebook or google'], 422);
         }
-        return redirect()->to('/home');
     }
-*/
 }

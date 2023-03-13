@@ -21,8 +21,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/auth/google', [AuthController:: class, "redirectToProvider"]);
-Route::get('/auth/google/callback', [AuthController:: class, "handleProviderCallback"]);
+Route::get('/login/{provider}', [AuthController:: class, "redirectToProvider"]);
+Route::get('/login/{provider}/callback', [AuthController:: class, "handleProviderCallback"]);
 
 
 Route::get('/users', [UserController:: class, "index"])

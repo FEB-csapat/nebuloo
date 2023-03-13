@@ -7,14 +7,20 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
+
 use Laravel\Socialite\Contracts\User as GoogleUser;
 
 class User extends Authenticatable
 {
-    use HasFactory, HasRoles;
+    use HasFactory, HasApiTokens, HasRoles;
 
     protected $table = 'users';
     protected $primaryKey = 'id';
+
+    protected $hidden = [
+        'remember_token',
+    ];
+
 
     static function fromGoogle(GoogleUser $googleUser) : User {
         
@@ -29,6 +35,10 @@ class User extends Authenticatable
         return $newUser;
     }
     
+    public function providers()
+    {
+        return $this->hasMany(Provider::class, 'user_id', 'id');
+    }
 
 
     public function rank()
@@ -54,4 +64,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class, 'id', 'comment_id');
     }
+
+    
+
 }
