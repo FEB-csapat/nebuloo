@@ -4,7 +4,9 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+
     "content-hash": "dd4157449fd97825112971ff0c5c614d",
+
     "packages": [
         {
             "name": "brick/math",
@@ -3513,6 +3515,7 @@
             "time": "2023-03-05T17:13:09+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "psr/cache",
             "version": "3.0.0",
             "source": {
@@ -3562,6 +3565,8 @@
             "time": "2021-02-03T23:26:27+00:00"
         },
         {
+=======
+>>>>>>> 038699c2af5dad41bf51be0e6d937f03de426830
             "name": "psr/clock",
             "version": "1.0.0",
             "source": {
