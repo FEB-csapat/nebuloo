@@ -123,6 +123,9 @@ Route::group(['middleware' => ['role:admin|moderator']], function () {
 
 Route::group(['middleware' => ['role:admin']], function () {
     
+    Route::put('admin/user/{id}/grant', [UserController:: class, "updateRole"])
+        ->name("users.role.update");
+
     Route::put('admin/users/{id}', [UserController:: class, "update"])
         ->name("users.update");
     Route::delete('admin/users/{id}', [UserController:: class, "destroy"])
