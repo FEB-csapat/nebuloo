@@ -89,4 +89,20 @@ class UserController extends Controller
         }
         $user->delete();
     }
+
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function ban(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        if(!$this->authorize('ban', User::class)){
+            abort(403);
+        }
+        $user->delete();
+    }
 }

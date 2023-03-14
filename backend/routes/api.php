@@ -48,49 +48,44 @@ Route::get('/comments/{id}', [CommentController:: class, "show"])
 
 Route::middleware(['auth:api'])->group(function () {
     
-    
-    Route::post('/users', [UserController:: class, "store"])
-        ->name("users.store");
-    Route::put('/users/{id}', [UserController:: class, "update"])
+    Route::put('/me}', [UserController:: class, "update"])
         ->name("users.update");
-    Route::delete('/users/{id}', [UserController:: class, "destroy"])
+    Route::delete('me/{id}', [UserController:: class, "destroy"])
         ->name("users.destroy");
 
-    Route::post('/contents', [ContentController:: class, "store"])
+    Route::post('me/contents', [ContentController:: class, "store"])
         ->name("contents.store");
-    Route::put('/contents/{id}', [ContentController:: class, "update"])
+    Route::put('me/contents/{id}', [ContentController:: class, "update"])
         ->name("contents.update");
-    Route::delete('/contents/{id}', [ContentController:: class, "destroy"])
+    Route::delete('me/contents/{id}', [ContentController:: class, "destroy"])
         ->name("contents.destroy");
 
-    Route::post('/questions', [QuestionController:: class, "store"])
+    Route::post('me/questions', [QuestionController:: class, "store"])
         ->name("questions.store");
-    Route::put('/questions/{id}', [QuestionController:: class, "update"])
+    Route::put('me/questions/{id}', [QuestionController:: class, "update"])
         ->name("questions.update");
-    Route::delete('/questions/{id}', [QuestionController:: class, "destroy"])
+    Route::delete('me/questions/{id}', [QuestionController:: class, "destroy"])
         ->name("questions.destroy");
 
 
-    Route::post('/comments', [CommentController:: class, "store"])
+    Route::post('me/comments', [CommentController:: class, "store"])
         ->name("comments.store");
-    Route::put('/comments/{id}', [CommentController:: class, "update"])
+    Route::put('me/comments/{id}', [CommentController:: class, "update"])
         ->name("comments.update");
-    Route::delete('/comments/{id}', [CommentController:: class, "destroy"])
+    Route::delete('me/comments/{id}', [CommentController:: class, "destroy"])
         ->name("comments.destroy");
 
 
-    Route::post('/votes', [VoteController:: class, "store"])
+    Route::post('me/votes', [VoteController:: class, "store"])
         ->name("votes.store");
-    Route::put('/votes/{id}', [VoteController:: class, "update"])
+    Route::get('me/votes', [VoteController:: class, "view"])
+        ->name("votes.view");
+    Route::put('me/votes/{id}', [VoteController:: class, "update"])
         ->name("votes.update");
-    Route::delete('/votes/{id}', [VoteController:: class, "destroy"])
+    Route::delete('me/votes/{id}', [VoteController:: class, "destroy"])
         ->name("votes.destroy");
-
 });
 
-
-Route::get('/auth', [AuthController:: class, "handleProviderCallback"])
-    ->name("ranks.index");
 
 /*
 * API routes for rank
@@ -102,7 +97,55 @@ Route::get('/ranks/{id}', [RankController:: class, "show"])
     ->name("ranks.show");
 
 
+Route::group(['middleware' => ['role:admin|moderator']], function () {
+    Route::put('moderator/users/{id}', [UserController:: class, "update"])
+        ->name("users.update");
+
+    Route::put('moderator/users/{id}/ban', [UserController:: class, "ban"])
+        ->name("users.ban");
+
+    Route::put('moderator/contents/{id}', [ContentController:: class, "update"])
+        ->name("contents.update");
+    Route::delete('moderator/contents/{id}', [ContentController:: class, "destroy"])
+        ->name("contents.destroy");
+
+    Route::put('moderator/questions/{id}', [QuestionController:: class, "update"])
+        ->name("questions.update");
+    Route::delete('moderator/questions/{id}', [QuestionController:: class, "destroy"])
+        ->name("questions.destroy");
+
+    Route::put('moderator/comments/{id}', [CommentController:: class, "update"])
+        ->name("comments.update");
+    Route::delete('moderator/comments/{id}', [CommentController:: class, "destroy"])
+        ->name("comments.destroy");
+});
+
+
 Route::group(['middleware' => ['role:admin']], function () {
-    //
+    
+    Route::put('admin/users/{id}', [UserController:: class, "update"])
+        ->name("users.update");
+    Route::delete('admin/users/{id}', [UserController:: class, "destroy"])
+        ->name("users.destroy");
+
+    Route::put('admin/users/{id}/ban', [UserController:: class, "ban"])
+        ->name("users.ban");
+
+    Route::put('admin/contents/{id}', [ContentController:: class, "update"])
+        ->name("contents.update");
+    Route::delete('admin/contents/{id}', [ContentController:: class, "destroy"])
+        ->name("contents.destroy");
+
+    Route::put('admin/questions/{id}', [QuestionController:: class, "update"])
+        ->name("questions.update");
+    Route::delete('admin/questions/{id}', [QuestionController:: class, "destroy"])
+        ->name("questions.destroy");
+
+
+    Route::put('admin/comments/{id}', [CommentController:: class, "update"])
+        ->name("comments.update");
+    Route::delete('admin/comments/{id}', [CommentController:: class, "destroy"])
+        ->name("comments.destroy");
+
 });
     
