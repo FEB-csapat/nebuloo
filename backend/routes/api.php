@@ -47,7 +47,8 @@ Route::get('/comments/{id}', [CommentController:: class, "show"])
     ->name("comments.show");
 
 Route::middleware(['auth:api'])->group(function () {
-    
+    Route::get('/me}', [UserController:: class, "meShow"])
+        ->name("me.show");
     Route::put('/me}', [UserController:: class, "update"])
         ->name("users.update");
     Route::delete('me/{id}', [UserController:: class, "destroy"])

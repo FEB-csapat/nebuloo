@@ -22,6 +22,18 @@ class UserController extends Controller
         return UserResource::collection($users);
     }
 
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function meShow(Request $request)
+    {
+        
+        return UserResource::collection($request->user());
+    }
+
     /**
      * Store a newly created resource in storage.
      *
