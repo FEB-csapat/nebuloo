@@ -8,10 +8,11 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item mx-3">
-            <button class="btn" id="button">Tananyagok</button>
+            <button class="btn" id="button"><router-link class="nav-link active" aria-current="page" to="/materials">Tananyagok</router-link></button>
+
         </li>
         <li class="nav-item">
-            <button class="btn" id="button">QnA</button>
+            <button class="btn" id="button"><router-link class="nav-link active" aria-current="page" to="/questions">QnA</router-link></button>
         </li>
       </ul>
       <form class="d-flex" role="search">
@@ -20,7 +21,7 @@
       </form>
       <div class="row h-100">
         <div class="col text-center">
-            <img src="https://placeholder.pics/svg/35" alt="">
+            <router-link class="nav-link active" aria-current="page" to="/myprofile"><img src="https://placeholder.pics/svg/35" alt=""></router-link>
         </div>
       </div>
     </div>

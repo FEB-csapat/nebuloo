@@ -17,7 +17,7 @@
         <li>Filozófia</li>
     </ul>
     <div class="text-end">
-                <button class="btn" id="button">Profilom szerkesztése</button>
+                <button class="btn" id="button"><router-link class="nav-link active" aria-current="page" to="/myprofile/edit">Profilom szerkesztése</router-link></button>
             </div>
     </div>
     
