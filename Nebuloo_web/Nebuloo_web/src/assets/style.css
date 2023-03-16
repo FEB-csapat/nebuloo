@@ -7,3 +7,18 @@ p{
 body{
     background-color: #A2E0F3;
 }
+#newquestion{
+    width: 45px;
+    height: 45px;
+}
+#navbarbutton{
+    background-color: #A2E0F3;
+    width: 12em;
+}
+#tag{
+    background-color: #A2E0F3;
+    width: 8em;
+    height: 1.7em;
+    font-size: 18px;
+    text-align: center;
+}
