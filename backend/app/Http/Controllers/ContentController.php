@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreContentRequest;
 use App\Http\Resources\ContentResource;
 use App\Models\Content;
 use Illuminate\Http\Request;
@@ -35,13 +36,33 @@ class ContentController extends Controller
      */
     public function store(Request $request)
     {
+        /*
         if(!$this->authorize('create', Content::class)){
             abort(403);
         }
+        */
         $data = $request->validated();
         $newContent = Content::create($data);
         return new ContentResource($newContent);
     }
+
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  App\Http\Requests\StoreContentRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function meStore(StoreContentRequest $request)
+    {
+        $data = $request->validated();
+        $data['creator_user_id'] = $request->user()->id;
+        $newContent = Content::create($data);
+        //$newContent->creator_user_id = $request->user()->id;
+        return new ContentResource($newContent);
+    }
+
+
 
     /**
      * Display the specified resource.

@@ -45,7 +45,7 @@ class AuthController extends Controller
                 'bio' => null
             ]
         );
-        $userCreated->providers()->updateOrCreate(
+        $userCreated->provider()->updateOrCreate(
             [
                 'provider' => $provider,
                 'provider_id' => $socialUser->getId(),

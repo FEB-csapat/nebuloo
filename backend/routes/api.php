@@ -46,15 +46,20 @@ Route::get('/comments', [CommentController:: class, "index"])
 Route::get('/comments/{id}', [CommentController:: class, "show"])
     ->name("comments.show");
 
-Route::middleware(['auth:api'])->group(function () {
+/*
+    Route::post('me/contents', [ContentController:: class, "meStore"])
+    ->name("contents.store");
+*/
+
+Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/me}', [UserController:: class, "meShow"])
         ->name("me.show");
     Route::put('/me}', [UserController:: class, "update"])
-        ->name("users.update");
+        ->name("me.update");
     Route::delete('me/{id}', [UserController:: class, "destroy"])
-        ->name("users.destroy");
+        ->name("me.destroy");
 
-    Route::post('me/contents', [ContentController:: class, "store"])
+    Route::post('me/contents', [ContentController:: class, "meStore"])
         ->name("contents.store");
     Route::put('me/contents/{id}', [ContentController:: class, "update"])
         ->name("contents.update");

@@ -6,6 +6,8 @@ use App\Models\Content;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
+use Illuminate\Auth\Access\Response;
+
 class ContentPolicy
 {
     use HandlesAuthorization;
@@ -39,13 +41,24 @@ class ContentPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(?User $user)
+    public function create(?User $user, Content $content)
     {
+        
         // visitors cannot create content
         if ($user === null) {
-            return false;
+            return Response::deny('User must be logged in to create content.');
         }
-        return true;
+
+        if($user->hasAnyRole(['admin', 'moderator']) ){
+            return Response::allow();
+        }
+
+        if($user->id == $content->creator_user_id){
+            return Response::allow();
+        }
+        
+
+        return Response::deny('User is not permitted for this action.');
     }
 
     /**
