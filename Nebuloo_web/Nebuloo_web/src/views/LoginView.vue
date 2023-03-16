@@ -8,7 +8,7 @@
             </p>
         </div>
         <div class="col-sm-6">
-            <div class="container bg-light rounded-3">
+            <div class="container bg-light rounded-3 shadow">
                 <h2 class="text-center">Bejelentkezés</h2>
                 <div class="row text-center p-3">
                     <div class="col-md-4"><img src="https://placeholder.pics/svg/35" alt=""></div>
@@ -23,10 +23,11 @@
                     </div>
                     <div class="row text-center">
                         <div class="col">
-                            <a href="">ÁSZF</a>
+                            <router-link class="nav-link active" aria-current="page" to="/ASZF">ÁSZF</router-link>
+
                         </div>
                         <div class="col">
-                            <a href="">Rólunk</a>
+                            <router-link class="nav-link active" aria-current="page" to="/about">Rólunk</router-link>
                         </div>
                     </div>
             </div>

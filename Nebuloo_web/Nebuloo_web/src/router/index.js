@@ -5,6 +5,8 @@ import MyProfileView from '../views/MyProfileView.vue'
 import EditMyProfileView from '../views/EditMyProfileView.vue'
 import MaterialsView from '../views/MaterialsView.vue'
 import LoginView from '../views/LoginView.vue'
+import ASZF from '../views/ASZF.vue'
+import About from '../views/About.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +40,16 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: LoginView
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: About
+    },
+    {
+      path: '/ASZF',
+      name: 'ASZF',
+      component: ASZF
     }
     
   ]

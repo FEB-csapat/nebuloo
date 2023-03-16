@@ -1,5 +1,5 @@
 <template>
-<nav class="navbar navbar-expand-lg bg-primary bg-opacity-75">
+<nav class="navbar navbar-expand-lg bg-primary bg-opacity-75 rounded-bottom">
   <div class="container-fluid ">
     <router-link class="navbar-brand text-light" to="/" id="title"><h1>Nebuloo</h1></router-link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
