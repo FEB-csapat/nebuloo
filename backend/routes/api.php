@@ -59,19 +59,23 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::delete('me/{id}', [UserController:: class, "destroy"])
         ->name("me.destroy");
 
-    Route::post('me/contents', [ContentController:: class, "meStore"])
-        ->name("contents.store");
+    Route::get('me/contents', [ContentController:: class, "meIndex"])
+        ->name("me.contents.index");
+    Route::post('me/contents', [ContentController:: class, "store"])
+        ->name("me.contents.store");
     Route::put('me/contents/{id}', [ContentController:: class, "update"])
         ->name("contents.update");
     Route::delete('me/contents/{id}', [ContentController:: class, "destroy"])
         ->name("contents.destroy");
 
+    Route::get('me/questions', [QuestionController:: class, "meIndex"])
+        ->name("me.contents.index");
     Route::post('me/questions', [QuestionController:: class, "store"])
-        ->name("questions.store");
+        ->name("me.questions.store");
     Route::put('me/questions/{id}', [QuestionController:: class, "update"])
-        ->name("questions.update");
+        ->name("me.questions.update");
     Route::delete('me/questions/{id}', [QuestionController:: class, "destroy"])
-        ->name("questions.destroy");
+        ->name("me.questions.destroy");
 
 
     Route::post('me/comments', [CommentController:: class, "store"])

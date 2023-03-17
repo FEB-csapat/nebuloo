@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('email_verified_at')->nullable();
 
-            
             $table->rememberToken();
 
             $table->foreignId('rank_id')->default(1);
@@ -31,11 +30,7 @@ return new class extends Migration
 
             $table->string('name');
             $table->string('bio')->nullable();
-           // $table->date('registration_date');
             $table->timestamps();
-
-          //  $table->foreign('rank_id')->references('id')->on('ranks')->onDelete('cascade');
-          //  $table->foreign('vote_id')->references('id')->on('votes')->onDelete('cascade');
         });
     }
 

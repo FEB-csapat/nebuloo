@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreQuestionRequest;
+use App\Http\Requests\UpdateQuestionRequest;
 use App\Http\Resources\QuestionResource;
 use App\Models\Question;
 use Illuminate\Http\Request;
 
 class QuestionController extends Controller
 {
+    protected $model = Question::class;
+
     /**
      * Display a listing of the resource.
      *
@@ -15,25 +19,34 @@ class QuestionController extends Controller
      */
     public function index(Request $request)
     {
-        if(!$this->authorize('viewAny', Question::class)){
-            abort(403);
-        }
+        $this->authorize('viewAny', auth()->user());
         $questions = Question::all();
         return QuestionResource::collection($questions);
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function meIndex(Request $request)
+    {
+        $this->authorize('viewMe', Question::class, auth()->user());
+
+        $questions = Question::where('creator_user_id', $request->user()->id)->get();
+        return QuestionResource::collection($questions);
+    }
+    
     /**
      * Store a newly created resource in storage.
      *
      * @param  App\Http\Requests\StoreQuestionRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreQuestionRequest $request)
     {
-        if(!$this->authorize('create', Question::class)){
-            abort(403);
-        }
         $data = $request->validated();
+        $data['creator_user_id'] = $request->user()->id;
         $newQuestion = Question::create($data);
         return new QuestionResource($newQuestion);
     }
@@ -48,10 +61,8 @@ class QuestionController extends Controller
     {
         $question = Question::findOrFail($id);
 
-        if(!$this->authorize('view', $question, Question::class)){
-            abort(403);
-        }
-
+        $this->authorize('view', [$question], Question::class);
+        
         return new QuestionResource($question);
     }
 
@@ -62,16 +73,14 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateQuestionRequest $request, $id)
     {
         $question = Question::findOrFail($id);
 
-        if(!$this->authorize('update', $question, Question::class)){
-            abort(403);
-        }
+        $this->authorize('update', $question, Question::class);
 
         $data = $request->validated();
-
+        
         if($question->update($data)){
             return new QuestionResource($question);
         }
@@ -87,8 +96,8 @@ class QuestionController extends Controller
     {
         $question = Question::findOrFail($id);
 
-        if(!$this->authorize('delete', $question, Question::class)){
-            abort(403);
-        }
+        $this->authorize('delete', $question, Question::class);
+        
         $question->delete();
-    }}
+    }
+}

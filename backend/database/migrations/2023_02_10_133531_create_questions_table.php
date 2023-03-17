@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('creator_user_id');
-            $table->foreignId('vote_id');
+            $table->foreignId('vote_id')->nullable();
             $table->foreignId('comment_id')->nullable();
             
             $table->string('title');
