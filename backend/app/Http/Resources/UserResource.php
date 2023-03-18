@@ -23,13 +23,13 @@ class UserResource extends JsonResource
 
             'avatar' => $this->provider->avatar,
             'rank' => $this->rank,
-          //  'votes' => VoteResource::collection($this->votes),
             'comments' => CommentResource::collection($this->comments),
             'contents' => ContentResource::collection($this->contents),
             'questions' => QuestionResource::collection($this->questions),
             'votes' => VoteResource::collection($this->votes),
 
             'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at
         ];
     }
 }
