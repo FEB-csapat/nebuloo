@@ -19,7 +19,7 @@ class QuestionController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('viewAny', auth()->user());
+        $this->authorize('viewAny', Question::class, auth()->user());
         $questions = Question::all();
         return QuestionResource::collection($questions);
     }

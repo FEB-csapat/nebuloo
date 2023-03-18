@@ -35,6 +35,21 @@ class UserPolicy
     }
 
     /**
+     * Determine whether the user can view the model.
+     *
+     * @param  \App\Models\User  $userRequester
+     * @param  \App\Models\User  $vote
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewMe(?User $user)
+    {
+        if($user === null){
+            return Response::deny('Log in to view information.');
+        }
+        return Response::allow();
+    }
+
+    /**
      * Determine whether the user can create models.
      *
      * @param  \App\Models\User  $userRequester
@@ -55,7 +70,7 @@ class UserPolicy
      */
     public function update(?User $userRequester, User $userRequested)
     {
-        if($userRequester->id == $userRequested->creator_user_id){
+        if($userRequester->id == $userRequested->id){
             return Response::allow();
         }
         // only admin can update users

@@ -2,9 +2,9 @@
 
 COMPOSE="docker compose"
 
-if ! $($COMPOSE 2>/dev/null); then
-    COMPOSE="docker-compose"
-fi
+#if ! $($COMPOSE 2>/dev/null); then
+#    COMPOSE="docker-compose"
+#fi
 
 if [ -f ".env" ]; then
     echo ".env fájl már létezik!"

@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\VoteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -46,17 +47,13 @@ Route::get('/comments', [CommentController:: class, "index"])
 Route::get('/comments/{id}', [CommentController:: class, "show"])
     ->name("comments.show");
 
-/*
-    Route::post('me/contents', [ContentController:: class, "meStore"])
-    ->name("contents.store");
-*/
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('/me}', [UserController:: class, "meShow"])
+    Route::get('/me', [UserController:: class, "showMe"])
         ->name("me.show");
-    Route::put('/me}', [UserController:: class, "update"])
+    Route::put('/me', [UserController:: class, "updateMe"])
         ->name("me.update");
-    Route::delete('me/{id}', [UserController:: class, "destroy"])
+    Route::delete('/me', [UserController:: class, "destroyMe"])
         ->name("me.destroy");
 
     Route::get('me/contents', [ContentController:: class, "meIndex"])
@@ -88,8 +85,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::post('me/votes', [VoteController:: class, "store"])
         ->name("votes.store");
-    Route::get('me/votes', [VoteController:: class, "view"])
-        ->name("votes.view");
+    Route::get('me/votes', [VoteController:: class, "index"])
+        ->name("votes.index");
     Route::put('me/votes/{id}', [VoteController:: class, "update"])
         ->name("votes.update");
     Route::delete('me/votes/{id}', [VoteController:: class, "destroy"])

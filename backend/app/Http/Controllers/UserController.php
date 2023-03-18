@@ -22,16 +22,6 @@ class UserController extends Controller
 
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function meShow(Request $request)
-    {
-        return UserResource::collection($request->user());
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  App\Http\Requests\StoreUserRequest  $request
@@ -61,6 +51,17 @@ class UserController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showMe(Request $request)
+    {
+        $this->authorize('viewMe', User::class);
+        return new UserResource(auth()->user());
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -79,6 +80,25 @@ class UserController extends Controller
         }
     }
 
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateMe(Request $request)
+    {
+        $user = auth()->user();
+        $this->authorize('update', $user, User::class);
+
+        $data = $request->validated();
+        if($user->update($data)){
+            return new UserResource($user);
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -89,6 +109,19 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $this->authorize('delete', User::class);
+        $user->delete();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyMe(Request $request)
+    {
+        $user = auth()->user();
+        $this->authorize('delete', $user, User::class);
         $user->delete();
     }
 

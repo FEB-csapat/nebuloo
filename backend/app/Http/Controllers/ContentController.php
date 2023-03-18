@@ -20,7 +20,7 @@ class ContentController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('viewAny', auth()->user());
+        $this->authorize('viewAny', Content::class, auth()->user());
         $contents = Content::all();
         return ContentResource::collection($contents);
     }
