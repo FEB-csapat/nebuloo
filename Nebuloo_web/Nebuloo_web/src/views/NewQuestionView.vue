@@ -5,10 +5,23 @@
         <button class="btn" id="button">
 
         </button>
-    </div>
+
+        <textarea ref="editor">
+
+        </textarea>
+  </div>
 </div>
 </template>
 
 <script>
+import EasyMDE from 'easymde';
 
+export default{
+    mounted(){
+        this.editor = new EasyMDE({
+            element: this.$refs.editor,
+
+        });
+    },
+};
 </script>

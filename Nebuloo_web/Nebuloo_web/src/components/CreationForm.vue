@@ -9,7 +9,9 @@
 
     <label for="cimkek" class="form-label ">Címkék hozzáadása</label>
     <input type="text" name="cimkek" id="cimkek" class="form-control">
+
 </template>
 
 <script>
+
 </script>
