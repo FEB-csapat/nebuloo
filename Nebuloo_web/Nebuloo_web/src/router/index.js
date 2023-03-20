@@ -8,6 +8,8 @@ import LoginView from '../views/LoginView.vue'
 import ASZF from '../views/ASZF.vue'
 import About from '../views/About.vue'
 import NewQuestionView from '../views/NewQuestionView.vue'
+import NewMaterialView from '../views/NewMaterialView.vue'
+import SupportTicketView from '../views/SupportTicketView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -56,6 +58,17 @@ const router = createRouter({
       path: '/new/question',
       name: 'NewQuestion',
       component: NewQuestionView
+    },
+    {
+      path: '/new/material',
+      name: 'NewMaterial',
+      component: NewMaterialView
+    }
+    ,
+    {
+      path: '/new/ticket',
+      name: 'SupportTicket',
+      component: SupportTicketView
     }
     
   ]

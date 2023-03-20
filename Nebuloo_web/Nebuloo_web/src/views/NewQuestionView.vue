@@ -10,6 +10,15 @@
 
         </textarea>
   </div>
+    <div class="row bg-light shadow rounded-3 p-2">
+        <h1 id="title">Új kérdés feltétele</h1>
+        <div class="text-end">
+            <button class="btn" id="button">
+                Létrehozás
+            </button>
+        </div>
+       
+    </div>
 </div>
 </template>
 
