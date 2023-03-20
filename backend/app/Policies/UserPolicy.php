@@ -5,6 +5,8 @@ namespace App\Policies;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
+use Illuminate\Auth\Access\Response;
+
 class UserPolicy
 {
     use HandlesAuthorization;
@@ -17,7 +19,7 @@ class UserPolicy
      */
     public function viewAny(?User $userRequester)
     {
-        return true;
+        return Response::allow();
     }
 
     /**
@@ -29,7 +31,22 @@ class UserPolicy
      */
     public function view(?User $userRequester, User $userRequested)
     {
-        return true;
+        return Response::allow();
+    }
+
+    /**
+     * Determine whether the user can view the model.
+     *
+     * @param  \App\Models\User  $userRequester
+     * @param  \App\Models\User  $vote
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewMe(?User $user)
+    {
+        if($user === null){
+            return Response::deny('Log in to view information.');
+        }
+        return Response::allow();
     }
 
     /**
@@ -53,6 +70,9 @@ class UserPolicy
      */
     public function update(?User $userRequester, User $userRequested)
     {
+        if($userRequester->id == $userRequested->id){
+            return Response::allow();
+        }
         // only admin can update users
         return $userRequester->hasAnyRole(['admin']);
 
@@ -67,12 +87,34 @@ class UserPolicy
      */
     public function delete(?User $userRequester, User $userRequested)
     {
-        if($userRequester->id == $userRequested->id){
-            return true;
+        // delete self if not admin or moderator
+        if($userRequester->id == $userRequested->id
+        && !$userRequester->hasAnyRole(['admin', 'moderator'])){
+            return Response::allow();
         }
 
-        // only admin can update users
+        // only admin can delete other users
         return $userRequester->hasAnyRole(['admin']);
+    }
+
+    /**
+     * Determine whether the user can restore the model.
+     *
+     * @param  \App\Models\User  $userRequester
+     * @param  \App\Models\Vote  $vote
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function ban(User $userRequester, User $userRequested)
+    {
+        // Only admin and moderator can ban
+        if($userRequester->hasAnyRole(['admin', 'moderator'])){
+            // Admin cannot be banned
+            if($userRequested->hasAnyRole('admin')){
+                Response::deny('Admin cannot be banned.');
+            }
+            return Response::allow();
+        }
+        return Response::deny('User is not permitted for this action.');
     }
 
     /**

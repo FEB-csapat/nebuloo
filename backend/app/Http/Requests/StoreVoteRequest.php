@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateContentRequest extends FormRequest
+class StoreVoteRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,9 @@ class UpdateContentRequest extends FormRequest
     public function rules()
     {
         return [
-            "title" => "required|min:2|max:40",
-            "body" => "required|min:1"
+            "votable_type" => "required|in:content,question,comment",
+            "votable_id" => "required|numeric|exists:votes,id",
+            "direction" => "required|in:up,down",
         ];
     }
 }

@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
             ContentSeeder::class,
             QuestionSeeder::class,
             CommentSeeder::class,
-            VoteSeeder::class
+            VoteSeeder::class,
+            ProviderSeeder::class,
         ]);
     }
 }
