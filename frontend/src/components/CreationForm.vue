@@ -3,7 +3,9 @@
     <input type="text" name="cim" id="cim" class="form-control">
 
     <label for="leiras" class="form-label">Leírás*</label>
-    <input type="text" name="leiras" id="leiras" class="form-control">
+    <textarea ref="editor" name="leiras" id="leiras" class="form-control">
+
+    </textarea>
     <label for="" class="form-label">Kép feltöltése</label>
 
 
@@ -13,5 +15,7 @@
 </template>
 
 <script>
-
+export default{
+    
+}
 </script>

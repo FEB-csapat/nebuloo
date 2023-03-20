@@ -10,6 +10,7 @@ import About from '../views/About.vue'
 import NewQuestionView from '../views/NewQuestionView.vue'
 import NewMaterialView from '../views/NewMaterialView.vue'
 import SupportTicketView from '../views/SupportTicketView.vue'
+import TicketsView from '../views/TicketsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -63,12 +64,16 @@ const router = createRouter({
       path: '/new/material',
       name: 'NewMaterial',
       component: NewMaterialView
-    }
-    ,
+    },
     {
       path: '/new/ticket',
       name: 'SupportTicket',
       component: SupportTicketView
+    },
+    {
+      path: '/tickets',
+      name: 'Tickets',
+      component: TicketsView
     }
     
   ]

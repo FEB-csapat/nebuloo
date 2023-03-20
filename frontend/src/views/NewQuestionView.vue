@@ -1,18 +1,9 @@
 <template>
 <div class="container my-3 ">
-    <div class="row bg-light shadow rounded-3">
-        <h1>Új kérdés feltétele</h1>
-        <button class="btn" id="button">
-
-        </button>
-
-        <textarea ref="editor">
-
-        </textarea>
-  </div>
     <div class="row bg-light shadow rounded-3 p-2">
         <h1 id="title">Új kérdés feltétele</h1>
-        <div class="text-end">
+        <creation-form/>
+        <div class="text-end p-2">
             <button class="btn" id="button">
                 Létrehozás
             </button>
@@ -23,9 +14,13 @@
 </template>
 
 <script>
+import CreationForm from '../components/CreationForm.vue';
 import EasyMDE from 'easymde';
 
 export default{
+   components:{
+    CreationForm
+  },
     mounted(){
         this.editor = new EasyMDE({
             element: this.$refs.editor,

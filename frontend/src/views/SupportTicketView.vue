@@ -12,7 +12,7 @@
     Probléma leírása*
     <label for="description" class="form-label"></label>
     <textarea class="form-control" id="description" rows="4"></textarea>
-    <label for="image">Kép feltöltése</label>
+    <h2>Kép feltöltése</h2>
     <h6>Nyomja meg a “Fájl kiválasztása” gombot, egy fájl feltöltéséhez</h6>
     <input class="form-control" type="file" id="images" multiple>
 </form>
