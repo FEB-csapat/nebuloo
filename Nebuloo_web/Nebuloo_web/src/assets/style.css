@@ -2,7 +2,7 @@
     letter-spacing: 0.5em;
 }
 p{
-    letter-spacing: 1.5px;
+    letter-spacing: 0.2em;
 }
 body{
     background-color: #A2E0F3;
@@ -21,7 +21,4 @@ body{
     height: 1.7em;
     font-size: 18px;
     text-align: center;
-}
-#spacedTitle{
-    letter-spacing: 1.5px;
 }

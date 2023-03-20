@@ -10,27 +10,27 @@
                 <p>Mászd meg a tudás ranglétráját és vállj bölcsé!</p>
                 <p class="text-start">Rangok:</p>
                 <div class="row text-center">
-                    <div class="col-2">
+                    <div class="col-sm-2 col-4">
                         <img src="https://placeholder.pics/svg/35" alt="">
                         <p>tanuló</p>
                     </div>
-                    <div class="col-2">
+                    <div class="col-sm-2 col-4">
                         <img src="https://placeholder.pics/svg/35" alt="">
                         <p>okostojás</p>
                     </div>
-                    <div class="col-2">
+                    <div class="col-sm-2 col-4">
                         <img src="https://placeholder.pics/svg/35" alt="">
                         <p>oktató</p>
                     </div>
-                    <div class="col-2">
+                    <div class="col-sm-2 col-4">
                         <img src="https://placeholder.pics/svg/35" alt="">
                         <p>tanár</p>
                     </div>
-                    <div class="col-2">
+                    <div class="col-sm-2 col-4">
                         <img src="https://placeholder.pics/svg/35" alt="">
                         <p>professzor</p>
                     </div>
-                    <div class="col-2">
+                    <div class="col-sm-2 col-4">
                         <img src="https://placeholder.pics/svg/35" alt="">
                         <p>bölcs</p>
                     </div>
