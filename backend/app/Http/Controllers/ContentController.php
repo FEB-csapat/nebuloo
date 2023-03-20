@@ -55,11 +55,12 @@ class ContentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function meIndex(Request $request)
+    public function meIndex(Request $request): Collection
     {
         $this->authorize('viewMe', Content::class);
 
         $contents = Content::where('creator_user_id', $request->user()->id)->get();
+
         return ContentResource::collection($contents);
     }
     
@@ -110,6 +111,8 @@ class ContentController extends Controller
         if($content->update($data)){
             return new ContentResource($content);
         }
+
+        return response()->json(['error' => 'Could not update content'], 500);
     }
 
     /**
@@ -125,5 +128,7 @@ class ContentController extends Controller
         $this->authorize('delete', $content, Content::class);
         
         $content->delete();
+
+        
     }
 }

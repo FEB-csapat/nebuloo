@@ -96,40 +96,12 @@ class UserSeeder extends Seeder
             'vote_id' => null
         ]);
         $userBence->assignRole($userRole);
+
+
         
-        /*
-        DB::table('users')->insert([
-            'rank_id' => 1,
-            'content_id' => null,
-            'question_id' => null,
-            'comment_id' => null,
-            'vote_id' => null,
-
-            'name' => 'Erik',
-            'bio' => 'My hobbies are reading and programming'
-        ]);
         
-        DB::table('users')->insert([
-            'rank_id' => 1,
-            'content_id' => null,
-            'question_id' => null,
-            'comment_id' => null,
-            'vote_id' => null,
-
-            'name' => 'Fecó',
-            'bio' => 'I play with guns'
-        ]);
-
-        DB::table('users')->insert([
-            'rank_id' => 1,
-            'content_id' => null,
-            'question_id' => null,
-            'comment_id' => null,
-            'vote_id' => null,
-
-            'name' => 'Bencus',
-            'bio' => 'I\'m here for the money'
-        ]);
-        */
+        User::factory()->count(10)->withNameAndEmail()->create()->each(function ($user) {
+            $user->assignRole('user');
+        });
     }
 }

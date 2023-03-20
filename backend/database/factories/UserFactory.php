@@ -41,4 +41,15 @@ class UserFactory extends Factory
         ]);
         */
     }
+
+    // create a factory for a user with a name and email
+    public function withNameAndEmail()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'name' => fake()->name(),
+                'email' => fake()->unique()->safeEmail(),
+            ];
+        });
+    }
 }
