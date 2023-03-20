@@ -6,6 +6,7 @@ use App\Models\Vote;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
+use Illuminate\Auth\Access\Response;
 class VotePolicy
 {
     use HandlesAuthorization;
@@ -16,23 +17,16 @@ class VotePolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(?User $user)
+    public function viewAny(?User $user): Response
     {
-        return true;
+        if($user === null){
+            //TODO fix error messages...
+            return Response::deny("Only logged in user...");
+        }
+        return Response::allow();
     }
 
-    /**
-     * Determine whether the user can view the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Vote  $vote
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function view(User $user, Vote $vote)
-    {
-        return true;
-    }
-
+    
     /**
      * Determine whether the user can create models.
      *
@@ -43,9 +37,9 @@ class VotePolicy
     {
         // visitors cannot create votes
         if ($user === null) {
-            return false;
+            return Response::deny("Only logged in user...");
         }
-        return true;
+        return Response::allow();
     }
 
     /**
@@ -59,10 +53,13 @@ class VotePolicy
     {
         // visitors cannot update vote
         if ($user === null) {
-            return false;
+            return Response::deny("Only logged in user...");
+        }
+        if($user->id != $vote->owner_user_id){
+            return Response::deny("Not yours");
         }
 
-        return $user->id == $vote->creator_user_id;
+        return Response::allow();
     }
 
     /**
@@ -76,11 +73,14 @@ class VotePolicy
     {
         // visitors cannot delete votes
         if ($user === null) {
-            return false;
+            return Response::deny("Only logged in user...");
         }
 
-        // return true if the user is the creator of the vote
-        return $user->id == $vote->creator_user_id;
+        if($user->id != $vote->owner_user_id){
+            return Response::deny("Not yours");
+        }
+
+        return Response::allow();
     }
 
     /**

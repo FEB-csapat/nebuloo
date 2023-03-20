@@ -11,6 +11,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Spatie\Permission\PermissionRegistrar;
 
 class UserSeeder extends Seeder
@@ -55,40 +56,44 @@ class UserSeeder extends Seeder
 
 
         $userErik = User::factory()->create([
+            'email' => 'erik@fakemail.com',
+            'email_verified_at' => Carbon::now(),
+            'name' => 'Erik',
+            'bio' => 'My hobbies are reading and programming',
+
             'rank_id' => 1,
             'content_id' => null,
             'question_id' => null,
             'comment_id' => null,
-            'vote_id' => null,
-
-            'name' => 'Erik',
-            'bio' => 'My hobbies are reading and programming'
+            'vote_id' => null           
         ]);
         $userErik->assignRole($adminRole);
         
         
         $userFeco = User::factory()->create([
+            'name' => 'Fecó',
+            'bio' => 'I play with guns',
+            'email' => 'feco@fakemail.com',
+            'email_verified_at' => Carbon::now(),
             'rank_id' => 1,
             'content_id' => null,
             'question_id' => null,
             'comment_id' => null,
-            'vote_id' => null,
-
-            'name' => 'Fecó',
-            'bio' => 'I play with guns'
+            'vote_id' => null
         ]);
         $userFeco->assignRole($moderatorRole);
         
 
         $userBence = User::factory()->create([
+            'email' => 'bence@fakemail.com',
+            'email_verified_at' => Carbon::now(),
+            'name' => 'Bencus',
+            'bio' => 'I\'m here for the money',
             'rank_id' => 1,
             'content_id' => null,
             'question_id' => null,
             'comment_id' => null,
-            'vote_id' => null,
-
-            'name' => 'Bencus',
-            'bio' => 'I\'m here for the money'
+            'vote_id' => null
         ]);
         $userBence->assignRole($userRole);
         

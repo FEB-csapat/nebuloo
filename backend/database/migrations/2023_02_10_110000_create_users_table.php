@@ -16,12 +16,8 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             
-            $table->string('google_id')->nullable();
             $table->string('email')->unique();
             $table->string('email_verified_at')->nullable();
-
-            
-            $table->string('avatar_original')->nullable();
 
             $table->rememberToken();
 
@@ -34,11 +30,7 @@ return new class extends Migration
 
             $table->string('name');
             $table->string('bio')->nullable();
-           // $table->date('registration_date');
             $table->timestamps();
-
-          //  $table->foreign('rank_id')->references('id')->on('ranks')->onDelete('cascade');
-          //  $table->foreign('vote_id')->references('id')->on('votes')->onDelete('cascade');
         });
     }
 

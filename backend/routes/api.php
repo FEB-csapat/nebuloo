@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\VoteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -46,26 +47,32 @@ Route::get('/comments', [CommentController:: class, "index"])
 Route::get('/comments/{id}', [CommentController:: class, "show"])
     ->name("comments.show");
 
-Route::middleware(['auth:api'])->group(function () {
-    
-    Route::put('/me}', [UserController:: class, "update"])
-        ->name("users.update");
-    Route::delete('me/{id}', [UserController:: class, "destroy"])
-        ->name("users.destroy");
 
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/me', [UserController:: class, "showMe"])
+        ->name("me.show");
+    Route::put('/me', [UserController:: class, "updateMe"])
+        ->name("me.update");
+    Route::delete('/me', [UserController:: class, "destroyMe"])
+        ->name("me.destroy");
+
+    Route::get('me/contents', [ContentController:: class, "meIndex"])
+        ->name("me.contents.index");
     Route::post('me/contents', [ContentController:: class, "store"])
-        ->name("contents.store");
+        ->name("me.contents.store");
     Route::put('me/contents/{id}', [ContentController:: class, "update"])
         ->name("contents.update");
     Route::delete('me/contents/{id}', [ContentController:: class, "destroy"])
         ->name("contents.destroy");
 
+    Route::get('me/questions', [QuestionController:: class, "meIndex"])
+        ->name("me.contents.index");
     Route::post('me/questions', [QuestionController:: class, "store"])
-        ->name("questions.store");
+        ->name("me.questions.store");
     Route::put('me/questions/{id}', [QuestionController:: class, "update"])
-        ->name("questions.update");
+        ->name("me.questions.update");
     Route::delete('me/questions/{id}', [QuestionController:: class, "destroy"])
-        ->name("questions.destroy");
+        ->name("me.questions.destroy");
 
 
     Route::post('me/comments', [CommentController:: class, "store"])
@@ -78,8 +85,8 @@ Route::middleware(['auth:api'])->group(function () {
 
     Route::post('me/votes', [VoteController:: class, "store"])
         ->name("votes.store");
-    Route::get('me/votes', [VoteController:: class, "view"])
-        ->name("votes.view");
+    Route::get('me/votes', [VoteController:: class, "index"])
+        ->name("votes.index");
     Route::put('me/votes/{id}', [VoteController:: class, "update"])
         ->name("votes.update");
     Route::delete('me/votes/{id}', [VoteController:: class, "destroy"])

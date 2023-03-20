@@ -21,6 +21,11 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $fillable = [
+        'email', 'email_verified_at', 'name', 'bio',
+    ];
+
+
 
     static function fromGoogle(GoogleUser $googleUser) : User {
         
@@ -35,9 +40,9 @@ class User extends Authenticatable
         return $newUser;
     }
     
-    public function providers()
+    public function provider()
     {
-        return $this->hasMany(Provider::class, 'user_id', 'id');
+        return $this->hasOne(Provider::class, 'user_id', 'id');
     }
 
 

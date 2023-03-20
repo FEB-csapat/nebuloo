@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Http\Response;
 
 class CommentPolicy
 {
@@ -43,9 +44,9 @@ class CommentPolicy
     {
         // visitors cannot create comments
         if ($user === null) {
-            return false;
+            return Response::deny('User must be logged in to create comments.');
         }
-        return true;
+        return Response::allow();
     }
 
     /**
@@ -59,10 +60,13 @@ class CommentPolicy
     {
         // visitors cannot update comments
         if ($user === null) {
-            return false;
+            return Response::deny('User must be logged in to update comments.');
+        }
+        if($user->id != $comment->creator_user_id){
+            return Response::deny('User can only edit their comments');
         }
 
-        return $user->id == $comment->creator_user_id;
+        return Response::allow();
     }
 
     /**
@@ -76,15 +80,18 @@ class CommentPolicy
     {
         // visitors cannot delete comments
         if ($user === null) {
-            return false;
+            return Response::deny('User must be logged in to update comments.');
         }
 
         if($user->hasAnyRole(['admin', 'moderator'])){
-            return true;
+            return Response::allow();
         }
 
-        // return true if the user is the creator of the comment
-        return $user->id == $comment->creator_user_id;
+        if($user->id != $comment->creator_user_id){
+            return Response::deny('User can only edit their comments');
+        }
+
+        return Response::allow();
     }
 
     /**

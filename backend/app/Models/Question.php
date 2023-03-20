@@ -13,6 +13,7 @@ class Question extends Model
     protected $table = 'questions';
     protected $primaryKey = 'id';
 
+    protected $fillable = ['title', 'body', 'creator_user_id'];
 
     public function creator()
     {
