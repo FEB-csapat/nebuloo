@@ -20,8 +20,33 @@ class ContentController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('viewAny', Content::class, auth()->user());
+        $this->authorize('viewAny', Content::class);
         $contents = Content::all();
+        return ContentResource::collection($contents);
+    }
+
+    /**
+     * Display a listing of the resource by search.
+     *
+     * @return \App\Http\Resources\ContentResource
+     */
+    public function search(Request $request, $value)
+    {
+        $this->authorize('search', Content::class);
+        $contents = Content::search($value);
+        return ContentResource::collection($contents);
+    }
+
+    /**
+     * Display a filtered listing of the resource by tags.
+     *
+     * @return \App\Http\Resources\ContentResource
+     */
+    public function filter(Request $request, array $tags)
+    {
+        $this->authorize('filter', Content::class);
+
+        $contents = Content::filterByTags($tags);;
         return ContentResource::collection($contents);
     }
 
@@ -32,7 +57,7 @@ class ContentController extends Controller
      */
     public function meIndex(Request $request)
     {
-        $this->authorize('viewMe', Content::class, auth()->user());
+        $this->authorize('viewMe', Content::class);
 
         $contents = Content::where('creator_user_id', $request->user()->id)->get();
         return ContentResource::collection($contents);
@@ -42,7 +67,7 @@ class ContentController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  App\Http\Requests\StoreContentRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\ContentResource
      */
     public function store(StoreContentRequest $request)
     {
@@ -56,7 +81,7 @@ class ContentController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\ContentResource
      */
     public function show(Request $request, $id)
     {
@@ -72,7 +97,7 @@ class ContentController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\ContentResource
      */
     public function update(UpdateContentRequest $request, $id)
     {

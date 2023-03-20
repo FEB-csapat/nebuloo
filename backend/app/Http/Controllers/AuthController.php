@@ -45,6 +45,7 @@ class AuthController extends Controller
                 'bio' => null
             ]
         );
+        $userCreated->assignRole('user');
         $userCreated->provider()->updateOrCreate(
             [
                 'provider' => $provider,

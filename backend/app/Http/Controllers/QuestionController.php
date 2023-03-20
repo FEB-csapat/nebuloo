@@ -15,23 +15,48 @@ class QuestionController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\QuestionResource
      */
     public function index(Request $request)
     {
-        $this->authorize('viewAny', Question::class, auth()->user());
+        $this->authorize('viewAny', Question::class);
         $questions = Question::all();
+        return QuestionResource::collection($questions);
+    }
+
+    /**
+     * Display a listing of the resource by search.
+     *
+     * @return \App\Http\Resources\QuestionResource
+     */
+    public function search(Request $request, $value)
+    {
+        $this->authorize('search', Question::class);
+        $questions = Question::search($value);
+        return QuestionResource::collection($questions);
+    }
+
+    /**
+     * Display a filtered listing of the resource by tags.
+     *
+     * @return \App\Http\Resources\QuestionResource
+     */
+    public function filter(Request $request, array $tags)
+    {
+        $this->authorize('filter', Question::class);
+
+        $questions = Question::filterByTags($tags);;
         return QuestionResource::collection($questions);
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\QuestionResource
      */
     public function meIndex(Request $request)
     {
-        $this->authorize('viewMe', Question::class, auth()->user());
+        $this->authorize('viewMe', Question::class);
 
         $questions = Question::where('creator_user_id', $request->user()->id)->get();
         return QuestionResource::collection($questions);
@@ -41,7 +66,7 @@ class QuestionController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  App\Http\Requests\StoreQuestionRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\QuestionResource
      */
     public function store(StoreQuestionRequest $request)
     {
@@ -55,7 +80,7 @@ class QuestionController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\QuestionResource
      */
     public function show(Request $request, $id)
     {
@@ -71,7 +96,7 @@ class QuestionController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\QuestionResource
      */
     public function update(UpdateQuestionRequest $request, $id)
     {

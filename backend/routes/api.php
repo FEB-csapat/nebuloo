@@ -7,6 +7,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\VoteController;
+use App\Http\Controllers\ImageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,12 +34,20 @@ Route::get('/users/{id}', [UserController:: class, "show"])
 
 Route::get('/contents', [ContentController:: class, "index"])
     ->name("contents.index");
+Route::get('/contents/search?q={search}', [ContentController:: class, "search"])
+    ->name("contents.search");
+Route::get('/contents/filter?q={tags}', [ContentController:: class, "filter"])
+    ->name("contents.filter");
 Route::get('/contents/{id}', [ContentController:: class, "show"])
     ->name("contents.show");
 
     
 Route::get('/questions', [QuestionController:: class, "index"])
     ->name("questions.index");
+Route::get('/questions/search?q={search}', [QuestionController:: class, "search"])
+    ->name("questions.search");
+Route::get('/questions/filter?q={tags}', [QuestionController:: class, "filter"])
+    ->name("questions.filter");
 Route::get('/questions/{id}', [QuestionController:: class, "show"])
     ->name("questions.show");
 
@@ -75,22 +84,28 @@ Route::middleware(['auth:sanctum'])->group(function () {
         ->name("me.questions.destroy");
 
 
-    Route::post('me/comments', [CommentController:: class, "store"])
+    Route::post('me/comments', [CommentController::class, "store"])
         ->name("comments.store");
-    Route::put('me/comments/{id}', [CommentController:: class, "update"])
+    Route::put('me/comments/{id}', [CommentController::class, "update"])
         ->name("comments.update");
-    Route::delete('me/comments/{id}', [CommentController:: class, "destroy"])
+    Route::delete('me/comments/{id}', [CommentController::class, "destroy"])
         ->name("comments.destroy");
 
 
-    Route::post('me/votes', [VoteController:: class, "store"])
+    Route::post('me/votes', [VoteController::class, "store"])
         ->name("votes.store");
-    Route::get('me/votes', [VoteController:: class, "index"])
+    Route::get('me/votes', [VoteController::class, "index"])
         ->name("votes.index");
-    Route::put('me/votes/{id}', [VoteController:: class, "update"])
+    Route::put('me/votes/{id}', [VoteController::class, "update"])
         ->name("votes.update");
-    Route::delete('me/votes/{id}', [VoteController:: class, "destroy"])
+    Route::delete('me/votes/{id}', [VoteController::class, "destroy"])
         ->name("votes.destroy");
+
+    Route::post('images', [ImageController::class, "store"])
+        ->name("images.store");
+    Route::get('images/{id}', [ImageController::class, "show"])
+        ->name("images.show");
+    
 });
 
 
@@ -130,7 +145,7 @@ Route::group(['middleware' => ['role:admin|moderator']], function () {
 
 Route::group(['middleware' => ['role:admin']], function () {
     
-    Route::put('admin/user/{id}/grant', [UserController:: class, "updateRole"])
+    Route::put('admin/user/{id}/role', [RoleController:: class, "update"])
         ->name("users.role.update");
 
     Route::put('admin/users/{id}', [UserController:: class, "update"])
