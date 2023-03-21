@@ -21,7 +21,7 @@ class Question extends Model
     {
         return Question
             ::where('title', $value)
-            ->orWhere('body', $value);
+            ->orWhere('body', $value)->get();
     }
 
     public static function filterByTags($tags)

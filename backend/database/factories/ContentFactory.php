@@ -39,7 +39,6 @@ class ContentFactory extends Factory
                 'title' => $this->faker->sentence,
                 'body' => $this->faker->paragraph,
                 'creator_user_id' => $this->faker->numberBetween(1, 3),
-                'bio' => $this->faker->realText(200),
             ];
         });
     }

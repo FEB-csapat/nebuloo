@@ -49,6 +49,7 @@ class UserFactory extends Factory
             return [
                 'name' => fake()->name(),
                 'email' => fake()->unique()->safeEmail(),
+                'bio' => $this->faker->realText(200),
             ];
         });
     }

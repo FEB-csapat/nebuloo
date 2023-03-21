@@ -20,33 +20,23 @@ class QuestionController extends Controller
     public function index(Request $request)
     {
         $this->authorize('viewAny', Question::class);
-        $questions = Question::all();
-        return QuestionResource::collection($questions);
-    }
 
-    /**
-     * Display a listing of the resource by search.
-     *
-     * @return \App\Http\Resources\QuestionResource
-     */
-    public function search(Request $request, $value)
-    {
-        $this->authorize('search', Question::class);
-        $questions = Question::search($value);
-        return QuestionResource::collection($questions);
-    }
+        $search = $request->input('search');
+        $tags = $request->input('tags');
 
-    /**
-     * Display a filtered listing of the resource by tags.
-     *
-     * @return \App\Http\Resources\QuestionResource
-     */
-    public function filter(Request $request, array $tags)
-    {
-        $this->authorize('filter', Question::class);
+        $questions = Content::query();
 
-        $questions = Question::filterByTags($tags);;
-        return QuestionResource::collection($questions);
+        if ($search != null) {
+            $questions = $questions
+                ->where('title', 'like', "%{$search}%")
+                ->orWhere('body', 'like', "%{$search}%");
+        }
+
+        if ($tags != null) {
+            $questions = $questions->withAnyTags($tags);
+        }
+
+        return QuestionResource::collection($questions->get());
     }
 
     /**
@@ -59,6 +49,7 @@ class QuestionController extends Controller
         $this->authorize('viewMe', Question::class);
 
         $questions = Question::where('creator_user_id', $request->user()->id)->get();
+        
         return QuestionResource::collection($questions);
     }
     

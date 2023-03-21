@@ -21,41 +21,32 @@ class ContentController extends Controller
     public function index(Request $request)
     {
         $this->authorize('viewAny', Content::class);
-        $contents = Content::all();
-        return ContentResource::collection($contents);
-    }
 
-    /**
-     * Display a listing of the resource by search.
-     *
-     * @return \App\Http\Resources\ContentResource
-     */
-    public function search(Request $request, $value)
-    {
-        $this->authorize('search', Content::class);
-        $contents = Content::search($value);
-        return ContentResource::collection($contents);
-    }
+        $search = $request->input('search');
+        $tags = $request->input('tags');
 
-    /**
-     * Display a filtered listing of the resource by tags.
-     *
-     * @return \App\Http\Resources\ContentResource
-     */
-    public function filter(Request $request, array $tags)
-    {
-        $this->authorize('filter', Content::class);
+        $contents = Content::query();
 
-        $contents = Content::filterByTags($tags);;
-        return ContentResource::collection($contents);
+        if ($search != null) {
+            $contents = $contents
+                ->where('title', 'like', "%{$search}%")
+                ->orWhere('body', 'like', "%{$search}%");
+        }
+
+        if ($tags != null) {
+            $contents = $contents->withAnyTags($tags);
+        }
+
+        return ContentResource::collection($contents->get());
     }
+     
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function meIndex(Request $request): Collection
+    public function meIndex(Request $request)
     {
         $this->authorize('viewMe', Content::class);
 

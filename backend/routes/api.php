@@ -34,22 +34,19 @@ Route::get('/users/{id}', [UserController:: class, "show"])
 
 Route::get('/contents', [ContentController:: class, "index"])
     ->name("contents.index");
-Route::get('/contents/search?q={search}', [ContentController:: class, "search"])
-    ->name("contents.search");
-Route::get('/contents/filter?q={tags}', [ContentController:: class, "filter"])
-    ->name("contents.filter");
 Route::get('/contents/{id}', [ContentController:: class, "show"])
     ->name("contents.show");
 
     
 Route::get('/questions', [QuestionController:: class, "index"])
     ->name("questions.index");
-Route::get('/questions/search?q={search}', [QuestionController:: class, "search"])
-    ->name("questions.search");
-Route::get('/questions/filter?q={tags}', [QuestionController:: class, "filter"])
-    ->name("questions.filter");
 Route::get('/questions/{id}', [QuestionController:: class, "show"])
     ->name("questions.show");
+
+Route::get('/tags', [TagController:: class, "index"])
+    ->name("tags.index");
+Route::get('/tags/{id}', [TagController:: class, "show"])
+    ->name("tags.show");
 
 Route::get('/comments', [CommentController:: class, "index"])
     ->name("comments.index");
@@ -82,6 +79,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
         ->name("me.questions.update");
     Route::delete('me/questions/{id}', [QuestionController:: class, "destroy"])
         ->name("me.questions.destroy");
+
+
+    Route::post('tags', [ContentController:: class, "store"])
+        ->name("tags.store");
 
 
     Route::post('me/comments', [CommentController::class, "store"])
