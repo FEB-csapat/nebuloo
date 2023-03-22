@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Http\Response;
 
-class CommentPolicy
+class ImagePolicy
 {
     use HandlesAuthorization;
 
@@ -42,30 +42,11 @@ class CommentPolicy
      */
     public function create(?User $user)
     {
-        // visitors cannot create comments
+        // visitors cannot upload images
         if ($user === null) {
             return Response::deny('User must be logged in to create comments.');
         }
-        return Response::allow();
-    }
-
-    /**
-     * Determine whether the user can update the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function update(?User $user, Comment $comment)
-    {
-        // visitors cannot update comments
-        if ($user === null) {
-            return Response::deny('User must be logged in to update comments.');
-        }
-        if($user->id != $comment->creator_user_id){
-            return Response::deny('User can only edit their comments');
-        }
-
+        
         return Response::allow();
     }
 

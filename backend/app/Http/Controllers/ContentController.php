@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreContentRequest;
+use App\Http\Requests\UpdateContentRequest;
 use App\Http\Resources\ContentResource;
 use App\Models\Content;
 use Illuminate\Http\Request;
-
-
+use Illuminate\Support\Facades\Gate;
 
 class ContentController extends Controller
 {
-
     protected $model = Content::class;
 
     /**
@@ -20,25 +20,51 @@ class ContentController extends Controller
      */
     public function index(Request $request)
     {
-        if(!$this->authorize('viewAny', Content::class)){
-            abort(403);
+        $this->authorize('viewAny', Content::class);
+
+        $search = $request->input('search');
+        $tags = $request->input('tags');
+
+        $contents = Content::query();
+
+        if ($search != null) {
+            $contents = $contents
+                ->where('title', 'like', "%{$search}%")
+                ->orWhere('body', 'like', "%{$search}%");
         }
-        $contents = Content::all();
+
+        if ($tags != null) {
+            $contents = $contents->withAnyTags($tags);
+        }
+
+        return ContentResource::collection($contents->get());
+    }
+     
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function meIndex(Request $request)
+    {
+        $this->authorize('viewMe', Content::class);
+
+        $contents = Content::where('creator_user_id', $request->user()->id)->get();
+
         return ContentResource::collection($contents);
     }
-
+    
     /**
      * Store a newly created resource in storage.
      *
      * @param  App\Http\Requests\StoreContentRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\ContentResource
      */
-    public function store(Request $request)
+    public function store(StoreContentRequest $request)
     {
-        if(!$this->authorize('create', Content::class)){
-            abort(403);
-        }
         $data = $request->validated();
+        $data['creator_user_id'] = $request->user()->id;
         $newContent = Content::create($data);
         return new ContentResource($newContent);
     }
@@ -47,15 +73,13 @@ class ContentController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\ContentResource
      */
     public function show(Request $request, $id)
     {
         $content = Content::findOrFail($id);
 
-        if($this->authorize('view', [$content], Content::class)){
-            abort(403);
-        }
+        $this->authorize('view', [$content], Content::class);
         
         return new ContentResource($content);
     }
@@ -65,22 +89,21 @@ class ContentController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\ContentResource
      */
-    public function update(Request $request, $id)
+    public function update(UpdateContentRequest $request, $id)
     {
-        
         $content = Content::findOrFail($id);
 
-        if(!$this->authorize('update', $content, Content::class)){
-            abort(403);
-        }
+        $this->authorize('update', $content, Content::class);
 
         $data = $request->validated();
         
         if($content->update($data)){
             return new ContentResource($content);
         }
+
+        return response()->json(['error' => 'Could not update content'], 500);
     }
 
     /**
@@ -93,10 +116,10 @@ class ContentController extends Controller
     {
         $content = Content::findOrFail($id);
 
-        if(!$this->authorize('delete', $content, Content::class)){
-            abort(403);
-        }
+        $this->authorize('delete', $content, Content::class);
         
         $content->delete();
+
+        
     }
 }

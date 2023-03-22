@@ -6,6 +6,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\VoteController;
+use App\Http\Controllers\ImageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -41,49 +43,70 @@ Route::get('/questions', [QuestionController:: class, "index"])
 Route::get('/questions/{id}', [QuestionController:: class, "show"])
     ->name("questions.show");
 
+Route::get('/tags', [TagController:: class, "index"])
+    ->name("tags.index");
+Route::get('/tags/{id}', [TagController:: class, "show"])
+    ->name("tags.show");
+
 Route::get('/comments', [CommentController:: class, "index"])
     ->name("comments.index");
 Route::get('/comments/{id}', [CommentController:: class, "show"])
     ->name("comments.show");
 
-Route::middleware(['auth:api'])->group(function () {
-    
-    Route::put('/me}', [UserController:: class, "update"])
-        ->name("users.update");
-    Route::delete('me/{id}', [UserController:: class, "destroy"])
-        ->name("users.destroy");
 
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/me', [UserController:: class, "showMe"])
+        ->name("me.show");
+    Route::put('/me', [UserController:: class, "updateMe"])
+        ->name("me.update");
+    Route::delete('/me', [UserController:: class, "destroyMe"])
+        ->name("me.destroy");
+
+    Route::get('me/contents', [ContentController:: class, "meIndex"])
+        ->name("me.contents.index");
     Route::post('me/contents', [ContentController:: class, "store"])
-        ->name("contents.store");
+        ->name("me.contents.store");
     Route::put('me/contents/{id}', [ContentController:: class, "update"])
         ->name("contents.update");
     Route::delete('me/contents/{id}', [ContentController:: class, "destroy"])
         ->name("contents.destroy");
 
+    Route::get('me/questions', [QuestionController:: class, "meIndex"])
+        ->name("me.contents.index");
     Route::post('me/questions', [QuestionController:: class, "store"])
-        ->name("questions.store");
+        ->name("me.questions.store");
     Route::put('me/questions/{id}', [QuestionController:: class, "update"])
-        ->name("questions.update");
+        ->name("me.questions.update");
     Route::delete('me/questions/{id}', [QuestionController:: class, "destroy"])
-        ->name("questions.destroy");
+        ->name("me.questions.destroy");
 
 
-    Route::post('me/comments', [CommentController:: class, "store"])
+    Route::post('tags', [ContentController:: class, "store"])
+        ->name("tags.store");
+
+
+    Route::post('me/comments', [CommentController::class, "store"])
         ->name("comments.store");
-    Route::put('me/comments/{id}', [CommentController:: class, "update"])
+    Route::put('me/comments/{id}', [CommentController::class, "update"])
         ->name("comments.update");
-    Route::delete('me/comments/{id}', [CommentController:: class, "destroy"])
+    Route::delete('me/comments/{id}', [CommentController::class, "destroy"])
         ->name("comments.destroy");
 
 
-    Route::post('me/votes', [VoteController:: class, "store"])
+    Route::post('me/votes', [VoteController::class, "store"])
         ->name("votes.store");
-    Route::get('me/votes', [VoteController:: class, "view"])
-        ->name("votes.view");
-    Route::put('me/votes/{id}', [VoteController:: class, "update"])
+    Route::get('me/votes', [VoteController::class, "index"])
+        ->name("votes.index");
+    Route::put('me/votes/{id}', [VoteController::class, "update"])
         ->name("votes.update");
-    Route::delete('me/votes/{id}', [VoteController:: class, "destroy"])
+    Route::delete('me/votes/{id}', [VoteController::class, "destroy"])
         ->name("votes.destroy");
+
+    Route::post('images', [ImageController::class, "store"])
+        ->name("images.store");
+    Route::get('images/{id}', [ImageController::class, "show"])
+        ->name("images.show");
+    
 });
 
 
@@ -123,7 +146,7 @@ Route::group(['middleware' => ['role:admin|moderator']], function () {
 
 Route::group(['middleware' => ['role:admin']], function () {
     
-    Route::put('admin/user/{id}/grant', [UserController:: class, "updateRole"])
+    Route::put('admin/user/{id}/role', [RoleController:: class, "update"])
         ->name("users.role.update");
 
     Route::put('admin/users/{id}', [UserController:: class, "update"])

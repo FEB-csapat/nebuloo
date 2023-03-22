@@ -2,9 +2,9 @@
 
 COMPOSE="docker compose"
 
-if ! $($COMPOSE 2>/dev/null); then
-    COMPOSE="docker-compose"
-fi
+#if ! $($COMPOSE 2>/dev/null); then
+#    COMPOSE="docker-compose"
+#fi
 
 if [ -f ".env" ]; then
     echo ".env fájl már létezik!"
@@ -26,4 +26,4 @@ $COMPOSE -p nebuloo exec app php artisan key:generate
 $COMPOSE -p nebuloo exec app php artisan migrate:fresh --seed
 $COMPOSE -p nebuloo exec app php artisan passport:client --personal
 $COMPOSE -p nebuloo exec app php artisan passport:keys
-$COMPOSE -p nebuloo exec app npm install
+#$COMPOSE -p nebuloo exec app npm install

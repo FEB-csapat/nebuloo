@@ -14,6 +14,9 @@ class Vote extends Model
     protected $primaryKey = 'id';
 
 
+    protected $fillable = ['votable_type', 'votable_id', 'direction', 'owner_user_id', 'granted_user_id'];
+
+
     public function owner()
     {
         return $this->belongsTo(User::class, 'id', 'owner_user_id');

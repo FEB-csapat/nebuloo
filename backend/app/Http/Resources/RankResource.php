@@ -19,8 +19,7 @@ class RankResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'image' => $this->image,
-            'users' => UserResource::collection($this->users),
+            'image' => $this->image
         ];
     }
 }

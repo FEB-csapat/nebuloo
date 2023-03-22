@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -15,12 +16,11 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        if(!$this->authorize('viewAny', User::class)){
-            abort(403);
-        }
+        $this->authorize('viewAny', User::class);
         $users = User::all();
         return UserResource::collection($users);
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -30,9 +30,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        if(!$this->authorize('create', User::class)){
-            abort(403);
-        }
+        $this->authorize('create', User::class);
         $data = $request->validated();
         $newUser = User::create($data);
         return new UserResource($newUser);
@@ -48,11 +46,20 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        if(!$this->authorize('view', [$user], User::class)){
-            abort(403);
-        }
-        
+        $this->authorize('view', [$user], User::class);
+
         return new UserResource($user);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showMe(Request $request)
+    {
+        $this->authorize('viewMe', User::class);
+        return new UserResource(auth()->user());
     }
 
     /**
@@ -66,9 +73,27 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        if(!$this->authorize('update', $user, User::class)){
-            abort(403);
+        $this->authorize('update', $user, User::class);
+
+        $data = $request->validated();
+        if($user->update($data)){
+            return new UserResource($user);
         }
+    }
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateMe(UpdateUserRequest $request)
+    {
+        $user = auth()->user();
+        $this->authorize('update', $user, User::class);
+
         $data = $request->validated();
         if($user->update($data)){
             return new UserResource($user);
@@ -84,9 +109,20 @@ class UserController extends Controller
     public function destroy(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        if(!$this->authorize('delete', User::class)){
-            abort(403);
-        }
+        $this->authorize('delete', User::class);
+        $user->delete();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyMe(Request $request)
+    {
+        $user = auth()->user();
+        $this->authorize('delete', $user, User::class);
         $user->delete();
     }
 
@@ -100,9 +136,21 @@ class UserController extends Controller
     public function ban(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        if(!$this->authorize('ban', User::class)){
-            abort(403);
-        }
+        $this->authorize('ban', User::class);
+        $user->delete();
+    }
+
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function grantRole(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $this->authorize('grantRole', User::class);
         $user->delete();
     }
 }

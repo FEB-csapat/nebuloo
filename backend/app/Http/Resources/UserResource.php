@@ -17,15 +17,22 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'email' => $this->email,
             'name' => $this->name,
             'bio' => $this->bio,
-            'registration_date' => $this->registration_date,
-            'rank' => $this->rank,
-          //  'votes' => VoteResource::collection($this->votes),
+
+            'roles' => $this->getRoleNames(),
+
+            'avatar' => $this->provider?->avatar,
+            
+            'rank' => new RankResource($this->rank),
             'comments' => CommentResource::collection($this->comments),
             'contents' => ContentResource::collection($this->contents),
             'questions' => QuestionResource::collection($this->questions),
             'votes' => VoteResource::collection($this->votes),
+
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at
         ];
     }
 }
