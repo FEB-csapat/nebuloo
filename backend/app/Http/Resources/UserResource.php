@@ -23,8 +23,9 @@ class UserResource extends JsonResource
 
             'roles' => $this->getRoleNames(),
 
-            'avatar' => $this->provider->avatar,
-            'rank' => $this->rank,
+            'avatar' => $this->provider?->avatar,
+            
+            'rank' => new RankResource($this->rank),
             'comments' => CommentResource::collection($this->comments),
             'contents' => ContentResource::collection($this->contents),
             'questions' => QuestionResource::collection($this->questions),

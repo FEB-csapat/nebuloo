@@ -16,19 +16,6 @@ class Question extends Model
     protected $fillable = ['title', 'body', 'creator_user_id'];
 
 
-
-    public static function search($value)
-    {
-        return Question
-            ::where('title', $value)
-            ->orWhere('body', $value)->get();
-    }
-
-    public static function filterByTags($tags)
-    {
-        return Question::withAnyTags($tags);
-    }
-
     public function creator()
     {
         return $this->belongsTo(User::class, 'creator_user_id');

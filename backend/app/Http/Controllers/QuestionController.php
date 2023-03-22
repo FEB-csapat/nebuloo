@@ -24,7 +24,7 @@ class QuestionController extends Controller
         $search = $request->input('search');
         $tags = $request->input('tags');
 
-        $questions = Content::query();
+        $questions = Question::query();
 
         if ($search != null) {
             $questions = $questions
