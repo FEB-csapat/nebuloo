@@ -12,6 +12,8 @@ class Comment extends Model
     protected $table = 'comments';
     protected $primaryKey = 'id';
 
+    
+
 
     public function parent()
     {
@@ -32,5 +34,4 @@ class Comment extends Model
     {
         return $this->morphTo();
     }
-
 }
