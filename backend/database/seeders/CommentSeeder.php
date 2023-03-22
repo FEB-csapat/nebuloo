@@ -16,7 +16,6 @@ class CommentSeeder extends Seeder
     {
         Comment::factory()->create([
             'creator_user_id' => 1,
-            'vote_id' => 5,
             'commentable_id' => 1,
             'commentable_type' => 'content',
             'parent_comment_id' => null,
@@ -25,7 +24,6 @@ class CommentSeeder extends Seeder
         
         Comment::factory()->create([
             'creator_user_id' => 2,
-            'vote_id' => 6,
             'commentable_id' => 1,
             'commentable_type' => 'vote',
             'parent_comment_id' => 1,
