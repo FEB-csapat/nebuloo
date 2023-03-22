@@ -19,7 +19,7 @@ class CommentPolicy
      */
     public function viewAny(?User $user)
     {
-        //
+        return true;
     }
 
     /**
@@ -33,6 +33,8 @@ class CommentPolicy
     {
         return true;
     }
+
+    
 
     /**
      * Determine whether the user can create models.

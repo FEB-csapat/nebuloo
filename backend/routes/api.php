@@ -7,8 +7,10 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\VoteController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\ImageController;
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,7 +23,6 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
 
 Route::get('/login/{provider}', [AuthController:: class, "redirectToProvider"]);
 Route::get('/login/{provider}/callback', [AuthController:: class, "handleProviderCallback"]);
@@ -81,10 +82,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
         ->name("me.questions.destroy");
 
 
-    Route::post('tags', [ContentController:: class, "store"])
+    Route::post('tags', [TagController:: class, "store"])
         ->name("tags.store");
 
-
+    Route::get('me/comments', [CommentController::class, "meIndex"])
+        ->name("comments.index");
     Route::post('me/comments', [CommentController::class, "store"])
         ->name("comments.store");
     Route::put('me/comments/{id}', [CommentController::class, "update"])

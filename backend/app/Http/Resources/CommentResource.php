@@ -16,12 +16,20 @@ class CommentResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'creator' => UserResource::collection($this->creator),
-           // this should be done by conditional attributes...
-           // 'content' => VoteResource::collection($this->votes)//->when(),
-           // 'question' => CommentResource::collection($this->comments),
+            'creator' => new SimpleUserResource($this->creator),
             'parent' => $this->parent,
-            'message' => $this->message
+            'message' => $this->message,
+            'commentable_type' => $this->commentable_type,
+            // TODO find out why this doesn't work
+            'commentable' => $this->whenLoaded('commentable', function () {
+                if($this->commentable_type == 'App\Models\Content'){
+                    return new SimpleContentResource($this->commentable);
+                }else if($this->commentable_type == 'App\Models\Question'){
+                    return new SimpleQuestionResource($this->commentable);
+                }else{
+                    abort(500, 'Commentable type not found');
+                }
+            }),
         ];
     }
 }

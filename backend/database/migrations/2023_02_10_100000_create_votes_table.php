@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('votes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('owner_user_id');
-            $table->foreignId('granted_user_id');
+            $table->foreignId('reciever_user_id');
             $table->morphs('votable');
             $table->enum('direction', ['up', 'down']);
             $table->timestamps();

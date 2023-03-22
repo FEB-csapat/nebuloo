@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UpdateRoleRequest;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\StoreTagRequest;
+use Spatie\Tags\Tag;
 use App\Models\User;
+use App\Http\Resources\TagResource;
 
+// TODO add authorization
 class TagController extends Controller
 {
     /**
@@ -15,30 +18,45 @@ class TagController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tags = Tag::all();
-        return TagResource::collection($ranks);
+        $type = $request->input('type');
+
+        $tags = Tag::query();
+
+        if ($type != null) {
+            $tags = $tags->where('type', $type);
+        }
+
+        return TagResource::collection($tags->get());
     }
 
     /**
-     * Update the specified resource in storage.
+     * Display a listing of the resource.
      *
-     * @param  \App\Http\Requests\UpdateRoleRequest  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRoleRequest $request, $id): UserResource
+    public function show($id)
     {
-        $user = User::findOrFail($id);
-        $data = $request->validated();
-
-        $user->syncRoles($data['role']);
-        $user->save();
-        
-        return new UserResource($user);
+        $tag = Tag::findOrFail($id);
+        return new TagResource($tag);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  App\Http\Requests\StoreUserRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(StoreTagRequest $request)
+    {
+       // $this->authorize('create', User::class);
+        $data = $request->validated();
+        $newTag = Tag::findOrCreate($data['name'], $data['type']);
+        return new TagResource($newTag);
+    }
+
+    
     /**
      * Remove the specified resource from storage.
      *

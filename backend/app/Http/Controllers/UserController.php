@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\SimpleUserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,7 @@ class UserController extends Controller
     {
         $this->authorize('viewAny', User::class);
         $users = User::all();
-        return UserResource::collection($users);
+        return SimpleUserResource::collection($users);
     }
 
 
@@ -48,7 +49,7 @@ class UserController extends Controller
 
         $this->authorize('view', [$user], User::class);
 
-        return new UserResource($user);
+        return new SimpleUserResource($user);
     }
 
     /**

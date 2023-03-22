@@ -38,16 +38,16 @@ class VoteController extends Controller
         $data = $request->validated();
         $data['owner_user_id'] = $request->user()->id;
         switch ($data['votable_type']) {
-            case 'content':
-                $data['granted_user_id'] = Content::find($data['votable_id'])
+            case 'App\Models\Content':
+                $data['reciever_user_id'] = Content::find($data['votable_id'])
                     ->creator_user_id;
                 break;
-            case 'question':
-                $data['granted_user_id'] = Question::find($data['votable_id'])
+            case 'App\Models\Question':
+                $data['reciever_user_id'] = Question::find($data['votable_id'])
                     ->creator_user_id;
                 break;
-            case 'comment':
-                $data['granted_user_id'] = Comment::find($data['votable_id'])
+            case 'App\Models\Comment':
+                $data['reciever_user_id'] = Comment::find($data['votable_id'])
                     ->creator_user_id;
                 break;
             

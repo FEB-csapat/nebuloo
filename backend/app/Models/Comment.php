@@ -12,8 +12,6 @@ class Comment extends Model
     protected $table = 'comments';
     protected $primaryKey = 'id';
 
-    
-
 
     public function parent()
     {
@@ -25,9 +23,9 @@ class Comment extends Model
         return $this->hasMany(Comment::class, 'parent_id');
     }
 
-    public function user()
+    public function creator()
     {
-        return $this->belongsTo(User::class, 'id', 'creator_user_id');
+        return $this->belongsTo(User::class, 'creator_user_id');
     }
 
     public function commentable()
