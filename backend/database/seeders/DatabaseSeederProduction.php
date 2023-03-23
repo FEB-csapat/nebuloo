@@ -6,9 +6,8 @@ namespace Database\Seeders;
 
 use App\Models\Question;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\App;
 
-class DatabaseSeeder extends Seeder
+class DatabaseSeederProduction extends Seeder
 {
     /**
      * Seed the application's database.
@@ -17,10 +16,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        if (App::environment('production')) {
-            $this->call(DatabaseSeederProduction::class);
-        } else {
-            $this->call(DatabaseSeederDevelopment::class);
-        }
+        $this->call([
+            TagSeeder::class,
+            RankSeeder::class,
+            UserSeeder::class,
+            ContentSeeder::class,
+            ProviderSeeder::class,
+            
+        ]);
     }
 }

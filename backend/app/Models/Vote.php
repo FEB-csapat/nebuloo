@@ -14,17 +14,17 @@ class Vote extends Model
     protected $primaryKey = 'id';
 
 
-    protected $fillable = ['votable_type', 'votable_id', 'direction', 'owner_user_id', 'granted_user_id'];
+    protected $fillable = ['votable_type', 'votable_id', 'direction', 'owner_user_id', 'reciever_user_id'];
 
 
     public function owner()
     {
-        return $this->belongsTo(User::class, 'id', 'owner_user_id');
+        return $this->belongsTo(User::class, 'owner_user_id');
     }
 
-    public function granted()
+    public function reciever()
     {
-        return $this->belongsTo(User::class, 'id', 'granted_user_id');
+        return $this->belongsTo(User::class, 'reciever_user_id');
     }
 
     public function votable()

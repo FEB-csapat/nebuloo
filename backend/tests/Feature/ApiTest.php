@@ -5,6 +5,8 @@ namespace Tests\Feature;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
+use App\Models\User;
+
 class ApiTest extends TestCase
 {
     public function test_api_paths_available()
@@ -60,5 +62,18 @@ class ApiTest extends TestCase
         );
     }
 
+
+    /*
+    // create test for google login
+    public function test_google_login()
+    {
+        $response = $this->get('/api/login/google');
+
+        $response->assertStatus(200);
+    }
+    */
+
+
+    
 
 }
