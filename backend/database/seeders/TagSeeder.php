@@ -24,12 +24,16 @@ class TagSeeder extends Seeder
      */
     public function run()
     {
-        Tag::findOrCreate("history", "subject");
-        Tag::findOrCreate("math", "subject");
-        Tag::findOrCreate("german", "subject");
-        Tag::findOrCreate("english", "subject");
-        Tag::findOrCreate("science", "subject");
-        Tag::findOrCreate("geography", "subject");
+        Tag::findOrCreate("history", "offical-subject");
+        Tag::findOrCreate("math", "offical-subject");
+        Tag::findOrCreate("german", "offical-subject");
+        Tag::findOrCreate("english", "offical-subject");
+        Tag::findOrCreate("science", "offical-subject");
+        Tag::findOrCreate("geography", "offical-subject");
+
+
+        Tag::findOrCreate("First World War", "offical-subject-history");
+        Tag::findOrCreate("Second World War", "offical-subject-history");
 
 
         Tag::findOrCreate("1. grade", "grade");

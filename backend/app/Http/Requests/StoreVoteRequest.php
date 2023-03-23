@@ -24,8 +24,6 @@ class StoreVoteRequest extends FormRequest
     public function rules()
     {
         return [
-            "votable_type" => "required|in:App\Models\Content,App\Models\Question,App\Models\Comment",
-            "votable_id" => "required|numeric|exists:votes,id",
             "direction" => "required|in:up,down",
         ];
     }

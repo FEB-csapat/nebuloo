@@ -5,7 +5,7 @@ namespace App\Policies;
 use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Http\Response;
+use Illuminate\Auth\Access\Response;
 
 class CommentPolicy
 {
@@ -20,6 +20,20 @@ class CommentPolicy
     public function viewAny(?User $user)
     {
         return true;
+    }
+
+    /**
+     * Determine whether the user can view any models.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewMe(?User $user)
+    {
+        if ($user === null) {
+            return Response::deny('User must be logged in to view their comments.');
+        }
+        return Response::allow();
     }
 
     /**

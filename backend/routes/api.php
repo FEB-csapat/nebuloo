@@ -87,16 +87,24 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('me/comments', [CommentController::class, "meIndex"])
         ->name("comments.index");
-    Route::post('me/comments', [CommentController::class, "store"])
-        ->name("comments.store");
+
+   // Route::post('me/comments', [CommentController::class, "store"])
+    //    ->name("comments.store");
+
+    Route::post('{commentable}/{id}/comments', [CommentController::class, "store"])
+        ->name("commentable.comments.store");
+
     Route::put('me/comments/{id}', [CommentController::class, "update"])
         ->name("comments.update");
     Route::delete('me/comments/{id}', [CommentController::class, "destroy"])
         ->name("comments.destroy");
 
 
-    Route::post('me/votes', [VoteController::class, "store"])
+    Route::post('{votable}/{id}/votes', [VoteController::class, "store"])
         ->name("votes.store");
+
+
+
     Route::get('me/votes', [VoteController::class, "index"])
         ->name("votes.index");
     Route::put('me/votes/{id}', [VoteController::class, "update"])

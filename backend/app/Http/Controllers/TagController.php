@@ -52,7 +52,16 @@ class TagController extends Controller
     {
        // $this->authorize('create', User::class);
         $data = $request->validated();
-        $newTag = Tag::findOrCreate($data['name'], $data['type']);
+        // TODO fix duplication of tags with same name but different type
+        $alreadyExists = Tag::where('name', $data['name'])->first();
+        dd($alreadyExists);
+        if($alreadyExists){
+            return new TagResource($alreadyExists);
+        }else{
+            $newTag = Tag::findOrCreate($data['name'], 'user-created');
+        }
+
+        
         return new TagResource($newTag);
     }
 

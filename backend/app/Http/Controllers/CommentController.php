@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreCommentRequest;
 
 class CommentController extends Controller
 {
@@ -28,9 +29,9 @@ class CommentController extends Controller
      */
     public function meIndex(Request $request)
     {
-        $this->authorize('meIndex', Comment::class);
+        $this->authorize('viewMe', Comment::class);
         
-        $comments = Comment::where('creator_user_id', $request->user()->id);
+        $comments = Comment::where('creator_user_id', $request->user()->id)->get();
         return CommentResource::collection($comments);
     }
 
@@ -40,11 +41,23 @@ class CommentController extends Controller
      * @param  App\Http\Requests\StoreCommentRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCommentRequest $request, $commentableType, $commentableId)
     {
         $this->authorize('create', Comment::class);
 
         $data = $request->validated();
+        $data['creator_user_id'] = $request->user()->id;
+
+        if($commentableType == 'contents'){
+            $data['commentable_type'] = 'App\Models\Content';
+        }else if($commentableType == 'questions'){
+            $data['commentable_type'] = 'App\Models\Question';
+        }else{
+            abort(500, 'Commentable type not found');
+        }
+
+        $data['commentable_id'] = $commentableId;
+
         $newComment = Comment::create($data);
         return new CommentResource($newComment);
     }

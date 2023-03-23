@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreVoteRequest;
 use App\Http\Requests\UpdateVoteRequest;
-use App\Http\Resources\VoteResource;
+use App\Http\Resources\SimpleVoteResource;
 use App\Models\Content;
 use App\Models\Vote;
 use App\Models\Question;
@@ -24,7 +24,7 @@ class VoteController extends Controller
     {
         $this->authorize('viewAny', Vote::class, auth()->user());
         $votes = Vote::where('owner_user_id', auth()->user()->id)->get();
-        return VoteResource::collection($votes);
+        return SimpleVoteResource::collection($votes);
     }
     
     /**
@@ -33,32 +33,37 @@ class VoteController extends Controller
      * @param  App\Http\Requests\StoreVoteRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreVoteRequest $request)
+    public function store(StoreVoteRequest $request, $votableType, $votableId)
     {
         $data = $request->validated();
         $data['owner_user_id'] = $request->user()->id;
-        switch ($data['votable_type']) {
-            case 'App\Models\Content':
-                $data['reciever_user_id'] = Content::find($data['votable_id'])
+        switch ($votableType) {
+            case 'contents':
+                $data['votable_type'] = 'App\Models\Content';
+                $data['reciever_user_id'] = Content::find($votableId)
                     ->creator_user_id;
                 break;
-            case 'App\Models\Question':
-                $data['reciever_user_id'] = Question::find($data['votable_id'])
+            case 'questions':
+                $data['votable_type'] = 'App\Models\Question';
+                $data['reciever_user_id'] = Question::find($votableId)
                     ->creator_user_id;
                 break;
-            case 'App\Models\Comment':
-                $data['reciever_user_id'] = Comment::find($data['votable_id'])
+            case 'comments':
+                $data['votable_type'] = 'App\Models\Comment';
+                $data['reciever_user_id'] = Comment::find($votableId)
                     ->creator_user_id;
                 break;
             
             default:
-                // some sort of error happened
+                abort(500, 'Votable type not found');
                 break;
         }
+        $data['votable_id'] = $votableId;
+        $data['votable_type'] = 'App\Models\Content';
         
         $newVote = Vote::create($data);
         
-        return new VoteResource($newVote);
+        return new SimpleVoteResource($newVote);
     }
 
 
@@ -78,7 +83,7 @@ class VoteController extends Controller
         $data = $request->validated();
         
         if($vote->update($data)){
-            return new VoteResource($vote);
+            return new SimpleVoteResource($vote);
         }
     }
 

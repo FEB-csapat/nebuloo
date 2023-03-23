@@ -18,6 +18,7 @@ class ContentResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'body' => $this->body,
+            'tags' => TagResource::collection($this->tags),
             'creator' => new SimpleUserResource($this->creator),
             'vote_up' => $this->votes->where('direction', 'up')->count(),
             'vote_down' => $this->votes->where('direction', 'down')->count(),

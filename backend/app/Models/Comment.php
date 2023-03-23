@@ -12,6 +12,7 @@ class Comment extends Model
     protected $table = 'comments';
     protected $primaryKey = 'id';
 
+    protected $fillable = ['message', 'creator_user_id', 'parent_comment_id', 'commentable_id', 'commentable_type'];
 
     public function parent()
     {
