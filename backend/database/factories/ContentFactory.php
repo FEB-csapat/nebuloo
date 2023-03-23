@@ -31,4 +31,15 @@ class ContentFactory extends Factory
     {
         
     }
+
+    public function withTitleAndBody()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'title' => $this->faker->sentence,
+                'body' => $this->faker->paragraph,
+                'creator_user_id' => $this->faker->numberBetween(1, 3),
+            ];
+        });
+    }
 }

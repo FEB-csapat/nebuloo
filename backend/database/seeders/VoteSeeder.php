@@ -25,9 +25,9 @@ class VoteSeeder extends Seeder
     {
         Vote::factory()->create([
             'owner_user_id' => 1,
-            'granted_user_id' => 2,
+            'reciever_user_id' => 2,
             'votable_id' => 1,
-            'votable_type' => 'content',
+            'votable_type' => 'App\Models\Content',
             'direction' => 'up',
         ]);
     }

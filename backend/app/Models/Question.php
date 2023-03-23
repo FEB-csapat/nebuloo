@@ -15,6 +15,7 @@ class Question extends Model
 
     protected $fillable = ['title', 'body', 'creator_user_id'];
 
+
     public function creator()
     {
         return $this->belongsTo(User::class, 'creator_user_id');

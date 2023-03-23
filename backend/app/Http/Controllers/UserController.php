@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\SimpleUserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -17,7 +19,7 @@ class UserController extends Controller
     {
         $this->authorize('viewAny', User::class);
         $users = User::all();
-        return UserResource::collection($users);
+        return SimpleUserResource::collection($users);
     }
 
 
@@ -47,7 +49,7 @@ class UserController extends Controller
 
         $this->authorize('view', [$user], User::class);
 
-        return new UserResource($user);
+        return new SimpleUserResource($user);
     }
 
     /**
@@ -88,7 +90,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function updateMe(Request $request)
+    public function updateMe(UpdateUserRequest $request)
     {
         $user = auth()->user();
         $this->authorize('update', $user, User::class);
@@ -136,6 +138,20 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $this->authorize('ban', User::class);
+        $user->delete();
+    }
+
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function grantRole(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $this->authorize('grantRole', User::class);
         $user->delete();
     }
 }

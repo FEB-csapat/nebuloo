@@ -20,10 +20,25 @@ class ContentController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('viewAny', Content::class, auth()->user());
-        $contents = Content::all();
-        return ContentResource::collection($contents);
+        $this->authorize('viewAny', Content::class);
+
+        $search = $request->input('search');
+        $tags = $request->input('tags');
+
+        $contents = Content::query();
+
+        if ($search != null) {
+            $contents = $contents
+                ->where('title', 'like', "%{$search}%")
+                ->orWhere('body', 'like', "%{$search}%");
+        }
+
+        if ($tags != null) {
+            $contents = $contents->withAnyTags($tags);
+        }
+        return ContentResource::collection($contents->paginate(15));
     }
+     
 
     /**
      * Display a listing of the resource.
@@ -32,9 +47,10 @@ class ContentController extends Controller
      */
     public function meIndex(Request $request)
     {
-        $this->authorize('viewMe', Content::class, auth()->user());
+        $this->authorize('viewMe', Content::class);
 
         $contents = Content::where('creator_user_id', $request->user()->id)->get();
+
         return ContentResource::collection($contents);
     }
     
@@ -42,7 +58,7 @@ class ContentController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  App\Http\Requests\StoreContentRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\ContentResource
      */
     public function store(StoreContentRequest $request)
     {
@@ -56,7 +72,7 @@ class ContentController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\ContentResource
      */
     public function show(Request $request, $id)
     {
@@ -72,7 +88,7 @@ class ContentController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\ContentResource
      */
     public function update(UpdateContentRequest $request, $id)
     {
@@ -85,6 +101,8 @@ class ContentController extends Controller
         if($content->update($data)){
             return new ContentResource($content);
         }
+
+        return response()->json(['error' => 'Could not update content'], 500);
     }
 
     /**
@@ -100,5 +118,7 @@ class ContentController extends Controller
         $this->authorize('delete', $content, Content::class);
         
         $content->delete();
+
+        
     }
 }

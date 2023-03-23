@@ -15,25 +15,41 @@ class QuestionController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\QuestionResource
      */
     public function index(Request $request)
     {
-        $this->authorize('viewAny', Question::class, auth()->user());
-        $questions = Question::all();
-        return QuestionResource::collection($questions);
+        $this->authorize('viewAny', Question::class);
+
+        $search = $request->input('search');
+        $tags = $request->input('tags');
+
+        $questions = Question::query();
+
+        if ($search != null) {
+            $questions = $questions
+                ->where('title', 'like', "%{$search}%")
+                ->orWhere('body', 'like', "%{$search}%");
+        }
+
+        if ($tags != null) {
+            $questions = $questions->withAnyTags($tags);
+        }
+
+        return QuestionResource::collection($questions->get());
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\QuestionResource
      */
     public function meIndex(Request $request)
     {
-        $this->authorize('viewMe', Question::class, auth()->user());
+        $this->authorize('viewMe', Question::class);
 
         $questions = Question::where('creator_user_id', $request->user()->id)->get();
+        
         return QuestionResource::collection($questions);
     }
     
@@ -41,7 +57,7 @@ class QuestionController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  App\Http\Requests\StoreQuestionRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\QuestionResource
      */
     public function store(StoreQuestionRequest $request)
     {
@@ -55,7 +71,7 @@ class QuestionController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\QuestionResource
      */
     public function show(Request $request, $id)
     {
@@ -71,7 +87,7 @@ class QuestionController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\QuestionResource
      */
     public function update(UpdateQuestionRequest $request, $id)
     {

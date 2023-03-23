@@ -3,8 +3,11 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\Content;
+use App\Models\Question;
+use App\Models\Comment;
 
-class RankResource extends JsonResource
+class SimpleVoteResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -12,14 +15,13 @@ class RankResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
-
-
     public function toArray($request)
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'image' => $this->image
+            'votable_type' => $this->votable_type,
+            'votable_id' => $this->votable_id,
+            'direction' => $this->direction,
         ];
     }
 }

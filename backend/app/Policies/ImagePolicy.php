@@ -5,9 +5,9 @@ namespace App\Policies;
 use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Auth\Access\Response;
+use Illuminate\Http\Response;
 
-class CommentPolicy
+class ImagePolicy
 {
     use HandlesAuthorization;
 
@@ -19,21 +19,7 @@ class CommentPolicy
      */
     public function viewAny(?User $user)
     {
-        return true;
-    }
-
-    /**
-     * Determine whether the user can view any models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function viewMe(?User $user)
-    {
-        if ($user === null) {
-            return Response::deny('User must be logged in to view their comments.');
-        }
-        return Response::allow();
+        //
     }
 
     /**
@@ -48,8 +34,6 @@ class CommentPolicy
         return true;
     }
 
-    
-
     /**
      * Determine whether the user can create models.
      *
@@ -58,30 +42,11 @@ class CommentPolicy
      */
     public function create(?User $user)
     {
-        // visitors cannot create comments
+        // visitors cannot upload images
         if ($user === null) {
             return Response::deny('User must be logged in to create comments.');
         }
-        return Response::allow();
-    }
-
-    /**
-     * Determine whether the user can update the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function update(?User $user, Comment $comment)
-    {
-        // visitors cannot update comments
-        if ($user === null) {
-            return Response::deny('User must be logged in to update comments.');
-        }
-        if($user->id != $comment->creator_user_id){
-            return Response::deny('User can only edit their comments');
-        }
-
+        
         return Response::allow();
     }
 

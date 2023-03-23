@@ -7,7 +7,10 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\VoteController;
+use App\Http\Controllers\TagController;
+use App\Http\Controllers\ImageController;
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,7 +23,6 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
 
 Route::get('/login/{provider}', [AuthController:: class, "redirectToProvider"]);
 Route::get('/login/{provider}/callback', [AuthController:: class, "handleProviderCallback"]);
@@ -41,6 +43,11 @@ Route::get('/questions', [QuestionController:: class, "index"])
     ->name("questions.index");
 Route::get('/questions/{id}', [QuestionController:: class, "show"])
     ->name("questions.show");
+
+Route::get('/tags', [TagController:: class, "index"])
+    ->name("tags.index");
+Route::get('/tags/{id}', [TagController:: class, "show"])
+    ->name("tags.show");
 
 Route::get('/comments', [CommentController:: class, "index"])
     ->name("comments.index");
@@ -75,22 +82,41 @@ Route::middleware(['auth:sanctum'])->group(function () {
         ->name("me.questions.destroy");
 
 
-    Route::post('me/comments', [CommentController:: class, "store"])
-        ->name("comments.store");
-    Route::put('me/comments/{id}', [CommentController:: class, "update"])
+    Route::post('tags', [TagController:: class, "store"])
+        ->name("tags.store");
+
+    Route::get('me/comments', [CommentController::class, "meIndex"])
+        ->name("comments.index");
+
+   // Route::post('me/comments', [CommentController::class, "store"])
+    //    ->name("comments.store");
+
+    Route::post('{commentable}/{id}/comments', [CommentController::class, "store"])
+        ->name("commentable.comments.store");
+
+    Route::put('me/comments/{id}', [CommentController::class, "update"])
         ->name("comments.update");
-    Route::delete('me/comments/{id}', [CommentController:: class, "destroy"])
+    Route::delete('me/comments/{id}', [CommentController::class, "destroy"])
         ->name("comments.destroy");
 
 
-    Route::post('me/votes', [VoteController:: class, "store"])
+    Route::post('{votable}/{id}/votes', [VoteController::class, "store"])
         ->name("votes.store");
-    Route::get('me/votes', [VoteController:: class, "index"])
+
+
+
+    Route::get('me/votes', [VoteController::class, "index"])
         ->name("votes.index");
-    Route::put('me/votes/{id}', [VoteController:: class, "update"])
+    Route::put('me/votes/{id}', [VoteController::class, "update"])
         ->name("votes.update");
-    Route::delete('me/votes/{id}', [VoteController:: class, "destroy"])
+    Route::delete('me/votes/{id}', [VoteController::class, "destroy"])
         ->name("votes.destroy");
+
+    Route::post('images', [ImageController::class, "store"])
+        ->name("images.store");
+    Route::get('images/{id}', [ImageController::class, "show"])
+        ->name("images.show");
+    
 });
 
 
@@ -130,7 +156,7 @@ Route::group(['middleware' => ['role:admin|moderator']], function () {
 
 Route::group(['middleware' => ['role:admin']], function () {
     
-    Route::put('admin/user/{id}/grant', [UserController:: class, "updateRole"])
+    Route::put('admin/user/{id}/role', [RoleController:: class, "update"])
         ->name("users.role.update");
 
     Route::put('admin/users/{id}', [UserController:: class, "update"])

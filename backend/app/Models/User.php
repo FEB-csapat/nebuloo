@@ -51,19 +51,24 @@ class User extends Authenticatable
         return $this->hasOne(Rank::class, 'id', 'rank_id');
     }
 
-    public function votes()
+    public function ownedVotes()
     {
-        return $this->hasMany(Vote::class, 'id', 'vote_id');
+        return $this->hasMany(Vote::class, 'owner_user_id');
+    }
+
+    public function recievedVotes()
+    {
+        return $this->hasMany(Vote::class, 'reciever_user_id');
     }
 
 
     public function contents()
     {
-        return $this->hasMany(Content::class, 'id', 'content_id');
+        return $this->hasMany(Content::class, 'creator_user_id');
     }
     public function questions()
     {
-        return $this->hasMany(Question::class, 'id', 'question_id');
+        return $this->hasMany(Question::class, 'creator_user_id');
     }
     public function comments()
     {

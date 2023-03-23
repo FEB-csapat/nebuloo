@@ -33,8 +33,6 @@ class AuthController extends Controller
             return response()->json(['error' => 'Invalid credentials provided.'], 422);
         }
         
-        
-        
         $userCreated = User::firstOrCreate(
             [
                 'email' => $socialUser->getEmail()
@@ -45,6 +43,7 @@ class AuthController extends Controller
                 'bio' => null
             ]
         );
+        $userCreated->assignRole('user');
         $userCreated->provider()->updateOrCreate(
             [
                 'provider' => $provider,
@@ -55,36 +54,8 @@ class AuthController extends Controller
             ]
         );
         $token = $userCreated->createToken('token-name')->plainTextToken;
-
         
         return response()->json(new UserResource($userCreated), 200, ['Access-Token' => $token]);
-        
-        
-        
-        
-        
-        
-        /*
-        
-        $existingUser = User::where('email', $user->email)->first();
-        
-        if($existingUser){
-            
-            $token = $existingUser->createToken('access_token')->accessToken;
-
-        } else {
-            // create a new user
-            $newUser = User::firstOrCreate(
-                ['email' => ],
-                []
-            );
-            $newUser->save();
-            
-            $token = $newUser->createToken('access_token')->accessToken;
-
-            return $token;
-        }
-        */
     }
 
     protected function validateProvider($provider){
