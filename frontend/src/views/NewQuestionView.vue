@@ -24,7 +24,38 @@ export default{
     mounted(){
         this.editor = new EasyMDE({
             element: this.$refs.editor,
-
+            toolbar: [
+                'bold',
+                'italic',
+                'heading',
+                '|',
+                'quote',
+                'unordered-list',
+                'ordered-list',
+                '|',
+                'link',
+                'upload-image',
+                '|',
+                'preview',
+                'side-by-side',
+                'fullscreen',
+                '|',
+                'undo',
+                'redo',
+                '|',
+                'guide',
+            ],
+            spellChecker: false,
+            autofocus: true,
+            uploadImage: true,
+            imageUploadEndpoint: 'localhost:8881/api/images',
+            /*
+            autosave: {
+                enabled: true,
+                uniqueId: "MyUniqueID",
+                delay: 1000,
+            },
+            */
         });
     },
 };
