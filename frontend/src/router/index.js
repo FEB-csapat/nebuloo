@@ -3,12 +3,12 @@ import StartupView from '../views/StartupView.vue'
 import QuestionsView from '../views/QuestionsView.vue'
 import MyProfileView from '../views/MyProfileView.vue'
 import EditMyProfileView from '../views/EditMyProfileView.vue'
-import MaterialsView from '../views/MaterialsView.vue'
+import ContentsView from '../views/ContentsView.vue'
 import LoginView from '../views/LoginView.vue'
 import ASZF from '../views/ASZF.vue'
 import About from '../views/About.vue'
-import NewQuestionView from '../views/NewQuestionView.vue'
-import NewMaterialView from '../views/NewMaterialView.vue'
+import CreateQuestionView from '../views/CreateQuestionView.vue'
+import CreateContentView from '../views/CreateContentView.vue'
 import SupportTicketView from '../views/SupportTicketView.vue'
 import TicketsView from '../views/TicketsView.vue'
 
@@ -36,9 +36,9 @@ const router = createRouter({
       component: EditMyProfileView
     },
     {
-      path: '/materials',
-      name: 'materials',
-      component: MaterialsView
+      path: '/contents',
+      name: 'contents',
+      component: ContentsView
     },
     {
       path: '/login',
@@ -56,17 +56,17 @@ const router = createRouter({
       component: ASZF
     },
     {
-      path: '/new/question',
-      name: 'NewQuestion',
-      component: NewQuestionView
+      path: '/create/question',
+      name: 'CreateQuestion',
+      component: CreateQuestionView
     },
     {
-      path: '/new/material',
-      name: 'NewMaterial',
-      component: NewMaterialView
+      path: '/create/content',
+      name: 'CreateContent',
+      component: CreateContentView
     },
     {
-      path: '/new/ticket',
+      path: '/create/ticket',
       name: 'SupportTicket',
       component: SupportTicketView
     },

@@ -37,9 +37,52 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-sm-4 mx-auto m-4">
+            <div class="container bg-light rounded-3 shadow">
+                <h2 class="text-center">Bejelentkezés</h2>
+                <div class="row text-center p-3">
+                    <div class="col-md-4 mx-auto"><button class="btn shadow" style="background-color: #ffffff; color: #4285f4;" @click="fetchData"><img src="../assets/images/google.png" alt="Button Image"></button> </div>
+                    
+                </div>
+                    <div class="form-check text-center">
+                        <input class="check-input" type="checkbox" value="" id="aszf">
+                        <label class="form-check-label ms-1" for="aszf">
+                          Elfogadom az ÁSZF-et
+                        </label>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col">
+                            <router-link class="nav-link active" aria-current="page" to="/ASZF">ÁSZF</router-link>
+
+                        </div>
+                        <div class="col">
+                            <router-link class="nav-link active" aria-current="page" to="/about">Rólunk</router-link>
+                        </div>
+                    </div>
+            </div>
+        </div>
         
 </template>
 
 <script>
+import axios from 'axios';
 
+export default {
+    methods: {
+        fetchData() {
+            axios.get('http://localhost:8881/api/login/google')
+            .then(response => {
+                console.log(response.data);
+
+                console.log(response.request.responseURL);
+
+                window.location.href = response.request.responseURL;
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        }
+    }
+} 
 </script>

@@ -29,8 +29,7 @@ class ContentController extends Controller
 
         if ($search != null) {
             $contents = $contents
-                ->where('title', 'like', "%{$search}%")
-                ->orWhere('body', 'like', "%{$search}%");
+                ->where('body', 'like', "%{$search}%");
         }
 
         if ($tags != null) {

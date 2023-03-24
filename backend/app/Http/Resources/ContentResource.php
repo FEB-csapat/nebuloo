@@ -16,7 +16,6 @@ class ContentResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
             'body' => $this->body,
             'tags' => TagResource::collection($this->tags),
             'creator' => new SimpleUserResource($this->creator),

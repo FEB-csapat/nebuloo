@@ -7,12 +7,12 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item mx-3">
-            <button class="btn" id="button"><router-link class="nav-link active" aria-current="page" to="/materials">Tananyagok</router-link></button>
+        <li v-if="showContentsButton" class="nav-item mx-3">
+            <button class="btn" id="button"><router-link class="nav-link active" aria-current="page" to="/contents">Tananyagok</router-link></button>
 
         </li>
-        <li class="nav-item">
-            <button class="btn" id="button"><router-link class="nav-link active" aria-current="page" to="/questions">QnA</router-link></button>
+        <li v-if="showQuestionsButton" class="nav-item mx-3">
+            <button class="btn" id="button"><router-link class="nav-link active" aria-current="page" to="/questions">Kérdések</router-link></button>
         </li>
       </ul>
       <form class="d-flex" role="search">
@@ -35,6 +35,14 @@ export default{
     name:"NavBar",
     components:{
         RouterLink
-    }
+    },
+    computed: {
+      showContentsButton() {
+        return this.$route.path !== '/contents';
+      },
+      showQuestionsButton() {
+        return this.$route.path !== '/questions';
+      }
+  },
     }
 </script>
