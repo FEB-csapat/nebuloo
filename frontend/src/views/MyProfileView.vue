@@ -21,6 +21,35 @@
             </div>
     </div>
     
+
+    <h2 class="mt-4">Kérdéseim:</h2>
+    <div class="row bg-light mt-3 rounded-3 p-3 shadow">
+        
+        <p class="ps-5">
+            Quisque iaculis ex risus, et pellentesque risus facilisis id. Integer urna quam, condimentum quis purus quis, accumsan vulputate urna. Fusce feugiat nisi eu molestie posuere. Ut eget interdum dui. Proin dapibus ex sit amet diam placerat semper. Nullam quis volutpat ante. Integer ut urna risus.
+        </p>
+    
+    </div>
+
+    <h2 class="mt-4">Tananyagaim:</h2>
+    <div class="row bg-light mt-3 rounded-3 p-3 shadow">
+        
+        <p class="ps-5">
+            Quisque iaculis ex risus, et pellentesque risus facilisis id. Integer urna quam, condimentum quis purus quis, accumsan vulputate urna. Fusce feugiat nisi eu molestie posuere. Ut eget interdum dui. Proin dapibus ex sit amet diam placerat semper. Nullam quis volutpat ante. Integer ut urna risus.
+        </p>
+    
+    </div>
+
+    <h2 class="mt-4">Kommentjeim:</h2>
+    <div class="row bg-light mt-3 rounded-3 p-3 shadow">
+        
+        <p class="ps-5">
+            Quisque iaculis ex risus, et pellentesque risus facilisis id. Integer urna quam, condimentum quis purus quis, accumsan vulputate urna. Fusce feugiat nisi eu molestie posuere. Ut eget interdum dui. Proin dapibus ex sit amet diam placerat semper. Nullam quis volutpat ante. Integer ut urna risus.
+        </p>
+    
+    </div>
+
+
 </div>
 </template>
 <script>

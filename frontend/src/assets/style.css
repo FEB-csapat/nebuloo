@@ -1,6 +1,22 @@
 #title{
     letter-spacing: 0.5em;
 }
+
+#welcome-title{
+    letter-spacing: 0.2em;
+    font-size: 70px;
+}
+
+#welcome-subtitle{
+    letter-spacing: 0.2em;
+    font-size: 30px;
+}
+
+#welcome-motto{
+    letter-spacing: 0.2em;
+    font-size: 25px;
+}
+
 p{
     letter-spacing: 0.2em;
 }

@@ -1,13 +1,13 @@
 <template>
     <div class="row h-100 bg-primary bg-opacity-75 py-5 text-center text-light">
-        <h1 id="title" class="pt-3 pb-3">Nebuloo</h1>
-        <h4 class="py-3">Tananyag megosztó fórum</h4>
-        <p class="pb-5 pt-3 fs-6">Mert a tudás mindenkit megillet</p>
+        <h1 id="welcome-title" class="pt-3 pb-3">Nebuloo</h1>
+        <h4 id="welcome-subtitle" class="py-3">Tananyag megosztó fórum</h4>
+        <h5 id="welcome-motto" class="pb-5 pt-3 fs-6">Mert a tudás mindenkit megillet</h5>
     </div>
         <div class="container bg-light rounded-4 mt-4 mx-auto text-center py-2 px-4 shadow">
             <div class="row">
-                <p>Nem érted a Viète-formulákat? Kérdezz nyugodtan! Pont hogy érted? Oszdd meg a tudást a többiekkel!</p>
-                <p>Mászd meg a tudás ranglétráját és vállj bölcsé!</p>
+                <h4 class="m-3">Nem érted a Viète-formulákat? Kérdezz nyugodtan! Pont hogy érted? Oszdd meg a tudást a többiekkel!</h4>
+                <h5>Mászd meg a tudás ranglétráját és vállj bölcsé!</h5>
                 <p class="text-start">Rangok:</p>
                 <div class="row text-center">
                     <div class="col-sm-2 col-4">
@@ -38,12 +38,18 @@
             </div>
         </div>
 
-        <div class="col-sm-4 mx-auto m-4">
+        <div class="col-sm-6 mx-auto m-4">
             <div class="container bg-light rounded-3 shadow">
-                <h2 class="text-center">Bejelentkezés</h2>
-                <div class="row text-center p-3">
-                    <div class="col-md-4 mx-auto"><button class="btn shadow" style="background-color: #ffffff; color: #4285f4;" @click="fetchData"><img src="../assets/images/google.png" alt="Button Image"></button> </div>
-                    
+                <h2 class="text-center">Tovább</h2>
+                
+                <div class="row p-3 d-flex justify-content-center text-center">
+                    <div class="col-md-4"><button class="btn shadow" style="background-color: #ffffff; color: #4285f4;" @click="fetchData"><img src="../assets/images/google.png" alt="Button Image"></button> </div>
+                    <p class="col-md-4 align-self-center">Vagy</p>
+                    <div class="col-md-4">
+                        <router-link class="nav-link active" aria-current="page" to="/contents">
+                            <button class="btn shadow" style="background-color: #ffffff; color: #4285f4;">Bejelentkezés nélkül</button>
+                        </router-link>
+                    </div>
                 </div>
                     <div class="form-check text-center">
                         <input class="check-input" type="checkbox" value="" id="aszf">
