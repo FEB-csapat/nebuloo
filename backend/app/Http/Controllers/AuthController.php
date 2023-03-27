@@ -55,7 +55,19 @@ class AuthController extends Controller
         );
         $token = $userCreated->createToken('token-name')->plainTextToken;
         
-        return response()->json(new UserResource($userCreated), 200, ['Access-Token' => $token]);
+        /*
+        return redirect('/questions')->with([
+            'user' => new UserResource($userCreated),
+            'token' => $token
+        ]);
+        */
+        
+        return response()->json(new UserResource($userCreated), 200, [
+            'Access-Token' => $token,
+            'Access-Control-Expose-Headers', 'Authorization',
+            'Access-Control-Allow-Origin', '*'
+        ]);
+        
     }
 
     protected function validateProvider($provider){

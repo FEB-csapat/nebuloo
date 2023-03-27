@@ -17,28 +17,24 @@ class RankSeeder extends Seeder
     public function run()
     {
         DB::table('ranks')->insert([
-            'user_id' => null,
-            'name' => 'student',
+            'name' => 'zöldfülű',
+            'description' => '1 tananyag vagy 2 kérdés feltöltése vagy 5 upvote',
             'image' => 'placeholder'
         ]);
         DB::table('ranks')->insert([
-            'user_id' => null,
-            'name' => 'smartass',
+            'name' => 'okostojás',
             'image' => 'placeholder'
         ]);
         DB::table('ranks')->insert([
-            'user_id' => null,
-            'name' => 'tutor',
+            'name' => 'lángész',
             'image' => 'placeholder'
         ]);
         DB::table('ranks')->insert([
-            'user_id' => null,
-            'name' => 'teacher',
+            'name' => 'géniusz',
             'image' => 'placeholder'
         ]);
         DB::table('ranks')->insert([
-            'user_id' => null,
-            'name' => 'professor',
+            'name' => 'bölcs',
             'image' => 'placeholder'
         ]);
     }

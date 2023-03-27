@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('creator_user_id');
             $table->foreignId('comment_id')->nullable();
-            $table->string('title');
             $table->longText('body');
             //$table->string('attachements');
             //$table->string('license'); ??
