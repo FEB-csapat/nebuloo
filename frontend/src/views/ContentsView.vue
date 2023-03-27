@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    <router-link class="nav-link active" aria-current="page" to="/new/content">
+    <router-link class="nav-link active" aria-current="page" to="/create/content">
         <div class="fab-button" @click="onClick">
             <span class="m-3">Create new content</span>
             <i class="fas fa-plus fa-lg"/>
