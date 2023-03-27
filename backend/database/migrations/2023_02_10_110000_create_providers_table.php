@@ -13,18 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('votes', function (Blueprint $table) {
+        Schema::create('providers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('owner_user_id');
-            $table->foreignId('reciever_user_id');
-            $table->morphs('votable');
-            $table->enum('direction', ['up', 'down']);
+            $table->string('provider');
+            $table->string('provider_id');
+            $table->foreignId('user_id')->unsigned()->references('id')->on('users')->cascadeOnDelete();
+            $table->string('avatar')->nullable();
             $table->timestamps();
-            
-            /*
-            $table->foreign('owner_user_id')->references('id')->on('users');
-            $table->foreign('granted_user_id')->references('id')->on('users');
-            */
         });
     }
 

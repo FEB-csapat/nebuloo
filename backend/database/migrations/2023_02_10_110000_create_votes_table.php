@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('images', function (Blueprint $table) {
+        Schema::create('votes', function (Blueprint $table) {
             $table->id();
-            $table->string('path');
-            $table->foreignId('creator_user_id');
+            $table->foreignId('owner_user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreignId('reciever_user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->morphs('votable');
+            $table->enum('direction', ['up', 'down']);
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('images');
+        Schema::dropIfExists('votes');
     }
 };

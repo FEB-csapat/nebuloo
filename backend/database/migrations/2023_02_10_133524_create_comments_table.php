@@ -13,17 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
+        // TODO add comment section table
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('creator_user_id');
+            $table->foreignId('creator_user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->morphs('commentable');
-            $table->foreignId('parent_comment_id')->nullable();
+            $table->foreignId('parent_comment_id')->nullable()->references('id')->on('comments')->cascadeOnDelete();
             $table->longText('message');
             $table->timestamps();
-
-
-           // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-           // $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
         });
     }
 

@@ -35,7 +35,7 @@ class ContentController extends Controller
         if ($tags != null) {
             $contents = $contents->withAnyTags($tags);
         }
-        return ContentResource::collection($contents->paginate(15));
+        return ContentResource::collection($contents->paginate());
     }
      
 

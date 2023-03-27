@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
+        // TODO check if the foreign id references work
         Schema::create('contents', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('creator_user_id');
-            $table->foreignId('comment_id')->nullable();
+            $table->foreignId('creator_user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->longText('body');
             //$table->string('attachements');
             //$table->string('license'); ??

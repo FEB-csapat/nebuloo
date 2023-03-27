@@ -18,7 +18,6 @@ class SimpleContentResource extends JsonResource
             'id' => $this->id,
             'vote_up' => $this->votes->where('direction', 'up')->count(),
             'vote_down' => $this->votes->where('direction', 'down')->count(),
-            'title' => $this->title,
             'body' => $this->body,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

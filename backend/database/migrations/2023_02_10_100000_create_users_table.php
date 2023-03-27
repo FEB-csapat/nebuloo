@@ -23,8 +23,6 @@ return new class extends Migration
 
             $table->foreignId('rank_id')->default(1);
             
-            
-
             $table->string('name');
             $table->string('bio')->nullable();
             $table->timestamps();

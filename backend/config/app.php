@@ -214,4 +214,7 @@ return [
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ])->toArray(),
 
+    'pagination' => [
+        'per_page' => 10,
+    ],
 ];

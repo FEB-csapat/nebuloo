@@ -40,7 +40,6 @@ class ApiContentTest extends TestCase
         ->withHeaders([
             'Accept' => 'application/json',
         ])->post('api/me/contents', [
-            'title' => 'test title',
             'body' => 'test body'
         ]);
         
@@ -51,7 +50,7 @@ class ApiContentTest extends TestCase
      * Tests that a user who is not logged in cannot create a content.
      */
 
-    public function test_content_creation_failing_without_title_and_body()
+    public function test_content_creation_failing_without_body()
     {
 
         $user = User::factory()->withNameAndEmail()->create();
@@ -66,9 +65,8 @@ class ApiContentTest extends TestCase
         $response
             ->assertStatus(422)
             ->assertJson([
-                'message' => 'The title field is required. (and 1 more error)',
+                'message' => 'The body field is required.',
                 'errors' => [
-                    'title' => ['The title field is required.'],
                     'body' => ['The body field is required.']
                 ]
         ]);
@@ -90,9 +88,8 @@ class ApiContentTest extends TestCase
         $response
             ->assertStatus(422)
             ->assertJson([
-                'message' => 'The title field is required. (and 1 more error)',
+                'message' => 'The body field is required.',
                 'errors' => [
-                    'title' => ['The title field is required.'],
                     'body' => ['The body field is required.']
                 ]
         ]);
@@ -106,7 +103,6 @@ class ApiContentTest extends TestCase
         ->withHeaders([
             'Accept' => 'application/json',
         ])->post('api/me/contents', [
-            'title' => 'test title',
             'body' => 'test body'
         ]);
         
@@ -120,7 +116,6 @@ class ApiContentTest extends TestCase
         ->withHeaders([
             'Accept' => 'application/json',
         ])->put('api/me/contents/'.$id, [
-            'title' => 'test title updated',
             'body' => 'test body updated'
         ]);
         
@@ -140,7 +135,6 @@ class ApiContentTest extends TestCase
         ->withHeaders([
             'Accept' => 'application/json',
         ])->post('api/me/contents', [
-            'title' => 'test title',
             'body' => 'test body'
         ]);
         
@@ -153,14 +147,12 @@ class ApiContentTest extends TestCase
         ->withHeaders([
             'Accept' => 'application/json',
         ])->put('api/me/contents/'.$id, [
-            'title' => 'test title updated',
             'body' => 'test body updated'
         ]);
         
         $response
             ->assertStatus(200)
             ->assertJson([
-                'title' => 'test title updated',
                 'body' => 'test body updated'
         ]);
     }

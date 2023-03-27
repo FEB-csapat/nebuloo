@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RankController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FeedController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\VoteController;
@@ -32,6 +33,9 @@ Route::get('/users', [UserController:: class, "index"])
     ->name("users.index");
 Route::get('/users/{id}', [UserController:: class, "show"])
     ->name("users.show");
+
+Route::get('/feed', [FeedController:: class, "index"])
+    ->name("feed.index");
 
 Route::get('/contents', [ContentController:: class, "index"])
     ->name("contents.index");

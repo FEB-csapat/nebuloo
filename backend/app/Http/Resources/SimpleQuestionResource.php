@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class QuestionResource extends JsonResource
+class SimpleQuestionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,8 @@ class QuestionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'creator' => new SimpleUserResource($this->creator),
             'vote_up' => $this->votes->where('direction', 'up')->count(),
             'vote_down' => $this->votes->where('direction', 'down')->count(),
-            'comments' => CommentResource::collection($this->comments),
             'title' => $this->title,
             'body' => $this->body,
             'created_at' => $this->created_at,
