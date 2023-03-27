@@ -25,20 +25,6 @@ class User extends Authenticatable
         'email', 'email_verified_at', 'name', 'bio',
     ];
 
-
-
-    static function fromGoogle(GoogleUser $googleUser) : User {
-        
-        $newUser = new User;
-        $newUser->google_id = $googleUser->id;
-        $newUser->name = $googleUser->name;
-        $newUser->email = $googleUser->email;
-        
-        $newUser->avatar = $googleUser->avatar;
-        $newUser->avatar_original = $googleUser->avatar_original;
-        
-        return $newUser;
-    }
     
     public function provider()
     {
