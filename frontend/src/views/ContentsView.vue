@@ -28,36 +28,3 @@
 <script>
 
 </script>
-
-<style scoped>
-.fab-button {
-  position: fixed;
-  background-color: #3585db;
-  border: none;
-  color: white;
-  padding: 16px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 17px;
-  margin: 4px 2px;
-  padding: 16px;
-  cursor: pointer;
-  border-radius: 7% / 25%;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
-}
-
-.fab-button:hover {
-  background-color: #0062cc;
-  transform: translateY(-1.7px);
-}
-
-.fab-button:active {
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
-    transform: translateY(1px);
-    transition: transform 0.1s ease-in-out;
-  }
-</style>

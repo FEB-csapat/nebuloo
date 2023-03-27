@@ -15,7 +15,12 @@
             </div>
         </div>
     </div>
-<button id="newquestion" class="rounded-5 position-fixed bottom-0 end-0 mb-3 me-3"><router-link class="nav-link active" aria-current="page" to="/new/question">+</router-link></button>
+    <router-link class="nav-link active" aria-current="page" to="/create/content">
+        <div class="fab-button" @click="onClick">
+            <span class="m-3">Create new content</span>
+            <i class="fas fa-plus fa-lg"/>
+        </div>
+    </router-link>
 </template>
 
 <script>
