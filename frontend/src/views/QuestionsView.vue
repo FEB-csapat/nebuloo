@@ -18,7 +18,7 @@
     </div>
     <router-link class="nav-link active" aria-current="page" to="/create/question">
         <div class="fab-button" @click="onClick">
-            <span class="m-3">Create new content</span>
+            <span class="m-3">Create new question</span>
             <i class="fas fa-plus fa-lg"/>
         </div>
     </router-link>
