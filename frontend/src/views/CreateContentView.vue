@@ -2,7 +2,8 @@
 <div class="container my-3 ">
     <div class="row bg-light shadow rounded-3 p-2">
         <h1 id="title">Új tananyag létrehozása</h1>
-        <div class="text-end">
+        <creation-form/>
+        <div class="text-end p-3">
             <button class="btn" id="button">
                 Létrehozás
             </button>
