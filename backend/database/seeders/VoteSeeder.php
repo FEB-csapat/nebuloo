@@ -30,5 +30,8 @@ class VoteSeeder extends Seeder
             'votable_type' => 'App\Models\Content',
             'direction' => 'up',
         ]);
+
+
+        Vote::factory()->count(100)->create();
     }
 }

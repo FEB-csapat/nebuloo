@@ -7,18 +7,18 @@ use Tests\TestCase;
 
 use App\Models\User;
 
-class ApiContentTest extends TestCase
+class ApiQuestionTest extends TestCase
 {
     /**
-     * Tests that a user who is not logged in cannot create a content.
+     * Tests that a user who is not logged in cannot create a question.
      */
 
-    public function test_content_creation_as_unauthorized_user()
+    public function test_question_creation_as_unauthorized_user()
     {
-        // add accept header to me/contents route
+        // add accept header to me/questions route
         $response = $this->withHeaders([
             'Accept' => 'application/json',
-        ])->post('api/me/contents', [
+        ])->post('api/me/questions', [
             'title' => 'test title',
             'body' => 'test body'
         ]);
@@ -28,10 +28,10 @@ class ApiContentTest extends TestCase
     }
 
     /**
-     * Tests that a user who is not logged in cannot create a content.
+     * Tests that a user who is not logged in cannot create a question.
      */
 
-    public function test_content_creation_successful()
+    public function test_question_creation_successful()
     {
 
         $user = User::factory()->create();
@@ -39,18 +39,16 @@ class ApiContentTest extends TestCase
         $response = $this->actingAs($user, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
-        ])->post('api/me/contents', [
+        ])->post('api/me/questions', [
+            'title' => 'test title',
             'body' => 'test body'
         ]);
         
         $response->assertStatus(201);
     }
 
-    /**
-     * Tests that a user who is not logged in cannot create a content.
-     */
 
-    public function test_content_creation_failing_without_body()
+    public function test_question_creation_without_title()
     {
 
         $user = User::factory()->create();
@@ -58,51 +56,29 @@ class ApiContentTest extends TestCase
         $response = $this->actingAs($user, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
-        ])->post('api/me/contents', [
+        ])->post('api/me/questions', [
             // empty
         ]);
         
         $response
             ->assertStatus(422)
             ->assertJson([
-                'message' => 'The body field is required.',
+                'message' => 'The title field is required.',
                 'errors' => [
-                    'body' => ['The body field is required.']
+                    'title' => ['The title field is required.']
                 ]
         ]);
     }
 
-
-    public function test_content_creation_without_title_and_body()
-    {
-
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user, 'sanctum')
-        ->withHeaders([
-            'Accept' => 'application/json',
-        ])->post('api/me/contents', [
-            // empty
-        ]);
-        
-        $response
-            ->assertStatus(422)
-            ->assertJson([
-                'message' => 'The body field is required.',
-                'errors' => [
-                    'body' => ['The body field is required.']
-                ]
-        ]);
-    }
-
-    public function test_content_update_failing_not_creator()
+    public function test_question_update_failing_not_creator()
     {
         $otherUser = User::factory()->create();
         
         $response = $this->actingAs($otherUser, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
-        ])->post('api/me/contents', [
+        ])->post('api/me/questions', [
+            'title' => 'test title',
             'body' => 'test body'
         ]);
         
@@ -115,7 +91,8 @@ class ApiContentTest extends TestCase
         $response = $this->actingAs($user, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
-        ])->put('api/me/contents/'.$id, [
+        ])->put('api/me/questions/'.$id, [
+            'title' => 'test title updated',
             'body' => 'test body updated'
         ]);
         
@@ -127,14 +104,15 @@ class ApiContentTest extends TestCase
     }
 
 
-    public function test_content_update_successful()
+    public function test_question_update_successful()
     {
         $user = User::factory()->create();
 
         $response = $this->actingAs($user, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
-        ])->post('api/me/contents', [
+        ])->post('api/me/questions', [
+            'title' => 'test title',
             'body' => 'test body'
         ]);
         
@@ -146,13 +124,15 @@ class ApiContentTest extends TestCase
         $response = $this->actingAs($user, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
-        ])->put('api/me/contents/'.$id, [
+        ])->put('api/me/questions/'.$id, [
+            'title' => 'test title updated',
             'body' => 'test body updated'
         ]);
         
         $response
             ->assertStatus(200)
             ->assertJson([
+                'title' => 'test title updated',
                 'body' => 'test body updated'
         ]);
     }

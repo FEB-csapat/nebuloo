@@ -35,6 +35,6 @@ class ContentSeeder extends Seeder
         ])->attachTag("history", 'offical-subject');
 
         
-        Content::factory()->count(200)->withTitleAndBody()->create();
+        Content::factory()->count(200)->create();
     }
 }

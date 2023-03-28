@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\User;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Question>
@@ -17,7 +18,9 @@ class QuestionFactory extends Factory
     public function definition()
     {
         return [
-            
+            'title' => $this->faker->title,
+            'body' => $this->faker->paragraph,
+            'creator_user_id' => User::inRandomOrder()->first()->id,
         ];
     }
 

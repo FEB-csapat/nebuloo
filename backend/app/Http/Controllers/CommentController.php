@@ -16,6 +16,7 @@ class CommentController extends Controller
      */
     public function index(Request $request)
     {
+        
         $this->authorize('viewAny', Comment::class);
         
         $comments = Comment::all();

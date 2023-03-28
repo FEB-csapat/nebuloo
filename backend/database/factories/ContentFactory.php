@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use App\Models\User;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Content>
@@ -18,7 +19,8 @@ class ContentFactory extends Factory
     public function definition()
     {
         return [
-            
+            'body' => $this->faker->paragraph,
+            'creator_user_id' => User::inRandomOrder()->first()->id,
         ];
     }
 
@@ -30,15 +32,5 @@ class ContentFactory extends Factory
     public function unverified()
     {
         
-    }
-
-    public function withTitleAndBody()
-    {
-        return $this->state(function (array $attributes) {
-            return [
-                'body' => $this->faker->paragraph,
-                'creator_user_id' => $this->faker->numberBetween(1, 3),
-            ];
-        });
     }
 }

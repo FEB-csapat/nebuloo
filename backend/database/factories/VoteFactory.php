@@ -3,6 +3,10 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Question;
+use App\Models\Content;
+use App\Models\Comment;
+use App\Models\User;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Vote>
@@ -16,8 +20,23 @@ class VoteFactory extends Factory
      */
     public function definition()
     {
-        return [
+        $votableType = $this->faker->randomElement(['App\Models\Content', 'App\Models\Question', 'App\Models\Comment']);
+        
+        if ($votableType === 'App\Models\Content') {
+            $votable = Content::inRandomOrder()->first();
+        } elseif ($votableType === 'App\Models\Question') {
+            $votable = Question::inRandomOrder()->first();
+        } else {
+            $votable = Comment::inRandomOrder()->first();
+        }
 
+        $randomizedUsers = User::inRandomOrder()->get();
+        return [
+            'owner_user_id' => $randomizedUsers->first()->id,
+            'reciever_user_id' => $randomizedUsers->last()->id,
+            'votable_id' => $votable->id,
+            'votable_type' => $votableType,
+            'direction' => $this->faker->randomElement(['up', 'down'])
         ];
     }
 
