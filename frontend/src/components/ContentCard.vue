@@ -14,7 +14,7 @@
     props:{
         id: Number,
         creator_user_id:Number,
-        body:Text
+        body:String
     }
  }
 </script>
