@@ -14,6 +14,7 @@
 
 <script>
 import Cards from '../components/Cards.vue'
+import { NebulooFetch } from '../utils/https.mjs';
 export default{
     components:{
         Cards
@@ -25,16 +26,11 @@ export default{
     },
     methods:{
         async getAllContent(){
-            const headers = {'Content-Type':'application/json'}
-            const resp = await fetch('http://localhost:8881/api/contents',
-            {
-                method: 'GET',
-                headers: headers
-            });
-            this.Contents = await resp.json();
-        }
+            this.Contents = (await NebulooFetch.getAllContent()).data;
+        },
     },
-    mounted(){
+    async mounted(){
+        NebulooFetch.initialize();
         this.getAllContent();
     }
 }
