@@ -7,12 +7,14 @@ use Tests\TestCase;
 
 use App\Models\User;
 
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 class ApiContentTest extends TestCase
 {
+    use DatabaseTransactions;
+
     /**
      * Tests that a user who is not logged in cannot create a content.
      */
-
     public function test_content_creation_as_unauthorized_user()
     {
         // add accept header to me/contents route
@@ -24,7 +26,6 @@ class ApiContentTest extends TestCase
         ]);
 
         $response->assertStatus(401);
-
     }
 
     /**
@@ -33,7 +34,6 @@ class ApiContentTest extends TestCase
 
     public function test_content_creation_successful()
     {
-
         $user = User::factory()->create();
 
         $response = $this->actingAs($user, 'sanctum')
@@ -141,7 +141,6 @@ class ApiContentTest extends TestCase
         $response->assertStatus(201);
         
         $id = $response->json('id');
-
 
         $response = $this->actingAs($user, 'sanctum')
         ->withHeaders([

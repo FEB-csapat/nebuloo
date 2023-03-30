@@ -54,7 +54,7 @@
                     <div class="form-check text-center">
                         <input class="check-input" type="checkbox" value="" id="aszf">
                         <label class="form-check-label ms-1" for="aszf">
-                          Elfogadom az ÁSZF-et
+                            Elfogadom az ÁSZF-et
                         </label>
                     </div>
                     <div class="row text-center">
@@ -90,5 +90,5 @@ export default {
             });
         }
     }
-} 
+}
 </script>

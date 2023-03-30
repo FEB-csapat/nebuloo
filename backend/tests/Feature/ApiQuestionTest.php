@@ -7,12 +7,16 @@ use Tests\TestCase;
 
 use App\Models\User;
 
+
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
 class ApiQuestionTest extends TestCase
 {
+    use DatabaseTransactions;
+
     /**
      * Tests that a user who is not logged in cannot create a question.
      */
-
     public function test_question_creation_as_unauthorized_user()
     {
         // add accept header to me/questions route
@@ -30,7 +34,6 @@ class ApiQuestionTest extends TestCase
     /**
      * Tests that a user who is not logged in cannot create a question.
      */
-
     public function test_question_creation_successful()
     {
 
