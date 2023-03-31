@@ -3,7 +3,7 @@
     <div class="row bg-light mt-3 rounded-3 p-3 shadow">
         <div class="col text-center">
             <img src="https://placeholder.pics/svg/60" alt="">
-        <p class="fs-6">{{ mydata.rank}}</p>
+        <p class="fs-6">{{ myrank.name}}</p>
         <p class="fs-4">{{ mydata.name }}</p>
         </div>
         <h2>Bio:</h2>
@@ -71,6 +71,7 @@ methods:{
         this.MyQuestions = this.mydata.questions;
         this.MyComments = this.mydata.comments;
         this.MyContents = this.mydata.contents;
+        this.myrank = this.mydata.rank;
     }
 },
 computed: { 
