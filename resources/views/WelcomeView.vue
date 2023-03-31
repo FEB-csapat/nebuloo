@@ -81,7 +81,7 @@ import GoogleAuth from 'vue-google-oauth2'
 
 export default {
 
-    
+    /*
     methods: {
     signIn() {
       const clientId = '696699163899-v5cqgj49pei5ou6nbb2i9kr8bpeh8coe.apps.googleusercontent.com';
@@ -130,6 +130,8 @@ export default {
     }
   },
 
+  */
+
 
     /*
     methods: {
@@ -157,15 +159,3 @@ export default {
     */
 }
 </script>
-
-<style>
-.g-signin-button {
-  /* This is where you control how the button looks. Be creative! */
-  display: inline-block;
-  padding: 4px 8px;
-  border-radius: 3px;
-  background-color: #3c82f7;
-  color: #fff;
-  box-shadow: 0 3px 0 #0f69ff;
-}
-</style> 
