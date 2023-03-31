@@ -5,10 +5,11 @@ export class NebulooFetch{
 
     static http;
 
-    static initialize(){
+    static initialize(token){
         NebulooFetch.http = axios.create({
             baseURL: this.baseUrl,
             headers: {
+                'Authorization':"Bearer " + token,
                 'Content-Type': 'application/json'
             }
         })
@@ -22,4 +23,9 @@ export class NebulooFetch{
         const response = NebulooFetch.http.get("contents");
         return response;
     };
+    static createQuestion(data){
+        const response = NebulooFetch.http.post('me/questions',data)
+        .then(alert("Sikeres létrehozás!"));
+
+    }
 }

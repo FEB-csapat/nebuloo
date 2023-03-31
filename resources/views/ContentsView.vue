@@ -1,6 +1,11 @@
 <template>
     <div class="container mt-4">
         <h1 class="text-center mb-4">Contents</h1>
+        <div class="row" v-if="isWaiting">
+            <div class="spinner-border mx-auto" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
         <cards :Contents="Contents"/>
     </div>
 
@@ -22,12 +27,14 @@ export default{
     },
     data(){
         return{
-            Contents: []
+            Contents: [],
+            isWaiting: true
         }
     },
     methods:{
         async getAllContent(){
             this.Contents = (await NebulooFetch.getAllContent()).data.data;
+            this.isWaiting = false;
         },
     },
     async mounted(){
