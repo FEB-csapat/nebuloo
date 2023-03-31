@@ -2,7 +2,6 @@
     <div class="container mt-4">
         <h1 class="text-center mb-4">Questions</h1>
         <div class="row" v-if="isWaiting">
-
             <div class="spinner-border mx-auto" role="status">
                 <span class="visually-hidden">Loading...</span>
             </div>
@@ -35,15 +34,12 @@ components:{
     methods:{
         async getAllQuestions(){
             this.Questions = (await NebulooFetch.getAllQuestions()).data.data;
-            isWaiting = false;
-
+            this.isWaiting = false;
         },
     },
     async mounted(){
-        
         NebulooFetch.initialize();
         this.getAllQuestions();
-        isWaiting = false;
     }
 }
 </script>

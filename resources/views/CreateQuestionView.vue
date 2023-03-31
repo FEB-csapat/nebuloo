@@ -1,65 +1,53 @@
 <template>
-<div class="container my-3 ">
-    <div class="row bg-light shadow rounded-3 p-2">
-        <h1 id="title">Új kérdés feltétele</h1>
-        <creation-form/>
-        <div class="text-end p-2">
-            <button class="btn" id="button">
-                Létrehozás
-            </button>
+    <div class="container my-3 ">
+        <div class="row bg-light shadow rounded-3 p-2">
+            <h1 id="title">Új kérdés feltétele</h1>
+            <div>
+                <label for="cim" class="form-label pt-2">Cím*</label>
+                <input type="text" id="cim" v-model="title" class="form-control">
+
+                <label for="leiras" class="form-label pt-2">Leírás*</label>
+                <textarea name="leiras" id="leiras" v-model="body" rows="5" class="form-control"></textarea>
+
+                <label for="cimkek" class="form-label pt-2">Címkék hozzáadása</label>
+                    <input type="text" name="cimkek" id="cimkek" class="form-control">
+            </div>
+            <div class="text-end p-2">
+                <button class="btn" id="button" @click="NewQuestion()">
+                    Létrehozás
+                </button>
+            </div>
+           
         </div>
-       
     </div>
-</div>
-</template>
-
-<script>
-import CreationForm from '../components/CreationForm.vue';
-import EasyMDE from 'easymde';
-import 'easymde/dist/easymde.min.css';
-
-export default{
-   components:{
-    CreationForm
-  },
-    mounted(){
-        this.editor = new EasyMDE({
-            element: this.$refs.editor,
-            toolbar: [
-                'bold',
-                'italic',
-                'heading',
-                '|',
-                'quote',
-                'unordered-list',
-                'ordered-list',
-                '|',
-                'link',
-                'upload-image',
-                '|',
-                'preview',
-                'side-by-side',
-                'fullscreen',
-                '|',
-                'undo',
-                'redo',
-                '|',
-                'guide',
-            ],
-            spellChecker: false,
-            autofocus: true,
-            uploadImage: true,
-            imageUploadEndpoint: 'localhost:8881/api/images',
-            /*
-            autosave: {
-                enabled: true,
-                uniqueId: "MyUniqueID",
-                delay: 1000,
-            },
-            */
-        });
-
-        document.title = "Nebuloo - create question";
-    },
-};
-</script>
+    </template>
+    
+    <script>
+    import { NebulooFetch } from '../utils/https.mjs';
+    export default{
+        data(){
+            return{
+                title:"",
+                body:"",
+                token:"2|kWPwXPiu7895mIJJI9HsH8uxcEKZYqHd2G58w61E"
+            }
+        },
+        methods:{
+            NewQuestion(){
+                const data = JSON.stringify(this.question);
+                NebulooFetch.createQuestion(data);
+            }
+        },
+        mounted(){
+            NebulooFetch.initialize(token);
+        },
+        computed:{
+            question(){
+                return{
+                    title:this.title,
+                    body:this.body
+                }
+            }
+        }
+    };
+    </script>
