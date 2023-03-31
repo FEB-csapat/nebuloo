@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('email_verified_at')->nullable();
 
+            $table->string('password')->nullable();
+
             $table->rememberToken();
 
             $table->foreignId('rank_id')->default(1);

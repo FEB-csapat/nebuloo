@@ -43,7 +43,7 @@
                 <h2 class="text-center">Tovább</h2>
                 
                 <div class="row p-3 d-flex justify-content-center text-center">
-                    <div class="col-md-4"><button class="btn shadow" style="background-color: #ffffff; color: #4285f4;" @click="fetchData"><img src="../assets/images/google.png" alt="Button Image"></button> </div>
+                    <div class="col-md-4"><button class="btn shadow" style="background-color: #ffffff; color: #4285f4;" @click="signIn"><img src="../assets/images/google.png" alt="Button Image"></button> </div>
                     <p class="col-md-4 align-self-center">Vagy</p>
                     <div class="col-md-4">
                         <router-link class="nav-link active" aria-current="page" to="/contents">
@@ -65,6 +65,9 @@
                         <div class="col">
                             <router-link class="nav-link active" aria-current="page" to="/about">Rólunk</router-link>
                         </div>
+
+
+
                     </div>
             </div>
         </div>
@@ -74,9 +77,68 @@
 <script>
 import axios from 'axios';
 
+import GoogleAuth from 'vue-google-oauth2'
+
 export default {
+
+    
     methods: {
-        fetchData() {
+    signIn() {
+      const clientId = '696699163899-v5cqgj49pei5ou6nbb2i9kr8bpeh8coe.apps.googleusercontent.com';
+      const redirectUri = 'http://localhost:8881/login/callback';
+      const scope = 'https://www.googleapis.com/auth/plus.me';
+      const responseType = 'code';
+      const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}`;
+      window.location.href = url;
+    },
+    async exchangeCodeForToken(code) {
+      const clientId = 'YOUR_CLIENT_ID';
+      const clientSecret = 'YOUR_CLIENT_SECRET';
+      const redirectUri = 'YOUR_REDIRECT_URI';
+      const grantType = 'authorization_code';
+      const url = 'https://oauth2.googleapis.com/token';
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `code=${code}&client_id=${clientId}&client_secret=${clientSecret}&redirect_uri=${redirectUri}&grant_type=${grantType}`,
+      });
+      const data = await response.json();
+      return data;
+    },
+    async getUserInfo(accessToken) {
+      const url = 'https://www.googleapis.com/plus/v1/people/me';
+      const response = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      const data = await response.json();
+      return data;
+    },
+  },
+  async mounted() {
+    const searchParams = new URLSearchParams(window.location.search);
+    const code = searchParams.get('code');
+    if (code) {
+      const { access_token, refresh_token } = await this.exchangeCodeForToken(code);
+      localStorage.setItem('access_token', access_token);
+      localStorage.setItem('refresh_token', refresh_token);
+      const userInfo = await this.getUserInfo(access_token);
+      console.log(userInfo);
+    }
+  },
+
+
+    /*
+    methods: {
+        async fetchData() {
+
+            const authCode = await this.$gAuth.getAuthCode()
+            const response = await this.$http.post('http://localhost:8881/api/login/google/callback', { code: authCode, redirect_uri: 'postmessage' })
+
+            /*
             axios.get('http://localhost:8881/api/login/google')
             .then(response => {
                 console.log(response.data);
@@ -88,7 +150,22 @@ export default {
             .catch(error => {
                 console.log(error);
             });
+
+            
         }
     }
+    */
 }
 </script>
+
+<style>
+.g-signin-button {
+  /* This is where you control how the button looks. Be creative! */
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 3px;
+  background-color: #3c82f7;
+  color: #fff;
+  box-shadow: 0 3px 0 #0f69ff;
+}
+</style> 
