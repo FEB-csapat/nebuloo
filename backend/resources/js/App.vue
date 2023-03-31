@@ -11,8 +11,7 @@ export default{
 
   computed: { 
     isNotAtWelcomePage() {
-      return true;
-      //return this.$route.path !== '/welcome';
+      return this.$route.path !== '/';
     }
   },
 }

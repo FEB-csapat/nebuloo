@@ -16,6 +16,7 @@
 <script>
 import CreationForm from '../components/CreationForm.vue';
 import EasyMDE from 'easymde';
+import 'easymde/dist/easymde.min.css';
 
 export default{
    components:{
@@ -57,6 +58,8 @@ export default{
             },
             */
         });
+
+        document.title = "Nebuloo - create question";
     },
 };
 </script>

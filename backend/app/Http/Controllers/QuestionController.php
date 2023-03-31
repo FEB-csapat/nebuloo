@@ -36,7 +36,7 @@ class QuestionController extends Controller
             $questions = $questions->withAnyTags($tags);
         }
 
-        return QuestionResource::collection($questions->get());
+        return QuestionResource::collection($questions->paginate());
     }
 
     /**

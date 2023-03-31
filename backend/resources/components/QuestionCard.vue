@@ -16,7 +16,7 @@ export default{
         id: Number,
         creator_user_id: Number,
         title: String,
-        body:Text
+        body:String
     }
 }
 </script>
