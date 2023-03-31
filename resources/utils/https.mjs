@@ -1,4 +1,5 @@
 import axios from "axios";
+import router from "../router/index.js";
 
 export class NebulooFetch{
     static baseUrl = "http://localhost:8881/api/";
@@ -25,7 +26,14 @@ export class NebulooFetch{
     };
     static createQuestion(data){
         const response = NebulooFetch.http.post('me/questions',data)
-        .then(alert("Sikeres létrehozás!"));
+        .then(()=>{
+            alert("Sikeres létrehozás!");
+            router.push('/myprofile');
+        });
+    };
+    static getMyDatas(){
+        const response = NebulooFetch.http.get("me");
+        return response;
+    };
 
-    }
 }

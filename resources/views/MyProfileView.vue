@@ -3,12 +3,12 @@
     <div class="row bg-light mt-3 rounded-3 p-3 shadow">
         <div class="col text-center">
             <img src="https://placeholder.pics/svg/60" alt="">
-        <p class="fs-6">Rangom</p>
-        <p class="fs-4">Nevem</p>
+        <p class="fs-6">{{ mydata.rank}}</p>
+        <p class="fs-4">{{ mydata.name }}</p>
         </div>
         <h2>Bio:</h2>
     <p class="ps-5">
-        Quisque iaculis ex risus, et pellentesque risus facilisis id. Integer urna quam, condimentum quis purus quis, accumsan vulputate urna. Fusce feugiat nisi eu molestie posuere. Ut eget interdum dui. Proin dapibus ex sit amet diam placerat semper. Nullam quis volutpat ante. Integer ut urna risus.
+        {{ mydata.bio }}
     </p>
     <h2>Érdekeltségi kör:</h2>
     <ul class="ps-5">
@@ -22,23 +22,17 @@
     </div>
     
 
-    <h2 class="mt-4">Kérdéseim:</h2>
-    <div class="row bg-light mt-3 rounded-3 p-3 shadow">
-        
-        <p class="ps-5">
-            Quisque iaculis ex risus, et pellentesque risus facilisis id. Integer urna quam, condimentum quis purus quis, accumsan vulputate urna. Fusce feugiat nisi eu molestie posuere. Ut eget interdum dui. Proin dapibus ex sit amet diam placerat semper. Nullam quis volutpat ante. Integer ut urna risus.
-        </p>
-    
-    </div>
+    <h2 class="mt-4 mb-2">Kérdéseim:</h2>
+    <p v-if="IHaveQuestions==false">
+        Nincsenek kérdéseim.
+    </p>
+    <cards :Questions="MyQuestions" v-else/>
 
-    <h2 class="mt-4">Tananyagaim:</h2>
-    <div class="row bg-light mt-3 rounded-3 p-3 shadow">
-        
-        <p class="ps-5">
-            Quisque iaculis ex risus, et pellentesque risus facilisis id. Integer urna quam, condimentum quis purus quis, accumsan vulputate urna. Fusce feugiat nisi eu molestie posuere. Ut eget interdum dui. Proin dapibus ex sit amet diam placerat semper. Nullam quis volutpat ante. Integer ut urna risus.
-        </p>
-    
-    </div>
+    <h2 class="mt-4 mb-2">Tananyagaim:</h2>
+    <p v-if="IHaveContents==false">
+        Nincsenek tananyagaim.
+    </p>
+    <cards :Contents="MyContents" v-else/>
 
     <h2 class="mt-4">Kommentjeim:</h2>
     <div class="row bg-light mt-3 rounded-3 p-3 shadow">
@@ -53,5 +47,46 @@
 </div>
 </template>
 <script>
+import Cards from '../components/Cards.vue'
+import { NebulooFetch } from '../utils/https.mjs';
+export default{
+data(){
+    return{
+        mydata:[],
+        MyQuestions:[],
+        MyComments:[],
+        MyContents:[],
+        myrank:Object,
 
+        token: "2|kWPwXPiu7895mIJJI9HsH8uxcEKZYqHd2G58w61E"
+    }
+},
+components:{
+    Cards
+},
+methods:{
+    
+    async GetMyData(){
+        this.mydata = (await NebulooFetch.getMyDatas()).data;
+        this.MyQuestions = this.mydata.questions;
+        this.MyComments = this.mydata.comments;
+        this.MyContents = this.mydata.contents;
+    }
+},
+computed: { 
+    IHaveQuestions(){
+        return this.MyQuestions.length != 0;
+    },
+    IHaveComments(){
+        return this.MyComments.length != 0;
+    },
+    IHaveContents(){
+        return this.MyContents.length != 0;
+    }
+  },
+async mounted(){
+    NebulooFetch.initialize("2|kWPwXPiu7895mIJJI9HsH8uxcEKZYqHd2G58w61E");
+    this.GetMyData();
+}
+}
 </script>

@@ -28,7 +28,8 @@
         data(){
             return{
                 title:"",
-                body:""
+                body:"",
+                token:"2|kWPwXPiu7895mIJJI9HsH8uxcEKZYqHd2G58w61E"
             }
         },
         methods:{
@@ -38,7 +39,7 @@
             }
         },
         mounted(){
-            NebulooFetch.initialize("2|kWPwXPiu7895mIJJI9HsH8uxcEKZYqHd2G58w61E");
+            NebulooFetch.initialize(token);
         },
         computed:{
             question(){
