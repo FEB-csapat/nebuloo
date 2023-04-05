@@ -25,6 +25,7 @@ class DatabaseSeederDevelopment extends Seeder
             CommentSeeder::class,
             VoteSeeder::class,
             ProviderSeeder::class,
+            TicketSeeder::class,
             
         ]);
     }

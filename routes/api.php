@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RankController;
+use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FeedController;
@@ -45,7 +46,7 @@ Route::get('/contents', [ContentController:: class, "index"])
 Route::get('/contents/{id}', [ContentController:: class, "show"])
     ->name("contents.show");
 
-    
+
 Route::get('/questions', [QuestionController:: class, "index"])
     ->name("questions.index");
 Route::get('/questions/{id}', [QuestionController:: class, "show"])
@@ -88,6 +89,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::delete('me/questions/{id}', [QuestionController:: class, "destroy"])
         ->name("me.questions.destroy");
 
+    Route::get('me/tickets',[TicketController::class,'meIndex'])
+        ->name('me.tickets.index');
+    Route::post('me/tickets',[TicketController::class,'store'])
+        ->name('me.tickets.store');
+    Route::delete('me/tickets/{id}', [TicketController:: class, 'destroy'])
+        ->name("me.tickets.destroy");
+
 
     Route::post('tags', [TagController:: class, "store"])
         ->name("tags.store");
@@ -123,7 +131,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         ->name("images.store");
     Route::get('images/{id}', [ImageController::class, "show"])
         ->name("images.show");
-    
+
 });
 
 
@@ -162,7 +170,7 @@ Route::group(['middleware' => ['role:admin|moderator']], function () {
 
 
 Route::group(['middleware' => ['role:admin']], function () {
-    
+
     Route::put('admin/user/{id}/role', [RoleController:: class, "update"])
         ->name("users.role.update");
 
@@ -190,5 +198,14 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::delete('admin/comments/{id}', [CommentController:: class, "destroy"])
         ->name("comments.destroy");
 
+    Route::get('admin/tickets',[TicketController::class,'index'])
+        ->name('tickets.index');
+    Route::get('admin/tickets/{id}',[TicketController::class,'show'])
+        ->name('tickets.show');
+    Route::post('admin/tickets',[TicketController::class,'store'])
+        ->name('tickets.store');
+    Route::put('admin/tickets/{id}', [TicketController:: class, "update"])
+        ->name("tickets.update");
+    Route::delete('admin/tickets/{id}', [TicketController:: class, 'destroy'])
+        ->name("tickets.destroy");
 });
-    

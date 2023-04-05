@@ -29,7 +29,7 @@ class UserResource extends JsonResource
             'comments' => CommentResource::collection($this->comments),
             'contents' => SimpleContentResource::collection($this->contents),
             'questions' => QuestionResource::collection($this->questions),
-
+            
             'recieved_votes' => $this->CountVoteScore(),
             'owned_votes' => SimpleVoteResource::collection($this->ownedVotes),
             'rank'=>$this->GetRank(),

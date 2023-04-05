@@ -31,26 +31,26 @@ class UserSeeder extends Seeder
          $permission_contents_all = Permission::create(['name' => 'contents.*']);
          $permission_questions_all = Permission::create(['name' => 'questions.*']);
          $permission_comments_all = Permission::create(['name' => 'comments.*']);
- 
+
          // permissions for moderators
         // $permission_contents_all = Permission::create(['name' => 'contents.*']);
        //  $permission_questions_all = Permission::create(['name' => 'questions.*']);
          $permission_comments_create_delete = Permission::create(['name' => 'comments.create,delete']);
- 
+
          // permissions for users
-         
- 
+
+
          $adminRole = Role::create(['name' => 'admin']);
          $adminRole->givePermissionTo($permission_users_all);
          $adminRole->givePermissionTo($permission_contents_all);
          $adminRole->givePermissionTo($permission_questions_all);
          $adminRole->givePermissionTo($permission_comments_all);
- 
+
          $moderatorRole = Role::create(['name' => 'moderator']);
          $moderatorRole->givePermissionTo($permission_contents_all);
          $moderatorRole->givePermissionTo($permission_questions_all);
          $moderatorRole->givePermissionTo($permission_comments_create_delete);
- 
+
          $userRole = Role::create(['name' => 'user']);
 
 
@@ -59,11 +59,11 @@ class UserSeeder extends Seeder
             'email' => 'erik@fakemail.com',
             'email_verified_at' => Carbon::now(),
             'name' => 'Erik',
-            'bio' => 'My hobbies are reading and programming'      
+            'bio' => 'My hobbies are reading and programming'
         ]);
         $userErik->assignRole($adminRole);
-        
-        
+
+
         $userFeco = User::factory()->create([
             'name' => 'Fecó',
             'bio' => 'I play with guns',
@@ -71,7 +71,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => Carbon::now()
         ]);
         $userFeco->assignRole($moderatorRole);
-        
+
 
         $userBence = User::factory()->create([
             'email' => 'bence@fakemail.com',
@@ -81,6 +81,9 @@ class UserSeeder extends Seeder
             'password' => '1234Jelszo'
         ]);
         $userBence->assignRole($userRole);
+
+        //TODO: fix generated users having no roles
+
         User::factory()->count(15)->create()->each(function ($user) {
             $user->assignRole('user');
         });
