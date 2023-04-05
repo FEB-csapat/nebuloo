@@ -26,32 +26,32 @@ class UserSeeder extends Seeder
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-         // permissions for admin
-         $permission_users_all = Permission::create(['name' => 'users.*']);
-         $permission_contents_all = Permission::create(['name' => 'contents.*']);
-         $permission_questions_all = Permission::create(['name' => 'questions.*']);
-         $permission_comments_all = Permission::create(['name' => 'comments.*']);
- 
-         // permissions for moderators
-        // $permission_contents_all = Permission::create(['name' => 'contents.*']);
-       //  $permission_questions_all = Permission::create(['name' => 'questions.*']);
-         $permission_comments_create_delete = Permission::create(['name' => 'comments.create,delete']);
- 
-         // permissions for users
-         
- 
-         $adminRole = Role::create(['name' => 'admin']);
-         $adminRole->givePermissionTo($permission_users_all);
-         $adminRole->givePermissionTo($permission_contents_all);
-         $adminRole->givePermissionTo($permission_questions_all);
-         $adminRole->givePermissionTo($permission_comments_all);
- 
-         $moderatorRole = Role::create(['name' => 'moderator']);
-         $moderatorRole->givePermissionTo($permission_contents_all);
-         $moderatorRole->givePermissionTo($permission_questions_all);
-         $moderatorRole->givePermissionTo($permission_comments_create_delete);
- 
-         $userRole = Role::create(['name' => 'user']);
+        // permissions for admin
+        $permission_users_all = Permission::create(['name' => 'users.*']);
+        $permission_contents_all = Permission::create(['name' => 'contents.*']);
+        $permission_questions_all = Permission::create(['name' => 'questions.*']);
+        $permission_comments_all = Permission::create(['name' => 'comments.*']);
+
+        // permissions for moderators
+    // $permission_contents_all = Permission::create(['name' => 'contents.*']);
+    //  $permission_questions_all = Permission::create(['name' => 'questions.*']);
+        $permission_comments_create_delete = Permission::create(['name' => 'comments.create,delete']);
+
+        // permissions for users
+
+
+        $adminRole = Role::create(['name' => 'admin']);
+        $adminRole->givePermissionTo($permission_users_all);
+        $adminRole->givePermissionTo($permission_contents_all);
+        $adminRole->givePermissionTo($permission_questions_all);
+        $adminRole->givePermissionTo($permission_comments_all);
+
+        $moderatorRole = Role::create(['name' => 'moderator']);
+        $moderatorRole->givePermissionTo($permission_contents_all);
+        $moderatorRole->givePermissionTo($permission_questions_all);
+        $moderatorRole->givePermissionTo($permission_comments_create_delete);
+
+        $userRole = Role::create(['name' => 'user']);
 
 
 
@@ -62,8 +62,8 @@ class UserSeeder extends Seeder
             'bio' => 'My hobbies are reading and programming',        
         ]);
         $userErik->assignRole($adminRole);
-        
-        
+
+
         $userFeco = User::factory()->create([
             'name' => 'Fecó',
             'bio' => 'I play with guns',
@@ -71,7 +71,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => Carbon::now(),
         ]);
         $userFeco->assignRole($moderatorRole);
-        
+
 
         $userBence = User::factory()->create([
             'email' => 'bence@fakemail.com',

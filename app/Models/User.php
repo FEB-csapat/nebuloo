@@ -22,16 +22,9 @@ class User extends Authenticatable
         'email', 'email_verified_at', 'name', 'bio', 'password'
     ];
 
-    
     public function provider()
     {
         return $this->hasOne(Provider::class, 'user_id', 'id');
-    }
-
-
-    public function rank()
-    {
-        return $this->hasOne(Rank::class, 'id', 'rank_id');
     }
 
     public function ownedVotes()
@@ -43,7 +36,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(Vote::class, 'reciever_user_id');
     }
-
 
     public function contents()
     {
@@ -58,7 +50,28 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class, 'id', 'comment_id');
     }
 
-    
+    public function CountVoteScore(){
+           return $this->recievedVotes->where('direction', 'up')->count()
+            - $this->recievedVotes->where('direction', 'down')->count();
+    }
+
+    public function GetRank(){
+        if($this->CountVoteScore()<10){
+            return Rank::Find(1);
+        }
+        else if($this->CountVoteScore()<25 ){
+            return Rank::Find(2);
+        }
+        else if($this->CountVoteScore()<50){
+            return Rank::Find(3);
+        }
+        else if($this->CountVoteScore()<100){
+            return Rank::Find(4);
+        }
+        else{
+            return Rank::Find(5);
+        }
+    }
 
 
     

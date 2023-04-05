@@ -29,7 +29,7 @@ import CommentSection from './CommentSectionView.vue';
 
 export default{
     components:{
-        CommentSection
+        CommentSection,
     },
     props:{
         question: {
