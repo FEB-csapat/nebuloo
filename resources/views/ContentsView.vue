@@ -21,6 +21,7 @@
 import Cards from '../components/Cards.vue'
 
 import { NebulooFetch } from '../utils/https.mjs';
+
 export default{
     components:{
         Cards

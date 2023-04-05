@@ -1,3 +1,12 @@
 $body-bg: #FFFFE0;
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import 'easymde/dist/easymde.min.css';
+
+.easymde-container.CodeMirror {
+    border: none;
+    background-color: green;
+}
+.easymde-preview img {
+    max-width: 100%;
+    height: auto;
+}

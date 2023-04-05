@@ -21,8 +21,6 @@
         "bootstrap": "^5.2.3",
         "easymde": "^2.18.0",
         "vue": "^3.2.47",
-        "vue-google-oauth2": "^1.5.10",
-        "vue-google-signin-button": "^1.0.4",
         "vue-router": "^4.1.6"
     }
 }

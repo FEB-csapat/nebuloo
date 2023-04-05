@@ -12,6 +12,8 @@ import CreateQuestionView from '../views/CreateQuestionView.vue'
 import CreateContentView from '../views/CreateContentView.vue'
 import SupportTicketView from '../views/SupportTicketView.vue'
 import TicketsView from '../views/TicketsView.vue'
+import DetailedContentView from '../views/DetailedContentView.vue'
+import DetailedQuestionView from '../views/DetailedQuestionView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,10 +25,38 @@ const router = createRouter({
       name: '',
       component: WelcomeView
     },
+
+    {
+      path: '/contents',
+      name: 'contents',
+      component: ContentsView
+    },
+    {
+      path: '/contents/:id',
+      name: 'contentById',
+      component: DetailedContentView,
+      props: {
+        content: {
+          type: Object,
+          required: true
+        }
+      },
+    },
     {
       path: '/questions',
       name: 'questions',
       component: QuestionsView
+    },
+    {
+      path: '/questions/:id',
+      name: 'questionById',
+      component: DetailedQuestionView,
+      props: {
+        question: {
+          type: Object,
+          required: true
+        }
+      },
     },
     {
       path: '/myprofile',
@@ -38,11 +68,7 @@ const router = createRouter({
       name: 'edit',
       component: EditMyProfileView
     },
-    {
-      path: '/contents',
-      name: 'contents',
-      component: ContentsView
-    },
+    
     {
       path: '/login',
       name: 'login',

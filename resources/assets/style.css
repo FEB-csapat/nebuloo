@@ -68,3 +68,13 @@ body{
       transform: translateY(1px);
       transition: transform 0.1s ease-in-out;
     }
+
+
+.easymde-container.CodeMirror {
+    border: none;
+    background-color: green;
+}
+.easymde-preview img {
+    max-width: 100%;
+    height: auto;
+}

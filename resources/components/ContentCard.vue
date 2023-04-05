@@ -1,20 +1,41 @@
 <template>
-    <div class="row bg-light rounded-4 mb-3 shadow">
-        <p>
-            {{body}}
-        </p>
-        <div class="m-2">
-            
+
+    <router-link class="nav-link active" aria-current="page" 
+    :to="{ name: 'contentById', 
+        params: { 
+            id: this.id,
+        },
+        props: { 
+            content: { 
+                id: this.id,
+                creator_user_id: creator_user_id,
+                body: body
+            }
+        }
+    }"
+    
+    >
+
+        <div class="row bg-light rounded-4 mb-3 shadow">
+            <p>
+                {{body}}
+            </p>
+            <div class="m-2">
+                
+            </div>
         </div>
-    </div>
+    </router-link>
 </template>
 
 <script>
 export default{
-props:{
-    id: Number,
-    creator_user_id:Number,
-    body:String
-}
+    props:{
+        id: Number,
+        creator_user_id:Number,
+        body:String
+    },
+    mounted(){
+        
+    }
 }
 </script>
