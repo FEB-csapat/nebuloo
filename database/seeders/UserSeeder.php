@@ -59,9 +59,7 @@ class UserSeeder extends Seeder
             'email' => 'erik@fakemail.com',
             'email_verified_at' => Carbon::now(),
             'name' => 'Erik',
-            'bio' => 'My hobbies are reading and programming',
-
-            'rank_id' => 1,         
+            'bio' => 'My hobbies are reading and programming',        
         ]);
         $userErik->assignRole($adminRole);
         
@@ -71,7 +69,6 @@ class UserSeeder extends Seeder
             'bio' => 'I play with guns',
             'email' => 'feco@fakemail.com',
             'email_verified_at' => Carbon::now(),
-            'rank_id' => 1,
         ]);
         $userFeco->assignRole($moderatorRole);
         
@@ -81,12 +78,8 @@ class UserSeeder extends Seeder
             'email_verified_at' => Carbon::now(),
             'name' => 'Bencus',
             'bio' => 'I\'m here for the money',
-            'rank_id' => 1,
         ]);
         $userBence->assignRole($userRole);
-
-
-        
         
         User::factory()->count(15)->create()->each(function ($user) {
             $user->assignRole('user');

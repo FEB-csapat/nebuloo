@@ -74,3 +74,5 @@ coverage
 *.sw?
 
 package-lock.json
+
+composer.lock

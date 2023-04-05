@@ -5,8 +5,6 @@ namespace App\Permision;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
-use Laravel\Socialite\Contracts\User as GoogleUser;
-
 class PermissionHandler
 {
     static $adminRole;
