@@ -22,8 +22,6 @@ return new class extends Migration
             $table->string('password')->nullable();
 
             $table->rememberToken();
-
-            $table->foreignId('rank_id')->default(1);
             
             $table->string('name');
             $table->string('bio')->nullable();
