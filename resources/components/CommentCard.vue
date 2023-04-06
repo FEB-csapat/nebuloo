@@ -17,7 +17,6 @@
 export default{
     props:{
         comment: Object,
-        
     },
     mounted(){
     }

@@ -9,7 +9,7 @@
                 <span class="visually-hidden">Loading...</span>
             </div>
         </div>
-        <cards :Contents="Contents"/>
+        <cards id='cards' :Contents="Contents"/>
 
         <h3 v-if="Contents.length == 0 && !isWaiting" class="text-center mb-4">Nincs találat</h3>
 

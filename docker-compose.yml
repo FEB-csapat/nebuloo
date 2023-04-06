@@ -4,8 +4,6 @@ networks:
   webapp:
 
 services:
-
-
   web:
     container_name: web
     image: nginx:1.23-alpine

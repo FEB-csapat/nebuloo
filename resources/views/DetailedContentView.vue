@@ -2,9 +2,6 @@
     <div class="container my-3 ">
         <h1 id="title">Tananyag megtekintése</h1>
         <div class="row bg-light shadow rounded-3 p-2">
-            
-
-
             <div class="row">
                 <img style="width:100px; height:70px" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.favpng.com%2F25%2F7%2F23%2Fcomputer-icons-user-profile-avatar-image-png-favpng-LFqDyLRhe3PBXM0sx2LufsGFU.jpg&f=1&nofb=1&ipt=c5a94872939138fcc06ee18319a0597d58d783928d3c834f2bd4dcad8c94662a&ipo=images" alt="avatar">
                 <div class="col">

@@ -15,7 +15,6 @@
         <div class="col">
             <CommentCard v-for="comment in comments" :key="comment.id" :comment="comment" />
         </div>
-        
     </div>
     
 </template>
