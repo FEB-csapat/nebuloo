@@ -1,12 +1,19 @@
 <template>
     <div class="container mt-4">
         <h1 class="text-center mb-4">Questions</h1>
+
+        <h3 v-if="searchTerm != ''" class="text-center mb-4">Keresési találatok: {{ $route.query.search }}</h3>
+
+
         <div class="row" v-if="isWaiting">
             <div class="spinner-border mx-auto" role="status">
                 <span class="visually-hidden">Loading...</span>
             </div>
         </div>
         <cards :Questions="Questions"/>
+
+        <h3 v-if="Questions.length == 0 && !isWaiting" class="text-center mb-4">Nincs találat</h3>
+
     </div>
     <router-link class="nav-link active" aria-current="page" to="/create/question">
         <div class="fab-button" @click="onClick">
@@ -28,18 +35,29 @@ components:{
     data(){
         return{
             Questions: [],
-            isWaiting: true
+            isWaiting: true,
+            searchTerm: ''
         }
     },
     methods:{
         async getAllQuestions(){
-            this.Questions = (await NebulooFetch.getAllQuestions()).data.data;
+            this.isWaiting = true;
+            var queires = {
+                search: this.searchTerm
+            }
+            this.Questions = (await NebulooFetch.getAllQuestions(queires)).data.data;
             this.isWaiting = false;
         },
     },
     async mounted(){
-        NebulooFetch.initialize();
         this.getAllQuestions();
+    },
+
+    watch: {
+        '$route.query.search'(newSearchTerm) {
+            this.searchTerm = newSearchTerm
+            this.getAllQuestions();
+        }
     }
 }
 </script>

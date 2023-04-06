@@ -86,7 +86,6 @@ computed: {
     }
   },
 async mounted(){
-    NebulooFetch.initialize("2|kWPwXPiu7895mIJJI9HsH8uxcEKZYqHd2G58w61E");
     this.GetMyData();
 }
 }

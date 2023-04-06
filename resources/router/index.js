@@ -5,7 +5,6 @@ import MyProfileView from '../views/MyProfileView.vue'
 import EditMyProfileView from '../views/EditMyProfileView.vue'
 import ContentsView from '../views/ContentsView.vue'
 import LoginView from '../views/LoginView.vue'
-import LoginCallbackView from '../views/LoginCallbackView.vue'
 import ASZF from '../views/ASZF.vue'
 import About from '../views/About.vue'
 import CreateQuestionView from '../views/CreateQuestionView.vue'
@@ -73,11 +72,6 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: LoginView
-    },
-    {
-      path: '/login/callback',
-      name: 'login-callback',
-      component: LoginCallbackView
     },
     {
       path: '/about',

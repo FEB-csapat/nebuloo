@@ -43,7 +43,11 @@
                 <h2 class="text-center">Tovább</h2>
                 
                 <div class="row p-3 d-flex justify-content-center text-center">
-                    <div class="col-md-4"><button class="btn shadow" style="background-color: #ffffff; color: #4285f4;" @click="signIn"><img src="../assets/images/google.png" alt="Button Image"></button> </div>
+                    <div class="col-md-4">
+                        <router-link class="nav-link active" aria-current="page" to="/login">
+                            <button class="btn shadow" style="background-color: #ffffff; color: #4285f4;">Bejelentkezéssel</button>
+                        </router-link>
+                    </div>
                     <p class="col-md-4 align-self-center">Vagy</p>
                     <div class="col-md-4">
                         <router-link class="nav-link active" aria-current="page" to="/contents">
@@ -65,17 +69,12 @@
                         <div class="col">
                             <router-link class="nav-link active" aria-current="page" to="/about">Rólunk</router-link>
                         </div>
-
-
-
                     </div>
             </div>
         </div>
-        
 </template>
 
 <script>
-import axios from 'axios';
 export default {
 
 }

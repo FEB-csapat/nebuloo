@@ -15,8 +15,8 @@
               <button class="btn" id="button"><router-link class="nav-link active" aria-current="page" to="/questions">Kérdések</router-link></button>
           </li>
         </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Keresés" aria-label="Search">
+        <form v-if="showSearchBar" class="d-flex" @submit.prevent="search">
+          <input v-model="searchTerm" class="form-control me-2" type="search" placeholder="Keresés" aria-label="Search">
           <button class="btn btn-outline-light me-2" type="submit">Keresés</button>
         </form>
         <div class="row h-100">
@@ -42,7 +42,31 @@
         },
         showQuestionsButton() {
           return this.$route.path !== '/questions';
+        },
+        showSearchBar() {
+          return this.$route.path == '/questions' || this.$route.path == '/contents';
+        },
+      },
+
+      data() {
+        return {
+          searchTerm: ''
         }
-    },
+      },
+
+      methods: {
+        search() {
+          this.$router.push({
+            name: 'contents',
+            query: { search: this.searchTerm }
+          })
+          
+          this.$router.push({
+            name: 'questions',
+            query: { search: this.searchTerm }
+          })
+            
+        }
       }
+    }
   </script>

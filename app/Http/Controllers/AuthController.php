@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
-use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -25,9 +24,9 @@ class AuthController extends Controller
     
         $token = $user->createToken('token-name')->plainTextToken;
         
-        return response()->json(new UserResource($user), 200, [
-            'Access-Token' => $token,
-        ]);
+        return response()->json([
+            'message' => 'Successfully created user!',
+        ], 201);
     }
 
     public function login(Request $request)
@@ -36,11 +35,15 @@ class AuthController extends Controller
 
         $user = User::where('email', $credentials['email'])->first();
 
-        if ($user && Hash::check($credentials['password'], $user->password)) {
+        if(!$user){
+            return response()->json(['error' => 'No user found with such email!'], 404);
+        }
+
+        if (Hash::check($credentials['password'], $user->password)) {
             $token = $user->createToken('token-name')->plainTextToken;
             return response()->json(['token' => $token], 200);
         } else {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Wrong password!'], 401);
         }
     }
 }

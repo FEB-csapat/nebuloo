@@ -75,8 +75,7 @@ dantem me conamina, ad.
 
 <script>
 import EasyMDE from 'easymde';
-
-import CommentCard from './CommentCard.vue';
+import CommentCard  from '../components/CommentCard.vue';
 
 export default{
     props:{
@@ -114,9 +113,9 @@ export default{
 
 <style>
 .easymde-container.CodeMirror {
-  border: none;
-  background-color: green;
-  overflow: hidden;
+    border: none;
+    background-color: green;
+    overflow: hidden;
 }
 .easymde-preview img {
     max-width: 100%;

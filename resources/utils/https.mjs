@@ -16,12 +16,12 @@ export class NebulooFetch{
         })
     };
 
-    static getAllQuestions(){
-        const response = NebulooFetch.http.get("questions");
+    static getAllQuestions(queries){
+        const response = NebulooFetch.http.get("questions", {params: queries});
         return response;
     };
-    static getAllContent(){
-        const response = NebulooFetch.http.get("contents");
+    static getAllContent(queries){
+        const response = NebulooFetch.http.get("contents", {params: queries});
         return response;
     };
     static createQuestion(data){

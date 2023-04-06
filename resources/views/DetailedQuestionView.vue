@@ -25,11 +25,9 @@
 
 <script>
 
-import CommentSection from './CommentSectionView.vue';
-
 export default{
     components:{
-        CommentSection,
+        CommentSection: () => import('../components/CommentSection.vue'),
     },
     props:{
         question: {

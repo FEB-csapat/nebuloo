@@ -22,7 +22,7 @@
 
 <script>
 
-import CommentCard from './CommentCard.vue';
+import CommentCard from '../../pages/components/CommentCard.vue';
 
 export default{
     props:{

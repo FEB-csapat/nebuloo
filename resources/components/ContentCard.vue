@@ -12,17 +12,11 @@
                 body: body
             }
         }
-    }"
-    
-    >
-
-        <div class="row bg-light rounded-4 mb-3 shadow">
+    }">
+        <div class="row bg-light rounded-4 mb-3 shadow p-2">
             <p>
                 {{body}}
             </p>
-            <div class="m-2">
-                
-            </div>
         </div>
     </router-link>
 </template>
