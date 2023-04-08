@@ -120,7 +120,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::delete('{votable}/{id}/votes', [VoteController::class, "destroyByVotableId"])
     ->name("votes.destroyByVotableId");
-
+    
 
     Route::get('me/votes', [VoteController::class, "index"])
         ->name("votes.index");

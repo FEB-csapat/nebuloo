@@ -37,26 +37,6 @@ class VoteController extends Controller
     {
         $data = $request->validated();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
         $data['owner_user_id'] = $request->user()->id;
         switch ($votableType) {
             case 'contents':

@@ -16,6 +16,12 @@ class ContentSeeder extends Seeder
      */
     public function run()
     {
+
+        Content::factory()->create([
+            'creator_user_id' => 1,
+            'body' => "Example content",
+        ])->attachTag("history", 'offical-subject');
+
         Content::factory()->create([
             'creator_user_id' => 1,
             'body' => "# Onus illa victore ocior

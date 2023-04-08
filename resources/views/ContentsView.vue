@@ -5,13 +5,16 @@
         <h3 v-if="searchTerm != ''" class="text-center mb-4">Keresési találatok: {{ $route.query.search }}</h3>
 
         <div class="row" v-if="isWaiting">
-            <div class="spinner-border mx-auto" role="status">
-                <span class="visually-hidden">Loading...</span>
+            <div id="loading-spinner" class="spinner-border mx-auto" role="status">
             </div>
         </div>
-        <cards id='cards' :Contents="Contents"/>
 
-        <h3 v-if="Contents.length == 0 && !isWaiting" class="text-center mb-4">Nincs találat</h3>
+
+        <div id='cards'>
+            <cards :Contents="Contents"/>
+        </div>
+        
+        <h3 id="no-result" v-if="Contents.length == 0 && !isWaiting" class="text-center mb-4">Nincs találat</h3>
 
     </div>
 
@@ -55,6 +58,7 @@ export default{
         },
     },
     async mounted(){
+        this.searchTerm = this.$route.query.search;
         this.getAllContent();
     },
 

@@ -12,7 +12,7 @@
                     <img style="width:100px; height:70px" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.favpng.com%2F25%2F7%2F23%2Fcomputer-icons-user-profile-avatar-image-png-favpng-LFqDyLRhe3PBXM0sx2LufsGFU.jpg&f=1&nofb=1&ipt=c5a94872939138fcc06ee18319a0597d58d783928d3c834f2bd4dcad8c94662a&ipo=images" alt="avatar">
                     <div class="col">
                     <!-- <h4>Név: {{content.creator.name}}</h4> -->  
-                      <!--  <p>date: {{content.created_at}}</p> --> 
+                     <!--  <p>date: {{content.created_at}}</p>  --> 
                     </div>
                 </div>
 
@@ -49,6 +49,10 @@ import User from '../components/User.vue';
 export default{
     props: //['content'],
     {
+        id: {
+            type: Number,
+            required: true
+        },
         content: {
             type: Object,
             required: true
@@ -79,7 +83,7 @@ export default{
 
         this.editor.togglePreview();
 
-       // console.log('fikusz1: ' + this.content.id);
+        console.log('fikusz1: ' + this.id);
 
        // console.log("fikusz     " + this.content.creator);
     },

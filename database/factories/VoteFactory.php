@@ -21,7 +21,7 @@ class VoteFactory extends Factory
     public function definition()
     {
         $votableType = $this->faker->randomElement(['App\Models\Content', 'App\Models\Question', 'App\Models\Comment']);
-        
+        $votable = null;
         if ($votableType === 'App\Models\Content') {
             $votable = Content::inRandomOrder()->first();
         } elseif ($votableType === 'App\Models\Question') {
