@@ -33,7 +33,6 @@ export default{
         */
     },
     mounted(){
-        console.log('questions. ' + this.question.id);
     }
 }
 </script>

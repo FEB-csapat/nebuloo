@@ -9,7 +9,6 @@ class Vote extends Model
 {
     use HasFactory;
 
-
     protected $table = 'votes';
     protected $primaryKey = 'id';
 

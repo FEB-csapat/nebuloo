@@ -25,6 +25,9 @@ class ContentController extends Controller
         $search = $request->input('search');
         $tags = $request->input('tags');
 
+        $orderBy = $request->input('orderBy');
+        // TODO validate orderBy values
+
         $contents = Content::query();
 
         if ($search != null) {
@@ -35,6 +38,18 @@ class ContentController extends Controller
         if ($tags != null) {
             $contents = $contents->withAnyTags($tags);
         }
+
+        // TODO this throws 500 errorcode
+        if ($orderBy != null) {
+            if($orderBy == 'newest'){
+                $contents = $contents->sortBy('created_at');
+            }else if($orderBy == 'oldest'){
+                $contents = $contents->sortBy('created_at');
+            }else if($orderBy == 'popular'){
+                $contents = $contents->sortBy('created_at');
+            }
+        }
+
         return ContentResource::collection($contents->paginate());
     }
      

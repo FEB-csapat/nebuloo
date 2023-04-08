@@ -56,16 +56,24 @@
 
       methods: {
         search() {
-          this.$router.push({
-            name: 'contents',
-            query: { search: this.searchTerm }
-          })
+
+          if(this.searchTerm != ''){
+            if(this.$route.path == '/contents'){
+              this.$router.push({
+                name: 'contents',
+                query: { search: this.searchTerm }
+              })
+            }
+
+            else if(this.$route.path == '/questions'){
+              this.$router.push({
+                name: 'questions',
+                query: { search: this.searchTerm }
+              })
+            }
+          }
+
           
-          this.$router.push({
-            name: 'questions',
-            query: { search: this.searchTerm }
-          })
-            
         }
       }
     }

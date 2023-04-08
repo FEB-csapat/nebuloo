@@ -2,17 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Content;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
-
 use Illuminate\Database\Seeder;
-
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
-
-use App\Models\User;
-use Spatie\Permission\PermissionRegistrar;
 use Spatie\Tags\Tag;
 
 class TagSeeder extends Seeder

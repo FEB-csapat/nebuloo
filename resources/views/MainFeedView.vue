@@ -15,10 +15,6 @@
 
     </div>
 
-    <p class="text-center">
-        TODO: create page chooser component
-    </p>
-
     <router-link class="nav-link active" aria-current="page" to="/create/content">
         <div class="fab-button" @click="onClick">
             <span class="m-3">Create new content</span>
@@ -47,8 +43,7 @@ export default{
         async getAllContent(){
             this.isWaiting = true;
             var queires = {
-                search: this.searchTerm,
-              //  orderBy: 'newest'
+                search: this.searchTerm
             }
             this.Contents = (await NebulooFetch.getAllContent(queires)).data.data;
             this.isWaiting = false;

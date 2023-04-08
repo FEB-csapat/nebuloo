@@ -2,7 +2,6 @@
     <div class="container my-3 ">
         <div class="row bg-light shadow rounded-3 p-2">
             <h1 id="title">Új tananyag létrehozása</h1>
-    
                 <div>
                     <label for="leiras" class="form-label pt-2">Leírás*</label>
                         <textarea ref="editor" name="leiras" id="leiras" class="form-control"></textarea>    
@@ -15,9 +14,7 @@
                 <button class="btn" id="button">
                     Létrehozás
                 </button>
-    
             </div>
-           
         </div>
     </div>
     

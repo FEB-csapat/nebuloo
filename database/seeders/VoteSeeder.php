@@ -2,17 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Comment;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
+use App\Models\Content;
+use App\Models\User;
 
 use Illuminate\Database\Seeder;
 
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
-
 use App\Models\Vote;
-use Spatie\Permission\PermissionRegistrar;
 
 class VoteSeeder extends Seeder
 {
@@ -27,11 +22,22 @@ class VoteSeeder extends Seeder
             'owner_user_id' => 1,
             'reciever_user_id' => 2,
             'votable_id' => 1,
-            'votable_type' => 'App\Models\Content',
+            'votable_type' => Content::class,
             'direction' => 'up',
         ]);
 
 
-        Vote::factory()->count(100)->create();
+        $contents = Content::take(10)->get();
+
+        foreach ($contents as $content) {
+            $votesCount = rand(0, 20);
+            Vote::factory()->count($votesCount)->create([
+                'owner_user_id' => User::inRandomOrder()->first(),
+                'reciever_user_id' => $content->creator_user_id,
+                'votable_id' => $content->id,
+                'votable_type' => Content::class,
+                'direction' => 'up'
+            ]);
+        }
     }
 }

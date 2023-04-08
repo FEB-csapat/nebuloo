@@ -16,6 +16,11 @@ export class NebulooFetch{
         })
     };
 
+    static getFeed(queries){
+        const response = NebulooFetch.http.get("feed", {params: queries});
+        return response;
+    }
+
     static getAllQuestions(queries){
         const response = NebulooFetch.http.get("questions", {params: queries});
         return response;
@@ -36,4 +41,13 @@ export class NebulooFetch{
         return response;
     };
 
+    static synchronizeVote(votableId, votableType, voteState){
+        if(voteState == 1){
+            return NebulooFetch.http.post(votableType + '/' + votableId + '/votes', {'direction': 'up'});
+        }else if(voteState == -1){
+            return NebulooFetch.http.post(votableType + '/' + votableId + '/votes', {'direction': 'down'});
+        }else{
+            return NebulooFetch.http.delete(votableType + '/' + votableId + '/votes');
+        }
+    };
 }

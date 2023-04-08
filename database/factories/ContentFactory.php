@@ -21,6 +21,7 @@ class ContentFactory extends Factory
         return [
             'body' => $this->faker->paragraph,
             'creator_user_id' => User::inRandomOrder()->first()->id,
+           // 'created_at' => Carbon::(),
         ];
     }
 

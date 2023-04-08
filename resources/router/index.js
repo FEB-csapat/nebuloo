@@ -34,12 +34,15 @@ const router = createRouter({
       path: '/contents/:id',
       name: 'contentById',
       component: DetailedContentView,
+      props: true
+      /*
       props: {
         content: {
           type: Object,
           required: true
         }
       },
+      */
     },
     {
       path: '/questions',

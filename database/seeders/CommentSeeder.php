@@ -32,6 +32,6 @@ class CommentSeeder extends Seeder
         ]);
 
 
-        Comment::factory()->count(100)->create();
+        Comment::factory()->count(40)->create();
     }
 }

@@ -23,6 +23,7 @@ export default{
 <template>
   <nav-bar v-if="isNotAtWelcomePage"/>
   <RouterView/>
-  <Footer v-if="isNotAtWelcomePage"/>
+  <!-- TODO fix footer at the bottom of the page-->
+  <Footer/>
 </template>
 

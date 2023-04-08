@@ -6,15 +6,28 @@
                 <h6>Gönczi Dénes</h6>
                 <p>2022.01.01</p>
             </div>
+
+          <!-- <user :user="comment.creator"></user> -->  
         </div>
         <div class="flex-fill">
             <p>{{comment.body}}</p>
         </div>
+
+        <vote :contentId="10" :voteCount="10" :vote="null"></vote>
+
     </div>
 </template>
 
 <script>
+import Vote from './Vote.vue';
+
+import User from './User.vue';
+
 export default{
+    components:{
+        Vote,
+        User
+    },
     props:{
         comment: Object,
     },

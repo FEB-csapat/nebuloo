@@ -118,6 +118,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('{votable}/{id}/votes', [VoteController::class, "store"])
         ->name("votes.store");
 
+    Route::delete('{votable}/{id}/votes', [VoteController::class, "destroyByVotableId"])
+    ->name("votes.destroyByVotableId");
 
 
     Route::get('me/votes', [VoteController::class, "index"])

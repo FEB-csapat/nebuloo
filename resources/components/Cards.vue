@@ -1,6 +1,6 @@
 <template>
     <question-card v-for="question in Questions" :question="question"></question-card>
-    <content-card v-for="content in Contents" :id="content.id" :creator_user_id="content.creator_user_id" :body="content.body"></content-card>
+    <content-card v-for="content in Contents" :content="content"></content-card>
 
 </template>
 

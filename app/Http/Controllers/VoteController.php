@@ -36,6 +36,27 @@ class VoteController extends Controller
     public function store(StoreVoteRequest $request, $votableType, $votableId)
     {
         $data = $request->validated();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
         $data['owner_user_id'] = $request->user()->id;
         switch ($votableType) {
             case 'contents':
@@ -60,10 +81,25 @@ class VoteController extends Controller
         }
         $data['votable_id'] = $votableId;
         $data['votable_type'] = 'App\Models\Content';
-        
-        $newVote = Vote::create($data);
-        
-        return new SimpleVoteResource($newVote);
+
+
+        // TODO write test for this!
+        // check if vote for votable already exists
+        $existingVote = Vote::where('owner_user_id', $data['owner_user_id'])
+            ->where('votable_id', $data['votable_id'])
+            ->where('votable_type', $data['votable_type'])
+            ->where('reciever_user_id', $data['reciever_user_id'])
+            ->first();
+
+        // if vote exists, update it
+        if($existingVote){
+            $existingVote->update($data);
+            return new SimpleVoteResource($existingVote);
+        }else{
+            // vote doesn't exist, update it
+            $newVote = Vote::create($data);
+            return new SimpleVoteResource($newVote);
+        }
     }
 
 
@@ -96,6 +132,49 @@ class VoteController extends Controller
     public function destroy(Request $request, $id)
     {
         $vote = Vote::findOrFail($id);
+
+        $this->authorize('delete', $vote, Vote::class);
+        
+        $vote->delete();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyByVotableId(Request $request, $votableType, $votableId)
+    {
+        $votes =
+        Vote::where('votable_id', $votableId)
+            ->where('owner_user_id', $request->user()->id);
+
+        if($votes){
+            switch ($votableType) {
+                case 'contents':
+                    $vote = $votes
+                        ->where('votable_type', 'App\Models\Content')
+                        ->first();
+                    break;
+                case 'questions':
+                    $vote = $votes
+                        ->where('votable_type', 'App\Models\Question')
+                        ->first();
+                    break;
+                case 'comments':
+                    $vote = $votes
+                        ->where('votable_type', 'App\Models\Comment')
+                        ->first();
+                    break;
+                default:
+                    abort(500, 'Votable type not found');
+                    break;
+            }
+        }else{
+            // TODO write proper error message
+            abort(404, 'Votable type not found');
+        }
 
         $this->authorize('delete', $vote, Vote::class);
         

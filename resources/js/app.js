@@ -25,7 +25,7 @@ import '../assets/style.css'
 import '@fortawesome/fontawesome-free/css/all.css'
 import { NebulooFetch } from '../utils/https.mjs';
 
-NebulooFetch.initialize("2|kWPwXPiu7895mIJJI9HsH8uxcEKZYqHd2G58w61E");
+NebulooFetch.initialize("2|3crIBBuCWnW4nQKqd2kTW5HCSUkzeADISkbVWXYc");
 
 const app = createApp(App)
 

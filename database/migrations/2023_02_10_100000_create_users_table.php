@@ -23,6 +23,7 @@ return new class extends Migration
 
             $table->rememberToken();
             
+            // TODO add display-name
             $table->string('name');
             $table->string('bio')->nullable();
             $table->timestamps();
