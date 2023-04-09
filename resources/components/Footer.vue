@@ -9,7 +9,7 @@
   
       <ul class="nav col-md-4 justify-content-end">
         <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Dokumentáció</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Jelentés küldése</a></li>
+        <li><router-link class="nav-link text-muted" aria-current="page" to="/create/ticket">Jelentés küldése</router-link></li>
         <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Forrás</a></li>
         <li><router-link class="nav-link text-muted" aria-current="page" to="/about">Rólunk</router-link></li>
         

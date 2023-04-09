@@ -31,6 +31,7 @@ class TicketController extends Controller
     {
         $data = $request->validated();
         $data['creator_user_id'] = $request->user()->id;
+        $data['state'] = false;
         $newTicket = Ticket::create($data);
         return new TicketResource($newTicket);
     }

@@ -40,6 +40,13 @@ export class NebulooFetch{
         const response = NebulooFetch.http.get("me");
         return response;
     };
+    static createTicket(data){
+        const response = NebulooFetch.http.post('me/tickets',data)
+        .then(()=>{
+            alert("Sikeres küldés!");
+            router.push('/myprofile');
+        });
+    };
 
     static synchronizeVote(votableId, votableType, voteState){
         if(voteState == 1){

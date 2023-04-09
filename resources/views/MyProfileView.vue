@@ -42,7 +42,12 @@
         </p>
     
     </div>
-
+    
+    <h2 class="mt-4">Hibajegyeim:</h2>
+    <p v-if="IHaveTickets==false">
+        Nincsenek Hibajegyeim.
+    </p>
+    <cards :Tickets="MyTickets" v-else/>
 
 </div>
 </template>
@@ -56,9 +61,10 @@ data(){
         MyQuestions:[],
         MyComments:[],
         MyContents:[],
+        MyTickets:[],
         myrank:Object,
 
-        token: "2|kWPwXPiu7895mIJJI9HsH8uxcEKZYqHd2G58w61E"
+        token: "1|dO0npLTfqUQyZjodFAjpfCDVgoYAIqwoyh3kSeSM"
     }
 },
 components:{
@@ -68,10 +74,12 @@ methods:{
     
     async GetMyData(){
         this.mydata = (await NebulooFetch.getMyDatas()).data;
+        console.log(this.mydata);
         this.MyQuestions = this.mydata.questions;
         this.MyComments = this.mydata.comments;
         this.MyContents = this.mydata.contents;
         this.myrank = this.mydata.rank;
+        this.MyTickets = this.mydata.tickets;
     }
 },
 computed: { 
@@ -83,9 +91,13 @@ computed: {
     },
     IHaveContents(){
         return this.MyContents.length != 0;
-    }
+    },
+    IHaveTickets(){
+        return this.MyTickets.length != 0;
+    },
   },
 async mounted(){
+    NebulooFetch.initialize(this.token);
     this.GetMyData();
 }
 }
