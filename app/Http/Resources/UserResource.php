@@ -25,14 +25,15 @@ class UserResource extends JsonResource
 
             'avatar' => $this->provider?->avatar,
             
-            'rank' => new RankResource($this->rank),
             'comments' => CommentResource::collection($this->comments),
             'contents' => SimpleContentResource::collection($this->contents),
             'questions' => QuestionResource::collection($this->questions),
             'tickets' => TicketResource::collection($this->tickets),
             'recieved_votes' => $this->CountVoteScore(),
-            'owned_votes' => SimpleVoteResource::collection($this->ownedVotes),
             'rank'=>$this->GetRank(),
+
+
+            
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

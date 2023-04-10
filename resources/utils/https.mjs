@@ -6,11 +6,13 @@ export class NebulooFetch{
 
     static http;
 
-    static initialize(token){
+    static token ="1|NWN5lcks1W7b4GPZzn7642zYluTNgTCTT90Zh7ot";
+
+    static initialize(){
         NebulooFetch.http = axios.create({
             baseURL: this.baseUrl,
             headers: {
-                'Authorization':"Bearer " + token,
+                'Authorization':"Bearer " + NebulooFetch.token   ,
                 'Content-Type': 'application/json'
             }
         })
@@ -37,6 +39,7 @@ export class NebulooFetch{
         });
     };
     static getMyDatas(){
+        this.initialize();
         const response = NebulooFetch.http.get("me");
         return response;
     };

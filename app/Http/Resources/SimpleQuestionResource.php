@@ -16,8 +16,7 @@ class SimpleQuestionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'vote_up' => $this->votes->where('direction', 'up')->count(),
-            'vote_down' => $this->votes->where('direction', 'down')->count(),
+            'recieved_votes' => $this->sumVoteScore(),
             'title' => $this->title,
             'body' => $this->body,
             'created_at' => $this->created_at,

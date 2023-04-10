@@ -25,7 +25,7 @@ class SimpleUserResource extends JsonResource
 
             'avatar' => $this->provider?->avatar,
             
-            'rank' => new RankResource($this->rank),
+            'rank'=>$this->GetRank(),
 
             'recieved_votes' => $this->recievedVotes->where('direction', 'up')->count()
                               - $this->recievedVotes->where('direction', 'down')->count(),

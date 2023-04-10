@@ -17,8 +17,7 @@ class QuestionResource extends JsonResource
         return [
             'id' => $this->id,
             'creator' => new SimpleUserResource($this->creator),
-            'vote_up' => $this->votes->where('direction', 'up')->count(),
-            'vote_down' => $this->votes->where('direction', 'down')->count(),
+            'recieved_votes' => $this->sumVoteScore(),
             'comments' => CommentResource::collection($this->comments),
             'title' => $this->title,
             'body' => $this->body,

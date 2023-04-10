@@ -55,6 +55,15 @@ class UserSeeder extends Seeder
         $userRole = Role::create(['name' => 'user']);
 
 
+        $userAdmin = User::factory()->create([
+            'email' => 'admin@adminmail.com',
+            'email_verified_at' => Carbon::now(),
+            'name' => 'Admin',
+            'bio' => 'My hobbies are reading and programming',      
+            'password' => Hash::make('admin123')  
+        ]);
+        $userAdmin->assignRole($adminRole);
+
 
         $userErik = User::factory()->create([
             'email' => 'erik@fakemail.com',
@@ -63,7 +72,7 @@ class UserSeeder extends Seeder
             'bio' => 'My hobbies are reading and programming',      
             'password' => Hash::make('Jelszo123')  
         ]);
-        $userErik->assignRole($adminRole);
+        $userErik->assignRole($moderatorRole);
 
 
         $userFeco = User::factory()->create([
@@ -81,7 +90,7 @@ class UserSeeder extends Seeder
             'name' => 'Bencus',
             'bio' => 'I\'m here for the money',
         ]);
-        $userBence->assignRole($userRole);
+        $userBence->assignRole($moderatorRole);
         
         User::factory()->count(15)->create()->each(function ($user) {
             $user->assignRole('user');

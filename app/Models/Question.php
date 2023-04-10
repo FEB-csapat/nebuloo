@@ -30,4 +30,9 @@ class Question extends Model
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
+
+    public function sumVoteScore(){
+        return $this->votes->where('direction', 'up')->count()
+        - $this->votes->where('direction', 'down')->count();
+    }
 }

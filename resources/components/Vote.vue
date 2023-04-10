@@ -1,9 +1,9 @@
 <template>
     <div class="row">
         <div class="col">
-            <i id="upvote" @click="toggleUpvote" class="fas fa-up-long fa-lg"/>
+            <i id="upvote" @click="toggleUpvote" :class="['fas', 'fa-up-long', 'fa-lg', {'upvoted': voteState === 1}]"/>
             <p id="votecount" class="text-center">{{voteCount + voteState}}</p>
-            <i id="downvote" @click="toggleDownvote" class="fas fa-down-long fa-lg"/>
+            <i id="downvote" @click="toggleDownvote" :class="['fas', 'fa-down-long', 'fa-lg', {'downvoted': voteState === -1}]"/>
         </div>
     </div>
 </template>
@@ -25,7 +25,7 @@ export default{
     },
     data(){
         return {
-            voteCount: 0,
+           // voteCount: 0,
             voteState: 0
         }
     },
@@ -58,8 +58,19 @@ export default{
 
 
 <style>
-.fa-arrow-up{
+fa-up-long{
     color: blue;
-}
+    transition: transform 1s ease-in-out;
+  }
+  
+  .upvoted {
+    color: blue;
+    transform: scale(1.2);
+  }
+
+  .downvoted {
+    color: red;
+    transform: scale(1.2);
+  }
 
 </style>

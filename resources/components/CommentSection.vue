@@ -21,7 +21,7 @@
 
 <script>
 
-import CommentCard from '../../pages/components/CommentCard.vue';
+import CommentCard from './CommentCard.vue';
 
 export default{
     props:{

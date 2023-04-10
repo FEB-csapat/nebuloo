@@ -4,22 +4,32 @@
              @click="navigate">
                 <div>
                     <tag v-for="tag in content.tags" :tag="tag"></tag>
+                    
+
+                    <div class="content-body">
+                        <textarea ref="editor" name="leiras" id="leiras" class="form-control">{{content.body}}</textarea>
+                    </div>
+
+                    <!--
                     <p>
                         {{content.body}}
-                    </p>
+                    </p> 
+                    -->
                 </div>
             </div>
 
             <div class="col-sm-1">
-                <user :user="content.creator"></user>
+                <user v-if="content.creator" :user="content.creator"></user>
 
-                <vote :contentId="content.id" :voteCount="10" :vote="null"></vote>
+                <vote :contentId="content.id" :voteCount="content.recieved_votes" :vote="null"></vote>
 
             </div>
         </div>
 </template>
 
 <script>
+import EasyMDE from 'easymde';
+
 import Tag from './Tag.vue';
 import Vote from './Vote.vue';
 import User from './User.vue';
@@ -52,9 +62,40 @@ export default{
         }
     },
     mounted(){
+        this.editor = new EasyMDE({
+            element: this.$refs.editor,
+            readOnly: true,
+            toolbar: false,
+            spellChecker: false,
 
+            maxHeight: "160px",
+            
 
-        console.log("asd :" + this.content.creator.name);
-    }
+            autoResize: true,
+            scrollLock: true
+        });
+
+        this.editor.togglePreview();
+    },
 }
 </script>
+
+
+<style>
+.content-body {
+    overflow: hidden;
+
+}
+
+
+/* Change the background color of the editor */
+.CodeMirror {
+    background-color: #f5f5f5;
+  }
+  
+  /* Change the color of the toolbar icons */
+  .editor-toolbar .fa {
+    color: #333;
+  }
+
+</style>

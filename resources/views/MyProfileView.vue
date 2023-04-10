@@ -3,12 +3,12 @@
     <div class="row bg-light mt-3 rounded-3 p-3 shadow">
         <div class="col text-center">
             <img src="https://placeholder.pics/svg/60" alt="">
-        <p class="fs-6">{{ myrank.name}}</p>
-        <p class="fs-4">{{ mydata.name }}</p>
+        <p class="fs-6">{{ rank.name}}</p>
+        <p class="fs-4">{{ name }}</p>
         </div>
         <h2>Bio:</h2>
     <p class="ps-5">
-        {{ mydata.bio }}
+        {{ bio }}
     </p>
     <h2>Érdekeltségi kör:</h2>
     <ul class="ps-5">
@@ -26,74 +26,76 @@
     <p v-if="IHaveQuestions==false">
         Nincsenek kérdéseim.
     </p>
-    <cards :Questions="MyQuestions" v-else/>
+    <cards :Questions="questions" v-else/>
 
     <h2 class="mt-4 mb-2">Tananyagaim:</h2>
     <p v-if="IHaveContents==false">
         Nincsenek tananyagaim.
     </p>
-    <cards :Contents="MyContents" v-else/>
+    <cards :Contents="contents" v-else/>
 
     <h2 class="mt-4">Kommentjeim:</h2>
-    <div class="row bg-light mt-3 rounded-3 p-3 shadow">
-        
-        <p class="ps-5">
-            Quisque iaculis ex risus, et pellentesque risus facilisis id. Integer urna quam, condimentum quis purus quis, accumsan vulputate urna. Fusce feugiat nisi eu molestie posuere. Ut eget interdum dui. Proin dapibus ex sit amet diam placerat semper. Nullam quis volutpat ante. Integer ut urna risus.
-        </p>
     
+    <div>
+        <p v-if="IHaveComments==false">
+            Nincsenek kommentjeim.
+        </p>
+        
+        <comment-card v-else v-for="comment in comments" :key="comment.id" :comment="comment" />
     </div>
     
     <h2 class="mt-4">Hibajegyeim:</h2>
     <p v-if="IHaveTickets==false">
         Nincsenek Hibajegyeim.
     </p>
-    <cards :Tickets="MyTickets" v-else/>
+    <cards :Tickets="tickets" v-else/>
 
 </div>
 </template>
 <script>
 import Cards from '../components/Cards.vue'
 import { NebulooFetch } from '../utils/https.mjs';
+
+import CommentCard from '../components/CommentCard.vue';
 export default{
 data(){
     return{
-        mydata:[],
-        MyQuestions:[],
-        MyComments:[],
-        MyContents:[],
-        MyTickets:[],
-        myrank:Object,
-
-        token: "1|dO0npLTfqUQyZjodFAjpfCDVgoYAIqwoyh3kSeSM"
+        name: '',
+        bio: '',
+        questions:[],
+        comments:[],
+        contents:[],
+        tickets:[],
+        rank: Object,
     }
 },
 components:{
-    Cards
+    Cards,
+    CommentCard
 },
 methods:{
     
     async GetMyData(){
-        this.mydata = (await NebulooFetch.getMyDatas()).data;
-        console.log(this.mydata);
-        this.MyQuestions = this.mydata.questions;
-        this.MyComments = this.mydata.comments;
-        this.MyContents = this.mydata.contents;
-        this.myrank = this.mydata.rank;
-        this.MyTickets = this.mydata.tickets;
+        this.responseBody = (await NebulooFetch.getMyDatas()).data;
+        this.questions = this.responseBody.questions;
+        this.comments = this.responseBody.comments;
+        this.contents = this.responseBody.contents;
+        this.rank = this.responseBody.rank;
+        this.tickets = this.responseBody.tickets;
     }
 },
 computed: { 
     IHaveQuestions(){
-        return this.MyQuestions.length != 0;
+        return this.questions.length != 0;
     },
     IHaveComments(){
-        return this.MyComments.length != 0;
+        return this.comments.length != 0;
     },
     IHaveContents(){
-        return this.MyContents.length != 0;
+        return this.contents.length != 0;
     },
     IHaveTickets(){
-        return this.MyTickets.length != 0;
+        return this.tickets.length != 0;
     },
   },
 async mounted(){

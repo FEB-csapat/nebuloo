@@ -19,8 +19,14 @@
     </div>
 
     <p class="text-center">
-        TODO: create page chooser component
+        TODO: center this component
     </p>
+
+    <div class="row">
+        <div class="col">
+            <paginator class="mx-auto" :links="links" :meta="meta" @paginate="handlePaginate" />
+        </div>
+    </div>
 
     <router-link class="nav-link active" aria-current="page" to="/create/content">
         <div class="fab-button" @click="onClick">
@@ -32,30 +38,50 @@
 
 <script>
 import Cards from '../components/Cards.vue'
+import Paginator from '../components/Paginator.vue';
 
 import { NebulooFetch } from '../utils/https.mjs';
 
 export default{
     components:{
-        Cards
+        Cards,
+        Paginator
     },
     data(){
         return{
             Contents: [],
             isWaiting: true,
-            searchTerm: ''
+            searchTerm: '',
+            currentPage: 1,
+
+            links: {}, 
+            meta: {} 
         }
     },
     methods:{
         async getAllContent(){
             this.isWaiting = true;
+
             var queires = {
                 search: this.searchTerm,
+                page: this.currentPage,
               //  orderBy: 'newest'
             }
-            this.Contents = (await NebulooFetch.getAllContent(queires)).data.data;
+            var responseBody = (await NebulooFetch.getAllContent(queires)).data;
+            this.Contents = responseBody.data;
+            this.links = responseBody.links;
+            this.meta = responseBody.meta;
+
             this.isWaiting = false;
         },
+
+        handlePaginate(url) {
+            this.currentPage = url.split('page=')[1];
+
+            this.getAllContent();
+
+           // window.location.href = url;
+        }
     },
     async mounted(){
         this.searchTerm = this.$route.query.search;

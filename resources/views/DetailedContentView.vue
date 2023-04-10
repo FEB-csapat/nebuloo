@@ -32,6 +32,8 @@
 
         <h2>Kommentek:</h2>
         <div class="col">
+          <!--<comment-section :comments="comments" :commentable_id="content.id" :commentable_type="contents"></comment-section> -->  
+
             <CommentCard v-for="comment in comments" :key="comment.id" :comment="comment" />
         </div>
         
@@ -45,6 +47,8 @@ import CommentCard  from '../components/CommentCard.vue';
 import Vote from '../components/Vote.vue';
 
 import User from '../components/User.vue';
+
+import CommentSection from '../components/CommentSection.vue';
 
 export default{
     props: //['content'],
@@ -60,6 +64,7 @@ export default{
         
     },
     components:{
+        CommentSection,
         CommentCard,
         Vote,
         User
@@ -85,7 +90,6 @@ export default{
 
         console.log('fikusz1: ' + this.id);
 
-       // console.log("fikusz     " + this.content.creator);
     },
 };
 </script>

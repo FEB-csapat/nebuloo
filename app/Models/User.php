@@ -54,8 +54,8 @@ class User extends Authenticatable
     }
 
     public function CountVoteScore(){
-           return $this->recievedVotes->where('direction', 'up')->count()
-            - $this->recievedVotes->where('direction', 'down')->count();
+        return $this->recievedVotes->where('direction', 'up')->count()
+        - $this->recievedVotes->where('direction', 'down')->count();
     }
 
     public function GetRank(){
