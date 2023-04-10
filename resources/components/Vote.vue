@@ -1,9 +1,9 @@
 <template>
     <div class="row">
         <div class="col">
-            <i @click="toggleUpvote" class="fas fa-arrow-up fa-lg"/>
-            <p class="text-center">{{voteCount + voteState}}</p>
-            <i @click="toggleDownvote" class="fas fa-arrow-down fa-lg"/>
+            <i id="upvote" @click="toggleUpvote" class="fas fa-up-long fa-lg"/>
+            <p id="votecount" class="text-center">{{voteCount + voteState}}</p>
+            <i id="downvote" @click="toggleDownvote" class="fas fa-down-long fa-lg"/>
         </div>
     </div>
 </template>
@@ -25,6 +25,7 @@ export default{
     },
     data(){
         return {
+            voteCount: 0,
             voteState: 0
         }
     },
