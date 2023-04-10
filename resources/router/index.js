@@ -9,7 +9,7 @@ import ASZF from '../views/ASZF.vue'
 import About from '../views/About.vue'
 import CreateQuestionView from '../views/CreateQuestionView.vue'
 import CreateContentView from '../views/CreateContentView.vue'
-import SupportTicketView from '../views/SupportTicketView.vue'
+import CreateTicketView from '../views/CreateTicketView.vue'
 import TicketsView from '../views/TicketsView.vue'
 import DetailedContentView from '../views/DetailedContentView.vue'
 import DetailedQuestionView from '../views/DetailedQuestionView.vue'
@@ -98,8 +98,8 @@ const router = createRouter({
     },
     {
       path: '/create/ticket',
-      name: 'SupportTicket',
-      component: SupportTicketView
+      name: 'CreateTicket',
+      component: CreateTicketView
     },
     {
       path: '/tickets',

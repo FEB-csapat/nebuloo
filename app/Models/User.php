@@ -49,6 +49,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class, 'id', 'comment_id');
     }
+    public function tickets(){
+        return $this->hasMany(Ticket::class,'creator_user_id');
+    }
 
     public function CountVoteScore(){
            return $this->recievedVotes->where('direction', 'up')->count()

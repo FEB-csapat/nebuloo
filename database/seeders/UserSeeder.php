@@ -13,6 +13,7 @@ use Spatie\Permission\Models\Permission;
 use App\Models\User;
 use Carbon\Carbon;
 use Spatie\Permission\PermissionRegistrar;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -59,7 +60,8 @@ class UserSeeder extends Seeder
             'email' => 'erik@fakemail.com',
             'email_verified_at' => Carbon::now(),
             'name' => 'Erik',
-            'bio' => 'My hobbies are reading and programming',        
+            'bio' => 'My hobbies are reading and programming',      
+            'password' => Hash::make('Jelszo123')  
         ]);
         $userErik->assignRole($adminRole);
 
