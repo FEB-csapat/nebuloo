@@ -1,4 +1,5 @@
 <template>
+  <div class="row mb-3 p-2">
     <nav>
       <ul class="pagination">
         <li v-for="link in meta.links" :class="{ 'active': link.active }">
@@ -8,6 +9,8 @@
         
       </ul>
     </nav>
+    
+  </div>
   </template>
   
 <script>

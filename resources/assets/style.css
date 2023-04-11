@@ -31,6 +31,10 @@ body{
     background-color: #A2E0F3;
     width: 12em;
 }
+#button:hover{
+    box-shadow: 3px 6px rgba(0, 0, 0, 0.25);
+    transition: box-shadow 0.3s ease-in-out;
+}
 #tag{
     background-color: #A2E0F3;
     width: 8em;
@@ -77,4 +81,11 @@ body{
 .easymde-preview img {
     max-width: 100%;
     height: auto;
+}
+#card{
+    box-shadow: 4px 8px 10px rgba(0, 0, 0, 0.2); 
+    transition: box-shadow 0.1s ease-in-out;
+}
+#card:hover{
+    box-shadow: 5px 10px 12px rgba(0, 0, 0, 0.4), 0px 2px 10px rgba(0, 0, 0, 0.2);
 }

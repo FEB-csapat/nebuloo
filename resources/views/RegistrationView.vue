@@ -1,24 +1,29 @@
 <template>
-<form @submit.prevent="Register">
-    <label for="name">Felhasználó név:</label>
-    <input v-model="form.name" type="text" name="name" placeholder="Username">
+    <div class="container mt-4">
+        <div class="row bg-light shadow rounded-3 p-2">
+            <form @submit.prevent="Register">
+    <label for="name" class="form-label mt-2">Felhasználó név:</label>
+    <input v-model="form.name" type="text" name="name" placeholder="Username" class="form-control">
     <!-- <div v-if="form.errors.has('name')" v-html="form.errors.get('username')"/> -->
 
-    <label for="email">E-mail cím:</label>
-    <input v-model="form.email" type="text" name="email" placeholder="E-mail cím">
+    <label for="email" class="form-label mt-2">E-mail cím:</label>
+    <input v-model="form.email" type="text" name="email" placeholder="E-mail cím" class="form-control">
     <!-- <div v-if="form.errors.has('email')" v-html="form.errors.get('email')"/> -->
 
-    <label for="password">Jelszó:</label>
-    <input v-validate="'required|string|min:8'" v-model="form.password" type="password" name="password" placeholder="Password" ref="password">
+    <label for="password" class="form-label mt-2">Jelszó:</label>
+    <input v-validate="'required|string|min:8'" v-model="form.password" type="password" name="password" placeholder="Password" ref="password" class="form-control">
     <!-- <div v-if="form.errors.has('password')" v-html="form.errors.get('password')"/> -->
 
-    <label for="password_confirmation">Jelszó újra:</label>
-    <input v-validate="'required|confirmed:password'" v-model="form.password_confirmation" type="password" name="password_confirmation" placeholder="Password again">
+    <label for="password_confirmation" class="form-label mt-2">Jelszó újra:</label>
+    <input v-validate="'required|confirmed:password'" v-model="form.password_confirmation" type="password" name="password_confirmation" placeholder="Password again" class="form-control">
 
-    <button type="submit">
+    <button type="submit" class="my-3 btn" id="button">
         Regisztráció
     </button>
 </form>
+        </div>
+    </div>
+
 </template>
 <script>
 import Form from 'vform'

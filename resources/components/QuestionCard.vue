@@ -6,7 +6,7 @@
      params: { id: this.question.id }, 
      props: {question: this.question} }">
      
-        <div class="row bg-light rounded-4 mb-3 shadow">
+        <div class="row bg-light rounded-4 mb-3 " id="card">
             <h2>{{question.title}}</h2>
             <p>
                 {{question.body}}
