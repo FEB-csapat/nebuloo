@@ -1,40 +1,55 @@
 <template>
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-sm-6">
-            <h2 id="title">Nebuloo</h2>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-        </div>
-        <div class="col-sm-6">
-            <div class="container bg-light rounded-3 shadow">
-                <h2 class="text-center">Bejelentkezés</h2>
-                <div class="row text-center p-3">
-                    <div class="col-md-4"><img src="https://placeholder.pics/svg/35" alt=""></div>
-                    <div class="col-md-4">Vagy</div>
-                    <div class="col-md-4"><img src="https://placeholder.pics/svg/35" alt=""></div>
-                </div>
-                    <div class="form-check text-center">
-                        <input class="check-input" type="checkbox" value="" id="aszf">
-                        <label class="form-check-label ms-1" for="aszf">
-                          Elfogadom az ÁSZF-et
-                        </label>
-                    </div>
-                    <div class="row text-center">
-                        <div class="col">
-                            <router-link class="nav-link active" aria-current="page" to="/ASZF">ÁSZF</router-link>
+<form @submit.prevent="Login">
+    <label for="email">E-mail cím</label>
+    <input v-model="form.email" type="text" name="email" placeholder="Email">
 
-                        </div>
-                        <div class="col">
-                            <router-link class="nav-link active" aria-current="page" to="/about">Rólunk</router-link>
-                        </div>
-                    </div>
-            </div>
-        </div>
-    </div>
-</div>
+    <label for="password">Jelszó:</label>
+    <input v-model="form.password" type="password" name="password" placeholder="Jelszó">
+
+    <button type="submit">Bejelentkezés</button>
+</form>
+
+<router-link class="nav-link active" aria-current="page" to="/ASZF">ÁSZF</router-link>
+<router-link class="nav-link active" aria-current="page" to="/about">Rólunk</router-link>
 </template>
 <script>
+import Form from 'vform'
+import axios from 'axios'
+import { NebulooFetch } from '../utils/https.mjs';
+import router from '../router/index';
+
+export default{
+    data(){
+        return{
+            form: new Form({
+                email: '',
+                password: ''
+            })
+        }
+    },
+    methods:{
+        async Login(){
+            const login = axios.create({
+                baseURL: "http://localhost:8881/api/",
+                headers: {'Content-Type': 'application/json'}
+            });
+
+            console.log(this.form)
+            const response = (await login.get('login',this.form)).data;
+
+            login.get('login',this.form)
+            .then(response=>{
+                sessionStorage.setItem('userToken',response.data.token);
+                NebulooFetch.token = response.data.token;
+                NebulooFetch.initialize();
+            })
+            
+
+            sessionStorage.setItem('userToken', response);
+
+            console.log(response);
+        }
+    }
+}
 
 </script>
