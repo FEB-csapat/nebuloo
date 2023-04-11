@@ -1,21 +1,9 @@
 <template>
-    <router-link aria-current="page" 
-        :to="{ name: 'myprofile', 
-            params: { 
-                id: user.id
-            },
-            
-            props: { 
-                user: user
-            }
-        }" 
-        :user="user"
-        >
-        <div class="col">
-            <img class="mx-auto" src="https://placeholder.pics/svg/35" alt="">
-            <p class="text-center">{{user.name}}</p>
-        </div>
-    </router-link>
+    <div class="col" @click="navigate">
+        <img class="mx-auto" src="https://placeholder.pics/svg/35" alt="">
+        <p v-if="user != null">{{user.name}}</p>
+        <p v-else>Betöltés...</p>
+    </div>
 </template>
 
 <script>
@@ -27,8 +15,20 @@ export default{
             required: true
         },
     },
+    methods:{
+        navigate(){
+            if(this.user != null){
+                this.$router.push({
+                    name: 'myprofile',
+                    params: {
+                        id: this.user.id
+                    },
+                })
+            }
+        }
+    },
     mounted(){
-       // console.log(this.user);
+        
     }
 }
 </script>

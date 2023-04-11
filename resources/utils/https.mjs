@@ -31,6 +31,12 @@ export class NebulooFetch{
         const response = NebulooFetch.http.get("contents", {params: queries});
         return response;
     };
+
+    static getDetailedContent(id){
+        const response = NebulooFetch.http.get("contents/" + id);
+        return response;
+    };
+
     static createQuestion(data){
         const response = NebulooFetch.http.post('me/questions',data)
         .then(()=>{

@@ -1,5 +1,5 @@
 <template>
-        <div class="row bg-light rounded-4 mb-3 shadow">
+        <div class="row bg-light rounded-4 mb-3" id="card">
             <p>
                 {{ticket.body}}
             </p>

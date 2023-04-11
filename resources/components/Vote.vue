@@ -62,7 +62,16 @@ fa-up-long{
     color: blue;
     transition: transform 1s ease-in-out;
   }
-  
+  #upvote:hover{
+    color: #0000FF;
+    transform: scale(1.2);
+    transition: transform 0.1s ease-in-out;
+  }
+  #downvote:hover{
+    color: #FF0000;
+    transform: scale(1.2);
+    transition: transform 0.1s ease-in-out;
+  }
   .upvoted {
     color: blue;
     transform: scale(1.2);

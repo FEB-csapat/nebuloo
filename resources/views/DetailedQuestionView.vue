@@ -40,7 +40,6 @@ export default{
 
     },
     mounted(){
-        console.log("asd asd " + this.question.id);
     },
 };
 </script>

@@ -4,7 +4,6 @@
 
         <h3 v-if="searchTerm != ''" class="text-center mb-4">Keresési találatok: {{ $route.query.search }}</h3>
 
-
         <div class="row" v-if="isWaiting">
             <div class="spinner-border mx-auto" role="status">
                 <span class="visually-hidden">Loading...</span>

@@ -10,23 +10,21 @@
         </div>
 
 
-        <div id='cards'>
+        <div>
             <cards :Contents="Contents"/>
         </div>
         
         <h3 id="no-result" v-if="Contents.length == 0 && !isWaiting" class="text-center mb-4">Nincs találat</h3>
 
+        <div>
+         <paginator :links="links" :meta="meta" @paginate="handlePaginate" />
+        </div>
     </div>
 
     <p class="text-center">
         TODO: center this component
     </p>
 
-    <div class="row">
-        <div class="col">
-            <paginator class="mx-auto" :links="links" :meta="meta" @paginate="handlePaginate" />
-        </div>
-    </div>
 
     <router-link class="nav-link active" aria-current="page" to="/create/content">
         <div class="fab-button" @click="onClick">
@@ -79,6 +77,7 @@ export default{
             this.currentPage = url.split('page=')[1];
 
             this.getAllContent();
+            window.scrollTo(0,0);
 
            // window.location.href = url;
         }
