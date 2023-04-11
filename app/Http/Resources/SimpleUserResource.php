@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SimpleUserResource extends JsonResource
@@ -25,13 +26,12 @@ class SimpleUserResource extends JsonResource
 
             'avatar' => $this->provider?->avatar,
             
-            'rank'=>$this->GetRank(),
+            'rank'=>$this->getRank(),
 
-            'recieved_votes' => $this->recievedVotes->where('direction', 'up')->count()
-                              - $this->recievedVotes->where('direction', 'down')->count(),
+            'recieved_votes' => $this->sumVoteScore(),
 
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
+            'created_at' => Carbon::parse($this->created_at)->format('Y.m.d H:i'),
+            'updated_at' => Carbon::parse($this->updated_at)->format('Y.m.d H:i'),
         ];
     }
 }

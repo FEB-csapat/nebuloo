@@ -9,16 +9,13 @@
                     <div class="content-body">
                         <textarea ref="editor" name="leiras" id="leiras" class="form-control">{{content.body}}</textarea>
                     </div>
-
-                    <!--
-                    <p>
-                        {{content.body}}
-                    </p> 
-                    -->
                 </div>
             </div>
 
             <div class="col-sm-1">
+
+
+                <p>{{content.created_at}}</p>
                 <user v-if="content.creator" :user="content.creator"></user>
 
                 <vote :contentId="content.id" :voteCount="content.recieved_votes" :vote="null"></vote>
@@ -58,6 +55,9 @@ export default{
                     id: this.content.id,
                     content:  this.content
                 },
+                props: {
+                    content: this.content
+                }
             })
         }
     },
@@ -69,7 +69,6 @@ export default{
             spellChecker: false,
 
             maxHeight: "160px",
-            
 
             autoResize: true,
             scrollLock: true
@@ -86,16 +85,4 @@ export default{
     overflow: hidden;
 
 }
-
-
-/* Change the background color of the editor */
-.CodeMirror {
-    background-color: #f5f5f5;
-  }
-  
-  /* Change the color of the toolbar icons */
-  .editor-toolbar .fa {
-    color: #333;
-  }
-
 </style>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SimpleQuestionResource extends JsonResource
@@ -19,8 +20,8 @@ class SimpleQuestionResource extends JsonResource
             'recieved_votes' => $this->sumVoteScore(),
             'title' => $this->title,
             'body' => $this->body,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'created_at' => Carbon::parse($this->created_at)->format('Y.m.d H:i'),
+            'updated_at' => Carbon::parse($this->updated_at)->format('Y.m.d H:i'),
         ];
     }
 }

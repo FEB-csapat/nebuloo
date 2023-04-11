@@ -7,7 +7,7 @@ describe('Content page', () => {
     it('displays contents', () => {
       cy.get('#cards').should('have.length.greaterThan', 0)
     })
-    
+        
     it('displays loading spinner', () => {
       cy.intercept('GET', 'http://localhost:8881/api/contents', {
         statusCode: 200,

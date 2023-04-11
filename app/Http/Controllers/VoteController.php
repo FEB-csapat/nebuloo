@@ -33,7 +33,7 @@ class VoteController extends Controller
      * @param  App\Http\Requests\StoreVoteRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreVoteRequest $request, $votableType, $votableId)
+    public function store(StoreVoteRequest $request, $votableType, int $votableId)
     {
         $data = $request->validated();
 
@@ -60,16 +60,13 @@ class VoteController extends Controller
                 break;
         }
         $data['votable_id'] = $votableId;
-        $data['votable_type'] = 'App\Models\Content';
 
-
-        // TODO write test for this!
         // check if vote for votable already exists
         $existingVote = Vote::where('owner_user_id', $data['owner_user_id'])
             ->where('votable_id', $data['votable_id'])
             ->where('votable_type', $data['votable_type'])
             ->where('reciever_user_id', $data['reciever_user_id'])
-            ->first();
+            ->first();;
 
         // if vote exists, update it
         if($existingVote){

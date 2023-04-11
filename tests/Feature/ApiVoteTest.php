@@ -48,14 +48,18 @@ class ApiVoteTest extends TestCase
     }
 
     /** @test */
-    public function user_can_update_a_vote()
+    public function user_can_update_their_vote()
     {
         $granter_user = User::factory()->create();
         $reciever_user = User::factory()->create();
 
-        $content = Content::factory()->create();
+        $content = Content::factory()->create(
+            [
+                'creator_user_id' => $reciever_user->id,
+            ]
+        );
 
-
+        // create vote with up direction
         $vote = Vote::factory()->create([
             'owner_user_id' => $granter_user->id,
             'reciever_user_id' => $reciever_user->id,
@@ -64,17 +68,18 @@ class ApiVoteTest extends TestCase
             'direction' => 'up'
         ]);
 
+        // update vote with down direction
         $response = $this->actingAs($granter_user, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
-        ])->put("/api/contents/{$vote->id}/votes", [
+        ])->post("/api/contents/{$content->id}/votes", [
             'direction' => 'down',
         ]);
 
         $response
             ->assertStatus(200)
             ->assertJson([
-                'id' => 1,
+                'id' => $vote->id,
                 'votable_type' => 'App\Models\Content',
                 'votable_id' => $content->id,
                 'direction' => 'down',
@@ -90,6 +95,7 @@ class ApiVoteTest extends TestCase
         ]);
     }
 
+    
     /** @test */
     public function user_can_delete_a_vote()
     {

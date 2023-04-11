@@ -1,7 +1,8 @@
 <template>
     <div class="col">
-        
         <h2>Kommentek:</h2>
+
+        <h1>TODO: implement comment writing feature</h1>
 
         <div class="row bg-light shadow rounded-3 p-2">
             <label for="cim" class="form-label pt-2">Írj kommentet:</label>
@@ -13,10 +14,11 @@
         </div>
 
         <div class="col">
-            <CommentCard v-for="comment in comments" :key="comment.id" :comment="comment" />
+            <p v-if="comments == null">Betöltés...</p>
+            <CommentCard v-else-if="comments.length != 0" v-for="comment in comments" :key="comment.id" :comment="comment" />
+            <p v-else>Nincs még komment</p>
         </div>
     </div>
-    
 </template>
 
 <script>
@@ -43,14 +45,11 @@ export default{
     },
     data() {
         return {
-            comments: [
-                { id: 1, body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-                { id: 2, body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-                { id: 3, body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-            ],
+            
         };
     },
     mounted(){
+        
     },
 };
 </script>

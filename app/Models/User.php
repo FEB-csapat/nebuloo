@@ -53,30 +53,26 @@ class User extends Authenticatable
         return $this->hasMany(Ticket::class,'creator_user_id');
     }
 
-    public function CountVoteScore(){
+    public function sumVoteScore(){
         return $this->recievedVotes->where('direction', 'up')->count()
         - $this->recievedVotes->where('direction', 'down')->count();
     }
 
-    public function GetRank(){
-        if($this->CountVoteScore()<10){
+    public function getRank(){
+        if($this->sumVoteScore()<10){
             return Rank::Find(1);
         }
-        else if($this->CountVoteScore()<25 ){
+        else if($this->sumVoteScore()<25 ){
             return Rank::Find(2);
         }
-        else if($this->CountVoteScore()<50){
+        else if($this->sumVoteScore()<50){
             return Rank::Find(3);
         }
-        else if($this->CountVoteScore()<100){
+        else if($this->sumVoteScore()<100){
             return Rank::Find(4);
         }
         else{
             return Rank::Find(5);
         }
     }
-
-
-    
-
 }
