@@ -25,4 +25,3 @@ $COMPOSE -p nebuloo exec app composer install
 $COMPOSE -p nebuloo exec app php artisan key:generate
 $COMPOSE -p nebuloo exec app php artisan migrate:fresh --seed
 $COMPOSE -p nebuloo exec app npm install
-$COMPOSE -p nebuloo exec app npm run dev
