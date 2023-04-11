@@ -80,6 +80,7 @@ methods:{
     
     async GetMyData(){
         this.responseBody = (await NebulooFetch.getMyDatas()).data;
+        this.name = this.responseBody.name;
         this.questions = this.responseBody.questions;
         this.comments = this.responseBody.comments;
         this.contents = this.responseBody.contents;

@@ -77,6 +77,7 @@ export default{
             this.currentPage = url.split('page=')[1];
 
             this.getAllContent();
+            window.scrollTo(0,0);
 
            // window.location.href = url;
         }

@@ -3,8 +3,7 @@
         <div class="row bg-light shadow rounded-3 p-2">
             <h1 id="title">Új tananyag létrehozása</h1>
                 <div>
-                    <label for="leiras" class="form-label pt-2">Leírás*</label>
-                        <textarea ref="editor" name="leiras" id="leiras" class="form-control"></textarea>    
+                    <textarea ref="editor" name="leiras" id="leiras" class="form-control"></textarea>    
                     <label for="cimkek" class="form-label pt-2">Címkék hozzáadása</label>
                     <input type="text" name="cimkek" id="cimkek" class="form-control">
                 </div>
