@@ -31,15 +31,16 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only(['email', 'password'],'default');
 
-        $user = User::where('email', $credentials['email'])->first();
+        return response()->json(['kutyageci' => $credentials],201);
+        $user = User::where('email', $request->email)->first();
 
         if(!$user){
             return response()->json(['error' => 'No user found with such email!'], 404);
         }
 
-        if (Hash::check($credentials['password'], $user->password)) {
+        if (Hash::check($request->password, $user->password)) {
             $token = $user->createToken('token-name')->plainTextToken;
             return response()->json(['token' => $token], 200);
         } else {

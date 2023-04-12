@@ -48,6 +48,7 @@ export default{
                 headers: {'Content-Type': 'application/json'}
             });
 
+            console.log(this.form);
             const response = (await regist.post('register',this.form)).data;
             console.log(response);
         }
