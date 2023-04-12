@@ -66,4 +66,12 @@ export class NebulooFetch{
             return NebulooFetch.http.delete(votableType + '/' + votableId + '/votes');
         }
     };
+    static createComment(data,path)
+    {
+        const response = NebulooFetch.http.post(path+'/comments',data)
+        .then(()=>{
+            alert("Sikeres komment!");
+            router.push(path);
+        });
+    };
 }

@@ -1,13 +1,14 @@
 <template>
     <div class="d-flex bg-light shadow rounded-3 p-2 mt-2">
-        <div>
+        <div class="col-sm-2 col-xs-2">
             <user :user="comment.creator"></user> 
         </div>
-        <div class="flex-fill">
+        <div class="flex-fill col-sm-9 col-xs-9">
             <p>{{comment.message}}</p>
         </div>
-
-        <vote :contentId="10" :voteCount="10" :vote="null"></vote>
+        <div class="col-sm-1 col-xs-1">
+            <vote :contentId="10" :voteCount="10" :vote="null"></vote>
+        </div>
 
     </div>
 </template>

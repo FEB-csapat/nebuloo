@@ -1,16 +1,26 @@
 <template>
-<form @submit.prevent="Login">
-    <label for="email">E-mail cím</label>
-    <input v-model="form.email" type="text" name='email' placeholder="Email">
+    <div class="container mt-4">
+        <div class="row bg-light shadow rounded-3 p-2">
+            <form @submit.prevent="Login">
+                <label for="email" class="form-label mt-2">E-mail cím</label>
+                <input v-model="form.email" type="text" name='email' placeholder="Email" class="form-control">
 
-    <label for="password">Jelszó:</label>
-    <input v-model="form.password" type="password" name="password" placeholder="Jelszó">
+                <label for="password" class="form-label mt-2">Jelszó:</label>
+                <input v-model="form.password" type="password" name="password" placeholder="Jelszó" class="form-control">
 
-    <button type="submit">Bejelentkezés</button>
-</form>
+                <button type="submit" class="my-3 btn" id="button">Bejelentkezés</button>
+            </form>
+            <div class="col-sm-6 text-center" >
+                <router-link class="nav-link active" aria-current="page" to="/ASZF">ÁSZF</router-link>
+            </div>
 
-<router-link class="nav-link active" aria-current="page" to="/ASZF">ÁSZF</router-link>
-<router-link class="nav-link active" aria-current="page" to="/about">Rólunk</router-link>
+            <div class="col-sm-6 text-center">
+                <router-link class="nav-link active" aria-current="page" to="/about">Rólunk</router-link>
+            </div>
+            
+        </div>
+    </div>
+
 </template>
 <script>
 import Form from 'vform'

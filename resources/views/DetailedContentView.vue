@@ -23,10 +23,7 @@
                 Letöltés
             </button>
         </div>
-
-        <div class="col">
             <comment-section :comments="content.comments" :commentable_id="content.id" :commentable_type="contents"></comment-section>
-        </div>
     </div>
     
 </template>

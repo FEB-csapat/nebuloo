@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col">
             <i id="upvote" @click="toggleUpvote" :class="['fas', 'fa-up-long', 'fa-lg', {'upvoted': voteState === 1}]"/>
-            <p id="votecount" class="text-center">{{voteCount + voteState}}</p>
+            <p id="votecount" class="pt-3 pb-0">{{voteCount + voteState}}</p>
             <i id="downvote" @click="toggleDownvote" :class="['fas', 'fa-down-long', 'fa-lg', {'downvoted': voteState === -1}]"/>
         </div>
     </div>
