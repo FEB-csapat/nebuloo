@@ -64,12 +64,14 @@ const router = createRouter({
     {
       path: '/myprofile',
       name: 'myprofile',
-      component: MyProfileView
+      component: MyProfileView,
+      meta:{requiresAuth: true}
     },
     {
       path: '/myprofile/edit',
       name: 'edit',
-      component: EditMyProfileView
+      component: EditMyProfileView,
+      meta:{requiresAuth: true}
     },
     
     {
@@ -95,17 +97,20 @@ const router = createRouter({
     {
       path: '/create/question',
       name: 'CreateQuestion',
-      component: CreateQuestionView
+      component: CreateQuestionView,
+      meta:{requiresAuth: true}
     },
     {
       path: '/create/content',
       name: 'CreateContent',
-      component: CreateContentView
+      component: CreateContentView,
+      meta:{requiresAuth: true}
     },
     {
       path: '/create/ticket',
       name: 'CreateTicket',
-      component: CreateTicketView
+      component: CreateTicketView,
+      meta:{requiresAuth: true}
     },
     {
       path: '/tickets',
@@ -114,6 +119,11 @@ const router = createRouter({
     }
     
   ]
+})
+
+router.beforeEach(async (to, from, next) => {
+  if (to.meta.requiresAuth && sessionStorage.getItem('userToken') === null) next('login')
+  else next()
 })
 
 export default router

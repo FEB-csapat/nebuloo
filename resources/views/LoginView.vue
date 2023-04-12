@@ -44,17 +44,16 @@ export default{
                 headers: {'Content-Type': 'application/json'}
             });
 
-            console.log(this.form)
-
             login.post('login',this.form)
             .then(response=>{
-                console.log(response);
                 sessionStorage.setItem('userToken',response.data.token);
                 NebulooFetch.token = response.data.token;
                 NebulooFetch.initialize();
             })
-
-            console.log(response);
+            .then(response=>{
+                alert("Sikeres bejelentkezés!");
+                router.push('/');
+            })
         }
     }
 }
