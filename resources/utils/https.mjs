@@ -6,7 +6,7 @@ export class NebulooFetch{
 
     static http;
 
-    static token ="1|NWN5lcks1W7b4GPZzn7642zYluTNgTCTT90Zh7ot";
+    static token ="7|UJcKZ6R6n4zfDGi7KfWigaqxDkcVRY8cWdDeLX3b";
 
     static initialize(){
         NebulooFetch.http = axios.create({
@@ -65,5 +65,13 @@ export class NebulooFetch{
         }else{
             return NebulooFetch.http.delete(votableType + '/' + votableId + '/votes');
         }
+    };
+    static createComment(data,path)
+    {
+        const response = NebulooFetch.http.post(path+'/comments',data)
+        .then(()=>{
+            alert("Sikeres komment!");
+            router.push(path);
+        });
     };
 }

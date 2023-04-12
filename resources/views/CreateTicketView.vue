@@ -30,7 +30,6 @@
             }
         },
         mounted(){
-            NebulooFetch.initialize("1|dO0npLTfqUQyZjodFAjpfCDVgoYAIqwoyh3kSeSM");
         },
         computed:{
             ticket(){
