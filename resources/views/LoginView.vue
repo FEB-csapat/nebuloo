@@ -1,7 +1,7 @@
 <template>
 <form @submit.prevent="Login">
     <label for="email">E-mail cím</label>
-    <input v-model="form.email" type="text" name="email" placeholder="Email">
+    <input v-model="form.email" type="email" name="email" placeholder="Email">
 
     <label for="password">Jelszó:</label>
     <input v-model="form.password" type="password" name="password" placeholder="Jelszó">
