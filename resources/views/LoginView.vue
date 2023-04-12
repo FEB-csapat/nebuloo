@@ -1,7 +1,7 @@
 <template>
 <form @submit.prevent="Login">
     <label for="email">E-mail cím</label>
-    <input v-model="form.email" type="text" name="email" placeholder="Email">
+    <input v-model="form.email" type="text" name='email' placeholder="Email">
 
     <label for="password">Jelszó:</label>
     <input v-model="form.password" type="password" name="password" placeholder="Jelszó">
@@ -35,17 +35,14 @@ export default{
             });
 
             console.log(this.form)
-            const response = (await login.get('login',this.form)).data;
 
-            login.get('login',this.form)
+            login.post('login',this.form)
             .then(response=>{
+                console.log(response);
                 sessionStorage.setItem('userToken',response.data.token);
                 NebulooFetch.token = response.data.token;
                 NebulooFetch.initialize();
             })
-            
-
-            sessionStorage.setItem('userToken', response);
 
             console.log(response);
         }
