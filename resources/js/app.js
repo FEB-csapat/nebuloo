@@ -25,7 +25,12 @@ import '../assets/style.css'
 import '@fortawesome/fontawesome-free/css/all.css'
 import { NebulooFetch } from '../utils/https.mjs';
 
-NebulooFetch.initialize("1|NWN5lcks1W7b4GPZzn7642zYluTNgTCTT90Zh7ot");
+if(sessionStorage.getItem('userToken')===null){
+    NebulooFetch.initialize("1|NWN5lcks1W7b4GPZzn7642zYluTNgTCTT90Zh7ot"); /*Universal token */
+}else{
+    NebulooFetch.initialize(sessionStorage.getItem('userToken'));
+}
+
 
 const app = createApp(App)
 

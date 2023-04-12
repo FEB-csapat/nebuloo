@@ -75,7 +75,12 @@
 </template>
 
 <script>
+import { NebulooFetch } from '../utils/https.mjs';
+
 export default {
+    data(){
+
+    }
 
 }
 </script>

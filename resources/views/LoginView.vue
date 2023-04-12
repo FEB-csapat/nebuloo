@@ -37,8 +37,7 @@ export default{
             login.post('login',this.form)
             .then(response=>{
                 sessionStorage.setItem('userToken',response.data.token);
-                NebulooFetch.token = response.data.token;
-                NebulooFetch.initialize();
+                NebulooFetch.initialize(response.data.token);
             })
             .then(response=>{
                 alert("Sikeres bejelentkezés!");

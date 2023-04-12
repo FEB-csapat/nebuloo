@@ -5,14 +5,14 @@ export class NebulooFetch{
     static baseUrl = "http://localhost:8881/api/";
 
     static http;
+    static token;
 
-    static token ="1|NWN5lcks1W7b4GPZzn7642zYluTNgTCTT90Zh7ot";
-
-    static initialize(){
+    static initialize(token){
+        NebulooFetch.token = token;
         NebulooFetch.http = axios.create({
             baseURL: this.baseUrl,
             headers: {
-                'Authorization':"Bearer " + NebulooFetch.token   ,
+                'Authorization':"Bearer " + token,
                 'Content-Type': 'application/json'
             }
         })
