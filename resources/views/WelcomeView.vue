@@ -62,11 +62,11 @@
                         </label>
                     </div>
                     <div class="row text-center">
-                        <div class="col">
+                        <div class="col my-2">
                             <router-link class="nav-link active" aria-current="page" to="/ASZF">ÁSZF</router-link>
 
                         </div>
-                        <div class="col">
+                        <div class="col my-2">
                             <router-link class="nav-link active" aria-current="page" to="/about">Rólunk</router-link>
                         </div>
                     </div>
