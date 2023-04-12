@@ -23,3 +23,24 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+/*
+Cypress.Commands.add('setupDatabase', () => {
+    cy.exec(`docker exec app php artisan migrate:fresh --seed --env=cypress`);
+});
+*/
+
+Cypress.Commands.add('npmRunDev', () => {
+    cy.exec(`npm run dev`);
+});
+
+
+Cypress.Commands.add('setupDatabase', () => {
+    cy.exec(`docker exec app php artisan migrate:fresh --env=cypress`);
+    cy.exec(`docker exec app php artisan db:seed --class=DatabaseSeederTesting --env=cypress`);
+});
+
+
+Cypress.Commands.add('seed', (seeder) => {
+    cy.exec(`docker exec app php artisan db:seed --class=${seeder} --env=cypress`);
+});

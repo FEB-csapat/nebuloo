@@ -17,27 +17,13 @@ class VoteResource extends JsonResource
      */
     public function toArray($request)
     {
-        
-
         return [
             'id' => $this->id,
             'owner' => new SimpleUserResource($this->owner),
             'reciever' => new SimpleUserResource($this->reciever),
             'votable_type' => $this->votable_type,
             'votable' => $this->votable,
-            /*
-            'votable' => $this->whenLoaded('votable', function () {
-                if($this->votable_type == 'App\Models\Content'){
-                    return new SimpleContentResource($this->votable);
-                }else if($this->votable_type == 'App\Models\Question'){
-                    return new SimpleQuestionResource($this->votable);
-                }else if($this->votable_type == 'App\Models\Comment'){
-                    return new SimpleCommentResource($this->votable);
-                }else{
-                    abort(500, 'Voteable type not found');
-                }
-            }),
-            */
+            
            // 'votable_id' => $this->votable_id,
             'direction' => $this->direction,
         ];

@@ -2,11 +2,11 @@
     <div class="container mt-4">
         <div class="row bg-light shadow rounded-3 p-2">
             <form @submit.prevent="Login">
-                <label for="email" class="form-label mt-2">E-mail cím</label>
-                <input v-model="form.email" type="text" name='email' placeholder="Email" class="form-control">
+                <label for="identifier" class="form-label mt-2">E-mail cím vagy felhasználónév</label>
+                <input id="identifier_field" v-model="form.identifier" type="text" name='identifier' placeholder="Email vagy felhasználónév" class="form-control">
 
                 <label for="password" class="form-label mt-2">Jelszó:</label>
-                <input v-model="form.password" type="password" name="password" placeholder="Jelszó" class="form-control">
+                <input id="password_field" v-model="form.password" type="password" name="password" placeholder="Jelszó" class="form-control">
 
                 <button type="submit" class="my-3 btn" id="button">Bejelentkezés</button>
             </form>
@@ -44,14 +44,22 @@ export default{
                 headers: {'Content-Type': 'application/json'}
             });
 
-            login.post('login',this.form)
+            let data = {};
+            if(this.form.identifier.includes('@')){
+                data.email = this.form.identifier;
+            } else {
+                data.name = this.form.identifier;
+            }
+            data.password = this.form.password;
+
+            login.post('login', data)
             .then(response=>{
                 sessionStorage.setItem('userToken',response.data.token);
                 NebulooFetch.initialize(response.data.token);
             })
             .then(response=>{
                 alert("Sikeres bejelentkezés!");
-                router.push('/');
+                router.push('/contents');
             })
         }
     }

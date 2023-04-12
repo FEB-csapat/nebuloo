@@ -24,7 +24,6 @@
 </template>
 
 <script>
-
 export default{
     components:{
         CommentSection: () => import('../components/CommentSection.vue'),

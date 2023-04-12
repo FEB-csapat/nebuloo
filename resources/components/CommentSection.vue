@@ -6,12 +6,13 @@
         
             <p v-if="comments == null">Betöltés...</p>
             <CommentCard v-else-if="comments.length != 0" v-for="comment in comments" :key="comment.id" :comment="comment" />
-            <p v-else>Nincs még komment</p>
+            <p class="text-center" v-else>Nincs még komment</p>
         
 
         <div class="bg-light shadow rounded-3 mt-2 p-2">
             <label for="cim" class="form-label pt-2">Írj kommentet:</label>
-            <input type="text" id="body" v-model="message" class="form-control">
+
+            <textarea id="body" v-model="message" class="form-control" rows="2" cols="10"></textarea>
 
             <div class="col mt-2">
                 <button type="button" class="btn" id="button" @click="AddComment()" >Küldés</button>

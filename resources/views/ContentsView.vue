@@ -17,14 +17,13 @@
         <h3 id="no-result" v-if="Contents.length == 0 && !isWaiting" class="text-center mb-4">Nincs találat</h3>
 
         <div>
-         <paginator :links="links" :meta="meta" @paginate="handlePaginate" />
+            <paginator :links="links" :meta="meta" @paginate="handlePaginate" />
         </div>
     </div>
 
     <p class="text-center">
         TODO: center this component
     </p>
-
 
     <router-link class="nav-link active" aria-current="page" to="/create/content">
         <div class="fab-button" @click="onClick">
@@ -59,7 +58,7 @@ export default{
     methods:{
         async getAllContent(){
             this.isWaiting = true;
-
+            this.Contents = [];
             var queires = {
                 search: this.searchTerm,
                 page: this.currentPage,
@@ -79,11 +78,15 @@ export default{
             this.getAllContent();
             window.scrollTo(0,0);
 
-           // window.location.href = url;
+            this.$router.push({
+                name: 'contents',
+                query: { search: this.searchTerm, page: this.currentPage }
+            });            
         }
     },
     async mounted(){
         this.searchTerm = this.$route.query.search;
+        this.currentPage = this.$route.query.page;
         this.getAllContent();
     },
 
@@ -91,7 +94,12 @@ export default{
         '$route.query.search'(newSearchTerm) {
             this.searchTerm = newSearchTerm
             this.getAllContent();
+        },
+       /* '$route.query.page'(newPage) {
+            this.currentPage = newPage
+            this.getAllContent();
         }
+        */
     }
 }
 </script>

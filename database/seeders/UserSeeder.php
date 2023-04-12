@@ -1,10 +1,6 @@
 <?php
 
 namespace Database\Seeders;
-
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
-
 use Illuminate\Database\Seeder;
 
 use Spatie\Permission\Models\Role;
@@ -28,31 +24,31 @@ class UserSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         // permissions for admin
-        $permission_users_all = Permission::create(['name' => 'users.*']);
-        $permission_contents_all = Permission::create(['name' => 'contents.*']);
-        $permission_questions_all = Permission::create(['name' => 'questions.*']);
-        $permission_comments_all = Permission::create(['name' => 'comments.*']);
+        $permission_users_all = Permission::findOrCreate('users.*');
+        $permission_contents_all = Permission::findOrCreate('contents.*');
+        $permission_questions_all = Permission::findOrCreate('questions.*');
+        $permission_comments_all = Permission::findOrCreate('comments.*');
 
         // permissions for moderators
     // $permission_contents_all = Permission::create(['name' => 'contents.*']);
     //  $permission_questions_all = Permission::create(['name' => 'questions.*']);
-        $permission_comments_create_delete = Permission::create(['name' => 'comments.create,delete']);
+        $permission_comments_create_delete = Permission::findOrCreate('comments.create,delete');
 
         // permissions for users
 
 
-        $adminRole = Role::create(['name' => 'admin']);
+        $adminRole = Role::findOrCreate('admin');
         $adminRole->givePermissionTo($permission_users_all);
         $adminRole->givePermissionTo($permission_contents_all);
         $adminRole->givePermissionTo($permission_questions_all);
         $adminRole->givePermissionTo($permission_comments_all);
 
-        $moderatorRole = Role::create(['name' => 'moderator']);
+        $moderatorRole = Role::findOrCreate('moderator');
         $moderatorRole->givePermissionTo($permission_contents_all);
         $moderatorRole->givePermissionTo($permission_questions_all);
         $moderatorRole->givePermissionTo($permission_comments_create_delete);
 
-        $userRole = Role::create(['name' => 'user']);
+        $userRole = Role::findOrCreate('user');
 
 
         $userAdmin = User::factory()->create([

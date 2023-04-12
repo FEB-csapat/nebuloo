@@ -17,7 +17,7 @@
                 <p>{{content.created_at}}</p>
                 <user v-if="content.creator" :user="content.creator"></user>
 
-                <vote :contentId="content.id" :voteCount="content.recieved_votes" :vote="null"></vote>
+                <vote :contentId="content.id" :voteCount="content.recieved_votes" :myVote="content.my_vote"></vote>
 
             </div>
         </div>

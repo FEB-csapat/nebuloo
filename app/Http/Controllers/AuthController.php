@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
-use Illuminate\Http\Request;
+use App\Http\Requests\LoginUserRequest;
 use App\Models\User;
 
 use Illuminate\Support\Facades\Hash;
@@ -29,17 +29,22 @@ class AuthController extends Controller
         ], 201);
     }
 
-    public function login(Request $request)
+    public function login(LoginUserRequest $request)
     {
-        $credentials = $request->only('email', 'password');
+        $data = $request->validated();
 
-        $user = User::where('email', $credentials['email'])->first();
-
-        if(!$user){
-            return response()->json(['error' => 'No user found with such email!'], 404);
+        $user = null;
+        if($data['email'] ?? null){
+            $user = User::where('email', $data['email'])->first();
+        } else {
+            $user = User::where('name', $data['name'])->first();
         }
 
-        if (Hash::check($credentials['password'], $user->password)) {
+        if(!$user){
+            return response()->json(['error' => 'No user found with such email or username!'], 404);
+        }
+
+        if (Hash::check($data['password'], $user->password)) {
             $token = $user->createToken('token-name')->plainTextToken;
             return response()->json(['token' => $token], 200);
         } else {

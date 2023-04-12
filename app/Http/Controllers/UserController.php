@@ -49,7 +49,7 @@ class UserController extends Controller
 
         $this->authorize('view', [$user], User::class);
 
-        return new SimpleUserResource($user);
+        return new UserResource($user);
     }
 
     /**

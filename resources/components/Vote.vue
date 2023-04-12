@@ -14,10 +14,7 @@ import { NebulooFetch } from '../utils/https.mjs';
 export default{
     props:{
         contentId: Number, 
-        vote: {
-            type: Object,
-            required: true
-        },
+        myVote: String,
         voteCount: Number
     },
     components:{
@@ -51,7 +48,7 @@ export default{
         }
     },
     mounted(){
-        this.voteState = this.vote?.direction ?? 0;
+        this.voteState = this.myVote == 'up' ? 1 : this.myVote == 'down' ? -1 : 0;
     }
 }
 </script>
