@@ -45,7 +45,6 @@ export class NebulooFetch{
         });
     };
     static getMyDatas(){
-        this.initialize();
         const response = NebulooFetch.http.get("me");
         return response;
     };
