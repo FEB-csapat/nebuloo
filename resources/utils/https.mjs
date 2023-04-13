@@ -71,7 +71,7 @@ export class NebulooFetch{
         const response = NebulooFetch.http.post(path+'/comments',data)
         .then(()=>{
             alert("Sikeres komment!");
-            router.push(path);
+            window.location.reload();
         });
     };
 }
