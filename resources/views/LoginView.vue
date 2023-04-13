@@ -32,7 +32,7 @@ export default{
     data(){
         return{
             form: new Form({
-                email: '',
+                identifier: '',
                 password: ''
             })
         }
@@ -44,15 +44,7 @@ export default{
                 headers: {'Content-Type': 'application/json'}
             });
 
-            let data = {};
-            if(this.form.identifier.includes('@')){
-                data.email = this.form.identifier;
-            } else {
-                data.name = this.form.identifier;
-            }
-            data.password = this.form.password;
-
-            login.post('login', data)
+            login.post('login', this.form)
             .then(response=>{
                 sessionStorage.setItem('userToken',response.data.token);
                 NebulooFetch.initialize(response.data.token);
