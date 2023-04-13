@@ -35,4 +35,8 @@ class Question extends Model
         return $this->votes->where('direction', 'up')->count()
         - $this->votes->where('direction', 'down')->count();
     }
+
+    public function url(){
+        return route('questions.show', $this->id);
+    }
 }

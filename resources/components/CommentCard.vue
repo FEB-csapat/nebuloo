@@ -7,7 +7,7 @@
             <p>{{comment.message}}</p>
         </div>
         <div class="col-sm-1 col-xs-1">
-            <vote :contentId="10" :voteCount="10" :vote="null"></vote>
+            <vote :contentId="comment.id" :voteCount="comment.recieved_votes" :vote="null"></vote>
         </div>
 
     </div>

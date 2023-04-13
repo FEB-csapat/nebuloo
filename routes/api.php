@@ -11,7 +11,9 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\VoteController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\ImageController;
+use App\Mail\MailNotify;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +27,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
 
 Route::get('/login/{provider}', [AuthController:: class, "redirectToProvider"]);
 Route::get('/login/{provider}/callback', [AuthController:: class, "handleProviderCallback"]);
@@ -44,7 +47,7 @@ Route::get('/feed', [FeedController:: class, "index"])
 Route::get('/contents', [ContentController:: class, "index"])
     ->name("contents.index");
 Route::get('/contents/{id}', [ContentController:: class, "show"])
-    ->name("contents.show");
+    ->name("contents.show");    
 
 
 Route::get('/questions', [QuestionController:: class, "index"])

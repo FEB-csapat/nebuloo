@@ -61,6 +61,11 @@ class CommentController extends Controller
         $data['commentable_id'] = $commentableId;
 
         $newComment = Comment::create($data);
+
+        // Notify the creator of the content or question
+        $votableCreator = $data['commentable_type']::find($commentableId)->creator;
+        $votableCreator->notifyNewCommentToCommentable($newComment, $data['commentable_type']);
+
         return new CommentResource($newComment);
     }
 

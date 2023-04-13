@@ -37,4 +37,8 @@ class Content extends Model
         return $this->votes->where('direction', 'up')->count()
         - $this->votes->where('direction', 'down')->count();
     }
+
+    public function url(){
+        return route('contents.show', $this->id);
+    }
 }

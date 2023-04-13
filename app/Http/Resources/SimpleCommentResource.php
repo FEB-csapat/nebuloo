@@ -18,6 +18,7 @@ class SimpleCommentResource extends JsonResource
             'id' => $this->id,
             'creator' => new SimpleUserResource($this->creator),
             'parent' => $this->parent,
+            'recieved_votes' => $this->sumVoteScore(),
             'message' => $this->message,
         ];
     }

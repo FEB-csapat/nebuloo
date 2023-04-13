@@ -19,8 +19,8 @@ class CommentResource extends JsonResource
             'creator' => new SimpleUserResource($this->creator),
             'parent' => $this->parent,
             'message' => $this->message,
+            'recieved_votes' => $this->sumVoteScore(),
             'commentable_type' => $this->commentable_type,
-            // TODO find out why this doesn't work
             'commentable' => $this->whenLoaded('commentable', function () {
                 if($this->commentable_type == 'App\Models\Content'){
                     return new SimpleContentResource($this->commentable);

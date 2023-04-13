@@ -26,7 +26,7 @@ import '@fortawesome/fontawesome-free/css/all.css'
 import { NebulooFetch } from '../utils/https.mjs';
 
 if(sessionStorage.getItem('userToken')===null){
-    NebulooFetch.initialize("1|NWN5lcks1W7b4GPZzn7642zYluTNgTCTT90Zh7ot"); /*Universal token */
+    NebulooFetch.initialize("0"); /*Universal token */
 }else{
     NebulooFetch.initialize(sessionStorage.getItem('userToken'));
 }

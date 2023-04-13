@@ -55,6 +55,7 @@ class UserSeeder extends Seeder
             'email' => 'admin@adminmail.com',
             'email_verified_at' => Carbon::now(),
             'name' => 'Admin',
+            'display_name' => 'Admin',
             'bio' => 'My hobbies are reading and programming',      
             'password' => Hash::make('admin123')  
         ]);
@@ -65,6 +66,7 @@ class UserSeeder extends Seeder
             'email' => 'erik@fakemail.com',
             'email_verified_at' => Carbon::now(),
             'name' => 'Erik',
+            'display_name' => 'Erik',
             'bio' => 'My hobbies are reading and programming',      
             'password' => Hash::make('Jelszo123')  
         ]);
@@ -73,6 +75,7 @@ class UserSeeder extends Seeder
 
         $userFeco = User::factory()->create([
             'name' => 'Fecó',
+            'display_name' => 'Fecó',
             'bio' => 'I play with guns',
             'email' => 'feco@fakemail.com',
             'email_verified_at' => Carbon::now(),
@@ -84,6 +87,7 @@ class UserSeeder extends Seeder
             'email' => 'bence@fakemail.com',
             'email_verified_at' => Carbon::now(),
             'name' => 'Bencus',
+            'display_name' => 'Bencus',
             'bio' => 'I\'m here for the money',
         ]);
         $userBence->assignRole($moderatorRole);

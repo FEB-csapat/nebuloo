@@ -17,6 +17,14 @@
     <label for="password_confirmation" class="form-label mt-2">Jelszó újra:</label>
     <input v-validate="'required|confirmed:password'" v-model="form.password_confirmation" type="password" name="password_confirmation" placeholder="Password again" class="form-control">
 
+    <div class="form-check mt-2">
+        <input class="form-check-input" type="checkbox" name="notify_by_email" id="notify_by_email" value="true" v-model="form.notify_by_email">
+        <label class="form-check-label" for="notify_by_email">
+            Kérek értesítést e-mailben új tartalmakról
+        </label>
+    </div>
+
+
     <button type="submit" class="my-3 btn" id="button">
         Regisztráció
     </button>
@@ -37,7 +45,8 @@ export default{
             name: '',
             email: '',
             password: '',
-            password_confirmation: ''
+            password_confirmation: '',
+            notify_by_email: true
         })
         }
     },
