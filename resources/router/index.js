@@ -65,13 +65,15 @@ const router = createRouter({
       path: '/myprofile',
       name: 'myprofile',
       component: MyProfileView,
-      meta:{requiresAuth: true}
+      meta:{requiresAuth: true},
+      props: true
     },
     {
       path: '/myprofile/edit',
       name: 'edit',
       component: EditMyProfileView,
-      meta:{requiresAuth: true}
+      meta:{requiresAuth: true},
+      props: true
     },
     
     {

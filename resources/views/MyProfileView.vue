@@ -20,8 +20,8 @@
     </ul>
 
     <div class="text-end">
-                <button class="btn" id="button">
-                    <router-link class="nav-link active" aria-current="page" to="/myprofile/edit">Profilom szerkesztése</router-link>
+                <button class="btn" id="button" @click="navigate">
+                    Profilom szerkesztése
                 </button>
             </div>
     </div>
@@ -81,6 +81,17 @@ methods:{
         this.rank = this.responseBody.rank;
         console.log(this.responseBody)
     },
+    navigate(){
+            this.$router.push({
+                name: 'edit',
+                params: {
+                    data:  this.mydata
+                },
+                props: {
+                    data: this.mydata
+                }
+            })
+        },
 },
 computed: { 
     IHaveQuestions(){
