@@ -8,7 +8,7 @@
             </div>
             <form action="">
                 <h2>Bio:</h2>
-                <input type="text" class="form-control my-3" name="bio" id="bio">
+                <input type="text" class="form-control my-3" name="bio" id="bio" v-model="bio">
                 <h2>Érdekeltségi kör:</h2>
                 <select id="interest" class="form-select my-3">
                     <option data-hidden="true">Válasszon!</option>
@@ -28,5 +28,28 @@
     </div>
     </template>
     <script>
+    import { NebulooFetch } from '../utils/https.mjs';
+    export default{
+        data(){
+            return{   
+                bio:'',
+                display_name:''
+            }
+        },
+        methods:{
     
+            async EditMyData(){
+                const data = JSON.stringify(this.body);
+                NebulooFetch.EditMyDatas(data);
+            }
+},
+        computed:{
+            body(){
+                return{
+                    bio:this.bio,
+                    display_name:this.display_name
+                }
+            }
+        }
+    }
     </script>

@@ -48,6 +48,14 @@ export class NebulooFetch{
         const response = NebulooFetch.http.get("me");
         return response;
     };
+    static EditMyDatas(data){
+        const response = NebulooFetch.http.put('me',data)
+        .then(()=>{
+            alert("Sikeres változtatás");
+            router.push('/myprofile');
+        });
+    }
+
     static createTicket(data){
         const response = NebulooFetch.http.post('me/tickets',data)
         .then(()=>{

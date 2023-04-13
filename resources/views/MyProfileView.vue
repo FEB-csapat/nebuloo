@@ -3,12 +3,12 @@
     <div class="row bg-light mt-3 mb-2 rounded-3 p-3 shadow">
         <div class="col text-center">
             <img src="https://placeholder.pics/svg/60" alt="">
-        <p class="fs-6">{{ rank.name}}</p>
-        <p class="fs-4">{{ name }}</p>
+        <p class="fs-6">{{ rank.name }}</p>
+        <p class="fs-4">{{ mydata.name }}</p>
         </div>
         <h2>Bio:</h2>
     <p class="ps-5">
-        {{ bio }}
+        {{ mydata.bio }}
     </p>
 
     <h2>Érdekeltségi kör:</h2>
@@ -31,27 +31,27 @@
     <p v-if="IHaveQuestions==false">
         Nincsenek kérdéseim.
     </p>
-    <cards :Questions="questions" v-else/>
+    <cards :Questions="mydata.questions" v-else/>
 
     <h2 class="mt-4 mb-2">Tananyagaim:</h2>
     <p v-if="IHaveContents==false">
         Nincsenek tananyagaim.
     </p>
-    <cards :Contents="contents" v-else/>
+    <cards :Contents="mydata.contents" v-else/>
 
     <h2 class="mt-4">Kommentjeim:</h2>
     <div>
         <p v-if="IHaveComments==false">
             Nincsenek kommentjeim.
         </p>
-        <comment-card v-else v-for="comment in comments" :key="comment.id" :comment="comment" />
+        <comment-card v-else v-for="comment in mydata.comments" :key="comment.id" :comment="comment" />
     </div>
     
     <h2 class="mt-4">Hibajegyeim:</h2>
     <p v-if="IHaveTickets==false">
         Nincsenek Hibajegyeim.
     </p>
-    <cards :Tickets="tickets" v-else/>
+    <cards :Tickets="mydata.tickets" v-else/>
 
 </div>
 </template>
@@ -65,10 +65,7 @@ data(){
     return{
         name: '',
         bio: '',
-        questions:[],
-        comments:[],
-        contents:[],
-        tickets:[],
+        mydata:[],
         rank: Object,
     }
 },
@@ -80,30 +77,30 @@ methods:{
     
     async GetMyData(){
         this.responseBody = (await NebulooFetch.getMyDatas()).data;
-        this.name = this.responseBody.name;
-        this.questions = this.responseBody.questions;
-        this.comments = this.responseBody.comments;
-        this.contents = this.responseBody.contents;
+        this.mydata = this.responseBody;
         this.rank = this.responseBody.rank;
-        this.tickets = this.responseBody.tickets;
-    }
+        console.log(this.responseBody)
+    },
 },
 computed: { 
     IHaveQuestions(){
-        return this.questions.length != 0;
+        return this.mydata.questions != 0;
     },
     IHaveComments(){
-        return this.comments.length != 0;
+        return this.mydata.comments != 0;
     },
     IHaveContents(){
-        return this.contents.length != 0;
+        return this.mydata.contents != 0;
     },
     IHaveTickets(){
-        return this.tickets.length != 0;
+        return this.mydata.tickets != 0;
     },
+    
   },
+
 async mounted(){
     this.GetMyData();
 }
+
 }
 </script>
