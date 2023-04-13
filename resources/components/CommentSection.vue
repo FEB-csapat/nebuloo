@@ -61,8 +61,5 @@ export default{
                 }
             }
         },
-    mounted(){
-    NebulooFetch.initialize();
-    },
 };
 </script>

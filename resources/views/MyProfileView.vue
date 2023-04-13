@@ -103,7 +103,6 @@ computed: {
     },
   },
 async mounted(){
-    NebulooFetch.initialize(this.token);
     this.GetMyData();
 }
 }

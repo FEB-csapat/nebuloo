@@ -45,7 +45,6 @@ export class NebulooFetch{
         });
     };
     static getMyDatas(){
-        this.initialize();
         const response = NebulooFetch.http.get("me");
         return response;
     };
@@ -71,7 +70,7 @@ export class NebulooFetch{
         const response = NebulooFetch.http.post(path+'/comments',data)
         .then(()=>{
             alert("Sikeres komment!");
-            router.push(path);
+            window.location.reload();
         });
     };
 }
