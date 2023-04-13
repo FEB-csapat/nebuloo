@@ -122,7 +122,11 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  if (to.meta.requiresAuth && sessionStorage.getItem('userToken') === null) next('login')
+  if (to.meta.requiresAuth && sessionStorage.getItem('userToken') === null) 
+  {
+    next('login');
+    alert("A folytatáshoz kérlek jelentkezz be!");
+  }  
   else next()
 })
 
