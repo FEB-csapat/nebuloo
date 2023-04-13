@@ -17,7 +17,8 @@
             <div class="col-sm-6 text-center">
                 <router-link class="nav-link active" aria-current="page" to="/about">Rólunk</router-link>
             </div>
-            
+
+            <SnackBar ref="snackBar" :message="'Sikeres bejelentkezés'"/>
         </div>
     </div>
 
@@ -28,6 +29,8 @@ import axios from 'axios'
 import { NebulooFetch } from '../utils/https.mjs';
 import router from '../router/index';
 
+import SnackBar from '../components/SnackBar.vue';
+
 export default{
     data(){
         return{
@@ -36,6 +39,9 @@ export default{
                 password: ''
             })
         }
+    },
+    components: {
+        SnackBar
     },
     methods:{
         async Login(){
@@ -47,11 +53,11 @@ export default{
             login.post('login', this.form)
             .then(response=>{
                 sessionStorage.setItem('userToken',response.data.token);
-                console.log("az én kis tokenem: " + response.data.token);
                 NebulooFetch.initialize(response.data.token);
             })
             .then(response=>{
-                alert("Sikeres bejelentkezés!");
+              //  alert("Sikeres bejelentkezés!");
+                this.$refs.snackBar.showSnackbar();
                 router.push('/contents');
             })
         }
