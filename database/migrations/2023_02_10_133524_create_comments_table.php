@@ -13,7 +13,6 @@ return new class extends Migration
      */
     public function up()
     {
-        // TODO add comment section table
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('creator_user_id')->references('id')->on('users')->cascadeOnDelete();

@@ -24,9 +24,8 @@ return new class extends Migration
 
             $table->rememberToken();
             
-            // TODO add display-name
             $table->string('name');
-            $table->string('display_name');//->default(DB::raw('name'));
+            $table->string('display_name');
             $table->string('bio')->nullable();
 
             $table->boolean('notify_by_email')->default(true);

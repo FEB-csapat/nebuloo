@@ -29,9 +29,19 @@ class Comment extends Model
         return $this->belongsTo(User::class, 'creator_user_id');
     }
 
+    public function votes()
+    {
+        return $this->morphMany(Vote::class, 'votable');
+    }
+
     public function commentable()
     {
         return $this->morphTo();
+    }
+
+    public function sumVoteScore(){
+        return $this->votes->where('direction', 'up')->count()
+        - $this->votes->where('direction', 'down')->count();
     }
 
     public function url(){

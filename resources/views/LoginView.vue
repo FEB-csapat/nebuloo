@@ -47,6 +47,7 @@ export default{
             login.post('login', this.form)
             .then(response=>{
                 sessionStorage.setItem('userToken',response.data.token);
+                console.log("az én kis tokenem: " + response.data.token);
                 NebulooFetch.initialize(response.data.token);
             })
             .then(response=>{
