@@ -33,4 +33,8 @@ class Comment extends Model
     {
         return $this->morphTo();
     }
+
+    public function url(){
+        return $this->commentable->url() . '#comment-' . $this->id;
+    }
 }

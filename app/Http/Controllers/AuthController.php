@@ -4,25 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\LoginUserRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-
-
     public function register(StoreUserRequest $request)
     {
         $request->validated();
     
         $user = User::create([
             'name' => $request->name,
+            'display_name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-    
-        $token = $user->createToken('token-name')->plainTextToken;
         
         return response()->json([
             'message' => 'Successfully created user!',
@@ -34,10 +32,10 @@ class AuthController extends Controller
         $data = $request->validated();
 
         $user = null;
-        if($data['email'] ?? null){
-            $user = User::where('email', $data['email'])->first();
+        if(strpos($data['identifier'], '@') ){
+            $user = User::where('email', $data['identifier'])->first();
         } else {
-            $user = User::where('name', $data['name'])->first();
+            $user = User::where('name', $data['identifier'])->first();
         }
 
         if(!$user){
@@ -46,7 +44,10 @@ class AuthController extends Controller
 
         if (Hash::check($data['password'], $user->password)) {
             $token = $user->createToken('token-name')->plainTextToken;
-            return response()->json(['token' => $token], 200);
+            return response()->json([
+                'token' => $token,
+                'user' => new UserResource($user),
+            ], 200);
         } else {
             return response()->json(['error' => 'Wrong password!'], 401);
         }

@@ -2,25 +2,33 @@
 
 namespace App\Models;
 
+use App\Mail\ContentCommentMailNotify;
+use App\Mail\QuestionCommentMailNotify;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Sanctum\HasApiTokens;
-
+use Illuminate\Support\Facades\Mail;
 class User extends Authenticatable
 {
     use HasFactory, HasApiTokens, HasRoles;
+    
 
     protected $table = 'users';
     protected $primaryKey = 'id';
 
     protected $hidden = [
         'remember_token',
+        'password',
+        'email_verified_at',
+        'notify_by_email'
     ];
 
     protected $fillable = [
-        'email', 'email_verified_at', 'name', 'bio', 'password'
+        'email', 'email_verified_at', 'name', 'display_name', 'bio', 'password'
     ];
+
+    
 
     public function provider()
     {
@@ -75,4 +83,18 @@ class User extends Authenticatable
             return Rank::Find(5);
         }
     }
+
+    public function notifyNewCommentToCommentable(object $comment, string $commentableClass)
+    {
+        if( ! $this->notify){
+            return;
+        }
+        if($commentableClass == Content::class){
+            Mail::to($this->email)->send(new ContentCommentMailNotify($comment));
+
+        }else {
+            Mail::to($this->email)->send(new QuestionCommentMailNotify($comment));
+        }
+    }
+
 }

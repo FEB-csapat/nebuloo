@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -25,7 +26,10 @@ return new class extends Migration
             
             // TODO add display-name
             $table->string('name');
+            $table->string('display_name');//->default(DB::raw('name'));
             $table->string('bio')->nullable();
+
+            $table->boolean('notify_by_email')->default(true);
             $table->timestamps();
         });
     }
