@@ -25,7 +25,7 @@
         TODO: center this component
     </p>
 
-    <router-link class="nav-link active" aria-current="page" to="/create/content">
+    <router-link v-if="logedin" class="nav-link active" aria-current="page" to="/create/content">
         <div class="fab-button" @click="onClick">
             <span class="m-3">Create new content</span>
             <i class="fas fa-plus fa-lg"/>
@@ -52,7 +52,8 @@ export default{
             currentPage: 1,
 
             links: {}, 
-            meta: {} 
+            meta: {},
+            logedin: false,
         }
     },
     methods:{
@@ -84,10 +85,11 @@ export default{
             });            
         }
     },
-    async mounted(){
+    mounted(){
         this.searchTerm = this.$route.query.search;
         this.currentPage = this.$route.query.page;
         this.getAllContent();
+        if(NebulooFetch.token!='0') this.logedin = true;
     },
 
     watch: {
