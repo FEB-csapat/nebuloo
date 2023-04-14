@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row bg-light mt-3 mb-2 rounded-3 p-3 shadow">
         <div class="col text-center">
-            <img src="https://placeholder.pics/svg/60" alt="">
+            <img src="https://placeholder.pics/svg/60" alt="" id="profpicture">
         <p class="fs-6">{{ rank.name }}</p>
         <p class="fs-4">{{ mydata.name }}</p>
         </div>

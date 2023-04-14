@@ -1,6 +1,6 @@
 <template>
     <div class="col" @click="navigate">
-        <img class="mx-auto" src="https://placeholder.pics/svg/35" alt="">
+        <img class="mx-auto" src="https://placeholder.pics/svg/35" alt="" id="profpicture">
         <p v-if="user != null">{{user.name}}</p>
         <p v-else>Betöltés...</p>
     </div>

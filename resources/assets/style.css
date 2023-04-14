@@ -89,3 +89,7 @@ body{
 #card:hover{
     box-shadow: 5px 10px 12px rgba(0, 0, 0, 0.4), 0px 2px 10px rgba(0, 0, 0, 0.2);
 }
+#profpicture:hover{
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.4);
+    transition: box-shadow 0.1s ease-in-out;
+}

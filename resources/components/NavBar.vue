@@ -21,7 +21,7 @@
         </form>
         <div class="row h-100">
           <div class="col text-center">
-              <router-link class="nav-link active" aria-current="page" to="/myprofile"><img src="https://placeholder.pics/svg/35" alt=""></router-link>
+              <router-link class="nav-link active" aria-current="page" to="/myprofile"><img src="https://placeholder.pics/svg/35" alt="" id="profpicture"></router-link>
           </div>
         </div>
       </div>
