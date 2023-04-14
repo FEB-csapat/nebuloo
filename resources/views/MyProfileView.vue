@@ -89,7 +89,6 @@ methods:{
         this.responseBody = (await NebulooFetch.getMyDatas()).data;
         this.mydata = this.responseBody;
         this.rank = this.responseBody.rank;
-        console.log(this.responseBody)
     },
     async DeleteMe(){
         if (window.confirm("Biztosan törölni szeretné profilját?")) {
