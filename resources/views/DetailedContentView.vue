@@ -25,7 +25,7 @@
                     </button>
                 </div>
                 <div class="col-sm-6 text-end" v-if="MyPost==true">
-                    <button class="btn btn-danger">
+                    <button class="btn btn-danger" @click="DeletePost()">
                         Poszt törlése
                     </button> 
                 </div>
@@ -77,9 +77,11 @@ export default{
             var responseBody = (await NebulooFetch.getDetailedContent(this.id)).data;
             this.content = responseBody;
             this.creator = this.content.creator;
-            console.log(this.creator);
             this.editor.value(this.content.body);
             this.isWaiting = false;
+        },
+        DeletePost(){
+                NebulooFetch.DeleteMyPost(this.$route.path);
         },
     },
     async mounted(){

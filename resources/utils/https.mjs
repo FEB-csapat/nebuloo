@@ -37,6 +37,14 @@ export class NebulooFetch{
         return response;
     };
 
+    static DeleteMyPost(path){
+        const response = NebulooFetch.http.delete("me"+path)
+        .then(()=>{
+            alert("Sikeres törlés!");
+            router.push('/myprofile');
+        })
+    };
+
     static createQuestion(data){
         const response = NebulooFetch.http.post('me/questions',data)
         .then(()=>{
