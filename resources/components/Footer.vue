@@ -10,17 +10,22 @@
       </div>
         <div class="row justify-content-between">
           <div class="col-sm-3">
-            <router-link class="nav-link text-muted px-2" aria-current="page" to="/documentation">Dokumentációk</router-link>
+            <router-link class="nav-link text-muted px-2 mt-1" aria-current="page" to="/documentation">Dokumentációk</router-link>
           </div>
           <div class="col-sm-3">
-            <router-link class="nav-link text-muted px-2" aria-current="page" to="/create/ticket">Jelentés küldése</router-link>
+            <router-link class="nav-link text-muted px-2 mt-1" aria-current="page" to="/create/ticket">Jelentés küldése</router-link>
           </div>
           <div class="col-sm-3">
-            <a href="#" class="nav-link px-2 text-muted">Forrás</a>
+            <a href="#" class="nav-link px-2 text-muted mt-1">Forrás</a>
           </div>
           <div class="col-sm-3">
-            <router-link class="nav-link text-muted px-2" aria-current="page" to="/about">Rólunk</router-link>
+            <router-link class="nav-link text-muted px-2 mt-1" aria-current="page" to="/about">Rólunk</router-link>
           </div>
+          <div class="col-sm-3">
+            <router-link class="nav-link text-muted px-2 mt-1" aria-current="page" to="/ASZF">ÁSZF</router-link>
+          </div>
+          
+          
         </div>      
     </footer>
   </div>

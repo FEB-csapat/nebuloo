@@ -52,6 +52,13 @@ export class NebulooFetch{
             router.push('/myprofile');
         });
     };
+    static createContent(data){
+        const response = NebulooFetch.http.post('me/contents',data)
+        .then(()=>{
+            alert("Sikeres létrehozás!");
+            router.push('/myprofile');
+        });
+    };
     static getMyDatas(){
         const response = NebulooFetch.http.get("me");
         return response;

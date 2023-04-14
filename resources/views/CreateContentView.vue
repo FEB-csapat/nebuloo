@@ -10,7 +10,7 @@
     
             <div class="text-end p-3">
     
-                <button class="btn" id="button">
+                <button class="btn" id="button" @click="CreateContent()">
                     Létrehozás
                 </button>
             </div>
@@ -24,6 +24,26 @@ import EasyMDE from 'easymde';
 import { NebulooFetch } from '../utils/https.mjs';
 
 export default{
+    data(){
+        return{
+            body:''
+        }
+    },
+    methods:{
+        async CreateContent(){
+            const editorContent = this.editor.getValue();
+            console.log(editorContent);
+            const data = JSON.stringify(this.content);
+                NebulooFetch.createQuestion(data);
+        }, 
+    },
+    computed:{
+            content(){
+                return{
+                    body:editor.codemirror.getValue()
+                }
+            }
+    },
     components:{
 
     },
