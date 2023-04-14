@@ -1,8 +1,8 @@
 <template>
-    <div class="row">
+    <div id="vote_container" class="row text-center">
         <div class="col">
             <i id="upvote" @click="toggleUpvote" :class="['fas', 'fa-up-long', 'fa-lg', {'upvoted': voteState === 1}]"/>
-            <p id="votecount" class="pt-3 pb-0">{{voteCount + voteState}}</p>
+            <p id="votecount" class="pt-3  ml-2 text-center">{{voteCount + voteState}}</p>
             <i id="downvote" @click="toggleDownvote" :class="['fas', 'fa-down-long', 'fa-lg', {'downvoted': voteState === -1}]"/>
         </div>
     </div>
@@ -55,6 +55,10 @@ export default{
 
 
 <style>
+
+#vote_container{
+    min-width: 50px;
+}
 fa-up-long{
     color: blue;
     transition: transform 1s ease-in-out;

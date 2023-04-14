@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreImageRequest;
 use App\Http\Resources\ContentResource;
+use App\Http\Resources\ImageResource;
 use App\Models\Content;
 use Illuminate\Http\Request;
 use App\Models\Image;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 
 class ImageController extends Controller
 {
@@ -37,10 +38,13 @@ class ImageController extends Controller
 
         $path = $request->file('image')->store('public/images');
 
+
         $image = new Image();
         $image->path = $path;
         $image->creator_user_id = auth()->user()->id;
         $image->save();
+
+        return new ImageResource($image);
 
         return response()->json(['id' => $image->id], 201);
     }
@@ -53,7 +57,21 @@ class ImageController extends Controller
      */
     public function show($id)
     {
-        $image = Image::find($id);
+
+        $image = Image::findOrFail($id);
+
+/*
+        $path = Storage::url($image->path);
+
+        // Return the image as a response
+        return response()->file(storage_path('app' . $path));
+
+            */
+
+     //   return new ImageResource($image);
+
+
+      //  return response()->json($image);
 
         if (!$image) {
             return response()->json(['message' => 'Image not found'], 404);

@@ -1,7 +1,7 @@
 <template>
     <div id="snackbar">
         {{message}}
-        <button v-if="buttonText != null" class="btn btn-primary ml-3" onclick="myFunction()">{{buttonText}}</button>
+        <button v-if="buttonText != null" class="btn btn-primary ml-3" onclick="onClick()">{{buttonText}}</button>
     </div>
 </template>
 
@@ -19,6 +19,9 @@ export default{
         };
     },
     methods:{
+        onClick(){
+            this.$emit('onClick');
+        },
         showSnackbar() {
             var x = document.getElementById("snackbar");
             x.className = "show";

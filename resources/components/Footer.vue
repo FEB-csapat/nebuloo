@@ -8,32 +8,20 @@
           </router-link>
         </p>
       </div>
-
-      <div class="row justify-content-start">
-        <div class="col-sm-6">
-          <div class="row">
-          <div class="col-md-3">
-            <router-link class="nav-link text-muted px-2" aria-current="page" to="/documentation">Dokumentáció</router-link>
+        <div class="row justify-content-between">
+          <div class="col-sm-3">
+            <router-link class="nav-link text-muted px-2" aria-current="page" to="/documentation">Dokumentációk</router-link>
           </div>
-          <div class="col-md-3">
+          <div class="col-sm-3">
             <router-link class="nav-link text-muted px-2" aria-current="page" to="/create/ticket">Jelentés küldése</router-link>
-
           </div>
-          <div class="col-md-3">
+          <div class="col-sm-3">
             <a href="#" class="nav-link px-2 text-muted">Forrás</a>
-
           </div>
-          <div class="col-md-3">
+          <div class="col-sm-3">
             <router-link class="nav-link text-muted px-2" aria-current="page" to="/about">Rólunk</router-link>
-
           </div>
-        </div>
-      
-        </div>
-        
-      </div>
-  
-      
+        </div>      
     </footer>
   </div>
   </template>

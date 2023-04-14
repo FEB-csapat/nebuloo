@@ -3,7 +3,9 @@
     <div class="row bg-light mt-3 mb-2 rounded-3 p-3 shadow">
         <div class="col text-center">
             <img src="https://placeholder.pics/svg/60" alt="" id="profpicture">
-        <p class="fs-6">{{ rank.name }}</p>
+
+        <p v-if="mydata.rank != null" class="fs-6">{{ mydata.rank.name }}</p>
+        <p v-if="mydata.roles != null" class="fs-6">{{ mydata.roles[0]}}</p>
         <p class="fs-4">{{ mydata.name }}</p>
         </div>
         <h2>Bio:</h2>
@@ -26,7 +28,7 @@
         </div>
         <div class="col-sm-6 text-end">
                 <button class="btn btn-danger" @click="DeleteMe()">
-                        Profilom törlése
+                        Fiókom törlése
                 </button>
         </div>
     </div>
@@ -73,10 +75,7 @@ import CommentCard from '../components/CommentCard.vue';
 export default{
 data(){
     return{
-        name: '',
-        bio: '',
         mydata:[],
-        rank: Object,
     }
 },
 components:{
@@ -87,17 +86,18 @@ methods:{
     
     async GetMyData(){
         this.responseBody = (await NebulooFetch.getMyDatas()).data;
+
         this.mydata = this.responseBody;
-        this.rank = this.responseBody.rank;
     },
     async DeleteMe(){
         if (window.confirm("Biztosan törölni szeretné profilját?")) {
-        NebulooFetch.DeleteMe();
-        sessionStorage.removeItem('userToken');
-      } else {
-        // user clicked "Cancel"
-        // do nothing
-      }
+            NebulooFetch.DeleteMe();
+            sessionStorage.removeItem('userToken');
+            this.$router.push({name: 'welcome'});
+        } else {
+            // user clicked "Cancel"
+            // do nothing
+        }
     },
     navigate(){
             this.$router.push({
