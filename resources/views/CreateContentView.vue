@@ -9,8 +9,7 @@
                 </div>
     
             <div class="text-end p-3">
-    
-                <button class="btn" id="button" @click="CreateContent()">
+                <button class="btn" id="button" @click="createContent()">
                     Létrehozás
                 </button>
             </div>
@@ -30,19 +29,29 @@ export default{
         }
     },
     methods:{
-        async CreateContent(){
-            const editorContent = this.editor.getValue();
-            console.log(editorContent);
-            const data = JSON.stringify(this.content);
-                NebulooFetch.createQuestion(data);
+        async createContent(){
+            const body = this.editor.value();
+            if(body == ""){
+                // TODO: handle error properly
+                alert("A poszt nem lehet üres!");
+                return;
+            }
+            var data = {
+                body: body,
+              //  tags: document.getElementById("cimkek").value,
+            }
+            var response = (await NebulooFetch.createContent(data));
+
+            if(response.status == 201){
+                this.$router.push({ name: 'contentById', params:  {id: response.data.id} })
+            }else{
+                // TODO: handle error properly
+                alert("Hiba történt a poszt létrehozása közben!");
+            }
         }, 
     },
     computed:{
-            content(){
-                return{
-                    body:editor.codemirror.getValue()
-                }
-            }
+    
     },
     components:{
 
@@ -75,7 +84,7 @@ export default{
                 '|',
                 'guide',
             ],
-            
+            spellChecker: false,
             placeholder: "Ide írj...",                
             autofocus: true,
             uploadImage: true,

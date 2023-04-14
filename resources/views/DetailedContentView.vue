@@ -17,7 +17,10 @@
                 </div>
             </div>
             
-            <textarea ref="editor" name="leiras" id="leiras" class="form-control">Betöltés...</textarea>
+            <div class="detailed_content_view_textarea">
+                <textarea ref="editor" name="leiras" id="leiras" class="form-control">Betöltés...</textarea>
+            </div>
+
             <div class="row">
                 <div class="col-sm-6">
                     <button class="btn" id="button">
@@ -25,7 +28,7 @@
                     </button>
                 </div>
                 <div class="col-sm-6 text-end" v-if="MyPost==true">
-                    <button class="btn btn-danger" @click="DeletePost()">
+                    <button class="btn btn-danger" @click="deletePost()">
                         Poszt törlése
                     </button> 
                 </div>
@@ -79,10 +82,10 @@ export default{
             this.editor.value(this.content.body);
             this.isWaiting = false;
         },
-        DeletePost(){
+        deletePost(){
             if (window.confirm("Biztosan törölni szeretné posztját?")) {
         
-                NebulooFetch.DeleteMyPost(this.$route.path);
+                NebulooFetch.deleteMyPost(this.$route.path);
             }
         },
     },

@@ -5,7 +5,7 @@
             <div>
                 <tag v-for="tag in content.tags" :tag="tag"></tag>
                 
-                <div class="content-body">
+                <div class="card_content_view_textarea">
                     <textarea ref="editor" name="leiras" id="leiras" class="form-control">{{content.body}}</textarea>
                 </div>
             </div>
@@ -57,17 +57,13 @@ export default{
             })
         }
     },
+
     mounted(){
         this.editor = new EasyMDE({
             element: this.$refs.editor,
             readOnly: true,
             toolbar: false,
             spellChecker: false,
-
-            maxHeight: "160px",
-
-            autoResize: true,
-            scrollLock: true
         });
 
         this.editor.togglePreview();
@@ -77,8 +73,6 @@ export default{
 
 
 <style>
-.content-body {
-    overflow: hidden;
 
-}
+
 </style>

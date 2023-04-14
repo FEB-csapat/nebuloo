@@ -14,7 +14,7 @@
         <h3 v-if="Questions.length == 0 && !isWaiting" class="text-center mb-4">Nincs találat</h3>
 
     </div>
-    <router-link class="nav-link active" aria-current="page" to="/create/question">
+    <router-link class="nav-link active" aria-current="page" to="questions/create">
         <div class="fab-button" @click="onClick">
             <span class="m-3">Create new question</span>
             <i class="fas fa-plus fa-lg"/>

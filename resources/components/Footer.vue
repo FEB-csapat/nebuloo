@@ -13,7 +13,7 @@
             <router-link class="nav-link text-muted px-2 mt-1" aria-current="page" to="/documentation">Dokumentációk</router-link>
           </div>
           <div class="col-sm-3">
-            <router-link class="nav-link text-muted px-2 mt-1" aria-current="page" to="/create/ticket">Jelentés küldése</router-link>
+            <router-link class="nav-link text-muted px-2 mt-1" aria-current="page" to="/tickets/create">Jelentés küldése</router-link>
           </div>
           <div class="col-sm-3">
             <a href="#" class="nav-link px-2 text-muted mt-1">Forrás</a>

@@ -37,7 +37,7 @@ export class NebulooFetch{
         return response;
     };
 
-    static DeleteMyPost(path){
+    static deleteMyPost(path){
         const response = NebulooFetch.http.delete("me"+path)
         .then(()=>{
             alert("Sikeres törlés!");
@@ -52,25 +52,22 @@ export class NebulooFetch{
             router.push('/myprofile');
         });
     };
-    static createContent(data){
-        const response = NebulooFetch.http.post('me/contents',data)
-        .then(()=>{
-            alert("Sikeres létrehozás!");
-            router.push('/myprofile');
-        });
+    static async createContent(data){
+        const response = NebulooFetch.http.post('me/contents',data);
+        return response;
     };
     static getMyDatas(){
         const response = NebulooFetch.http.get("me");
         return response;
     };
-    static DeleteMe(){
+    static deleteMe(){
         const response = NebulooFetch.http.delete("me")
         .then(()=>{
             alert("Sikeres törlés!");
             router.push('/');
         })
     };
-    static EditMyDatas(data){
+    static editMyDatas(data){
         const response = NebulooFetch.http.put('me',data)
         .then(()=>{
             alert("Sikeres változtatás");

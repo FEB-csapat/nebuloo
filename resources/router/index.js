@@ -28,6 +28,17 @@ const router = createRouter({
     },
 
     {
+      path: '/login',
+      name: 'login',
+      component: LoginView
+    },
+    {
+      path: '/registration',
+      name: 'registration',
+      component: RegistrationView
+    },
+
+    {
       path: '/contents',
       name: 'contents',
       component: ContentsView
@@ -37,14 +48,6 @@ const router = createRouter({
       name: 'contentById',
       component: DetailedContentView,
       props: true
-      /*
-      props: {
-        content: {
-          type: Object,
-          required: true
-        }
-      },
-      */
     },
     {
       path: '/questions',
@@ -62,6 +65,20 @@ const router = createRouter({
         }
       },
     },
+
+    {
+      path: 'questions/create',
+      name: 'CreateQuestion',
+      component: CreateQuestionView,
+      meta:{requiresAuth: true}
+    },
+    {
+      path: '/contents/create',
+      name: 'createContent',
+      component: CreateContentView,
+      meta:{requiresAuth: true}
+    },
+
     {
       path: '/myprofile',
       name: 'myprofile',
@@ -76,17 +93,6 @@ const router = createRouter({
       meta:{requiresAuth: true},
       props: true
     },
-    
-    {
-      path: '/login',
-      name: 'login',
-      component: LoginView
-    },
-    {
-      path: '/registration',
-      name: 'registration',
-      component: RegistrationView
-    },
     {
       path: '/about',
       name: 'about',
@@ -98,19 +104,7 @@ const router = createRouter({
       component: ASZF
     },
     {
-      path: '/create/question',
-      name: 'CreateQuestion',
-      component: CreateQuestionView,
-      meta:{requiresAuth: true}
-    },
-    {
-      path: '/create/content',
-      name: 'CreateContent',
-      component: CreateContentView,
-      meta:{requiresAuth: true}
-    },
-    {
-      path: '/create/ticket',
+      path: '/tickets/create',
       name: 'CreateTicket',
       component: CreateTicketView,
       meta:{requiresAuth: true}

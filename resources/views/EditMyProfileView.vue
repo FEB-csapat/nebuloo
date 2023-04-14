@@ -18,7 +18,7 @@
                     <option>Matematika</option>
                 </select>
                 <div class="text-end">
-                    <button class="btn" id="button" @click="EditMyData()">Kész</button>
+                    <button class="btn" id="button" @click="editMyData()">Kész</button>
                 </div>
       <ul class="ps-5">
         <li>Matematika</li>
@@ -39,9 +39,9 @@ import { NebulooFetch } from '../utils/https.mjs';
         
         methods:{
     
-            async EditMyData(){
+            async editMyData(){
                 const data = JSON.stringify(this.body);
-                NebulooFetch.EditMyDatas(data);
+                NebulooFetch.editMyDatas(data);
             }
 },
         computed:{

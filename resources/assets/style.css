@@ -93,3 +93,37 @@ body{
     box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.4);
     transition: box-shadow 0.1s ease-in-out;
 }
+
+
+.detailed_content_view_textarea .editor-preview{
+    padding: 0;
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    background-color: white;
+}
+
+.detailed_content_view_textarea .CodeMirror>div[tabindex = "-1"][draggable = "true"]{
+    display: none;
+}
+
+.detailed_content_view_textarea .EasyMDEContainer .CodeMirror{
+    padding: 6px;
+}
+
+
+.card_content_view_textarea .editor-preview{
+    padding: 0;
+    position: relative;
+    max-height: 220px  ;
+    overflow: hidden;
+    background-color: white;
+}
+
+.card_content_view_textarea .CodeMirror>div[tabindex = "-1"][draggable = "true"]{
+    display: none;
+}
+
+.card_content_view_textarea .EasyMDEContainer .CodeMirror{
+    padding: 6px;
+}

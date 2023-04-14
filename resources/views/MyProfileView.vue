@@ -27,7 +27,7 @@
                 </button>
         </div>
         <div class="col-sm-6 text-end">
-                <button class="btn btn-danger" @click="DeleteMe()">
+                <button class="btn btn-danger" @click="deleteMe()">
                         Fiókom törlése
                 </button>
         </div>
@@ -89,9 +89,9 @@ methods:{
 
         this.mydata = this.responseBody;
     },
-    async DeleteMe(){
+    async deleteMe(){
         if (window.confirm("Biztosan törölni szeretné profilját?")) {
-            NebulooFetch.DeleteMe();
+            NebulooFetch.deleteMe();
             sessionStorage.removeItem('userToken');
             this.$router.push({name: 'welcome'});
         } else {
