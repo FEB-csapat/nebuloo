@@ -10,6 +10,14 @@
 
                 <button type="submit" class="my-3 btn" id="button">Bejelentkezés</button>
             </form>
+            <div class="col-sm-12 my-3">
+                <p>
+                    Nincs még felhasználód? Regisztrálj egyet!
+                </p>
+                <button class="btn" id="button">
+                    <router-link class="nav-link active" aria-current="page" to="/registration">Regisztráció</router-link>
+                </button>
+            </div>
             <div class="col-sm-6 text-center" >
                 <router-link class="nav-link active" aria-current="page" to="/ASZF">ÁSZF</router-link>
             </div>
