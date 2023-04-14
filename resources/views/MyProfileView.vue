@@ -25,7 +25,7 @@
                 </button>
         </div>
         <div class="col-sm-6 text-end">
-                <button class="btn btn-danger" @click="navigate">
+                <button class="btn btn-danger" @click="DeleteMe()">
                         Profilom törlése
                 </button>
         </div>
@@ -90,6 +90,15 @@ methods:{
         this.mydata = this.responseBody;
         this.rank = this.responseBody.rank;
         console.log(this.responseBody)
+    },
+    async DeleteMe(){
+        if (window.confirm("Biztosan törölni szeretné profilját?")) {
+        NebulooFetch.DeleteMe();
+        sessionStorage.removeItem('userToken');
+      } else {
+        // user clicked "Cancel"
+        // do nothing
+      }
     },
     navigate(){
             this.$router.push({

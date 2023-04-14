@@ -48,6 +48,13 @@ export class NebulooFetch{
         const response = NebulooFetch.http.get("me");
         return response;
     };
+    static DeleteMe(){
+        const response = NebulooFetch.http.delete("me")
+        .then(()=>{
+            alert("Sikeres törlés!");
+            router.push('/');
+        })
+    };
     static EditMyDatas(data){
         const response = NebulooFetch.http.put('me',data)
         .then(()=>{
