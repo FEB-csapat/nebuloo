@@ -66,6 +66,9 @@ Route::get('/comments/{id}', [CommentController:: class, "show"])
     ->name("comments.show");
 
 
+Route::get('images/{id}', [ImageController::class, "show"])
+    ->name("images.show");
+
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/me', [UserController:: class, "showMe"])
         ->name("me.show");
@@ -134,9 +137,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::post('images', [ImageController::class, "store"])
         ->name("images.store");
-    Route::get('images/{id}', [ImageController::class, "show"])
-        ->name("images.show");
-
 });
 
 

@@ -4,6 +4,9 @@
         <div class="col text-center">
             <img src="https://placeholder.pics/svg/60" alt="">
         <p class="fs-6">{{ rank.name}}</p>
+
+        <p class="fs-6">{{ roles[0]}}</p>
+
         <p class="fs-4">{{ name }}</p>
         </div>
         <h2>Bio:</h2>
@@ -63,6 +66,7 @@ import CommentCard from '../components/CommentCard.vue';
 export default{
 data(){
     return{
+        roles: [],
         name: '',
         bio: '',
         questions:[],
@@ -80,6 +84,8 @@ methods:{
     
     async GetMyData(){
         this.responseBody = (await NebulooFetch.getMyDatas()).data;
+        this.roles = this.responseBody.roles;
+        this.bio = this.responseBody.bio;
         this.name = this.responseBody.name;
         this.questions = this.responseBody.questions;
         this.comments = this.responseBody.comments;

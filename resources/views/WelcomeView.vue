@@ -40,36 +40,22 @@
 
         <div class="col-sm-6 mx-auto m-4">
             <div class="container bg-light rounded-3 shadow">
-                <h2 class="text-center">Tovább</h2>
+                <h2 class="text-center">Folytatás</h2>
                 
                 <div class="row p-3 d-flex justify-content-center text-center">
                     <div class="col-md-4">
                         <router-link class="nav-link active" aria-current="page" to="/login">
-                            <button class="btn shadow" style="background-color: #ffffff; color: #4285f4;">Bejelentkezéssel</button>
+                            <button class="btn shadow" style="background-color: #ffffff; color: #4285f4;">Fiókkal</button>
                         </router-link>
                     </div>
                     <p class="col-md-4 align-self-center">Vagy</p>
                     <div class="col-md-4">
                         <router-link class="nav-link active" aria-current="page" to="/contents">
-                            <button class="btn shadow" style="background-color: #ffffff; color: #4285f4;">Bejelentkezés nélkül</button>
+                            <button class="btn shadow" style="background-color: #ffffff; color: #4285f4;">Fiók nélkül</button>
                         </router-link>
                     </div>
                 </div>
-                    <div class="form-check text-center">
-                        <input class="check-input" type="checkbox" value="" id="aszf">
-                        <label class="form-check-label ms-1" for="aszf">
-                            Elfogadom az ÁSZF-et
-                        </label>
-                    </div>
-                    <div class="row text-center">
-                        <div class="col my-2">
-                            <router-link class="nav-link active" aria-current="page" to="/ASZF">ÁSZF</router-link>
-
-                        </div>
-                        <div class="col my-2">
-                            <router-link class="nav-link active" aria-current="page" to="/about">Rólunk</router-link>
-                        </div>
-                    </div>
+                    
             </div>
         </div>
 </template>

@@ -1,26 +1,23 @@
 <template>
-        <div class="row bg-light rounded-4 mb-3 p-3" id="card">
-            <div class="nav-link active col-sm-10" aria-current="page"
-             @click="navigate">
-                <div>
-                    <tag v-for="tag in content.tags" :tag="tag"></tag>
-                    
-
-                    <div class="content-body">
-                        <textarea ref="editor" name="leiras" id="leiras" class="form-control">{{content.body}}</textarea>
-                    </div>
+    <div class="row bg-light rounded-4 mb-3 p-3" id="card">
+        <div class="nav-link active col-sm-10" aria-current="page"
+            @click="navigate">
+            <div>
+                <tag v-for="tag in content.tags" :tag="tag"></tag>
+                
+                <div class="content-body">
+                    <textarea ref="editor" name="leiras" id="leiras" class="form-control">{{content.body}}</textarea>
                 </div>
             </div>
-
-            <div class="col-sm-2">
-
-                <p>{{content.created_at}}</p>
-                <user v-if="content.creator" :user="content.creator"></user>
-
-                <vote :contentId="content.id" :voteCount="content.recieved_votes" :myVote="content.my_vote"></vote>
-
-            </div>
         </div>
+
+        <div class="col-sm-2 text-center">
+            <p>{{content.created_at}}</p>
+            <user v-if="content.creator" :user="content.creator"></user>
+
+            <vote :contentId="content.id" :voteCount="content.recieved_votes" :myVote="content.my_vote"></vote>
+        </div>
+    </div>
 </template>
 
 <script>

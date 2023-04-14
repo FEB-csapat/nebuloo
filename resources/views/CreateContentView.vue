@@ -21,6 +21,7 @@
 
 <script>
 import EasyMDE from 'easymde';
+import { NebulooFetch } from '../utils/https.mjs';
 
 export default{
     components:{
@@ -29,6 +30,7 @@ export default{
     mounted(){
         this.editor = new EasyMDE({
             element: this.$refs.editor,
+            
             toolbar: [
                 'bold',
                 'italic',
@@ -53,9 +55,28 @@ export default{
                 '|',
                 'guide',
             ],
+            
+            placeholder: "Ide írj...",                
             autofocus: true,
             uploadImage: true,
-            imageUploadEndpoint: 'localhost:8881/api/images',
+            previewImagesInEditor: true,
+            imageUploadFunction: function (file, onSuccess, onError) {
+
+                NebulooFetch.uploadImage(file)
+                .then(function (response) {
+                    if (response.status == 201) {
+                        return response.data;
+                    } else {
+                        throw new Error("Kép feltöltése sikertelen!");
+                    }
+                })
+                .then(function (data) {
+                    onSuccess(data.url);
+                })
+                .catch(function (error) {
+                    onError(error.message);
+                });
+            },
             /*
             autosave: {
                 enabled: true,

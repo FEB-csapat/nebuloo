@@ -3,7 +3,7 @@
         <h1 id="title">Tananyag megtekintése</h1>
         <div class="row bg-light shadow rounded-3 p-2">
             <div class="row">
-                <div class="col-sm-11">
+                <div class="col-11">
 
                     <user :user="content.creator"></user>   
 
@@ -12,7 +12,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-1">
+                <div class="col-1">
                     <vote :contentId="id" :voteCount="content.recieved_votes" :vote="null"></vote>
                 </div>
             </div>

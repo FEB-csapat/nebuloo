@@ -73,4 +73,20 @@ export class NebulooFetch{
             window.location.reload();
         });
     };
+
+    static uploadImage(file)
+    {
+        var http = axios.create({
+            baseURL: this.baseUrl,
+            headers: {
+                'Authorization':"Bearer " + NebulooFetch.token,
+            }
+        });
+
+        var formData = new FormData();
+        formData.append("image", file);
+
+        const response = http.post('images', formData);
+        return response;
+    };
 }

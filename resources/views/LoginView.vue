@@ -18,6 +18,8 @@
                 <router-link class="nav-link active" aria-current="page" to="/about">Rólunk</router-link>
             </div>
 
+            <router-link class="nav-link active" aria-current="page" to="registration"><button on-click="" class="my-3 btn" id="button">Regisztráció</button></router-link>
+
             <SnackBar ref="snackBar" :message="'Sikeres bejelentkezés'"/>
         </div>
     </div>
@@ -29,7 +31,7 @@ import axios from 'axios'
 import { NebulooFetch } from '../utils/https.mjs';
 import router from '../router/index';
 
-import SnackBar from '../components/SnackBar.vue';
+import SnackBar from '../components/snackbars/SnackBar.vue';
 
 export default{
     data(){
@@ -63,5 +65,4 @@ export default{
         }
     }
 }
-
 </script>
