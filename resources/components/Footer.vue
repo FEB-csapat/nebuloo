@@ -10,7 +10,7 @@
       </div>
         <div class="row justify-content-between">
           <div class="col-sm-3">
-            <a href="#" class="nav-link px-2 text-muted">Dokumentációk</a>
+            <router-link class="nav-link text-muted px-2" aria-current="page" to="/documentation">Dokumentációk</router-link>
           </div>
           <div class="col-sm-3">
             <router-link class="nav-link text-muted px-2" aria-current="page" to="/create/ticket">Jelentés küldése</router-link>

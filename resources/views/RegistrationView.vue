@@ -51,6 +51,7 @@
 
 </template>
 <script>
+import router from "../router/index.js";
 import Form from 'vform'
 import axios from 'axios'
 
@@ -77,6 +78,7 @@ export default{
             console.log(this.form);
             const response = (await regist.post('register',this.form)).data;
             console.log(response);
+            router.push('/login');
         }
     }
 }

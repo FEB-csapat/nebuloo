@@ -37,6 +37,14 @@ export class NebulooFetch{
         return response;
     };
 
+    static DeleteMyPost(path){
+        const response = NebulooFetch.http.delete("me"+path)
+        .then(()=>{
+            alert("Sikeres törlés!");
+            router.push('/myprofile');
+        })
+    };
+
     static createQuestion(data){
         const response = NebulooFetch.http.post('me/questions',data)
         .then(()=>{
@@ -48,6 +56,21 @@ export class NebulooFetch{
         const response = NebulooFetch.http.get("me");
         return response;
     };
+    static DeleteMe(){
+        const response = NebulooFetch.http.delete("me")
+        .then(()=>{
+            alert("Sikeres törlés!");
+            router.push('/');
+        })
+    };
+    static EditMyDatas(data){
+        const response = NebulooFetch.http.put('me',data)
+        .then(()=>{
+            alert("Sikeres változtatás");
+            router.push('/myprofile');
+        });
+    }
+
     static createTicket(data){
         const response = NebulooFetch.http.post('me/tickets',data)
         .then(()=>{

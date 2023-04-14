@@ -18,10 +18,18 @@
             </div>
             
             <textarea ref="editor" name="leiras" id="leiras" class="form-control">Betöltés...</textarea>
-
-            <button class="btn" id="button">
-                Letöltés
-            </button>
+            <div class="row">
+                <div class="col-sm-6">
+                    <button class="btn" id="button">
+                        Letöltés
+                    </button>
+                </div>
+                <div class="col-sm-6 text-end" v-if="MyPost==true">
+                    <button class="btn btn-danger" @click="DeletePost()">
+                        Poszt törlése
+                    </button> 
+                </div>
+            </div>
         </div>
             <comment-section :comments="content.comments" :commentable_id="content.id" :commentable_type="contents"></comment-section>
     </div>
@@ -59,18 +67,23 @@ export default{
     data() {
         return {
             content: {},
+            creator: Object
         };
     },
     methods:{
         async getDetailedContent(){
             this.isWaiting = true;
-
             var responseBody = (await NebulooFetch.getDetailedContent(this.id)).data;
             this.content = responseBody;
-
+            this.creator = this.content.creator;
             this.editor.value(this.content.body);
-            
             this.isWaiting = false;
+        },
+        DeletePost(){
+            if (window.confirm("Biztosan törölni szeretné posztját?")) {
+        
+                NebulooFetch.DeleteMyPost(this.$route.path);
+            }
         },
     },
     async mounted(){
@@ -85,6 +98,12 @@ export default{
         });
 
         this.editor.togglePreview();
+    },
+    computed:{
+        MyPost(){
+            const identifier = sessionStorage.getItem('Identifier');
+            return identifier == this.creator.id;
+            },
     },
 };
 </script>

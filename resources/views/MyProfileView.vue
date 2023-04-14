@@ -3,15 +3,14 @@
     <div class="row bg-light mt-3 mb-2 rounded-3 p-3 shadow">
         <div class="col text-center">
             <img src="https://placeholder.pics/svg/60" alt="">
-        <p class="fs-6">{{ rank.name}}</p>
 
-        <p class="fs-6">{{ roles[0]}}</p>
-
-        <p class="fs-4">{{ name }}</p>
+        <p class="fs-6">{{ rank.name }}</p>
+        <p class="fs-6">{{ mydata.roles[0]}}</p>
+        <p class="fs-4">{{ mydata.name }}</p>
         </div>
         <h2>Bio:</h2>
     <p class="ps-5">
-        {{ bio }}
+        {{ mydata.bio }}
     </p>
 
     <h2>Érdekeltségi kör:</h2>
@@ -21,11 +20,21 @@
         <li>Matematika</li>
         <li>Filozófia</li>
     </ul>
-
-    <div class="text-end">
-                <button class="btn" id="button">
-                    <router-link class="nav-link active" aria-current="page" to="/myprofile/edit">Profilom szerkesztése</router-link>
+    <div class="row">
+        <div class="col-sm-6">
+                <button class="btn" id="button" @click="navigate">
+                        Profilom szerkesztése
                 </button>
+        </div>
+        <div class="col-sm-6 text-end">
+                <button class="btn btn-danger" @click="DeleteMe()">
+                        Profilom törlése
+                </button>
+        </div>
+    </div>
+                
+    <div class="text-end">
+                
             </div>
     </div>
     
@@ -34,27 +43,27 @@
     <p v-if="IHaveQuestions==false">
         Nincsenek kérdéseim.
     </p>
-    <cards :Questions="questions" v-else/>
+    <cards :Questions="mydata.questions" v-else/>
 
     <h2 class="mt-4 mb-2">Tananyagaim:</h2>
     <p v-if="IHaveContents==false">
         Nincsenek tananyagaim.
     </p>
-    <cards :Contents="contents" v-else/>
+    <cards :Contents="mydata.contents" v-else/>
 
     <h2 class="mt-4">Kommentjeim:</h2>
     <div>
         <p v-if="IHaveComments==false">
             Nincsenek kommentjeim.
         </p>
-        <comment-card v-else v-for="comment in comments" :key="comment.id" :comment="comment" />
+        <comment-card v-else v-for="comment in mydata.comments" :key="comment.id" :comment="comment" />
     </div>
     
     <h2 class="mt-4">Hibajegyeim:</h2>
     <p v-if="IHaveTickets==false">
         Nincsenek Hibajegyeim.
     </p>
-    <cards :Tickets="tickets" v-else/>
+    <cards :Tickets="mydata.tickets" v-else/>
 
 </div>
 </template>
@@ -69,10 +78,7 @@ data(){
         roles: [],
         name: '',
         bio: '',
-        questions:[],
-        comments:[],
-        contents:[],
-        tickets:[],
+        mydata:[],
         rank: Object,
     }
 },
@@ -84,32 +90,50 @@ methods:{
     
     async GetMyData(){
         this.responseBody = (await NebulooFetch.getMyDatas()).data;
-        this.roles = this.responseBody.roles;
-        this.bio = this.responseBody.bio;
-        this.name = this.responseBody.name;
-        this.questions = this.responseBody.questions;
-        this.comments = this.responseBody.comments;
-        this.contents = this.responseBody.contents;
+
+        this.mydata = this.responseBody;
         this.rank = this.responseBody.rank;
-        this.tickets = this.responseBody.tickets;
-    }
+    },
+    async DeleteMe(){
+        if (window.confirm("Biztosan törölni szeretné profilját?")) {
+        NebulooFetch.DeleteMe();
+        sessionStorage.removeItem('userToken');
+      } else {
+        // user clicked "Cancel"
+        // do nothing
+      }
+    },
+    navigate(){
+            this.$router.push({
+                name: 'edit',
+                params: {
+                    data:  this.mydata
+                },
+                props: {
+                    data: this.mydata
+                }
+            })
+        },
 },
 computed: { 
     IHaveQuestions(){
-        return this.questions.length != 0;
+        return this.mydata.questions != 0;
     },
     IHaveComments(){
-        return this.comments.length != 0;
+        return this.mydata.comments != 0;
     },
     IHaveContents(){
-        return this.contents.length != 0;
+        return this.mydata.contents != 0;
     },
     IHaveTickets(){
-        return this.tickets.length != 0;
+        return this.mydata.tickets != 0;
     },
+    
   },
+
 async mounted(){
     this.GetMyData();
 }
+
 }
 </script>
