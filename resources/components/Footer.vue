@@ -13,7 +13,7 @@
         <div class="col-sm-6">
           <div class="row">
           <div class="col-md-3">
-            <a href="#" class="nav-link px-2 text-muted">Dokumentáció</a>
+            <router-link class="nav-link text-muted px-2" aria-current="page" to="/documentation">Dokumentáció</router-link>
           </div>
           <div class="col-md-3">
             <router-link class="nav-link text-muted px-2" aria-current="page" to="/create/ticket">Jelentés küldése</router-link>

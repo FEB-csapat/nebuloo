@@ -14,6 +14,7 @@ import TicketsView from '../views/TicketsView.vue'
 import DetailedContentView from '../views/DetailedContentView.vue'
 import DetailedQuestionView from '../views/DetailedQuestionView.vue'
 import RegistrationView from '../views/RegistrationView.vue'
+import DocumentationView from '../views/DocumentationView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -118,8 +119,12 @@ const router = createRouter({
       path: '/tickets',
       name: 'Tickets',
       component: TicketsView
+    },
+    {
+      path: '/documentation',
+      name: 'Documentation',
+      component: DocumentationView
     }
-    
   ]
 })
 
