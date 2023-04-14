@@ -73,7 +73,6 @@ export default{
     methods:{
         async getDetailedContent(){
             this.isWaiting = true;
-
             var responseBody = (await NebulooFetch.getDetailedContent(this.id)).data;
             this.content = responseBody;
             this.creator = this.content.creator;
@@ -81,7 +80,10 @@ export default{
             this.isWaiting = false;
         },
         DeletePost(){
+            if (window.confirm("Biztosan törölni szeretné posztját?")) {
+        
                 NebulooFetch.DeleteMyPost(this.$route.path);
+            }
         },
     },
     async mounted(){
