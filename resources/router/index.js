@@ -58,12 +58,7 @@ const router = createRouter({
       path: '/questions/:id',
       name: 'questionById',
       component: DetailedQuestionView,
-      props: {
-        question: {
-          type: Object,
-          required: true
-        }
-      },
+      props: true
     },
 
     {

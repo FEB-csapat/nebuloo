@@ -1,6 +1,14 @@
 <template>
 <div class="container">
+    
     <div class="row bg-light mt-3 mb-2 rounded-3 p-3 shadow">
+        <div class="row">
+            <div class="col text-end">
+                <button class="btn" id="button" @click="SignOut()">
+                        Kijelentkezés
+                </button>
+            </div>
+        </div>
         <div class="col text-center">
             <img src="https://placeholder.pics/svg/60" alt="" id="profpicture">
 
@@ -72,6 +80,7 @@ import Cards from '../components/Cards.vue'
 import { NebulooFetch } from '../utils/https.mjs';
 
 import CommentCard from '../components/CommentCard.vue';
+import router from '../router';
 export default{
 data(){
     return{
@@ -109,6 +118,10 @@ methods:{
                     data: this.mydata
                 }
             })
+        },
+        SignOut(){
+            sessionStorage.clear();
+            router.push('/');
         },
 },
 computed: { 
