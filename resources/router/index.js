@@ -37,14 +37,6 @@ const router = createRouter({
       name: 'contentById',
       component: DetailedContentView,
       props: true
-      /*
-      props: {
-        content: {
-          type: Object,
-          required: true
-        }
-      },
-      */
     },
     {
       path: '/questions',
@@ -55,12 +47,7 @@ const router = createRouter({
       path: '/questions/:id',
       name: 'questionById',
       component: DetailedQuestionView,
-      props: {
-        question: {
-          type: Object,
-          required: true
-        }
-      },
+      props: true
     },
     {
       path: '/myprofile',

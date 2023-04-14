@@ -1,7 +1,7 @@
 <template>
   <div class="row mb-3 p-2">
     <nav>
-      <ul class="pagination">
+      <ul class="pagination mx-auto">
         <li v-for="link in meta.links" :class="{ 'active': link.active }">
           <a class="m-1" v-if="!link.active" :href="link.url" @click.prevent="paginate(link.url)"> {{ link.label }} </a>
           <span class="m-1" v-else>{{ link.label }}</span>
