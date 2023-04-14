@@ -61,6 +61,7 @@ export default{
             login.post('login', this.form)
             .then(response=>{
                 sessionStorage.setItem('userToken',response.data.token);
+                sessionStorage.setItem('Identifier',response.data.user.id)
                 NebulooFetch.initialize(response.data.token);
             })
             .then(response=>{
