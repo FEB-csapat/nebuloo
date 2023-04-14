@@ -28,7 +28,6 @@
     </div>
     </template>
     <script>
-import router from '../router';
 import { NebulooFetch } from '../utils/https.mjs';
     export default{
         data(){
@@ -42,8 +41,6 @@ import { NebulooFetch } from '../utils/https.mjs';
     
             async EditMyData(){
                 const data = JSON.stringify(this.body);
-                
-                console.log(this.body);
                 NebulooFetch.EditMyDatas(data);
             }
 },

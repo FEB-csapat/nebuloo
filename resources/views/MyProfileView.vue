@@ -18,11 +18,21 @@
         <li>Matematika</li>
         <li>Filozófia</li>
     </ul>
-
-    <div class="text-end">
+    <div class="row">
+        <div class="col-sm-6">
                 <button class="btn" id="button" @click="navigate">
-                    Profilom szerkesztése
+                        Profilom szerkesztése
                 </button>
+        </div>
+        <div class="col-sm-6 text-end">
+                <button class="btn btn-danger" @click="navigate">
+                        Profilom törlése
+                </button>
+        </div>
+    </div>
+                
+    <div class="text-end">
+                
             </div>
     </div>
     
