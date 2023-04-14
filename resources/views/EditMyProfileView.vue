@@ -6,9 +6,10 @@
             <p class="fs-6">{{ body.name }}</p>
             <p class="fs-4">Nevem</p>
             </div>
-            <form action="">
                 <h2>Bio:</h2>
                 <input type="text" class="form-control my-3" name="bio" id="bio" v-model="bio">
+                <h2>Display Name:</h2>
+                <input type="text" class="form-control my-3" name="display_name" id="display_name" v-model="display_name">
                 <h2>Érdekeltségi kör:</h2>
                 <select id="interest" class="form-select my-3">
                     <option data-hidden="true">Válasszon!</option>
@@ -17,9 +18,8 @@
                     <option>Matematika</option>
                 </select>
                 <div class="text-end">
-                    <button type="submit" value="send" class="btn" id="button" @click="EditMyProfile()">Kész</button>
+                    <button class="btn" id="button" @click="EditMyData()">Kész</button>
                 </div>
-            </form>
       <ul class="ps-5">
         <li>Matematika</li>
         <li>Testnevelés</li>
@@ -28,13 +28,13 @@
     </div>
     </template>
     <script>
-    import router from '../router';
+import router from '../router';
 import { NebulooFetch } from '../utils/https.mjs';
     export default{
         data(){
             return{   
                 bio:'',
-                display_name:'asd'
+                display_name:''
             }
         },
         
@@ -42,8 +42,9 @@ import { NebulooFetch } from '../utils/https.mjs';
     
             async EditMyData(){
                 const data = JSON.stringify(this.body);
+                
+                console.log(this.body);
                 NebulooFetch.EditMyDatas(data);
-                router.push('/myprofile');
             }
 },
         computed:{
