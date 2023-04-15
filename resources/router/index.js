@@ -62,7 +62,7 @@ const router = createRouter({
     },
 
     {
-      path: 'questions/create',
+      path: '/questions/create',
       name: 'CreateQuestion',
       component: CreateQuestionView,
       meta:{requiresAuth: true}
