@@ -15,6 +15,7 @@ import DetailedContentView from '../views/DetailedContentView.vue'
 import DetailedQuestionView from '../views/DetailedQuestionView.vue'
 import RegistrationView from '../views/RegistrationView.vue'
 import DocumentationView from '../views/DocumentationView.vue'
+import EditQuestionView from '../views/EditQuestionView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -113,7 +114,13 @@ const router = createRouter({
       path: '/documentation',
       name: 'Documentation',
       component: DocumentationView
-    }
+    },
+    {
+      path: '/questions/edit/:id',
+      name: 'EditQuestion',
+      component: EditQuestionView,
+      props: true
+    },
   ]
 })
 

@@ -29,7 +29,7 @@
                 </div>
                 <div class="col-sm-6 text-end" v-if="MyPost==true">
                     <button class="btn btn-danger" @click="deletePost()">
-                        Poszt törlése
+                        Tananyag törlése
                     </button> 
                 </div>
             </div>

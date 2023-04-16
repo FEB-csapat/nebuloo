@@ -24,9 +24,20 @@
 
         </div>
 
-
+        <div class="row" v-if="MyPost==true">
+                <div class="col-sm-6">
+                    <button class="btn" id="button" @click="navigate()">
+                        Kérdés szerkesztése
+                    </button>
+                </div>
+                <div class="col-sm-6 text-end">
+                    <button class="btn btn-danger" @click="deletePost()">
+                        Kérdés törlése
+                    </button> 
+                </div>
+            </div>
     </div>
-    
+
     <comment-section :comments="question.comments" :commentable_id="question.id" :commentable_type="questions"/>
 
 </div>
@@ -38,6 +49,8 @@ import CommentSection from '../components/CommentSection.vue';
 import Vote from '../components/Vote.vue';
 import User from '../components/User.vue';
 import { NebulooFetch } from '../utils/https.mjs';
+import router from '../router';
+
 export default{
     data() {
         return {
@@ -59,6 +72,14 @@ export default{
         
     },
     methods:{
+        navigate(){
+            this.$router.push({
+                name: 'EditQuestion',
+                params: {
+                    id: this.question.id,
+                }
+            })
+        },
         async getDetailedQuestion(){
             var responseBody = (await NebulooFetch.getDetailedQuestion(this.id)).data;
             this.question = responseBody;

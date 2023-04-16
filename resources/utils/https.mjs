@@ -56,6 +56,13 @@ export class NebulooFetch{
             router.push('/myprofile');
         });
     };
+    static editQuestion(data,id){
+        const response = NebulooFetch.http.put('me/questions/'+id,data)
+        .then(()=>{
+            alert("Sikeres változtatás");
+            router.push('/questions/'+id);
+        });
+    }
     static async createContent(data){
         const response = NebulooFetch.http.post('me/contents',data);
         return response;

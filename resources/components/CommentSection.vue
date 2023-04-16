@@ -11,7 +11,7 @@
                 <button type="button" class="btn" id="button" @click="AddComment()" >Küldés</button>
             </div>
         </div>
-
+        
         <p class="text-center" v-if="comments == null">Betöltés...</p>
         <div v-else-if="comments.length != 0" id="comment_cards_container">
             <CommentCard v-for="comment in comments" :key="comment.id" :comment="comment" />
