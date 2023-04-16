@@ -51,7 +51,7 @@ export default{
         },
         async editQuestion(){
                 const data = JSON.stringify(this.questionData);
-                NebulooFetch.editMyDatas(data);
+                NebulooFetch.editQuestion(data,this.id);
             },
             navigate(){
             this.$router.push({
