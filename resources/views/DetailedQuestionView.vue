@@ -2,18 +2,34 @@
     <div class="container my-3 ">
         <h1 id="title">Kérdés megtekintése</h1>
         <div class="row bg-light shadow rounded-3 p-2">
+            <div class="row">
+                <div class="col-11">
+
+                    <user :user="question.creator"></user>   
+
+                    <div class="col">
+                        <p v-if="question != null">{{question?.created_at}}</p>
+                    </div>
+                </div>
+
+                <div class="col-1">
+                    <vote :contentId="id" :voteCount="question.recieved_votes" :vote="null"></vote>
+                </div>
             <h1>
                 {{ question.title }}
             </h1>
 
             <p>{{question.body}}</p>
 
+
         </div>
-        <CommentSection :commentable_id="question.id" :commentable_type="'questions'"/>
 
 
     </div>
     
+    <comment-section :comments="question.comments" :commentable_id="question.id" :commentable_type="questions"/>
+
+</div>
 </template>
 
 <script>
@@ -39,10 +55,6 @@ export default{
         id: {
             type: Number,
             required: true
-        },
-        question: {
-            type: Object,
-            required: true
         }
         
     },
@@ -54,9 +66,8 @@ export default{
             this.creator = this.question.creator;
         },
         DeletePost(){
-            if (window.confirm("Biztosan törölni szeretné posztját?")) {
-        
-                NebulooFetch.DeleteMyPost(this.$route.path);
+            if (window.confirm("Biztosan törölni szeretné kérdését?")) {
+                NebulooFetch.deleteMyPost(this.$route.path);
             }
         },
     },

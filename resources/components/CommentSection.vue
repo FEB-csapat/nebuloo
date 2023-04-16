@@ -2,8 +2,6 @@
     <div class="col mt-3">
         <h2>Kommentek:</h2>
 
-        <h1>TODO: implement comment writing feature</h1>
-
         <div id="comment_writer_container" class="bg-light shadow rounded-3 mt-2 p-2">
             <label for="cim" class="form-label pt-2">Írj kommentet:</label>
 

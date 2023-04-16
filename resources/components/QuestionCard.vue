@@ -18,7 +18,7 @@
 
         <div class="col-sm-2 text-center">
             <p>{{question.created_at}}</p>
-            <user v-if="question.creator" :user="question.creator"></user>
+            <user v-if="question.creator" :user="question.creator"></user> 
 
             <vote :contentId="question.id" :voteCount="question.recieved_votes" :myVote="question.my_vote"></vote>
         </div>
@@ -50,10 +50,6 @@ export default{
                 name: 'questionById',
                 params: {
                     id: this.question.id,
-                    question:  this.question
-                },
-                props: {
-                    question: this.question
                 }
             })
         },
