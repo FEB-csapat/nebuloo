@@ -64,6 +64,10 @@ export class NebulooFetch{
         const response = NebulooFetch.http.post('me/contents',data);
         return response;
     };
+    static async updateContent(data,id){
+        const response = NebulooFetch.http.put('me/contents/'+id,data);
+        return response;
+    };
     static getMyDatas(){
         const response = NebulooFetch.http.get("me");
         return response;
