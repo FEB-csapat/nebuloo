@@ -64,7 +64,7 @@ const router = createRouter({
       name: 'editContent',
       component: EditContentView,
       props: true,
-      meta:{requiresAuth: true}
+      
     },
     {
       path: '/contents/:id/edit',

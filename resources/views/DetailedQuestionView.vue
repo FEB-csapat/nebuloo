@@ -26,12 +26,11 @@
 
         <div class="row" v-if="MyPost==true">
                 <div class="col-sm-6">
-                    
-                </div>
-                <div class="col-sm-6 text-end">
-                    <button class="btn" id="button" @click="navigate()">
+                    <button class="btn btn-success" @click="navigate()">
                         Kérdés szerkesztése
                     </button>
+                </div>
+                <div class="col-sm-6 text-end">
                     <button class="btn btn-danger" @click="deletePost()">
                         Kérdés törlése
                     </button> 
