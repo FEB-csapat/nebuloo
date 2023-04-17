@@ -21,17 +21,23 @@
                 <textarea ref="editor" name="leiras" id="leiras" class="form-control">Betöltés...</textarea>
             </div>
 
-            <div class="row">
-                <div class="col-sm-6">
+            <div class="d-flex flex-row">
+                <div class="col-sm-4">
                     <button class="btn" id="button">
                         Letöltés
                     </button>
                 </div>
-                <div class="col-sm-6 text-end" v-if="MyPost==true">
+                <div class="col-sm-4 text-center" v-if="MyPost">
+                    <button class=" btn btn-success">
+                        Szerkeztés
+                    </button>
+                </div>
+                <div class="col-sm-4 text-end" v-if="MyPost">
                     <button class="btn btn-danger" @click="deletePost()">
                         Tananyag törlése
                     </button> 
                 </div>
+
             </div>
         </div>
             <comment-section :comments="content.comments" :commentable_id="content.id" :commentable_type="contents"></comment-section>
@@ -54,10 +60,6 @@ export default{
     {
         id: {
             type: Number,
-            required: true
-        },
-        content: {
-            type: Object,
             required: true
         } 
     },
