@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\PaginationHelper;
 use App\Http\Requests\StoreContentRequest;
 use App\Http\Requests\UpdateContentRequest;
 use App\Http\Resources\ContentResource;
 use App\Models\Content;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\Paginator;
 
 class ContentController extends Controller
 {
@@ -39,20 +41,44 @@ class ContentController extends Controller
             $contents = $contents->withAnyTags($tags);
         }
 
+        /*
         // TODO this throws 500 errorcode
         if ($orderBy != null) {
             if($orderBy == 'newest'){
-                $contents = $contents->sortBy('created_at');
+                $contents = $contents->orderBy('created_at');
             }else if($orderBy == 'oldest'){
-                $contents = $contents->sortBy('created_at');
+                $contents = $contents->orderBy('created_at');
             }else if($orderBy == 'popular'){
-                $contents = $contents->sortBy('created_at');
+                $contents = $contents->orderBy('sumVoteScore');
+
+                /*
+                $contents = $contents->orderBy(function ($content) {
+                    dd($content);
+                    return $content->sumVoteScore();
+                });
+                
             }
         }
+        */
 
-        return ContentResource::collection($contents->paginate());
+
+        if ($orderBy != null) {
+            if($orderBy == 'newest'){
+                $contents = $contents->get()->sortByDesc('created_at');
+            }else if($orderBy == 'oldest'){
+                $contents = $contents->get()->sortBy('created_at');
+            }else if($orderBy == 'popular'){
+                $contents = $contents->get()->sortByDesc(function ($content) {
+                    return $content->sumVoteScore();
+                });
+            }
+        }else{
+            $contents = $contents->get()->sortBy('created_at');
+        }
+
+        return PaginationHelper::paginate(ContentResource::collection($contents));
     }
-     
+    
 
     /**
      * Display a listing of the resource.

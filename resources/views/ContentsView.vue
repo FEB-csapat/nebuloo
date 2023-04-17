@@ -59,7 +59,7 @@ export default{
             var queires = {
                 search: this.searchTerm,
                 page: this.currentPage,
-               // orderBy: 'newest'
+                orderBy: 'popular'
             }
             var responseBody = (await NebulooFetch.getAllContent(queires)).data;
             this.Contents = responseBody.data;

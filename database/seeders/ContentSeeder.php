@@ -73,11 +73,11 @@ dantem me conamina, ad.",
 
         
         Content::factory()->count(20)->create()
-        ->each(function ($content) {
-            $col = Tag::inRandomOrder();
-            for($i = 0; $i < 3; $i++ ){
-                $content->attachTag($col->first());
-            }
-        });
+            ->each(function ($content) {
+                $col = Tag::inRandomOrder();
+                for($i = 0; $i < 3; $i++ ){
+                    $content->attachTag($col->first());
+                }
+            });
     }
 }

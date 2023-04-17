@@ -3,7 +3,9 @@
         <div class="nav-link active col-sm-10" aria-current="page"
             @click="navigate">
             <div>
-                <tag v-for="tag in content.tags" :tag="tag"></tag>
+                <div class="row justify-content-start" >
+                    <tag v-for="tag in content.tags" :tag="tag"></tag>
+                </div>
                 
                 <div class="card_content_view_textarea">
                     <textarea ref="editor" name="leiras" id="leiras" class="form-control">{{content.body}}</textarea>

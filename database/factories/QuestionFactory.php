@@ -21,6 +21,7 @@ class QuestionFactory extends Factory
             'title' => $this->faker->title,
             'body' => $this->faker->paragraph,
             'creator_user_id' => User::inRandomOrder()->first()->id,
+            'created_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
         ];
     }
 

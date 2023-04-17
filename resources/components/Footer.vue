@@ -25,7 +25,6 @@
             <router-link class="nav-link text-muted px-2 mt-1" aria-current="page" to="/ASZF">ÁSZF</router-link>
           </div>
           
-          
         </div>      
     </footer>
   </div>
