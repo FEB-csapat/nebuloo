@@ -87,10 +87,14 @@ export default{
             this.editor.value(this.content.body);
             this.isWaiting = false;
         },
-        deletePost(){
+        async deletePost(){
             if (window.confirm("Biztosan törölni szeretné posztját?")) {
         
-                NebulooFetch.deleteMyPost(this.$route.path);
+                NebulooFetch.deleteMyPost(this.$route.path)
+                .then(()=>{
+                    alert("Sikeres törlés!");
+                    router.push('/myprofile');
+                });
             }
         },
         goToEdit(){

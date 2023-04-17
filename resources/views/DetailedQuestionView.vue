@@ -88,7 +88,11 @@ export default{
         },
         DeletePost(){
             if (window.confirm("Biztosan törölni szeretné kérdését?")) {
-                NebulooFetch.deleteMyPost(this.$route.path);
+                NebulooFetch.deleteMyPost(this.$route.path)
+                .then(()=>{
+                    alert("Sikeres törlés!");
+                    router.push('/myprofile');
+                });
             }
         },
     },

@@ -100,9 +100,11 @@ methods:{
     },
     async deleteMe(){
         if (window.confirm("Biztosan törölni szeretné fiókját?")) {
-            NebulooFetch.deleteMe();
-            sessionStorage.removeItem('userToken');
-            this.$router.push({name: 'welcome'});
+            NebulooFetch.deleteMyProfile()
+            .then(()=>{
+                sessionStorage.removeItem('userToken');
+                alert("Sikeres törlés!",router.push('/'));
+            })
         } else {
             // user clicked "Cancel"
             // do nothing

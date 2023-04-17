@@ -31,9 +31,13 @@
             }
         },
         methods:{
-            NewQuestion(){
+            async NewQuestion(){
                 const data = JSON.stringify(this.question);
-                NebulooFetch.createQuestion(data);
+                NebulooFetch.createQuestion(data)
+                .then(()=>{
+                    alert("Sikeres létrehozás!");
+                    router.push('/myprofile');
+                });
             }
         },
         mounted(){

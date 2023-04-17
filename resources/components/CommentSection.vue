@@ -49,9 +49,13 @@ export default{
         };
     },
     methods:{
-        AddComment(){
+        async AddComment(){
             const data = JSON.stringify(this.comment);
-                NebulooFetch.createComment(data,this.$route.path);
+                NebulooFetch.createComment(data,this.$route.path)
+                .then(()=>{
+                    alert("Sikeres komment!");
+                    window.location.reload();
+                });
         },
     },
     computed:{
