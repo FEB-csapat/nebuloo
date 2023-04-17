@@ -1,6 +1,6 @@
 <template>
     <div class="col">
-        <span class="badge bg-info text-dark">{{tag.name}}</span>
+        <span class="badge m-1 bg-info text-dark">{{tag.name}}</span>
 
     </div>
 </template>

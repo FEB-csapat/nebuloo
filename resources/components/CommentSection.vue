@@ -5,7 +5,7 @@
         <div id="comment_writer_container" class="bg-light shadow rounded-3 mt-2 p-2">
             <label for="cim" class="form-label pt-2">Írj kommentet:</label>
 
-            <textarea id="body" v-model="message" class="form-control" rows="4" cols="10"></textarea>
+            <textarea id="body" v-model="message" class="form-control" rows="3" cols="10"></textarea>
 
             <div class="col mt-2">
                 <button type="button" class="btn" id="button" @click="AddComment()" >Küldés</button>

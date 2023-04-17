@@ -1,6 +1,6 @@
 <template>
 <div class="container my-3 ">
-    <h1 id="title">Kérdés szerkesztése</h1>
+    <h1 class="text-center mb-4">Kérdés szerkesztése</h1>
     <div class="row bg-light shadow rounded-3 p-2">
         <form @submit.prevent="Login">
             <label for="title" class="form-label mt-2">Kérdés címe:</label>

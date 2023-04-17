@@ -1,6 +1,13 @@
 <template>
     <div class="container mt-4">
-        <h1 class="text-center mb-4">Tananyagok</h1>
+        <h1 class="text-center mb-2">Tananyagok</h1>
+
+        <label for="search" class="form-label">Rendezés:</label>
+        <select class="form-select" style="width:160px" v-model="orderBy" @change="getAllContent()">
+            <option value="newest">Legújabbak</option>
+            <option value="oldest">Legrégebbiek</option>
+            <option value="popular">Legnépszerűbbek</option>
+        </select>
 
         <h3 v-if="searchTerm != ''" class="text-center mb-4">Keresési találatok: {{ $route.query.search }}</h3>
 
@@ -46,6 +53,7 @@ export default{
             isWaiting: true,
             searchTerm: '',
             currentPage: 1,
+            orderBy: 'newest',
 
             links: {}, 
             meta: {},
@@ -59,7 +67,7 @@ export default{
             var queires = {
                 search: this.searchTerm,
                 page: this.currentPage,
-                orderBy: 'popular'
+                orderBy: this.orderBy
             }
             var responseBody = (await NebulooFetch.getAllContent(queires)).data;
             this.Contents = responseBody.data;
@@ -77,14 +85,18 @@ export default{
 
             this.$router.push({
                 name: 'contents',
-                query: { search: this.searchTerm, page: this.currentPage }
+                query: { orderBy: this.orderBy, search: this.searchTerm, page: this.currentPage }
             });            
         }
     },
     mounted(){
+        this.orderBy = this.$route.query.orderBy;
         this.searchTerm = this.$route.query.search;
         this.currentPage = this.$route.query.page;
         this.getAllContent();
+
+        // WHat is this abomination?
+        // TODO: fix whatever this is
         if(NebulooFetch.token!='0') this.logedin = true;
     },
 

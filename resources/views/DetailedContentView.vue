@@ -1,6 +1,7 @@
 <template>
     <div class="container my-3 ">
-        <h1 id="title">Tananyag megtekintése</h1>
+        <h1 class="text-center mb-4">Tananyag megtekintése</h1>
+
         <div class="row bg-light shadow rounded-3 p-2">
             <div class="row">
                 <div class="col-11">

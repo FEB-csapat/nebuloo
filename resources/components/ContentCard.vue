@@ -31,14 +31,12 @@ import User from './User.vue';
 import DetailedContentView from '../views/DetailedContentView.vue';
 
 export default{
-    
     props:{
         content: {
             type: Object,
             required: true
         },
     },
-    
     components:{
         Tag,
         Vote,

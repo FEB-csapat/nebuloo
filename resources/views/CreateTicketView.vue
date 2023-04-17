@@ -1,7 +1,7 @@
 <template>
 <div class="container my-3 ">
         <div class="row bg-light shadow rounded-3 p-2">
-            <h1 id="title">Hibajegy küldése</h1>
+            <h1 class="text-center mb-4">Hibajegy küldése</h1>
             <div>
                 <label for="leiras" class="form-label pt-2">Leírás*</label>
                 <textarea name="leiras" id="leiras" v-model="body" rows="5" class="form-control"></textarea>

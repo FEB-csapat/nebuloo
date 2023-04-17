@@ -19,9 +19,6 @@
             <a href="#" class="nav-link px-2 text-muted mt-1">Forrás</a>
           </div>
           <div class="col-sm-3">
-            <router-link class="nav-link text-muted px-2 mt-1" aria-current="page" to="/about">Rólunk</router-link>
-          </div>
-          <div class="col-sm-3">
             <router-link class="nav-link text-muted px-2 mt-1" aria-current="page" to="/ASZF">ÁSZF</router-link>
           </div>
           
