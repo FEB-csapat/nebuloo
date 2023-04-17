@@ -1,6 +1,6 @@
 <template>
     <div class="container mt-4">
-        <h1 class="text-center mb-4">Questions</h1>
+        <h1 class="text-center mb-4">Kérdések</h1>
 
         <h3 v-if="searchTerm != ''" class="text-center mb-4">Keresési találatok: {{ $route.query.search }}</h3>
 

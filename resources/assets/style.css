@@ -60,18 +60,18 @@ body{
     bottom: 20px;
     right: 20px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
-  }
-  
-  .fab-button:hover {
+}
+
+.fab-button:hover {
     background-color: #0062cc;
     transform: translateY(-1.7px);
-  }
-  
-  .fab-button:active {
-      box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
-      transform: translateY(1px);
-      transition: transform 0.1s ease-in-out;
-    }
+}
+
+.fab-button:active {
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
+    transform: translateY(1px);
+    transition: transform 0.1s ease-in-out;
+}
 
 
 .easymde-container.CodeMirror {
@@ -114,6 +114,11 @@ body{
     padding: 6px;
 }
 
+.detailed_content_view_textarea img{
+    max-width: 100%;
+    height: auto;
+}
+
 
 .card_content_view_textarea .editor-preview{
     padding: 0;
@@ -129,4 +134,9 @@ body{
 
 .card_content_view_textarea .EasyMDEContainer .CodeMirror{
     padding: 6px;
+}
+
+.card_content_view_textarea img{
+    max-width: 100%;
+    height: auto;
 }

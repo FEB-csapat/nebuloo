@@ -1,6 +1,6 @@
 <template>
     <div class="container mt-4">
-        <h1 class="text-center mb-4">Contents</h1>
+        <h1 class="text-center mb-4">Tananyagok</h1>
 
         <h3 v-if="searchTerm != ''" class="text-center mb-4">Keresési találatok: {{ $route.query.search }}</h3>
 
@@ -20,10 +20,6 @@
             <paginator :links="links" :meta="meta" @paginate="handlePaginate" />
         </div>
     </div>
-
-    <p class="text-center">
-        TODO: center this component
-    </p>
 
     <router-link class="nav-link active" aria-current="page" to="contents/create">
         <div class="fab-button" @click="onClick">
@@ -63,7 +59,7 @@ export default{
             var queires = {
                 search: this.searchTerm,
                 page: this.currentPage,
-              //  orderBy: 'newest'
+               // orderBy: 'newest'
             }
             var responseBody = (await NebulooFetch.getAllContent(queires)).data;
             this.Contents = responseBody.data;

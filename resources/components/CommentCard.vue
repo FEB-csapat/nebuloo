@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex justify-content-between bg-light shadow rounded-3 p-2 mt-2">
-        <div class="col-sm-2 col-xs-2">
-            <user :user="comment.creator"></user> 
+        <div class="col-sm-1 col-xs-2">
+            <user class="text-center" :user="comment.creator"></user> 
         </div>
         <div class="flex-fill">
             <p>{{comment.message}}</p>

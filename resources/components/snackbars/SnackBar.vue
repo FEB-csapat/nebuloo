@@ -1,31 +1,47 @@
 <template>
     <div id="snackbar">
-        {{message}}
-        <button v-if="buttonText != null" class="btn btn-primary ml-3" onclick="onClick()">{{buttonText}}</button>
+        <p id="snackbar_message">{{message}}</p>
+        <button id="snackbar_button_text" v-if="buttonText != null" class="btn btn-primary ml-3" :click="handleClick()">{{buttonText}}</button>
     </div>
 </template>
 
 <script>
 
-
 export default{
-    props: {
-        message: String,
-        buttonText: String,
-    },
     data() {
         return {
-            
+          message: String,
+          buttonText: String,
+          onClick: Function,
         };
     },
     methods:{
-        onClick(){
-            this.$emit('onClick');
+      
+        handleClick(){
+          console.log("click");
+            this.onClick();
+           // this.$emit('onClick');
         },
-        showSnackbar() {
-            var x = document.getElementById("snackbar");
-            x.className = "show";
-            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 6000);
+        
+        showSnackbar(message, buttonText, onClick) {
+            var snackbar = document.getElementById("snackbar");
+
+            var buttonTextElement = document.getElementById("snackbar_button_text");
+            var messageElement = document.getElementById("snackbar_message");
+
+            this.message = message;
+            this.buttonText = buttonText;
+            this.onClick = onClick || function(){};
+
+            if(buttonTextElement != null){
+              buttonTextElement.textContent = buttonText;
+            }
+            if(messageElement != null){
+              messageElement.textContent = message;
+            }
+          
+            snackbar.className = "show";
+            setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 6000);
         }
     },
     async mounted(){

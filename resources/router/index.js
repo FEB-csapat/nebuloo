@@ -51,6 +51,20 @@ const router = createRouter({
       props: true
     },
     {
+      path: '/contents/create',
+      name: 'createContent',
+      component: CreateContentView,
+      meta:{requiresAuth: true}
+    },
+    {
+      path: '/contents/:id/edit',
+      name: 'EditContent',
+      component: EditQuestionView,
+      props: true
+    },
+
+
+    {
       path: '/questions',
       name: 'questions',
       component: QuestionsView
@@ -61,7 +75,6 @@ const router = createRouter({
       component: DetailedQuestionView,
       props: true
     },
-
     {
       path: '/questions/create',
       name: 'CreateQuestion',
@@ -69,11 +82,18 @@ const router = createRouter({
       meta:{requiresAuth: true}
     },
     {
-      path: '/contents/create',
-      name: 'createContent',
-      component: CreateContentView,
-      meta:{requiresAuth: true}
+      path: '/questions/:id/edit',
+      name: 'EditQuestion',
+      component: EditQuestionView,
+      props: true
     },
+    {
+      path: '/questions/edit/:id',
+      name: 'EditQuestion',
+      component: EditQuestionView,
+      props: true
+    },
+    
 
     {
       path: '/myprofile',
@@ -115,12 +135,7 @@ const router = createRouter({
       name: 'Documentation',
       component: DocumentationView
     },
-    {
-      path: '/questions/edit/:id',
-      name: 'EditQuestion',
-      component: EditQuestionView,
-      props: true
-    },
+    
   ]
 })
 

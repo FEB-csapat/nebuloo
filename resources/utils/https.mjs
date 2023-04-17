@@ -57,11 +57,8 @@ export class NebulooFetch{
         });
     };
     static editQuestion(data,id){
-        const response = NebulooFetch.http.put('me/questions/'+id,data)
-        .then(()=>{
-            alert("Sikeres változtatás");
-            router.push('/questions/'+id);
-        });
+        const response = NebulooFetch.http.put('me/questions/'+id, data)
+        return response;
     }
     static async createContent(data){
         const response = NebulooFetch.http.post('me/contents',data);
