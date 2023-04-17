@@ -24,9 +24,13 @@
             }
         },
         methods:{
-            NewTicket(){
+            async NewTicket(){
                 const data = JSON.stringify(this.ticket);
-                NebulooFetch.createTicket(data);
+                NebulooFetch.createTicket(data)
+                .then(()=>{
+                    alert("Sikeres küldés!");
+                    router.push('/myprofile');
+                });
             }
         },
         mounted(){

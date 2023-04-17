@@ -41,7 +41,11 @@ import { NebulooFetch } from '../utils/https.mjs';
     
             async editMyData(){
                 const data = JSON.stringify(this.body);
-                NebulooFetch.editMyDatas(data);
+                NebulooFetch.editMyDatas(data)
+                .then(()=>{
+                    alert("Sikeres változtatás");
+                    router.push('/myprofile');
+                });
             }
 },
         computed:{

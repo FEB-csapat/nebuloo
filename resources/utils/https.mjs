@@ -41,22 +41,16 @@ export class NebulooFetch{
         return response;
     };
 
-    static deleteMyPost(path){
+    static async deleteMyPost(path){
         const response = NebulooFetch.http.delete("me"+path)
-        .then(()=>{
-            alert("Sikeres törlés!");
-            router.push('/myprofile');
-        })
+        return response;
     };
 
-    static createQuestion(data){
+    static async createQuestion(data){
         const response = NebulooFetch.http.post('me/questions',data)
-        .then(()=>{
-            alert("Sikeres létrehozás!");
-            router.push('/myprofile');
-        });
+        return response;
     };
-    static editQuestion(data,id){
+    static async editQuestion(data,id){
         const response = NebulooFetch.http.put('me/questions/'+id, data)
         return response;
     }
@@ -64,31 +58,25 @@ export class NebulooFetch{
         const response = NebulooFetch.http.post('me/contents',data);
         return response;
     };
-    static getMyDatas(){
+    static async updateContent(data,id){
+        const response = NebulooFetch.http.put('me/contents/'+id,data);
+        return response;
+    };
+    static async getMyDatas(){
         const response = NebulooFetch.http.get("me");
         return response;
     };
-    static deleteMe(){
+    static async deleteMyProfile(){
         const response = NebulooFetch.http.delete("me")
-        .then(()=>{
-            alert("Sikeres törlés!");
-            router.push('/');
-        })
+        return response;
     };
-    static editMyDatas(data){
+    static async editMyDatas(data){
         const response = NebulooFetch.http.put('me',data)
-        .then(()=>{
-            alert("Sikeres változtatás");
-            router.push('/myprofile');
-        });
+        return response;
     }
-
-    static createTicket(data){
+    static async createTicket(data){
         const response = NebulooFetch.http.post('me/tickets',data)
-        .then(()=>{
-            alert("Sikeres küldés!");
-            router.push('/myprofile');
-        });
+        return response;
     };
 
     static synchronizeVote(votableId, votableType, voteState){
@@ -100,13 +88,10 @@ export class NebulooFetch{
             return NebulooFetch.http.delete(votableType + '/' + votableId + '/votes');
         }
     };
-    static createComment(data,path)
+    static async createComment(data,path)
     {
         const response = NebulooFetch.http.post(path+'/comments',data)
-        .then(()=>{
-            alert("Sikeres komment!");
-            window.location.reload();
-        });
+        return response;
     };
 
     static uploadImage(file)

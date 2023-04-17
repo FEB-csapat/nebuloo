@@ -1,8 +1,7 @@
 <template>
     <div class="container my-3 ">
         <h1 class="text-center mb-4">Tananyag megtekintése</h1>
-
-        <div class="row bg-light shadow rounded-3 p-2">
+        <div class="row bg-light shadow rounded-3 p-2" id="contentid">
             <div class="row">
                 <div class="col-11">
 
@@ -24,13 +23,13 @@
 
             <div class="d-flex flex-row">
                 <div class="col-sm-4">
-                    <button class="btn" id="button">
+                    <button class="btn" id="button" @click="downloadContent()">
                         Letöltés
                     </button>
                 </div>
                 <div class="col-sm-4 text-center" v-if="MyPost">
                     <button class=" btn btn-success" @click="goToEdit()">
-                        Szerkeztés
+                        Szerkesztés
                     </button>
                 </div>
                 <div class="col-sm-4 text-end" v-if="MyPost">
@@ -57,6 +56,7 @@ import User from '../components/User.vue';
 import CommentSection from '../components/CommentSection.vue';
 import router from '../router';
 import path from 'path';
+import html2pdf from 'html2pdf.js'
 
 export default{
     props:
@@ -87,10 +87,14 @@ export default{
             this.editor.value(this.content.body);
             this.isWaiting = false;
         },
-        deletePost(){
+        async deletePost(){
             if (window.confirm("Biztosan törölni szeretné posztját?")) {
         
-                NebulooFetch.deleteMyPost(this.$route.path);
+                NebulooFetch.deleteMyPost(this.$route.path)
+                .then(()=>{
+                    alert("Sikeres törlés!");
+                    router.push('/myprofile');
+                });
             }
         },
         goToEdit(){
@@ -99,6 +103,9 @@ export default{
                 params:{id: this.id}
             })
         },
+        downloadContent(){
+            html2pdf(document.getElementById('contentid'));
+        }
     },
     async mounted(){
         this.getDetailedContent();

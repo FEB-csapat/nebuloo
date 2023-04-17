@@ -9,8 +9,8 @@
                 </div>
 
             <div class="text-end p-3">
-                <button class="btn" id="button" @click="createContent()">
-                    Létrehozás
+                <button class="btn" id="button" @click="saveContent()">
+                    Változtatások mentése
                 </button>
             </div>
         </div>
@@ -34,6 +34,26 @@ export default{
             type: Number,
             required: true
         } 
+    },
+    methods:{
+        async saveContent(){
+            const body = this.editor.value();
+            if(body==""){
+                alert("A poszt nem lehet üres!")
+            }
+            var data={
+                body: body,
+                //TODO: tags
+            }
+            NebulooFetch.updateContent(data, this.id)
+            .then(response=>{
+                console.log(response)
+                alert("Sikeres szerkesztés!",this.$router.push({name: 'contentById', params:{id: response.data.id}}))
+            })
+            .catch(error=>{
+                console.log(error)
+            })
+        }
     },
     async mounted(){
         this.editor = new EasyMDE({

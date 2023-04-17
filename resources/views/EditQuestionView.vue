@@ -60,7 +60,7 @@ export default{
 
             if(response.status == 200){
                // this.$router.push('/questions/'+id);
-                navigateToDetailedView();
+                this.navigateToDetailedView();
             }else{
                 this.$refs.snackBar.showSnackbar('Sikertelen szerkesztés', null, function () {
                     console.log('callback');
