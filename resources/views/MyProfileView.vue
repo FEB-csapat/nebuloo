@@ -99,7 +99,7 @@ methods:{
         this.mydata = this.responseBody;
     },
     async deleteMe(){
-        if (window.confirm("Biztosan törölni szeretné profilját?")) {
+        if (window.confirm("Biztosan törölni szeretné fiókját?")) {
             NebulooFetch.deleteMe();
             sessionStorage.removeItem('userToken');
             this.$router.push({name: 'welcome'});

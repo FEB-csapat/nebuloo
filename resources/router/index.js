@@ -69,11 +69,9 @@ const router = createRouter({
     {
       path: '/contents/:id/edit',
       name: 'EditContent',
-      component: EditQuestionView,
+      component: EditContentView,
       props: true
     },
-
-
     {
       path: '/questions',
       name: 'questions',
