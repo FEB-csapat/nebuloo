@@ -28,7 +28,7 @@
                     </button>
                 </div>
                 <div class="col-sm-4 text-center" v-if="MyPost">
-                    <button class=" btn btn-success">
+                    <button class=" btn btn-success" @click="goToEdit()">
                         Szerkeztés
                     </button>
                 </div>
@@ -54,6 +54,8 @@ import Vote from '../components/Vote.vue';
 import User from '../components/User.vue';
 
 import CommentSection from '../components/CommentSection.vue';
+import router from '../router';
+import path from 'path';
 
 export default{
     props:
@@ -89,6 +91,12 @@ export default{
         
                 NebulooFetch.deleteMyPost(this.$route.path);
             }
+        },
+        goToEdit(){
+            router.push({
+                name: 'editContent',
+                params:{id: this.id}
+            })
         },
     },
     async mounted(){
