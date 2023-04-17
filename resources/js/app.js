@@ -31,7 +31,6 @@ if(sessionStorage.getItem('userToken')===null){
     NebulooFetch.initialize(sessionStorage.getItem('userToken'));
 }
 
-
 const app = createApp(App)
 
 app.use(router)
