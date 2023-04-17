@@ -48,7 +48,7 @@ export default{
             NebulooFetch.updateContent(data, this.id)
             .then(response=>{
                 console.log(response)
-                alert("Sikeres szerkeztés!",this.$router.push({name: 'contentById', params:{id: response.data.id}}))
+                alert("Sikeres szerkesztés!",this.$router.push({name: 'contentById', params:{id: response.data.id}}))
             })
             .catch(error=>{
                 console.log(error)
