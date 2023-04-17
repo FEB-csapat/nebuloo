@@ -9,6 +9,8 @@
                 <input id="password_field" v-model="form.password" type="password" name="password" placeholder="Jelszó" class="form-control">
 
                 <button type="submit" class="my-3 btn" id="button">Bejelentkezés</button>
+
+                <div v-if="errorMessage" class="error-message bg-danger text-white bg-opacity-25 border border-danger p-2">{{errorMessage}}</div>
             </form>
             <div class="col-sm-12 my-3">
                 <p>
@@ -39,7 +41,8 @@ export default{
             form: new Form({
                 identifier: '',
                 password: ''
-            })
+            }),
+            errorMessage: null
         }
     },
     components: {
@@ -62,6 +65,9 @@ export default{
               //  alert("Sikeres bejelentkezés!");
                 this.$refs.snackBar.showSnackbar();
                 router.push('/contents');
+            })
+            .catch(error=>{
+                this.errorMessage = error.response.data.message;
             })
         }
     }
