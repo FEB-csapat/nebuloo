@@ -16,6 +16,7 @@ import DetailedQuestionView from '../views/DetailedQuestionView.vue'
 import RegistrationView from '../views/RegistrationView.vue'
 import DocumentationView from '../views/DocumentationView.vue'
 import EditQuestionView from '../views/EditQuestionView.vue'
+import EditContentView from '../views/EditContentView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -57,6 +58,12 @@ const router = createRouter({
       meta:{requiresAuth: true}
     },
     {
+      path: '/contents/edit/:id',
+      name: 'editContent',
+      component: EditContentView,
+      meta:{requiresAuth: true}
+    },
+    {
       path: '/contents/:id/edit',
       name: 'EditContent',
       component: EditQuestionView,
@@ -85,13 +92,15 @@ const router = createRouter({
       path: '/questions/:id/edit',
       name: 'EditQuestion',
       component: EditQuestionView,
-      props: true
+      props: true,
+      meta:{requiresAuth: true}
     },
     {
       path: '/questions/edit/:id',
       name: 'EditQuestion',
       component: EditQuestionView,
-      props: true
+      props: true,
+      meta:{requiresAuth: true}
     },
     
 

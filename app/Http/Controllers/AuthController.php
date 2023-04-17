@@ -39,7 +39,7 @@ class AuthController extends Controller
         }
 
         if(!$user){
-            return response()->json(['error' => 'No user found with such email or username!'], 404);
+            return response()->json(['message' => 'Nem található ilyen felhasználónév vagy email-cím!'], 404);
         }
 
         if (Hash::check($data['password'], $user->password)) {
@@ -49,7 +49,7 @@ class AuthController extends Controller
                 'user' => new UserResource($user),
             ], 200);
         } else {
-            return response()->json(['error' => 'Wrong password!'], 401);
+            return response()->json(['message' => 'Hibás a jelszó!'], 401);
         }
     }
 }

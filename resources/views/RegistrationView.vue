@@ -4,18 +4,19 @@
             <form @submit.prevent="Register">
     <label for="name" class="form-label mt-2">Felhasználó név:</label>
     <input v-model="form.name" type="text" name="name" placeholder="Felhasználó név" class="form-control">
-    <!-- <div v-if="form.errors.has('name')" v-html="form.errors.get('username')"/> -->
+    <div v-if="form.errors.has('name')" class="text-white bg-opacity-25 border border-danger p-2"> {{errors['name']}} </div>
 
     <label for="email" class="form-label mt-2">E-mail cím:</label>
     <input v-model="form.email" type="text" name="email" placeholder="E-mail cím" class="form-control">
-    <!-- <div v-if="form.errors.has('email')" v-html="form.errors.get('email')"/> -->
+    <div v-if="form.errors.has('email')" class="text-white bg-opacity-25 border border-danger p-2"> {{errors['email']}} </div>
 
     <label for="password" class="form-label mt-2">Jelszó:</label>
     <input v-validate="'required|string|min:8'" v-model="form.password" type="password" name="password" placeholder="Jelszó" ref="password" class="form-control">
-    <!-- <div v-if="form.errors.has('password')" v-html="form.errors.get('password')"/> -->
+    <div v-if="form.errors.has('password')" class="text-white bg-opacity-25 border border-danger p-2"> {{errors['password']}} </div>
 
     <label for="password_confirmation" class="form-label mt-2">Jelszó újra:</label>
     <input v-validate="'required|confirmed:password'" v-model="form.password_confirmation" type="password" name="password_confirmation" placeholder="Jelszó újra" class="form-control">
+    <div v-if="form.errors.has('password_confirmation')" class="text-white bg-opacity-25 border border-danger p-2"> {{errors['password_confirmation']}} </div>            
 
     <div class="form-check mt-2">
         <input class="form-check-input" type="checkbox" value="" id="aszf">
@@ -37,12 +38,12 @@
     </div>
 
 
-    <button type="submit" class="my-3 btn" id="button">
+    <button type="submit" class="my-3 btn btn-primary">
         Regisztráció
     </button>
 
 
-    <router-link class="nav-link active" aria-current="page" to="login"><button on-click="" class="my-3 btn" id="button">Bejelentkezés</button></router-link>
+    <router-link class="nav-link active btn btn-success my-3" aria-current="page" to="login">Bejelentkezés</router-link>
 
             
 </form>
@@ -54,7 +55,7 @@
 import router from "../router/index.js";
 import Form from 'vform'
 import axios from 'axios'
-
+import SnackBar from "../components/snackbars/SnackBar.vue";
 
 export default{
     data(){
@@ -64,9 +65,19 @@ export default{
             email: '',
             password: '',
             password_confirmation: '',
-            notify_by_email: true
-        })
+            notify_by_email: true,
+            
+        }),
+        errors:{
+            name: "TODO: speciális karakterek",
+            email: "Az email-cím nem megfelelő!",
+            password: "A jelszónak legalább 8 karakter hosszúnak kell lennie!",
+            password_confirmation: "A két jelszó nem megegyező"
+        },
         }
+    },
+    components:{
+        SnackBar
     },
     methods:{
         async Register(){
@@ -76,9 +87,15 @@ export default{
             });
 
             console.log(this.form);
-            const response = (await regist.post('register',this.form)).data;
-            console.log(response);
-            router.push('/login');
+            regist.post('register',this.form)
+            .then(response=>{
+                console.log(response);
+                alert("Sikeres bejelentkezés", router.push('/login'));
+            })
+            .catch(errors=>{
+                console.log(errors);
+                this.errors = errors;
+            })
         }
     }
 }

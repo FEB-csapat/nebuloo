@@ -21,17 +21,23 @@
                 <textarea ref="editor" name="leiras" id="leiras" class="form-control">Betöltés...</textarea>
             </div>
 
-            <div class="row">
-                <div class="col-sm-6">
+            <div class="d-flex flex-row">
+                <div class="col-sm-4">
                     <button class="btn" id="button">
                         Letöltés
                     </button>
                 </div>
-                <div class="col-sm-6 text-end" v-if="MyPost==true">
+                <div class="col-sm-4 text-center" v-if="MyPost">
+                    <button class=" btn btn-success" @click="goToEdit()">
+                        Szerkeztés
+                    </button>
+                </div>
+                <div class="col-sm-4 text-end" v-if="MyPost">
                     <button class="btn btn-danger" @click="deletePost()">
                         Tananyag törlése
                     </button> 
                 </div>
+
             </div>
         </div>
             <comment-section :comments="content.comments" :commentable_id="content.id" :commentable_type="contents"></comment-section>
@@ -48,16 +54,14 @@ import Vote from '../components/Vote.vue';
 import User from '../components/User.vue';
 
 import CommentSection from '../components/CommentSection.vue';
+import router from '../router';
+import path from 'path';
 
 export default{
     props:
     {
         id: {
             type: Number,
-            required: true
-        },
-        content: {
-            type: Object,
             required: true
         } 
     },
@@ -87,6 +91,12 @@ export default{
         
                 NebulooFetch.deleteMyPost(this.$route.path);
             }
+        },
+        goToEdit(){
+            router.push({
+                name: 'editContent',
+                params:{id: this.id}
+            })
         },
     },
     async mounted(){
