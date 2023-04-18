@@ -3,7 +3,7 @@
         <div class="nav-link active col-sm-10" aria-current="page"
             @click="navigate">
             <div>
-                <div class="row justify-content-start" >
+                <div class="d-flex">
                     <tag v-for="tag in content.tags" :tag="tag"></tag>
                 </div>
                 
