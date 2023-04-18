@@ -28,17 +28,18 @@
         </div>
     </div>
 
-    <router-link class="nav-link active" aria-current="page" to="contents/create">
-        <div class="fab-button" @click="onClick">
+
+        <div class="fab-button" @click="createContent">
             <span class="m-3">Create new content</span>
             <i class="fas fa-plus fa-lg"/>
         </div>
-    </router-link>
+
 </template>
 
 <script>
 import Cards from '../components/Cards.vue'
 import Paginator from '../components/Paginator.vue';
+import router from '../router';
 
 import { NebulooFetch } from '../utils/https.mjs';
 
@@ -87,6 +88,16 @@ export default{
                 name: 'contents',
                 query: { orderBy: this.orderBy, search: this.searchTerm, page: this.currentPage }
             });            
+        },
+
+        createContent(){
+            if(localStorage.getItem('userToken')==0) //Unauthenticated
+            {
+                alert('Tartalmak feltöltéséhez, kérlek jelentkezz be!', router.push('/login'))
+            }
+            else{
+                router.push('/contents/create')
+            }            
         }
     },
     mounted(){
