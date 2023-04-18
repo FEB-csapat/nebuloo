@@ -39,8 +39,8 @@
         </div>
 
         <div class="col-sm-6 mx-auto m-4">
-            <div class="container bg-light rounded-3 shadow">
-                <h2 class="text-center">Folytatás</h2>
+            <div class="container bg-light rounded-3 shadow" v-if="token==null">
+                <h2 class="text-center" >Folytatás</h2>
                 
                 <div class="row p-3 d-flex justify-content-center text-center">
                     <div class="col-md-4">
@@ -65,7 +65,12 @@ import { NebulooFetch } from '../utils/https.mjs';
 
 export default {
     data(){
-
+        return{
+            token: ''
+        }
+    },
+    async mounted(){
+        this.token = sessionStorage.getItem('userToken');
     }
 
 }
