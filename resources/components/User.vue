@@ -2,7 +2,7 @@
     <div class="col" @click="navigate">
             <h6 v-if="user != null && user.role!=null && showDetailed">{{user.role}}</h6>
 
-        <img v-if="user != null" class="mx-auto border border-2 border-dark rounded shadow" :style="{ width: showDetailed ? '120px' : '60px' }" v-bind:src="profileImage" :alt="user.rank.name" :title="user.rank.name" id="profpicture">
+        <img v-if="user != null" class="mx-auto border border-2 border-dark rounded shadow" :style="{ width: showDetailed ? '120px' : '60px' }" v-bind:src="profileImage" :alt="user.rank.name" :title="user.rank.name" id="profpicture"/>
 
         <p class="text-secondary" v-if="user != null && user.rank!=null && showDetailed">{{user.rank.name}}</p>
 
