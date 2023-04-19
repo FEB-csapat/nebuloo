@@ -1,15 +1,13 @@
 <template>
-    <div class="col-6 " @click="navigate">
-        <div class="col-12">
-            <h6 v-if="user != null && user.role!=null && showDetailed">{{user.role}}</h6>
+    <div class="col text-center" @click="navigate">
+        <h6 v-if="user != null && user.role!=null && showDetailed">{{user.role}}</h6>
 
-            <img v-if="user != null" class="mx-auto border border-2 border-dark rounded shadow" :style="{ width: showDetailed ? '120px' : '60px' }" v-bind:src="profileImage" :alt="user.rank.name" :title="user.rank.name" id="profpicture">
+        <img v-if="user != null" class="mx-auto border border-2 border-dark rounded shadow" :style="{ width: showDetailed ? '120px' : '60px' }" v-bind:src="profileImage" :alt="user.rank.name" :title="user.rank.name" id="profpicture">
 
-            <p class="text-secondary" v-if="user != null && user.rank!=null && showDetailed">{{user.rank.name}}</p>
+        <p class="text-secondary" v-if="user != null && user.rank!=null && showDetailed">{{user.rank.name}}</p>
 
-            <h5 v-if="user != null">{{user.name}}</h5>
-            <p v-else>Betöltés...</p>
-        </div>
+        <h5 v-if="user != null && showDetailed" class="mt-1">{{user.name}}</h5>
+        <h6 v-else-if="user != null && !showDetailed">{{user.name}}</h6>
     </div>
 
     <div v-if="showDetailed" class="row col-6 align-items-center text-start">
@@ -66,10 +64,8 @@ export default{
         }
     },
     mounted(){
-        if(this.user == null && this.user.rank == null){
-            return;
-        }
-        switch(this.user.rank.id){
+        if(this.user != null && this.user.rank != null){
+            switch(this.user.rank.id){
             case 1:
                 this.profileImage = zoldfulu;
                 break;
@@ -85,6 +81,7 @@ export default{
             case 5:
                 this.profileImage = bolcs;
                 break;
+            }
         }
     }
 }
