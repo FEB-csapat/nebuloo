@@ -16,7 +16,7 @@
             <router-link class="nav-link text-muted px-2 mt-1" aria-current="page" to="/tickets/create">Jelentés küldése</router-link>
           </div>
           <div class="col-sm-3">
-            <a href="#" class="nav-link px-2 text-muted mt-1">Forrás</a>
+            <a href="https://github.com/FEB-csapat/nebuloo" class="nav-link px-2 text-muted mt-1">Forrás</a>
           </div>
           <div class="col-sm-3">
             <router-link class="nav-link text-muted px-2 mt-1" aria-current="page" to="/ASZF">ÁSZF</router-link>

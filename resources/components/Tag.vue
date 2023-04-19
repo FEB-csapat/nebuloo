@@ -1,8 +1,5 @@
 <template>
-    <div class="col">
-        <span class="badge m-1 bg-info text-dark">{{tag.name}}</span>
-
-    </div>
+    <span class="badge m-1 bg-info text-dark p-2">{{tag.name}}</span>
 </template>
 
 <script>

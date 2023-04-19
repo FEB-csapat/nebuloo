@@ -1,9 +1,9 @@
 <template>
     <div class="row bg-light rounded-4 mb-3 p-3" id="card">
-        <div class="nav-link active col-sm-10" aria-current="page"
+        <div class="nav-link active col-10" aria-current="page"
             @click="navigate">
             <div>
-                <div class="row justify-content-start" >
+                <div class="d-flex">
                     <tag v-for="tag in content.tags" :tag="tag"></tag>
                 </div>
                 
@@ -13,7 +13,7 @@
             </div>
         </div>
 
-        <div class="col-sm-2 text-center">
+        <div class="col-2 text-center">
             <p>{{content.created_at}}</p>
             <user v-if="content.creator" :user="content.creator"></user>
 

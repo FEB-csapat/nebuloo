@@ -119,6 +119,14 @@ body{
     height: auto;
 }
 
+.detailed_content_view_textarea .CodeMirror-vscrollbar{
+    display: block;
+}
+
+.detailed_content_view_textarea .CodeMirror-scroll{
+    display: none;
+}
+
 
 .card_content_view_textarea .editor-preview{
     padding: 0;
@@ -139,4 +147,12 @@ body{
 .card_content_view_textarea img{
     max-width: 100%;
     height: auto;
+}
+
+.card_content_view_textarea .CodeMirror-vscrollbar{
+    display: block;
+}
+
+.card_content_view_textarea .CodeMirror-scroll{
+    display: none;
 }
