@@ -3,7 +3,7 @@
         <div class="col" @click="navigate">
             <h6 v-if="user != null && user.roles!=null && showDetailed">{{user.roles[0]}}</h6>
     
-            <img class="mx-auto border rounded shadow" :style="{ width: showDetailed ? '120px' : '60px' }" v-bind:src="profileImage" :alt="user.rank.name" :title="user.rank.name" id="profpicture">
+            <img v-if="user != null" class="mx-auto border rounded shadow" :style="{ width: showDetailed ? '120px' : '60px' }" v-bind:src="profileImage" :alt="user.rank.name" :title="user.rank.name" id="profpicture">
             
             <p class="text-secondary" v-if="user != null && user.rank!=null && showDetailed">{{user.rank.name}}</p>
     
@@ -52,7 +52,7 @@ export default{
                 this.$router.push({
                     name: 'myprofile',
                     params: {
-                        id: this.user.id
+                        id: this.user.id    
                     },
                 })
             }
