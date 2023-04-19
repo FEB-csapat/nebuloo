@@ -8,7 +8,7 @@
       <div class="collapse show navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li v-if="showContentsButton" class="nav-item mx-2">
-            <router-link class="nav-link active" aria-current="page" to="/contents">Tananyagok</router-link>
+            <button class="btn" id="button"><router-link class="nav-link active" aria-current="page" to="/contents">Tananyagok</router-link></button>
           </li>
           <li v-if="showQuestionsButton" class="nav-item mx-2">
               <button class="btn" id="button"><router-link class="nav-link active" aria-current="page" to="/questions">Kérdések</router-link></button>

@@ -10,14 +10,24 @@
             </div>
         </div>
         <div class="col text-center">
+
+            <user v-if="mydata!=null" :user="mydata" v-bind:showDetailed="true"></user>
+
+
+
+
+            
+        <!--
             <img src="https://placeholder.pics/svg/60" alt="" id="profpicture">
 
-        <p v-if="mydata.rank != null" class="fs-6">{{ mydata.rank.name }}</p>
-        <p v-if="mydata.roles != null" class="fs-6">{{ mydata.roles[0]}}</p>
-        <p class="fs-4">{{ mydata.name }}</p>
+            <p v-if="mydata.rank != null" class="fs-6">{{ mydata.rank.name }}</p>
+            <p v-if="mydata.roles != null" class="fs-6">{{ mydata.roles[0]}}</p>
+            <p class="fs-4">{{ mydata.name }}</p>
+        -->
+            
         </div>
         <h2>Bio:</h2>
-    <p class="ps-5">
+    <p v-if="mydata != null" class="ps-5">
         {{ mydata.bio }}
     </p>
 
@@ -81,15 +91,17 @@ import { NebulooFetch } from '../utils/https.mjs';
 
 import CommentCard from '../components/CommentCard.vue';
 import router from '../router';
+import User from '../components/User.vue';
 export default{
 data(){
     return{
-        mydata:[],
+        mydata: null,
     }
 },
 components:{
     Cards,
-    CommentCard
+    CommentCard,
+    User
 },
 methods:{
     
@@ -128,16 +140,16 @@ methods:{
 },
 computed: { 
     IHaveQuestions(){
-        return this.mydata.questions != 0;
+        return this.mydata != null && this.mydata.questions != 0;
     },
     IHaveComments(){
-        return this.mydata.comments != 0;
+        return this.mydata != null && this.mydata.comments != 0;
     },
     IHaveContents(){
-        return this.mydata.contents != 0;
+        return this.mydata != null && this.mydata.contents != 0;
     },
     IHaveTickets(){
-        return this.mydata.tickets != 0;
+        return this.mydata != null && this.mydata.tickets != 0;
     },
     
   },
