@@ -20,9 +20,10 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'email' => $this->email,
             'name' => $this->name,
+            'display_name' => $this->display_name,
             'bio' => $this->bio,
 
-            'roles' => $this->getRoleNames(),
+            'role' => $this->getRoleNames()[0],
             
             'comments' => CommentResource::collection($this->comments),
             'contents' => SimpleContentResource::collection($this->contents),

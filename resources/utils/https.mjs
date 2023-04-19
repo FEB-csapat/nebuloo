@@ -78,7 +78,19 @@ export class NebulooFetch{
         const response = NebulooFetch.http.post('me/tickets',data)
         return response;
     };
-
+    static async getUserData(id){
+        const response = NebulooFetch.http.get('users/'+id)
+        return response;
+    };
+    static async changeUserRole(id,data){
+        const response = NebulooFetch.http.put('admin/user/'+id+'/role',data)
+        return response;
+    };
+    static async banUser(id){
+        const response = NebulooFetch.http.put('admin/users/'+id+'/ban')
+        return response;
+    };
+ 
     static synchronizeVote(votableId, votableType, voteState){
         if(voteState == 1){
             return NebulooFetch.http.post(votableType + '/' + votableId + '/votes', {'direction': 'up'});

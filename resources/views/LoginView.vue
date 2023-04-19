@@ -59,6 +59,7 @@ export default{
             .then(response=>{
                 sessionStorage.setItem('userToken',response.data.token);
                 sessionStorage.setItem('Identifier',response.data.user.id);
+                sessionStorage.setItem('userRole',response.data.user.role);
                 NebulooFetch.initialize(response.data.token);
             })
             .then(response=>{
