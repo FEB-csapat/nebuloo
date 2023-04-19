@@ -11,7 +11,7 @@
         </div>
         <div class="row text-center">
 
-            <user v-if="mydata!=null" :user="mydata" v-bind:showDetailed="true"></user>
+            <user v-if="userdata!=null" :user="userdata" v-bind:showDetailed="true"></user>
 
 
 
@@ -27,8 +27,8 @@
             
         </div>
         <h2>Bio:</h2>
-    <p v-if="mydata != null" class="ps-5">
-        {{ mydata.bio }}
+    <p v-if="userdata != null" class="ps-5">
+        {{ userdata.bio }}
     </p>
 
     <h2>Érdekeltségi kör:</h2>
@@ -61,54 +61,66 @@
     <p v-if="IHaveQuestions==false">
         Nincsenek kérdéseim.
     </p>
-    <cards :Questions="mydata.questions" v-else/>
+    <cards :Questions="userdata.questions" v-else/>
 
     <h2 class="mt-4 mb-2">Tananyagaim:</h2>
     <p v-if="IHaveContents==false">
         Nincsenek tananyagaim.
     </p>
-    <cards :Contents="mydata.contents" v-else/>
+    <cards :Contents="userdata.contents" v-else/>
 
     <h2 class="mt-4">Kommentjeim:</h2>
     <div>
         <p v-if="IHaveComments==false">
             Nincsenek kommentjeim.
         </p>
-        <comment-card v-else v-for="comment in mydata.comments" :key="comment.id" :comment="comment" />
+        <comment-card v-else v-for="comment in userdata.comments" :key="comment.id" :comment="comment" />
     </div>
     
     <h2 class="mt-4">Hibajegyeim:</h2>
     <p v-if="IHaveTickets==false">
         Nincsenek Hibajegyeim.
     </p>
-    <cards :Tickets="mydata.tickets" v-else/>
+    <cards :Tickets="userdata.tickets" v-else/>
 
 </div>
 </template>
 <script>
 import Cards from '../components/Cards.vue'
 import { NebulooFetch } from '../utils/https.mjs';
-
 import CommentCard from '../components/CommentCard.vue';
 import router from '../router';
 import User from '../components/User.vue';
+
 export default{
 data(){
     return{
-        mydata: null,
-    }
+        userdata: null,
+        myprofile: false,
+        admin: false
+    }   
 },
 components:{
     Cards,
     CommentCard,
     User
 },
+props:{
+    id: {
+        type: Number,
+        required: false
+    }
+        
+},
 methods:{
     
     async GetMyData(){
         this.responseBody = (await NebulooFetch.getMyDatas()).data;
 
-        this.mydata = this.responseBody;
+        this.userdata = this.responseBody;
+    },
+    async getProfileData(id){
+        this.userdata = (await NebulooFetch.getUserData(id)).data;
     },
     async deleteMe(){
         if (window.confirm("Biztosan törölni szeretné fiókját?")) {
@@ -126,10 +138,10 @@ methods:{
             this.$router.push({
                 name: 'edit',
                 params: {
-                    data:  this.mydata
+                    data:  this.userdata
                 },
                 props: {
-                    data: this.mydata
+                    data: this.userdata
                 }
             })
         },
@@ -140,22 +152,34 @@ methods:{
 },
 computed: { 
     IHaveQuestions(){
-        return this.mydata != null && this.mydata.questions != 0;
+        return this.userdata != null && this.userdata.questions != 0;
     },
     IHaveComments(){
-        return this.mydata != null && this.mydata.comments != 0;
+        return this.userdata != null && this.userdata.comments != 0;
     },
     IHaveContents(){
-        return this.mydata != null && this.mydata.contents != 0;
+        return this.userdata != null && this.userdata.contents != 0;
     },
     IHaveTickets(){
-        return this.mydata != null && this.mydata.tickets != 0;
+        return this.userdata != null && this.userdata.tickets != 0;
     },
     
   },
 
 async mounted(){
-    this.GetMyData();
+    console.log(this.id);
+    if(this.id==null) //MyProfile
+    {
+        this.GetMyData();
+        this.myprofile = true;
+    }
+    else{
+        this.getProfileData(this.id);
+        this.myprofile = false;
+    }
+    if(sessionStorage.getItem('userRole'==='admin')){
+        this.admin= true;
+    }
 }
 
 }

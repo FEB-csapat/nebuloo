@@ -78,7 +78,11 @@ export class NebulooFetch{
         const response = NebulooFetch.http.post('me/tickets',data)
         return response;
     };
-
+    static async getUserData(id){
+        const response = NebulooFetch.http.get('users/'+id)
+        return response;
+    }
+ 
     static synchronizeVote(votableId, votableType, voteState){
         if(voteState == 1){
             return NebulooFetch.http.post(votableType + '/' + votableId + '/votes', {'direction': 'up'});

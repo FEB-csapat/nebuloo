@@ -22,7 +22,7 @@ class SimpleUserResource extends JsonResource
             'name' => $this->name,
             'bio' => $this->bio,
 
-            'role' => $this->getRoleNames()[0],
+            'role' => $this->getRoleNames(),
 
             'avatar' => $this->provider?->avatar,
             
