@@ -22,7 +22,7 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'bio' => $this->bio,
 
-            'roles' => $this->getRoleNames(),
+            'role' => $this->getRoleNames()[0],
 
             'avatar' => $this->provider?->avatar,
             
