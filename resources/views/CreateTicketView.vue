@@ -17,6 +17,7 @@
 </template>
 <script>
  import { NebulooFetch } from '../utils/https.mjs';
+import router from '../router';
     export default{
         data(){
             return{
