@@ -11,7 +11,7 @@
             <p v-else>Betöltés...</p>
         </div>
     
-        <div class="">
+        <div v-if="showDetailed" class="">
             <i style="color:gray;" :class="['fas', 'fa-up-long', 'fa-lg']"/>
             <p id="votecount" class="pt-3  ml-2 text-center">{{user.recieved_votes}}</p>
             <i style="color:gray;" :class="['fas', 'fa-down-long', 'fa-lg']"/>
