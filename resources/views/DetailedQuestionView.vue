@@ -31,7 +31,7 @@
                     </button>
                 </div>
                 <div class="col-sm-6 text-end">
-                    <button class="btn btn-danger" @click="deletePost()">
+                    <button class="btn btn-danger" @click="DeletePost()">
                         Kérdés törlése
                     </button> 
                 </div>
