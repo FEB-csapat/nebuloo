@@ -9,15 +9,6 @@
         <h5 v-if="user != null && showDetailed" class="mt-1">{{user.name}}</h5>
         <h6 v-else-if="user != null && !showDetailed">{{user.name}}</h6>
     </div>
-
-    <div v-if="showDetailed" class="row col-6 align-items-center text-start">
-        <div class="row col-12">
-            <i style="color:gray;" :class="['fas', 'fa-up-long', 'fa-lg']"/>
-            <p id="votecount" class="pt-3 ml-2">{{user.recieved_votes}}</p>
-            <i style="color:gray;" :class="['fas', 'fa-down-long', 'fa-lg']"/>
-        </div>
-    </div>
-    
 </template>
 
 <script>
