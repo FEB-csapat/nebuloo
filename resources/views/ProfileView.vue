@@ -62,7 +62,7 @@
             
         </div>
         <div class="col-3">
-            <button class="btn btn-danger" @click="banUser()">Felhasználó tiltása</button>
+            <button class="btn btn-danger" @click="banProfile()">Felhasználó tiltása</button>
         </div>
     </div>
                 
@@ -134,13 +134,24 @@ methods:{
         if(window.confirm("Biztosan megakarja változtatni a felhasználó jogosultságait?")){
             var data={
                 role: this.pickedrole
-            }
+            };
             NebulooFetch.changeUserRole(this.id,data)
             .then(()=>{
                 alert("Sikeresen megváltoztatva!");
             })
-            .error(error=>{
+            .catch(error=>{
                 console.log(error) //TODO: Handle error
+            });
+        }
+    },
+    async banProfile(){
+        if(window.confirm("Biztosan tiltani akarja a felhasználót?")){
+            NebulooFetch.banUser(this.id)
+            .then(()=>{
+                alert("A felhasználó sikeresen kitiltva!")
+            })
+            .catch(error=>{
+                console.log(error)
             });
         }
     },
