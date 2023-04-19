@@ -3,7 +3,7 @@
     
     <div class="row bg-light mt-3 mb-2 rounded-3 p-3 shadow">
         <div class="row">
-            <div class="col text-end">
+            <div class="col text-end" v-if="myprofile">
                 <button class="btn" id="button" @click="SignOut()">
                         Kijelentkezés
                 </button>
@@ -38,7 +38,7 @@
         <li>Matematika</li>
         <li>Filozófia</li>
     </ul>
-    <div class="row">
+    <div class="row" v-if="myprofile">
         <div class="col-sm-6">
                 <button class="btn" id="button" @click="navigate">
                         Profilom szerkesztése
@@ -48,6 +48,21 @@
                 <button class="btn btn-danger" @click="deleteMe()">
                         Fiókom törlése
                 </button>
+        </div>
+    </div>
+    <div class="row my-2" v-if="admin">
+        <div class="col-4 row">
+            <select v-model="pickedrole" class="form-select mb-2 col-12" name="roleselector">
+                <option value="moderator">Moderátor</option>
+                <option value="user">User</option>
+            </select>
+
+            <label for="roleselector" class="form-label col-6">Jogosultság adása:</label>
+            <button class="btn btn-success col-6" @click="changeProfileRole()">Mentés</button>
+            
+        </div>
+        <div class="col-3">
+            <button class="btn btn-danger" @click="banUser()">Felhasználó tiltása</button>
         </div>
     </div>
                 
@@ -97,7 +112,9 @@ data(){
     return{
         userdata: null,
         myprofile: false,
-        admin: false
+        admin: false,
+
+        pickedrole: null
     }   
 },
 components:{
@@ -113,14 +130,28 @@ props:{
         
 },
 methods:{
+    async changeProfileRole(){
+        if(window.confirm("Biztosan megakarja változtatni a felhasználó jogosultságait?")){
+            var data={
+                role: this.pickedrole
+            }
+            NebulooFetch.changeUserRole(this.id,data)
+            .then(()=>{
+                alert("Sikeresen megváltoztatva!");
+            })
+            .error(error=>{
+                console.log(error) //TODO: Handle error
+            });
+        }
+    },
     
     async GetMyData(){
         this.responseBody = (await NebulooFetch.getMyDatas()).data;
 
         this.userdata = this.responseBody;
     },
-    async getProfileData(id){
-        this.userdata = (await NebulooFetch.getUserData(id)).data;
+    async getProfileData(){
+        this.userdata = (await NebulooFetch.getUserData(this.id)).data;
     },
     async deleteMe(){
         if (window.confirm("Biztosan törölni szeretné fiókját?")) {
@@ -129,9 +160,6 @@ methods:{
                 sessionStorage.removeItem('userToken');
                 alert("Sikeres törlés!",router.push('/'));
             })
-        } else {
-            // user clicked "Cancel"
-            // do nothing
         }
     },
     navigate(){
@@ -174,10 +202,10 @@ async mounted(){
         this.myprofile = true;
     }
     else{
-        this.getProfileData(this.id);
+        this.getProfileData();
         this.myprofile = false;
     }
-    if(sessionStorage.getItem('userRole'==='admin')){
+    if(sessionStorage.getItem('userRole')==='admin'){
         this.admin= true;
     }
 }

@@ -81,6 +81,10 @@ export class NebulooFetch{
     static async getUserData(id){
         const response = NebulooFetch.http.get('users/'+id)
         return response;
+    };
+    static async changeUserRole(id,data){
+        const response = NebulooFetch.http.put('admin/user/'+id+'/role',data)
+        return response;
     }
  
     static synchronizeVote(votableId, votableType, voteState){
