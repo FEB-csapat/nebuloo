@@ -26,11 +26,11 @@ class RankSeeder extends Seeder
             'image' => 'placeholder'
         ]);
         DB::table('ranks')->insert([
-            'name' => 'lángész',
+            'name' => 'zseni',
             'image' => 'placeholder'
         ]);
         DB::table('ranks')->insert([
-            'name' => 'géniusz',
+            'name' => 'lángész',
             'image' => 'placeholder'
         ]);
         DB::table('ranks')->insert([

@@ -55,7 +55,6 @@ import User from '../components/User.vue';
 
 import CommentSection from '../components/CommentSection.vue';
 import router from '../router';
-import path from 'path';
 import html2pdf from 'html2pdf.js'
 
 export default{
