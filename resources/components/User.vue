@@ -1,6 +1,5 @@
 <template>
-    <div class="col-6 " @click="navigate">
-        <div class="col-12">
+    <div class="col" @click="navigate">
             <h6 v-if="user != null && user.role!=null && showDetailed">{{user.role}}</h6>
 
             <img v-if="user != null" class="mx-auto border border-2 border-dark rounded shadow" :style="{ width: showDetailed ? '120px' : '60px' }" v-bind:src="profileImage" :alt="user.rank.name" :title="user.rank.name" id="profpicture">
@@ -9,15 +8,6 @@
 
             <h5 v-if="user != null">{{user.name}}</h5>
             <p v-else>Betöltés...</p>
-        </div>
-    </div>
-
-    <div v-if="showDetailed" class="row col-6 align-items-center text-start">
-        <div class="row col-12">
-            <i style="color:gray;" :class="['fas', 'fa-up-long', 'fa-lg']"/>
-            <p id="votecount" class="pt-3 ml-2">{{user.recieved_votes}}</p>
-            <i style="color:gray;" :class="['fas', 'fa-down-long', 'fa-lg']"/>
-        </div>
     </div>
     
 </template>

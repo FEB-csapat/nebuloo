@@ -2,34 +2,59 @@
 <div class="container">
     
     <div class="row bg-light mt-3 mb-2 rounded-3 p-3 shadow">
-        <div class="row">
-            <div class="col text-end" v-if="myprofile">
+            <div class="col text-end mb-4" v-if="myprofile">
                 <button class="btn" id="button" @click="SignOut()">
                         Kijelentkezés
                 </button>
             </div>
+        <div class="row text-center mb-4">
+            <user v-if="userdata!=null" :user="userdata" v-bind:showDetailed="true"></user> 
         </div>
-        <div class="row text-center">
-
-            <user v-if="userdata!=null" :user="userdata" v-bind:showDetailed="true"></user>
-
-
-
-
-            
-        <!--
-            <img src="https://placeholder.pics/svg/60" alt="" id="profpicture">
-
-            <p v-if="mydata.rank != null" class="fs-6">{{ mydata.rank.name }}</p>
-            <p v-if="mydata.roles != null" class="fs-6">{{ mydata.roles[0]}}</p>
-            <p class="fs-4">{{ mydata.name }}</p>
-        -->
-            
+        <div class="row mb-2">
+            <div class="col-sm-4">
+            <h2>Statisztika:</h2>
+                <div class="row">
+            <div class="col-6 mb-2">
+                <p>
+                    votescore
+                </p>
+                <h6 v-if="userdata!=null">
+                    {{this.userdata.recieved_votes}}
+                </h6>
+            </div>
+            <div class="col-6 mb-2">
+                <p>
+                    questions
+                </p>
+                <h6 v-if="userdata!=null">
+                    {{ this.userdata.questions.length }}
+                </h6>
+            </div>
+            <div class="col-6 mb-2">
+                <p>
+                    contents
+                </p>
+                <h6 v-if="userdata!=null">
+                    {{ this.userdata.contents.length }}
+                </h6>
+            </div>
+            <div class="col-6 mb-2">
+                <p>
+                    comments
+                </p>
+                <h6 v-if="userdata!=null">
+                    {{ this.userdata.comments.length }}
+                </h6>
+            </div>
         </div>
+    </div>
+    <div class="col-sm-8">
         <h2>Bio:</h2>
     <p v-if="userdata != null" class="ps-5">
         {{ userdata.bio }}
     </p>
+    </div>
+        </div>
 
     <h2>Érdekeltségi kör:</h2>
 
@@ -38,40 +63,42 @@
         <li>Matematika</li>
         <li>Filozófia</li>
     </ul>
-    <div class="row" v-if="myprofile">
-        <div class="col-sm-6">
-                <button class="btn" id="button" @click="navigate">
+    <div class="row text-center" v-if="myprofile">
+        <div class="col-6">
+                <button class="btn btn-info"  @click="navigate">
                         Profilom szerkesztése
                 </button>
         </div>
-        <div class="col-sm-6 text-end">
+        <div class="col-6">
                 <button class="btn btn-danger" @click="deleteMe()">
                         Fiókom törlése
                 </button>
         </div>
     </div>
-    <div class="row my-2" v-if="admin">
-        <div class="col-4 row">
+    <div class="row my-4" v-if="admin">
+        <h2>
+            Admin panel:
+        </h2>
+        <div class="col-sm-6">
             <select v-model="pickedrole" class="form-select mb-2 col-12" name="roleselector">
                 <option value="moderator">Moderátor</option>
                 <option value="user">User</option>
             </select>
-
-            <label for="roleselector" class="form-label col-6">Jogosultság adása:</label>
-            <button class="btn btn-success col-6" @click="changeProfileRole()">Mentés</button>
+                <label for="roleselector" class="form-label col-6">Jogosultság adása:</label>
+                <button class="btn btn-success col-6" @click="changeProfileRole()">Mentés</button>
+            
+            
             
         </div>
-        <div class="col-2">
-            <button class="btn btn-danger" @click="banProfile()">Felhasználó tiltása</button>
-        </div>
-        <div class="col-2">
+    </div>
+    <div class="row my-2 text-center" v-if="admin">
+        <div class="col-6">
             <button class="btn btn-info" @click="editProfile()">Profil szerkesztése</button>
         </div>
+        <div class="col-6">
+            <button class="btn btn-danger" @click="banProfile()">Felhasználó tiltása</button>
+        </div>
     </div>
-                
-    <div class="text-end">
-                
-            </div>
     </div>
     
 
