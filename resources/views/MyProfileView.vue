@@ -9,7 +9,7 @@
                 </button>
             </div>
         </div>
-        <div class="col text-center">
+        <div class="row text-center">
 
             <user v-if="mydata!=null" :user="mydata" v-bind:showDetailed="true"></user>
 
