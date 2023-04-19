@@ -16,6 +16,9 @@
                     <vote :contentId="id" :voteCount="content.recieved_votes" :vote="null"></vote>
                 </div>
             </div>
+
+            <tag-list :subject="content.subject" :topic="content.topic"/>
+                
             
             <div class="detailed_content_view_textarea">
                 <textarea ref="editor" name="leiras" id="leiras" class="form-control">Betöltés...</textarea>
@@ -52,6 +55,7 @@ import EasyMDE from 'easymde';
 import CommentCard  from '../components/CommentCard.vue';
 import Vote from '../components/Vote.vue';
 import User from '../components/User.vue';
+import TagList from '../components/TagList.vue';
 
 import CommentSection from '../components/CommentSection.vue';
 import router from '../router';
@@ -69,7 +73,8 @@ export default{
         CommentSection,
         CommentCard,
         Vote,
-        User
+        User,
+        TagList
     },
     data() {
         return {

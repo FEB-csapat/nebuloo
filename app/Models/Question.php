@@ -31,6 +31,16 @@ class Question extends Model
         return $this->morphMany(Comment::class, 'commentable');
     }
 
+    public function subject()
+    {
+        return $this->hasOne(Subject::class, 'id');
+    }
+
+    public function topic()
+    {
+        return $this->hasOne(Topic::class, 'id');
+    }
+
     public function sumVoteScore(){
         return $this->votes->where('direction', 'up')->count()
         - $this->votes->where('direction', 'down')->count();

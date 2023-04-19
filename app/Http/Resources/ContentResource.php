@@ -23,6 +23,12 @@ class ContentResource extends JsonResource
         return [
             'id' => $this->id,
             'body' => $this->body,
+
+            'subject_id' => $this->subject_id,
+
+            'subject' => new SubjectResource($this->subject),
+            'topic' => new TopicResource($this->topic),
+            // deprecated
             'tags' => TagResource::collection($this->tags),
             'creator' => new SimpleUserResource($this->creator),
             'recieved_votes' => $this->sumVoteScore(),

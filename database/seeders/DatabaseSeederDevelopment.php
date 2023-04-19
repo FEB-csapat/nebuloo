@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Question;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeederDevelopment extends Seeder
@@ -20,11 +19,12 @@ class DatabaseSeederDevelopment extends Seeder
             TagSeeder::class,
             RankSeeder::class,
             UserSeeder::class,
+            SubjectSeeder::class,
+            TopicSeeder::class,
             ContentSeeder::class,
             QuestionSeeder::class,
             CommentSeeder::class,
             VoteSeeder::class,
-            ProviderSeeder::class,
             TicketSeeder::class,
             
         ]);

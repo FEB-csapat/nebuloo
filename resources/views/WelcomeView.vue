@@ -9,30 +9,24 @@
                 <h4 class="m-3">Nem érted a Viète-formulákat? Kérdezz nyugodtan! Pont hogy érted? Oszdd meg a tudást a többiekkel!</h4>
                 <h5>Mászd meg a tudás ranglétráját és vállj bölcsé!</h5>
                 <p class="text-start">Rangok:</p>
-                <div class="row text-center">
-                    <div class="col-sm-2 col-4">
-                        <img src="https://placeholder.pics/svg/35" alt="">
-                        <p>tanuló</p>
+                <div class="row justify-content-center align-items-center">
+
+
+                    
+                    <div class="col">
+                        <user :user="zoldfulu" :clickable="false"/>
                     </div>
-                    <div class="col-sm-2 col-4">
-                        <img src="https://placeholder.pics/svg/35" alt="">
-                        <p>okostojás</p>
+                    <div class="col">
+                        <user :user="okostojas" :clickable="false"/>
                     </div>
-                    <div class="col-sm-2 col-4">
-                        <img src="https://placeholder.pics/svg/35" alt="">
-                        <p>oktató</p>
+                    <div class="col">
+                        <user :user="zseni" :clickable="false"/>
                     </div>
-                    <div class="col-sm-2 col-4">
-                        <img src="https://placeholder.pics/svg/35" alt="">
-                        <p>tanár</p>
+                    <div class="col">
+                        <user :user="langesz" :clickable="false"/>
                     </div>
-                    <div class="col-sm-2 col-4">
-                        <img src="https://placeholder.pics/svg/35" alt="">
-                        <p>professzor</p>
-                    </div>
-                    <div class="col-sm-2 col-4">
-                        <img src="https://placeholder.pics/svg/35" alt="">
-                        <p>bölcs</p>
+                    <div class="col">
+                        <user :user="bolcs" :clickable="false"/>
                     </div>
                 </div>
             </div>
@@ -62,12 +56,35 @@
 
 <script>
 import { NebulooFetch } from '../utils/https.mjs';
-
+import User from '../components/User.vue';
 export default {
     data(){
         return{
-            token: ''
+            token: '',
+            zoldfulu: {
+                name: 'Zöldfülű',
+                rank: { id: 1},
+            },
+            okostojas: {
+                name: 'Okostojás',
+                rank: { id: 2},
+            },
+            zseni: {
+                name: 'Zseni',
+                rank: { id: 3},
+            },
+            langesz: {
+                name: 'Lángész',
+                rank: { id: 4},
+            },
+            bolcs: {
+                name: 'Bölcs',
+                rank: { id: 5},
+            },
         }
+    },
+    components:{
+        User
     },
     async mounted(){
         this.token = sessionStorage.getItem('userToken');

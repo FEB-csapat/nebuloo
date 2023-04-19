@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Subject;
+use App\Models\Topic;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
 
@@ -17,21 +19,16 @@ class QuestionFactory extends Factory
      */
     public function definition()
     {
+        $subject = Subject::inRandomOrder()->first();
+        $topic = $subject->topics()->inRandomOrder()->first();
         return [
             'title' => $this->faker->title,
             'body' => $this->faker->paragraph,
             'creator_user_id' => User::inRandomOrder()->first()->id,
+            'subject_id' => $subject->id,
+            'topic_id' => $topic != null ? $topic->id : null,
+            
             'created_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
         ];
-    }
-
-    /**
-     * Indicate that the model's email address should be unverified.
-     *
-     * @return static
-     */
-    public function unverified()
-    {
-        
     }
 }

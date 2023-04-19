@@ -13,9 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ranks', function (Blueprint $table) {
+        Schema::create('subjects', function (Blueprint $table) {
             $table->id();
-            $table->enum('name', ['zöldfülű', 'okostojás', 'zseni', 'lángész', 'bölcs']);
+            $table->foreignId('creator_user_id')->nullable()
+                ->references('id')->on('users')->cascadeOnDelete();
+          //  $table->morphs('taggable');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rank');
+        Schema::dropIfExists('subjects');
     }
 };

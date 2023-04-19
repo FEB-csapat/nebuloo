@@ -3,9 +3,7 @@
         <div class="nav-link active col-10" aria-current="page"
             @click="navigate">
             <div>
-                <div class="d-flex">
-                    <tag v-for="tag in content.tags" :tag="tag"></tag>
-                </div>
+                <tag-list :subject="content.subject" :topic="content.topic"/>
                 
                 <div class="card_content_view_textarea">
                     <textarea ref="editor" name="leiras" id="leiras" class="form-control">{{content.body}}</textarea>
@@ -25,7 +23,7 @@
 <script>
 import EasyMDE from 'easymde';
 
-import Tag from './Tag.vue';
+import TagList from './TagList.vue';
 import Vote from './Vote.vue';
 import User from './User.vue';
 import DetailedContentView from '../views/DetailedContentView.vue';
@@ -38,7 +36,7 @@ export default{
         },
     },
     components:{
-        Tag,
+        TagList,
         Vote,
         User,
         DetailedContentView

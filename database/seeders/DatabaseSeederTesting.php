@@ -24,7 +24,6 @@ class DatabaseSeederTesting extends Seeder
             QuestionSeeder::class,
             CommentSeeder::class,
             VoteSeeder::class,
-            ProviderSeeder::class,
             TicketSeeder::class,
         ]);
     }

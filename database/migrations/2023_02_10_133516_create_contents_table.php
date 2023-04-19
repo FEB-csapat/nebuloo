@@ -18,6 +18,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('creator_user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->longText('body');
+
+            $table->foreignId('subject_id')->nullable()
+                ->references('id')->on('subjects')->cascadeOnDelete();
+            $table->foreignId('topic_id')->nullable()
+                ->references('id')->on('topics')->cascadeOnDelete();
             //$table->string('attachements');
             //$table->string('license'); ??
 

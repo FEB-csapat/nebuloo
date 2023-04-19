@@ -21,7 +21,6 @@ class DatabaseSeederProduction extends Seeder
             RankSeeder::class,
             UserSeeder::class,
             ContentSeeder::class,
-            ProviderSeeder::class,
             
         ]);
     }

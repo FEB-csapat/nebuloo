@@ -28,13 +28,6 @@ class User extends Authenticatable
         'email', 'email_verified_at', 'name', 'display_name', 'bio', 'password'
     ];
 
-    
-
-    public function provider()
-    {
-        return $this->hasOne(Provider::class, 'user_id', 'id');
-    }
-
     public function ownedVotes()
     {
         return $this->hasMany(Vote::class, 'owner_user_id');

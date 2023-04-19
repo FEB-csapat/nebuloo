@@ -17,25 +17,19 @@ class RankSeeder extends Seeder
     public function run()
     {
         DB::table('ranks')->insert([
-            'name' => 'zöldfülű',
-            'description' => '1 tananyag vagy 2 kérdés feltöltése vagy 5 upvote',
-            'image' => 'placeholder'
+            'name' => 'zöldfülű'
         ]);
         DB::table('ranks')->insert([
-            'name' => 'okostojás',
-            'image' => 'placeholder'
+            'name' => 'okostojás'
         ]);
         DB::table('ranks')->insert([
-            'name' => 'zseni',
-            'image' => 'placeholder'
+            'name' => 'zseni'
         ]);
         DB::table('ranks')->insert([
-            'name' => 'lángész',
-            'image' => 'placeholder'
+            'name' => 'lángész'
         ]);
         DB::table('ranks')->insert([
-            'name' => 'bölcs',
-            'image' => 'placeholder'
+            'name' => 'bölcs'
         ]);
     }
 }

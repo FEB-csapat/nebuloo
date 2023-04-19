@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('providers', function (Blueprint $table) {
+        Schema::create('topics', function (Blueprint $table) {
             $table->id();
-            $table->string('provider');
-            $table->string('provider_id');
-            $table->foreignId('user_id')->unsigned()->references('id')->on('users')->cascadeOnDelete();
-            $table->string('avatar')->nullable();
+            $table->foreignId('subject_id')->nullable()
+                ->references('id')->on('subjects')->cascadeOnDelete();
+            $table->foreignId('creator_user_id')->nullable()
+                ->references('id')->on('users')->cascadeOnDelete();
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('votes');
+        Schema::dropIfExists('topics');
     }
 };

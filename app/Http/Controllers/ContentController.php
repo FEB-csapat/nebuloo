@@ -8,17 +8,13 @@ use App\Http\Requests\UpdateContentRequest;
 use App\Http\Resources\ContentResource;
 use App\Models\Content;
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Pagination\Paginator;
 
 class ContentController extends Controller
 {
-    protected $model = Content::class;
-
     /**
-     * Display a listing of the resource.
+     * Display a listing of contents.
      *
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function index(Request $request)
     {
@@ -28,7 +24,6 @@ class ContentController extends Controller
         $tags = $request->input('tags');
 
         $orderBy = $request->input('orderBy');
-        // TODO validate orderBy values
 
         $contents = Content::query();
 
@@ -40,27 +35,6 @@ class ContentController extends Controller
         if ($tags != null) {
             $contents = $contents->withAnyTags($tags);
         }
-
-        /*
-        // TODO this throws 500 errorcode
-        if ($orderBy != null) {
-            if($orderBy == 'newest'){
-                $contents = $contents->orderBy('created_at');
-            }else if($orderBy == 'oldest'){
-                $contents = $contents->orderBy('created_at');
-            }else if($orderBy == 'popular'){
-                $contents = $contents->orderBy('sumVoteScore');
-
-                /*
-                $contents = $contents->orderBy(function ($content) {
-                    dd($content);
-                    return $content->sumVoteScore();
-                });
-                
-            }
-        }
-        */
-
 
         if ($orderBy != null) {
             if($orderBy == 'newest'){
@@ -81,9 +55,9 @@ class ContentController extends Controller
     
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of contents created by the user.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function meIndex(Request $request)
     {
@@ -95,9 +69,9 @@ class ContentController extends Controller
     }
     
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created content in storage.
      *
-     * @param  App\Http\Requests\StoreContentRequest  $request
+     * @param  \App\Http\Requests\StoreContentRequest  $request
      * @return \App\Http\Resources\ContentResource
      */
     public function store(StoreContentRequest $request)
@@ -109,7 +83,7 @@ class ContentController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified content.
      *
      * @param  int  $id
      * @return \App\Http\Resources\ContentResource
@@ -118,13 +92,13 @@ class ContentController extends Controller
     {
         $content = Content::findOrFail($id);
 
-        $this->authorize('view', [$content], Content::class);
+        $this->authorize('view', $content);
         
         return new ContentResource($content);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified content in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -134,7 +108,7 @@ class ContentController extends Controller
     {
         $content = Content::findOrFail($id);
 
-        $this->authorize('update', $content, Content::class);
+        $this->authorize('update', $content);
 
         $data = $request->validated();
         
@@ -146,7 +120,7 @@ class ContentController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified content from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -155,10 +129,9 @@ class ContentController extends Controller
     {
         $content = Content::findOrFail($id);
 
-        $this->authorize('delete', $content, Content::class);
+        $this->authorize('delete', $content);
         
         $content->delete();
 
-        
     }
 }

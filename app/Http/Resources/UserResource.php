@@ -23,8 +23,6 @@ class UserResource extends JsonResource
             'bio' => $this->bio,
 
             'roles' => $this->getRoleNames(),
-
-            'avatar' => $this->provider?->avatar,
             
             'comments' => CommentResource::collection($this->comments),
             'contents' => SimpleContentResource::collection($this->contents),
