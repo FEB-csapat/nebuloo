@@ -61,8 +61,11 @@
             <button class="btn btn-success col-6" @click="changeProfileRole()">Mentés</button>
             
         </div>
-        <div class="col-3">
+        <div class="col-2">
             <button class="btn btn-danger" @click="banProfile()">Felhasználó tiltása</button>
+        </div>
+        <div class="col-2">
+            <button class="btn btn-info" @click="editProfile()">Profil szerkesztése</button>
         </div>
     </div>
                 
@@ -154,6 +157,9 @@ methods:{
                 console.log(error)
             });
         }
+    },
+    async editProfile(){
+
     },
     
     async GetMyData(){
