@@ -5,35 +5,43 @@
         <h5 id="welcome-motto" class="pb-5 pt-3 fs-6">Mert a tudás mindenkit megillet</h5>
     </div>
         <div class="container bg-light rounded-4 mt-4 mx-auto text-center py-2 px-4 shadow">
-            <div class="row">
                 <h4 class="m-3">Nem érted a Viète-formulákat? Kérdezz nyugodtan! Pont hogy érted? Oszdd meg a tudást a többiekkel!</h4>
                 <h5>Mászd meg a tudás ranglétráját és vállj bölcsé!</h5>
                 <p class="text-start">Rangok:</p>
-                <div class="row justify-content-center align-items-center">
 
+                <div class="d-flex justify-content-evenly">
 
+                    <div class="col-xs-2">
+                        <div class="d-flex justify-content-center">
+                            <user :user="zoldfulu" :clickable="false"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="d-flex justify-content-center">
+                            <user :user="okostojas" :clickable="false"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="d-flex justify-content-center">
+                            <user :user="zseni" :clickable="false"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="d-flex justify-content-center">
+                            <user :user="langesz" :clickable="false"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="d-flex justify-content-center">
+                            <user :user="bolcs" :clickable="false"/>
+                        </div>
+                    </div>
                     
-                    <div class="col">
-                        <user :user="zoldfulu" :clickable="false"/>
-                    </div>
-                    <div class="col">
-                        <user :user="okostojas" :clickable="false"/>
-                    </div>
-                    <div class="col">
-                        <user :user="zseni" :clickable="false"/>
-                    </div>
-                    <div class="col">
-                        <user :user="langesz" :clickable="false"/>
-                    </div>
-                    <div class="col">
-                        <user :user="bolcs" :clickable="false"/>
-                    </div>
                 </div>
-            </div>
         </div>
 
         <div class="col-sm-6 mx-auto m-4">
-            <div class="container bg-light rounded-3 shadow" v-if="token==null">
+            <div v-if="token==null" class="container bg-light rounded-3 shadow">
                 <h2 class="text-center" >Folytatás</h2>
                 
                 <div class="row p-3 d-flex justify-content-center text-center">
@@ -49,7 +57,18 @@
                         </router-link>
                     </div>
                 </div>
-                    
+            </div>
+            <div v-else class="container bg-light rounded-3 shadow">
+                <h3 class="text-center" >Már be vagy jelentkezve</h3>
+
+                <div class="text-center">
+                    <router-link class="nav-link active" aria-current="page" to="/contents">
+
+                        <button class="btn shadow" style="background-color: #ffffff; color: #4285f4;">Folytatás</button>
+                    </router-link>
+                </div>
+                
+
             </div>
         </div>
 </template>

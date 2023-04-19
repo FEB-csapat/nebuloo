@@ -23,7 +23,7 @@ class SimpleUserResource extends JsonResource
             'display_name' => $this->display_name,
             'bio' => $this->bio,
 
-            'role' => $this->getRoleNames()[0],
+            'role' => $this->getRoleNames()->count() > 0 ? $this->getRoleNames()[0] : 'user',
             'rank'=>$this->getRank(),
 
             'recieved_votes' => $this->sumVoteScore(),

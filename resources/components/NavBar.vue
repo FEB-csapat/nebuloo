@@ -20,7 +20,9 @@
         </form>
         <div class="row h-100">
           <div class="col text-center">
-              <router-link class="nav-link active" aria-current="page" to="/myprofile"><img src="https://placeholder.pics/svg/35" alt="" id="profpicture"></router-link>
+              <router-link class="nav-link active" aria-current="page" to="/myprofile">
+                <user/>
+              </router-link>
           </div>
         </div>
       </div>
@@ -30,10 +32,12 @@
   
   <script>
   import { RouterLink } from 'vue-router';
+  import User from './User.vue';
   export default{
       name:"NavBar",
       components:{
-          RouterLink
+          RouterLink,
+          User
       },
       computed: {
         showContentsButton() {

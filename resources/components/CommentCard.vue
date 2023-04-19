@@ -4,7 +4,8 @@
             <user class="text-center" :user="comment.creator"></user> 
         </div>
         <div class="flex-fill">
-            <p>{{comment.message}}</p>
+            
+            <p style="margin-left: 5px;">{{comment.message}}</p>
         </div>
         <div class="col-sm-1 col-xs-1">
             <vote :contentId="comment.id" :voteCount="comment.recieved_votes" :vote="null"></vote>
