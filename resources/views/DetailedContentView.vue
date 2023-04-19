@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-11">
 
-                    <user :user="content.creator"></user>   
+                    <user v-if="user!=null" :user="content.creator"></user>   
 
                     <div class="col">
                         <p v-if="content != null">{{content?.created_at}}</p>
