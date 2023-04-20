@@ -105,6 +105,14 @@ export class NebulooFetch{
         const response = NebulooFetch.http.post(path+'/comments',data)
         return response;
     };
+    static async editComment(data,id){
+        const response = NebulooFetch.http.put('me/comments/'+id, data)
+        return response;
+    };
+    static async deleteMyComment(id){
+        const response = NebulooFetch.http.delete("me/comments/"+id)
+        return response;
+    };
 
     static uploadImage(file)
     {
