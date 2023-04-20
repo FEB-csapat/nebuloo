@@ -21,6 +21,18 @@ class TopicController extends Controller
         $topics = Topic::all();
         return TopicResource::collection($topics);
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexBySubjectId(Request $request, int $id)
+    {
+        $this->authorize('viewAny', Topic::class);
+        $topics = Topic::where('subject_id', $id)->get();
+        return TopicResource::collection($topics);
+    }
     
     /**
      * Display the specified resource.

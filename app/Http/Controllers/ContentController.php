@@ -7,6 +7,8 @@ use App\Http\Requests\StoreContentRequest;
 use App\Http\Requests\UpdateContentRequest;
 use App\Http\Resources\ContentResource;
 use App\Models\Content;
+use App\Models\Subject;
+use App\Models\Topic;
 use Illuminate\Http\Request;
 
 class ContentController extends Controller
@@ -20,28 +22,33 @@ class ContentController extends Controller
     {
         $this->authorize('viewAny', Content::class);
 
-        $search = $request->input('search');
-        $tags = $request->input('tags');
-
-        $orderBy = $request->input('orderBy');
+        $querySearch = $request->input('search');
+        $querySubject = $request->input('subject');
+        $queryTopic = $request->input('topic');
+        $queryOrderBy = $request->input('orderBy');
 
         $contents = Content::query();
 
-        if ($search != null) {
+        if ($querySearch != null) {
             $contents = $contents
-                ->where('body', 'like', "%{$search}%");
+                ->where('body', 'like', "%{$querySearch}%");
         }
 
-        if ($tags != null) {
-            $contents = $contents->withAnyTags($tags);
+        if ($querySubject != null) {
+            $subject = Subject::where('name', $querySubject)->first();
+            $contents = $contents->where('subject_id', $subject ? $subject->id : null);
+        }
+        if ($queryTopic != null) {
+            $topic = Topic::where('name', $queryTopic)->first();
+            $contents = $contents->where('topic_id', $topic ? $topic->id : null);
         }
 
-        if ($orderBy != null) {
-            if($orderBy == 'newest'){
+        if ($queryOrderBy != null) {
+            if($queryOrderBy == 'newest'){
                 $contents = $contents->get()->sortByDesc('created_at');
-            }else if($orderBy == 'oldest'){
+            }else if($queryOrderBy == 'oldest'){
                 $contents = $contents->get()->sortBy('created_at');
-            }else if($orderBy == 'popular'){
+            }else if($queryOrderBy == 'popular'){
                 $contents = $contents->get()->sortByDesc(function ($content) {
                     return $content->sumVoteScore();
                 });

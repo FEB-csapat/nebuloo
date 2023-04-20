@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Testing\Fluent\AssertableJson;
+use App\Models\Content;
 use Tests\TestCase;
 
 use App\Models\User;
@@ -12,15 +12,58 @@ class ApiContentTest extends TestCase
 {
     use DatabaseTransactions;
 
-    /**
-     * Tests that a user who is not logged in cannot create a content.
-     */
+    private $user;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = User::factory()->create();
+    }
+
+    public function test_show_only_user_content()
+    {
+        $otherUser = User::factory()->create();
+        
+        $otherContents = Content::factory()->count(2)->create(['creator_user_id' => $otherUser->id]);
+
+        $myContents = Content::factory()->count(4)->create(['creator_user_id' => $this->user->id]);
+
+        $response = $this->actingAs($this->user, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->get('api/contents/me');
+
+        $response->assertStatus(200);
+        $response->assertJsonCount(4);
+
+        $contents = $response->json();
+
+        foreach ($contents as $content) {
+            $this->assertEquals($content['creator']['id'], $this->user->id);
+        }
+    }
+
+
+    public function test_show_only_user_content_as_guest()
+    {
+        $response = $this
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->get('api/contents/me');
+
+        $response
+            ->assertStatus(401)
+            ->assertJson([
+                'message' => 'Unauthenticated.'
+        ]);
+    }
+
     public function test_content_creation_as_unauthorized_user()
     {
-        // add accept header to me/contents route
         $response = $this->withHeaders([
             'Accept' => 'application/json',
-        ])->post('api/me/contents', [
+        ])->post('api/contents', [
             'title' => 'test title',
             'body' => 'test body'
         ]);
@@ -28,37 +71,25 @@ class ApiContentTest extends TestCase
         $response->assertStatus(401);
     }
 
-    /**
-     * Tests that a user who is not logged in cannot create a content.
-     */
-
-    public function test_content_creation_successful()
+    
+    public function test_content_creation_as_user()
     {
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user, 'sanctum')
+        $response = $this->actingAs($this->user, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
-        ])->post('api/me/contents', [
+        ])->post('api/contents', [
             'body' => 'test body'
         ]);
         
         $response->assertStatus(201);
     }
 
-    /**
-     * Tests that a user who is not logged in cannot create a content.
-     */
-
-    public function test_content_creation_failing_without_body()
+    public function test_content_creation_without_body()
     {
-
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user, 'sanctum')
+        $response = $this->actingAs($this->user, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
-        ])->post('api/me/contents', [
+        ])->post('api/contents', [
             // empty
         ]);
         
@@ -72,50 +103,34 @@ class ApiContentTest extends TestCase
         ]);
     }
 
-
-    public function test_content_creation_without_title_and_body()
+    public function test_content_update_as_guest()
     {
+        $content = Content::factory()->create(['creator_user_id' => $this->user->id]);
 
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user, 'sanctum')
-        ->withHeaders([
+        $response = $this->withHeaders([
             'Accept' => 'application/json',
-        ])->post('api/me/contents', [
-            // empty
+        ])->put('api/contents/'.$content->id, [
+            'body' => 'test body updated'
         ]);
         
         $response
-            ->assertStatus(422)
+            ->assertStatus(401)
             ->assertJson([
-                'message' => 'The body field is required.',
-                'errors' => [
-                    'body' => ['The body field is required.']
-                ]
+                'message' => 'Unauthenticated.'
         ]);
     }
 
-    public function test_content_update_failing_not_creator()
+    public function test_content_update_as_not_creator()
     {
         $otherUser = User::factory()->create();
         
-        $response = $this->actingAs($otherUser, 'sanctum')
+        $content = Content::factory()->create(['creator_user_id' => $otherUser->id]);
+
+
+        $response = $this->actingAs($this->user, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
-        ])->post('api/me/contents', [
-            'body' => 'test body'
-        ]);
-        
-        $response->assertStatus(201);
-        
-        $id = $response->json('id');
-
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user, 'sanctum')
-        ->withHeaders([
-            'Accept' => 'application/json',
-        ])->put('api/me/contents/'.$id, [
+        ])->put('api/contents/'.$content->id, [
             'body' => 'test body updated'
         ]);
         
@@ -126,26 +141,14 @@ class ApiContentTest extends TestCase
         ]);
     }
 
-
-    public function test_content_update_successful()
+    public function test_content_update_as_creator()
     {
-        $user = User::factory()->create();
+        $content = Content::factory()->create(['creator_user_id' => $this->user->id]);
 
-        $response = $this->actingAs($user, 'sanctum')
+        $response = $this->actingAs($this->user, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
-        ])->post('api/me/contents', [
-            'body' => 'test body'
-        ]);
-        
-        $response->assertStatus(201);
-        
-        $id = $response->json('id');
-
-        $response = $this->actingAs($user, 'sanctum')
-        ->withHeaders([
-            'Accept' => 'application/json',
-        ])->put('api/me/contents/'.$id, [
+        ])->put('api/contents/'.$content->id, [
             'body' => 'test body updated'
         ]);
         
@@ -154,5 +157,127 @@ class ApiContentTest extends TestCase
             ->assertJson([
                 'body' => 'test body updated'
         ]);
+    }
+
+    public function test_content_update_as_admin()
+    {
+        $content = Content::factory()->create(['creator_user_id' => $this->user->id]);
+
+        $admin = User::factory()->create();
+        $admin->assignRole('admin');
+
+
+        $response = $this->actingAs($admin, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->put('api/contents/'.$content->id, [
+            'body' => 'test body updated'
+        ]);
+        
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                'body' => 'test body updated'
+        ]);
+    }
+
+    public function test_content_update_as_moderator()
+    {
+        $content = Content::factory()->create(['creator_user_id' => $this->user->id]);
+
+        $moderator = User::factory()->create();
+        $moderator->assignRole('moderator');
+
+
+        $response = $this->actingAs($moderator, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->put('api/contents/'.$content->id, [
+            'body' => 'test body updated'
+        ]);
+        
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                'body' => 'test body updated'
+        ]);
+    }
+
+
+    public function test_content_delete_as_guest()
+    {
+        $content = Content::factory()->create(['creator_user_id' => $this->user->id]);
+
+        $response = $this->withHeaders([
+            'Accept' => 'application/json',
+        ])->delete('api/contents/'.$content->id);
+        
+        $response
+            ->assertStatus(401)
+            ->assertJson([
+                'message' => 'Unauthenticated.'
+        ]);
+    }
+
+    public function test_content_delete_as_creator()
+    {
+        $content = Content::factory()->create(['creator_user_id' => $this->user->id]);
+
+        $response = $this->actingAs($this->user, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->delete('api/contents/'.$content->id);
+        
+        $response->assertStatus(200);
+    }
+
+    public function test_content_delete_as_not_creator()
+    {
+        $otherUser = User::factory()->create();
+        
+        $content = Content::factory()->create(['creator_user_id' => $otherUser->id]);
+
+
+        $response = $this->actingAs($this->user, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->delete('api/contents/'.$content->id);
+        
+        $response
+            ->assertStatus(403)
+            ->assertJson([
+                'message' => 'User is not permitted for this action'
+        ]);
+    }
+    
+    public function test_content_delete_as_admin()
+    {
+        $content = Content::factory()->create(['creator_user_id' => $this->user->id]);
+
+        $admin = User::factory()->create();
+        $admin->assignRole('admin');
+
+        $response = $this->actingAs($admin, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->delete('api/contents/'.$content->id);
+        
+        $response->assertStatus(200);
+    }
+
+    public function test_content_delete_as_moderator()
+    {
+        $content = Content::factory()->create(['creator_user_id' => $this->user->id]);
+
+        $moderator = User::factory()->create();
+        $moderator->assignRole('moderator');
+
+
+        $response = $this->actingAs($moderator, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->delete('api/contents/'.$content->id);
+        
+        $response->assertStatus(200);
     }
 }

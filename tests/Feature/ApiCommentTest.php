@@ -62,7 +62,7 @@ class ApiCommentTest extends TestCase
         $response = $this->actingAs($this->user, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
-        ])->get('/api/me/comments');
+        ])->get('/api/comments/me');
 
         $response->assertOk();
         $response->assertJsonCount(2);
@@ -144,7 +144,7 @@ class ApiCommentTest extends TestCase
         $response = $this->actingAs($this->user, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
-        ])->put("/api/me/comments/{$comment->id}", $data);
+        ])->put("/api/comments/{$comment->id}", $data);
 
 
         $response->assertStatus(403);
@@ -166,7 +166,7 @@ class ApiCommentTest extends TestCase
         $response = $this->actingAs($this->user, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
-        ])->put("/api/me/comments/{$comment->id}", $data);
+        ])->put("/api/comments/{$comment->id}", $data);
 
 
         $response->assertOk();
@@ -186,7 +186,7 @@ class ApiCommentTest extends TestCase
         $response = $this->actingAs($this->user, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
-        ])->delete("/api/me/comments/{$comment->id}");
+        ])->delete("/api/comments/{$comment->id}");
 
         $response->assertStatus(403);
         $this->assertDatabaseHas('comments', [
@@ -201,7 +201,7 @@ class ApiCommentTest extends TestCase
         $response = $this->actingAs($this->user, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
-        ])->delete("/api/me/comments/{$comment->id}");
+        ])->delete("/api/comments/{$comment->id}");
 
         $response->assertOk();
         $this->assertDatabaseMissing('comments', [

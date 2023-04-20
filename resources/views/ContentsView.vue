@@ -34,6 +34,8 @@
             <i class="fas fa-plus fa-lg"/>
         </div>
 
+        <SnackBar ref="snackBar" :message="'Sikeres bejelentkezés'"/>
+
 </template>
 
 <script>
@@ -43,10 +45,12 @@ import router from '../router';
 
 import { NebulooFetch } from '../utils/https.mjs';
 
+import Snackbar from '../components/snackbars/SnackBar.vue';
 export default{
     components:{
         Cards,
-        Paginator
+        Paginator,
+        Snackbar
     },
     data(){
         return{
@@ -93,9 +97,16 @@ export default{
         createContent(){
             if(localStorage.getItem('userToken')==0) //Unauthenticated
             {
+
+               // this.$refs.snackBar.showSnackbar();
                 alert('Tartalmak feltöltéséhez, kérlek jelentkezz be!', router.push('/login'))
             }
             else{
+                /*
+                this.$refs.snackBar.showSnackbar('Sikertelen szerkesztés', null, function () {
+                    console.log('callback');
+                });
+                */
                 router.push('/contents/create')
             }            
         }

@@ -59,7 +59,7 @@ import TagList from '../components/TagList.vue';
 
 import CommentSection from '../components/CommentSection.vue';
 import router from '../router';
-import html2pdf from 'html2pdf.js'
+import html2pdf from 'html2pdf.js';
 
 export default{
     props:
@@ -108,7 +108,7 @@ export default{
             })
         },
         downloadContent(){
-            html2pdf(document.getElementById('contentid'));
+            html2pdf(document.getElementById('contentid'), {image : {type: 'jpeg', quality: 1}, filename: 'Tananyag.pdf'});
         }
     },
     async mounted(){

@@ -47,19 +47,19 @@ export class NebulooFetch{
     };
 
     static async createQuestion(data){
-        const response = NebulooFetch.http.post('me/questions',data)
+        const response = NebulooFetch.http.post('questions',data)
         return response;
     };
     static async editQuestion(data,id){
-        const response = NebulooFetch.http.put('me/questions/'+id, data)
+        const response = NebulooFetch.http.put('questions/'+id, data)
         return response;
     }
     static async createContent(data){
-        const response = NebulooFetch.http.post('me/contents',data);
+        const response = NebulooFetch.http.post('contents',data);
         return response;
     };
     static async updateContent(data,id){
-        const response = NebulooFetch.http.put('me/contents/'+id,data);
+        const response = NebulooFetch.http.put('contents/'+id,data);
         return response;
     };
     static async getMyDatas(){
@@ -75,7 +75,7 @@ export class NebulooFetch{
         return response;
     }
     static async createTicket(data){
-        const response = NebulooFetch.http.post('me/tickets',data)
+        const response = NebulooFetch.http.post('tickets',data)
         return response;
     };
     static async getUserData(id){
@@ -83,11 +83,11 @@ export class NebulooFetch{
         return response;
     };
     static async changeUserRole(id,data){
-        const response = NebulooFetch.http.put('admin/user/'+id+'/role',data)
+        const response = NebulooFetch.http.put('user/'+id+'/role',data)
         return response;
     };
     static async banUser(id){
-        const response = NebulooFetch.http.put('admin/users/'+id+'/ban')
+        const response = NebulooFetch.http.put('users/'+id+'/ban')
         return response;
     };
  

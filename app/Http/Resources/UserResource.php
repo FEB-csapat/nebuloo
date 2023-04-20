@@ -23,7 +23,7 @@ class UserResource extends JsonResource
             'display_name' => $this->display_name,
             'bio' => $this->bio,
 
-            'role' => $this->getRoleNames()->count() > 0 ? $this->getRoleNames()[0] : 'user',
+            'role' => $this->getRoleNames()->count() > 0 ? $this->getRoleNames()[0] : null,
             
             'comments' => CommentResource::collection($this->comments),
             'contents' => SimpleContentResource::collection($this->contents),

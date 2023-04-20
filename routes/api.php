@@ -12,7 +12,6 @@ use App\Http\Controllers\FeedController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\VoteController;
-use App\Http\Controllers\TagController;
 use App\Http\Controllers\ImageController;
 
 use Illuminate\Support\Facades\Route;
@@ -43,39 +42,44 @@ Route::get('/feed', [FeedController::class, "index"])
 Route::get('/contents', [ContentController::class, "index"])
     ->name("contents.index");
 Route::get('/contents/{id}', [ContentController::class, "show"])
+    ->where(['id' => '[0-9]+'])
     ->name("contents.show");    
 
 
 Route::get('/questions', [QuestionController::class, "index"])
     ->name("questions.index");
 Route::get('/questions/{id}', [QuestionController::class, "show"])
+    ->where(['id' => '[0-9]+'])
     ->name("questions.show");
-
-Route::get('/tags', [TagController::class, "index"])
-    ->name("tags.index");
-Route::get('/tags/{id}', [TagController::class, "show"])
-    ->name("tags.show");
 
 
 Route::get('/subjects', [SubjectController::class, "index"])
     ->name("subjects.index");
 Route::get('/subjects/{id}', [SubjectController::class, "show"])
+    ->where(['id' => '[0-9]+'])
     ->name("subjects.show");
+
+Route::get('/subjects/{id}/topics', [TopicController::class, "indexBySubjectId"])
+    ->where(['id' => '[0-9]+'])
+    ->name("subjects.indexBySubjectId");
 
 Route::get('/topics', [TopicController::class, "index"])
     ->name("topics.index");
 Route::get('/topics/{id}', [TopicController::class, "show"])
+    ->where(['id' => '[0-9]+'])
     ->name("topics.show");
 
 
 Route::get('/comments', [CommentController::class, "index"])
     ->name("comments.index");
 Route::get('/comments/{id}', [CommentController::class, "show"])
+    ->where(['id' => '[0-9]+'])
     ->name("comments.show");
 
 
 Route::get('images/{id}', [ImageController::class, "show"])
     ->name("images.show");
+
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/me', [UserController::class, "showMe"])
@@ -85,73 +89,72 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::delete('/me', [UserController::class, "destroyMe"])
         ->name("me.destroy");
 
-    Route::get('me/contents', [ContentController::class, "meIndex"])
+    Route::get('contents/me', [ContentController::class, "meIndex"])
         ->name("me.contents.index");
-    Route::post('me/contents', [ContentController::class, "store"])
-        ->name("me.contents.store");
-    Route::put('me/contents/{id}', [ContentController::class, "update"])
-        ->name("contents.update");
-    Route::delete('me/contents/{id}', [ContentController::class, "destroy"])
-        ->name("contents.destroy");
-
-    Route::get('me/questions', [QuestionController::class, "meIndex"])
+    
+    Route::get('questions/me', [QuestionController::class, "meIndex"])
         ->name("me.contents.index");
-    Route::post('me/questions', [QuestionController::class, "store"])
-        ->name("me.questions.store");
-    Route::put('me/questions/{id}', [QuestionController::class, "update"])
-        ->name("me.questions.update");
-    Route::delete('me/questions/{id}', [QuestionController::class, "destroy"])
-        ->name("me.questions.destroy");
-
-    Route::get('me/tickets',[TicketController::class,'meIndex'])
-        ->name('me.tickets.index');
-    Route::post('me/tickets',[TicketController::class,'store'])
-        ->name('me.tickets.store');
-    Route::delete('me/tickets/{id}', [TicketController::class, 'destroy'])
-        ->name("me.tickets.destroy");
-
-
-    Route::post('tags', [TagController::class, "store"])
-        ->name("tags.store");
-
-    Route::get('me/comments', [CommentController::class, "meIndex"])
+    
+    
+    Route::get('comments/me', [CommentController::class, "meIndex"])
         ->name("comments.index");
 
-   // Route::post('me/comments', [CommentController::class, "store"])
-    //    ->name("comments.store");
 
-    Route::post('{commentable}/{id}/comments', [CommentController::class, "store"])
-        ->name("commentable.comments.store");
-
-    Route::put('me/comments/{id}', [CommentController::class, "update"])
-        ->name("comments.update");
-    Route::delete('me/comments/{id}', [CommentController::class, "destroy"])
-        ->name("comments.destroy");
-
-
-    Route::post('{votable}/{id}/votes', [VoteController::class, "store"])
-        ->name("votes.store");
-
-    Route::delete('{votable}/{id}/votes', [VoteController::class, "destroyByVotableId"])
-    ->name("votes.destroyByVotableId");
-    
-
-    Route::get('me/votes', [VoteController::class, "index"])
+    Route::get('votes/me', [VoteController::class, "meIndex"])
         ->name("votes.index");
-    Route::put('me/votes/{id}', [VoteController::class, "update"])
-        ->name("votes.update");
-    Route::delete('me/votes/{id}', [VoteController::class, "destroy"])
-        ->name("votes.destroy");
+
 
     Route::post('images', [ImageController::class, "store"])
         ->name("images.store");
 
-    Route::post('/subjects', [SubjectController::class, "store"])
+    Route::post('subjects', [SubjectController::class, "store"])
         ->name("subjects.store");
 
-    Route::post('/topics', [TopicController::class, "store"])
+    Route::post('topics', [TopicController::class, "store"])
         ->name("topic.store");
+
+
+    Route::post('contents', [ContentController::class, "store"])
+        ->name("me.contents.store");
+    Route::put('contents/{id}', [ContentController::class, "update"])
+        ->name("contents.update");
+    Route::delete('contents/{id}', [ContentController::class, "destroy"])
+        ->name("contents.destroy");
     
+    
+    Route::post('questions', [QuestionController::class, "store"])
+        ->name("questions.store");
+    Route::put('questions/{id}', [QuestionController::class, "update"])
+        ->name("questions.update");
+    Route::delete('questions/{id}', [QuestionController::class, "destroy"])
+        ->name("questions.destroy");
+    
+
+    Route::get('tickets/me',[TicketController::class,'meIndex'])
+    ->name('me.tickets.index');
+    
+    Route::post('tickets',[TicketController::class,'store'])
+        ->name('tickets.store');
+    Route::delete('tickets/{id}', [TicketController::class, 'destroy'])
+        ->name("tickets.destroy");
+    
+    Route::post('{commentable}/{id}/comments', [CommentController::class, "store"])
+        ->name("commentable.comments.store");
+    
+    Route::put('comments/{id}', [CommentController::class, "update"])
+        ->name("comments.update");
+    Route::delete('comments/{id}', [CommentController::class, "destroy"])
+        ->name("comments.destroy");
+    
+    Route::post('{votable}/{id}/votes', [VoteController::class, "store"])
+        ->name("votes.store");
+    Route::delete('{votable}/{id}/votes', [VoteController::class, "destroyByVotableId"])
+        ->name("votes.destroyByVotableId");
+    
+    Route::put('votes/{id}', [VoteController::class, "update"])
+        ->name("votes.update");
+    Route::delete('votes/{id}', [VoteController::class, "destroy"])
+        ->name("votes.destroy");
 });
 
 /*
@@ -165,32 +168,18 @@ Route::get('/ranks/{id}', [RankController::class, "show"])
 
 
 Route::group(['middleware' => ['role:admin|moderator']], function () {
-    Route::put('moderator/users/{id}', [UserController::class, "update"])
+    Route::put('users/{id}', [UserController::class, "update"])
         ->name("users.update");
 
-    Route::put('moderator/users/{id}/ban', [UserController::class, "ban"])
+    Route::put('users/{id}/ban', [UserController::class, "ban"])
         ->name("users.ban");
-
-    Route::put('moderator/contents/{id}', [ContentController::class, "update"])
-        ->name("contents.update");
-    Route::delete('moderator/contents/{id}', [ContentController::class, "destroy"])
-        ->name("contents.destroy");
-
-    Route::put('moderator/questions/{id}', [QuestionController::class, "update"])
-        ->name("questions.update");
-    Route::delete('moderator/questions/{id}', [QuestionController::class, "destroy"])
-        ->name("questions.destroy");
-
-    Route::put('moderator/comments/{id}', [CommentController::class, "update"])
-        ->name("comments.update");
-    Route::delete('moderator/comments/{id}', [CommentController::class, "destroy"])
-        ->name("comments.destroy");
 
 
     Route::put('/subjects/{id}', [SubjectController::class, "update"])
         ->name("subjects.update");
     Route::delete('/subjects/{id}', [SubjectController::class, "destroy"])
         ->name("subjects.destroy");
+
 
     Route::put('/topics/{id}', [TopicController::class, "update"])
         ->name("topics.update");
@@ -201,41 +190,20 @@ Route::group(['middleware' => ['role:admin|moderator']], function () {
 
 Route::group(['middleware' => ['role:admin']], function () {
 
-    Route::put('admin/user/{id}/role', [RoleController::class, "update"])
+    Route::put('user/{id}/role', [RoleController::class, "update"])
         ->name("users.role.update");
 
-    Route::put('admin/users/{id}', [UserController::class, "update"])
-        ->name("users.update");
-    Route::delete('admin/users/{id}', [UserController::class, "destroy"])
+    Route::delete('users/{id}', [UserController::class, "destroy"])
         ->name("users.destroy");
 
-    Route::put('admin/users/{id}/ban', [UserController::class, "ban"])
-        ->name("users.ban");
-
-    Route::put('admin/contents/{id}', [ContentController::class, "update"])
-        ->name("contents.update");
-    Route::delete('admin/contents/{id}', [ContentController::class, "destroy"])
-        ->name("contents.destroy");
-
-    Route::put('admin/questions/{id}', [QuestionController::class, "update"])
-        ->name("questions.update");
-    Route::delete('admin/questions/{id}', [QuestionController::class, "destroy"])
-        ->name("questions.destroy");
-
-
-    Route::put('admin/comments/{id}', [CommentController::class, "update"])
-        ->name("comments.update");
-    Route::delete('admin/comments/{id}', [CommentController::class, "destroy"])
-        ->name("comments.destroy");
-
-    Route::get('admin/tickets',[TicketController::class,'index'])
+    Route::get('tickets',[TicketController::class,'index'])
         ->name('tickets.index');
-    Route::get('admin/tickets/{id}',[TicketController::class,'show'])
+    Route::get('tickets/{id}',[TicketController::class,'show'])
         ->name('tickets.show');
-    Route::post('admin/tickets',[TicketController::class,'store'])
+    Route::post('tickets',[TicketController::class,'store'])
         ->name('tickets.store');
-    Route::put('admin/tickets/{id}', [TicketController::class, "update"])
+    Route::put('tickets/{id}', [TicketController::class, "update"])
         ->name("tickets.update");
-    Route::delete('admin/tickets/{id}', [TicketController::class, 'destroy'])
+    Route::delete('tickets/{id}', [TicketController::class, 'destroy'])
         ->name("tickets.destroy");
 });

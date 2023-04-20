@@ -24,7 +24,7 @@ class ContentResource extends JsonResource
             'id' => $this->id,
             'body' => $this->body,
 
-            'subject_id' => $this->subject_id,
+        //    'subject_id' => $this->subject_id,
 
             'subject' => new SubjectResource($this->subject),
             'topic' => new TopicResource($this->topic),

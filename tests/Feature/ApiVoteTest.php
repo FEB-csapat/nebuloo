@@ -12,15 +12,22 @@ class ApiVoteTest extends TestCase
 {
     use DatabaseTransactions;
 
+
+    private $user;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = User::factory()->create();
+    }
+
     /** @test */
     public function user_can_vote_on_a_content()
     {
-        $user = User::factory()->create();
-        $this->actingAs($user);
-
         $content = Content::factory()->create();
 
-        $response = $this->actingAs($user, 'sanctum')
+        $response = $this->actingAs($this->user, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
         ])->post("/api/contents/{$content->id}/votes", [
@@ -42,7 +49,7 @@ class ApiVoteTest extends TestCase
             'direction' => 'up',
             'votable_type' => 'App\Models\Content',
             'votable_id' => $content->id,
-            'owner_user_id' => $user->id,
+            'owner_user_id' => $this->user->id,
             'reciever_user_id' => $content->creator_user_id,
         ]);
     }
@@ -50,7 +57,6 @@ class ApiVoteTest extends TestCase
     /** @test */
     public function user_can_update_their_vote()
     {
-        $granter_user = User::factory()->create();
         $reciever_user = User::factory()->create();
 
         $content = Content::factory()->create(
@@ -61,7 +67,7 @@ class ApiVoteTest extends TestCase
 
         // create vote with up direction
         $vote = Vote::factory()->create([
-            'owner_user_id' => $granter_user->id,
+            'owner_user_id' => $this->user->id,
             'reciever_user_id' => $reciever_user->id,
             'votable_id' => $content->id,
             'votable_type' => Content::class,
@@ -69,7 +75,7 @@ class ApiVoteTest extends TestCase
         ]);
 
         // update vote with down direction
-        $response = $this->actingAs($granter_user, 'sanctum')
+        $response = $this->actingAs($this->user, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
         ])->post("/api/contents/{$content->id}/votes", [
@@ -90,7 +96,7 @@ class ApiVoteTest extends TestCase
             'direction' => 'down',
             'votable_id' => $content->id,
             'votable_type' => Content::class,
-            'owner_user_id' => $granter_user->id,
+            'owner_user_id' => $this->user->id,
             'reciever_user_id' => $reciever_user->id,
         ]);
     }
@@ -99,21 +105,19 @@ class ApiVoteTest extends TestCase
     /** @test */
     public function user_can_delete_a_vote()
     {
-        $granter_user = User::factory()->create();
         $reciever_user = User::factory()->create();
 
         $content = Content::factory()->create();
 
-
         $vote = Vote::factory()->create([
-            'owner_user_id' => $granter_user->id,
+            'owner_user_id' => $this->user->id,
             'reciever_user_id' => $reciever_user->id,
             'votable_id' => $content->id,
             'votable_type' => Content::class,
             'direction' => 'up'
         ]);
 
-        $response = $this->actingAs($granter_user, 'sanctum')
+        $response = $this->actingAs($this->user, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
         ])->delete("/api/contents/{$content->id}/votes");

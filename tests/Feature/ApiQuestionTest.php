@@ -14,35 +14,40 @@ class ApiQuestionTest extends TestCase
 {
     use DatabaseTransactions;
 
-    /**
-     * Tests that a user who is not logged in cannot create a question.
-     */
-    public function test_question_creation_as_unauthorized_user()
+    private $user;
+
+    protected function setUp(): void
     {
-        // add accept header to me/questions route
-        $response = $this->withHeaders([
-            'Accept' => 'application/json',
-        ])->post('api/me/questions', [
-            'title' => 'test title',
-            'body' => 'test body'
-        ]);
+        parent::setUp();
 
-        $response->assertStatus(401);
-
+        $this->user = User::factory()->create();
     }
 
     /**
      * Tests that a user who is not logged in cannot create a question.
      */
-    public function test_question_creation_successful()
+    public function test_question_creation_as_guest()
+    {
+        $response = $this->withHeaders([
+            'Accept' => 'application/json',
+        ])->post('api/questions', [
+            'title' => 'test title',
+            'body' => 'test body'
+        ]);
+
+        $response->assertStatus(401);
+    }
+
+    /**
+     * Tests that a user who is not logged in cannot create a question.
+     */
+    public function test_question_creation_as_user()
     {
 
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user, 'sanctum')
+        $response = $this->actingAs($this->user, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
-        ])->post('api/me/questions', [
+        ])->post('api/questions', [
             'title' => 'test title',
             'body' => 'test body'
         ]);
@@ -54,12 +59,10 @@ class ApiQuestionTest extends TestCase
     public function test_question_creation_without_title()
     {
 
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user, 'sanctum')
+        $response = $this->actingAs($this->user, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
-        ])->post('api/me/questions', [
+        ])->post('api/questions', [
             // empty
         ]);
         
@@ -73,14 +76,14 @@ class ApiQuestionTest extends TestCase
         ]);
     }
 
-    public function test_question_update_failing_not_creator()
+    public function test_question_update_as_not_creator()
     {
         $otherUser = User::factory()->create();
         
         $response = $this->actingAs($otherUser, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
-        ])->post('api/me/questions', [
+        ])->post('api/questions', [
             'title' => 'test title',
             'body' => 'test body'
         ]);
@@ -89,12 +92,10 @@ class ApiQuestionTest extends TestCase
         
         $id = $response->json('id');
 
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user, 'sanctum')
+        $response = $this->actingAs($this->user, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
-        ])->put('api/me/questions/'.$id, [
+        ])->put('api/questions/'.$id, [
             'title' => 'test title updated',
             'body' => 'test body updated'
         ]);
@@ -107,14 +108,12 @@ class ApiQuestionTest extends TestCase
     }
 
 
-    public function test_question_update_successful()
+    public function test_question_update_as_creator()
     {
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user, 'sanctum')
+        $response = $this->actingAs($this->user, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
-        ])->post('api/me/questions', [
+        ])->post('api/questions', [
             'title' => 'test title',
             'body' => 'test body'
         ]);
@@ -124,10 +123,10 @@ class ApiQuestionTest extends TestCase
         $id = $response->json('id');
 
 
-        $response = $this->actingAs($user, 'sanctum')
+        $response = $this->actingAs($this->user, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
-        ])->put('api/me/questions/'.$id, [
+        ])->put('api/questions/'.$id, [
             'title' => 'test title updated',
             'body' => 'test body updated'
         ]);

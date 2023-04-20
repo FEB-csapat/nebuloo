@@ -20,7 +20,7 @@ class VoteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function meIndex(Request $request)
     {
         $this->authorize('viewAny', Vote::class, auth()->user());
         $votes = Vote::where('owner_user_id', auth()->user()->id)->get();
