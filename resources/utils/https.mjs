@@ -36,7 +36,7 @@ export class NebulooFetch{
         const response = NebulooFetch.http.get("contents/" + id);
         return response;
     };
-    static getDetailedQuestion(id){
+    static async getDetailedQuestion(id){
         const response = NebulooFetch.http.get("questions/" + id);
         return response;
     };

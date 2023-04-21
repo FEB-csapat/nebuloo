@@ -2,23 +2,23 @@
 <div class="container my-3 ">
     <h1 class="text-center mb-4">Kérdés szerkesztése</h1>
     <div class="row bg-light shadow rounded-3 p-2">
-        <form @submit.prevent="Login">
+        <Form @submit="editQuestion" :initial-values="initData">
             <label for="title" class="form-label mt-2">Kérdés címe:</label>
-            <input id="title_field" v-model="form.title" type="text" name='title' class="form-control">
+            <Field id="title" type="text" name='title' class="form-control"/>
 
             <label for="body" class="form-label mt-2">Kérdés törzse:</label>
-            <textarea name="leiras" id="leiras" v-model="form.body" rows="8" class="form-control"></textarea>
+            <Field name="body" id="body" type="text" rows="8" class="form-control"/>
             <div class="row">
                 <div class="col-sm-6">
-                    <button type="submit" class="my-3 btn" id="button" @click="navigateToDetailedView()">
+                    <button class="my-3 btn" id="button" @click="navigateToDetailedView()">
                         Vissza
                     </button>
                 </div>
                 <div class="col-sm-6 text-end">
-                    <button type="submit" class="my-3 btn" id="button" @click="editQuestion()">Változtatás elfogadása</button>
+                    <button type="submit" class="my-3 btn" id="button">Változtatás elfogadása</button>
                 </div>
             </div>
-        </form>
+        </Form>
     </div>
     <SnackBar ref="snackBar"/>
 </div>
@@ -27,7 +27,7 @@
 <script>
 import { NebulooFetch } from '../utils/https.mjs';
 import SnackBar from '../components/snackbars/SnackBar.vue';
-import Form from 'vform';
+import {Form, Field} from 'vee-validate'
 import { UserManager } from '../utils/UserManager';
 
 export default{
@@ -37,11 +37,14 @@ export default{
     data(){
         return {
             question: {},
-            form: new Form({
-                title: '',
-                body: ''
-            })
+            initData:{
+                title:'',
+                body:''
+            },
         };
+    },
+    components:{
+        Field, Form
     },
     props:{
     id: {
@@ -53,15 +56,15 @@ export default{
         async getDetailedQuestion(){
             var responseBody = (await NebulooFetch.getDetailedQuestion(this.id)).data;
             this.question = responseBody
-            this.form.title = this.question.title;
-            this.form.body = this.question.body;
+            this.initData.title = this.question.title;
+            this.initData.body = this.question.body;
         },
-        async editQuestion(){
-            const data = JSON.stringify(this.questionData);
-            var response = (await NebulooFetch.editQuestion(data,this.id));
+        async editQuestion(values){
+            var response = (await NebulooFetch.editQuestion(values,this.id));
 
             if(response.status == 200){
                // this.$router.push('/questions/'+id);
+                alert("Sikeres szerkesztés!");
                 this.navigateToDetailedView();
             }else{
                 this.$refs.snackBar.showSnackbar('Sikertelen szerkesztés', null, function () {
@@ -82,14 +85,6 @@ export default{
         await this.getDetailedQuestion();
         if(this.question.creator.id!=UserManager.userID()&&!UserManager.userRole()=="admin"){
             alert("Nincs engedélyed ennek a tartalomnak a szerkeztéséhez!",router.back())
-        }
-    },
-    computed:{
-        questionData(){
-            return{
-                title:this.form.title,
-                body:this.form.body
-            }
         }
     }
 }
