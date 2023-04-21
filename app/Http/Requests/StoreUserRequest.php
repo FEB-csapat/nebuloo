@@ -26,7 +26,7 @@ class StoreUserRequest extends FormRequest
         return [
             "name" => "required|string|min:4|max:25|unique:users",
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:8|confirmed|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
             'notify_by_email' => 'boolean'
         ];
     }

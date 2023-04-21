@@ -12,6 +12,9 @@
 
     <label for="password" class="form-label mt-2">Jelszó:</label>
     <input v-validate="'required|string|min:8'" v-model="form.password" type="password" name="password" placeholder="Jelszó" ref="password" class="form-control">
+    <p class="text-muted ms-2">
+        A jelszónak <b>legalább 8 karakter</b> hosszúnak kell lennie, és <b>tartalmaznia kell</b> az alábbiakat: Legalább 1 <b>Nagybetű</b>, <b>Kisbetű</b>, <b>Szám</b>, és <b>Speciális karakter</b>.
+    </p>
     <div v-if="form.errors.has('password')" class="text-white bg-opacity-25 border border-danger p-2"> {{errors['password']}} </div>
 
     <label for="password_confirmation" class="form-label mt-2">Jelszó újra:</label>
@@ -26,8 +29,9 @@
     </div>
 
     <div class="col my-2">
-        <router-link class="nav-link active" aria-current="page" to="/ASZF">ÁSZF</router-link>
-
+        <button class="btn btn-primary">
+            <router-link class="nav-link active" aria-current="page" to="/ASZF">ÁSZF</router-link>
+        </button>
     </div>
 
     <div class="form-check mt-2">
@@ -43,7 +47,7 @@
     </button>
 
 
-    <router-link class="nav-link active btn btn-success my-3" aria-current="page" to="login">Bejelentkezés</router-link>
+    <router-link class="nav-link active btn btn-success my-3 p-2" aria-current="page" to="login">Bejelentkezés</router-link>
 
             
 </form>
