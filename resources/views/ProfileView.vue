@@ -136,6 +136,8 @@ import { NebulooFetch } from '../utils/https.mjs';
 import CommentCard from '../components/CommentCard.vue';
 import router from '../router';
 import User from '../components/User.vue';
+import { UserManager } from '../utils/UserManager';
+
 
 export default{
 data(){
@@ -185,13 +187,20 @@ methods:{
             });
         }
     },
-    async editProfile(){
-
+    editProfile(){
+        router.push({
+            name: 'EditProfile',
+            params: {
+                id:  this.userdata.id
+            },
+            props:{
+                id: this.userdata.id
+            }
+        }) 
     },
     
     async GetMyData(){
         this.responseBody = (await NebulooFetch.getMyDatas()).data;
-
         this.userdata = this.responseBody;
     },
     async getProfileData(){
@@ -208,12 +217,12 @@ methods:{
     },
     navigate(){
             this.$router.push({
-                name: 'edit',
+                name: 'EditProfile',
                 params: {
-                    data:  this.userdata
+                    id:  this.userdata.id
                 },
                 props: {
-                    data: this.userdata
+                    id: this.userdata.id
                 }
             })
         },
@@ -240,6 +249,7 @@ computed: {
 
 async mounted(){
     console.log(this.id);
+    
     if(this.id==null) //MyProfile
     {
         this.GetMyData();
@@ -249,7 +259,7 @@ async mounted(){
         this.getProfileData();
         this.myprofile = false;
     }
-    if(sessionStorage.getItem('userRole')==='admin'){
+    if(UserManager.userRole()==='admin'){
         this.admin= true;
     }
 }

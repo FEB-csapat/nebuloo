@@ -27,7 +27,9 @@
 <script>
 import { NebulooFetch } from '../utils/https.mjs';
 import SnackBar from '../components/snackbars/SnackBar.vue';
-import Form from 'vform'
+import Form from 'vform';
+import { UserManager } from '../utils/UserManager';
+
 export default{
     components:{
         SnackBar
@@ -76,8 +78,11 @@ export default{
             })
         },
     },
-    mounted(){
-        this.getDetailedQuestion();
+    async mounted(){
+        await this.getDetailedQuestion();
+        if(this.question.creator.id!=UserManager.userID()&&!UserManager.userRole()=="admin"){
+            alert("Nincs engedélyed ennek a tartalomnak a szerkeztéséhez!",router.back())
+        }
     },
     computed:{
         questionData(){

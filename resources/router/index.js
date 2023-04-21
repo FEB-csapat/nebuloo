@@ -64,14 +64,8 @@ const router = createRouter({
       name: 'editContent',
       component: EditContentView,
       props: true,
-      
-    },
-    {
-      path: '/contents/:id/edit',
-      name: 'editContent',
-      component: EditContentView,
-      props: true,
       meta:{requiresAuth: true}
+      
     },
     {
       path: '/questions',
@@ -88,13 +82,6 @@ const router = createRouter({
       path: '/questions/create',
       name: 'CreateQuestion',
       component: CreateQuestionView,
-      meta:{requiresAuth: true}
-    },
-    {
-      path: '/questions/:id/edit',
-      name: 'EditQuestion',
-      component: EditQuestionView,
-      props: true,
       meta:{requiresAuth: true}
     },
     {
@@ -121,8 +108,8 @@ const router = createRouter({
       props: true
     },
     {
-      path: '/myprofile/edit',
-      name: 'edit',
+      path: '/profile/edit/:id',
+      name: 'EditProfile',
       component: EditMyProfileView,
       meta:{requiresAuth: true},
       props: true
