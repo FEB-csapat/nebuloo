@@ -64,14 +64,8 @@ const router = createRouter({
       name: 'editContent',
       component: EditContentView,
       props: true,
-      
-    },
-    {
-      path: '/contents/:id/edit',
-      name: 'editContent',
-      component: EditContentView,
-      props: true,
       meta:{requiresAuth: true}
+      
     },
     {
       path: '/questions',

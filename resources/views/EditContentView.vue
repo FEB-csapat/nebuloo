@@ -9,7 +9,7 @@
                 </div>
 
             <div class="text-end p-3">
-                <button class="btn" id="button" @click="saveContent()">
+                <button class="btn" id="button" @click="editContent()">
                     Változtatások mentése
                 </button>
             </div>
@@ -21,11 +21,14 @@
 <script>
 import EasyMDE from 'easymde';
 import { NebulooFetch } from '../utils/https.mjs';
+import { UserManager } from '../utils/UserManager';
+import router from '../router';
 
 export default{
     data(){
         return{
-            body:''
+            body:'',
+            isAdmin:false
         }
     },
     props:
@@ -36,7 +39,7 @@ export default{
         } 
     },
     methods:{
-        async saveContent(){
+        async editContent(){
             const body = this.editor.value();
             if(body==""){
                 alert("A poszt nem lehet üres!")
@@ -53,7 +56,7 @@ export default{
             .catch(error=>{
              //   console.log(error)
             })
-        }
+        },
     },
     async mounted(){
         this.editor = new EasyMDE({
@@ -106,8 +109,15 @@ export default{
                 });
             },
         });
+        if(UserManager.userRole()=="admin"){
+            this.isAdmin = true;
+        }
 
         const response = (await NebulooFetch.getDetailedContent(this.id));
+        
+        if(response.data.creator.id!=UserManager.userID()&&!this.isAdmin){
+            alert("Nincs engedélyed ennek a tartalomnak a szerkeztéséhez!",router.back())
+        }
 
         if (response.status == 200) {
             this.editor.value(response.data.body);
@@ -116,6 +126,8 @@ export default{
         } else {
             // TODO: error handling: Something went wrong
         }
+
+
     }
 }
 </script>

@@ -94,7 +94,7 @@ export default{
             regist.post('register',this.form)
             .then(response=>{
                 console.log(response);
-                alert("Sikeres bejelentkezés", router.push('/login'));
+                alert("Sikeres regisztráció", router.push('/login'));
             })
             .catch(errors=>{
                 console.log(errors);
