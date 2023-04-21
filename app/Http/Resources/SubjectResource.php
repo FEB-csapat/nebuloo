@@ -18,6 +18,7 @@ class SubjectResource extends JsonResource
             'id' => $this->id,
             'creator_user_id' => $this->creator_user_id,
             'name' => $this->name,
+            'topics' => TopicResource::collection($this->topics),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

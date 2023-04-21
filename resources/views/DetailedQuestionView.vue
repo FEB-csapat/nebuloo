@@ -83,7 +83,6 @@ export default{
         async getDetailedQuestion(){
             var responseBody = (await NebulooFetch.getDetailedQuestion(this.id)).data;
             this.question = responseBody;
-            console.log(this.question);
             this.creator = this.question.creator;
         },
         DeletePost(){

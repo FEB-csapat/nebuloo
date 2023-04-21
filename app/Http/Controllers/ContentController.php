@@ -34,14 +34,15 @@ class ContentController extends Controller
                 ->where('body', 'like', "%{$querySearch}%");
         }
 
+        
         if ($querySubject != null) {
-            $subject = Subject::where('name', $querySubject)->first();
-            $contents = $contents->where('subject_id', $subject ? $subject->id : null);
+            $contents = $contents->where('subject_id', $querySubject);
         }
+        
         if ($queryTopic != null) {
-            $topic = Topic::where('name', $queryTopic)->first();
-            $contents = $contents->where('topic_id', $topic ? $topic->id : null);
+            $contents = $contents->where('topic_id', $queryTopic);
         }
+
 
         if ($queryOrderBy != null) {
             if($queryOrderBy == 'newest'){

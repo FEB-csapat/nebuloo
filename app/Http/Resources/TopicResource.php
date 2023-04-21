@@ -18,7 +18,6 @@ class TopicResource extends JsonResource
             'id' => $this->id,
             'creator_user_id' => $this->creator_user_id,
             'name' => $this->name,
-            'subject' => new SubjectResource($this->subject),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

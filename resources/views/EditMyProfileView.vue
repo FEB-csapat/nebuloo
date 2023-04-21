@@ -42,7 +42,6 @@ export default{
     },
     methods:{    
         async editMyData(values){
-            console.log(values);
             NebulooFetch.editMyDatas(values)
             .then(()=>{
                 alert("Sikeres változtatás");

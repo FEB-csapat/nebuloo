@@ -21,7 +21,7 @@ class ContentFactory extends Factory
     public function definition()
     {
         $subject = Subject::inRandomOrder()->first();
-        $topic = $subject->topics()->inRandomOrder()->first();
+        $topic = Topic::where('subject_id', $subject->id)->inRandomOrder()->first();
         return [
             'body' => $this->faker->paragraph,
             'creator_user_id' => User::inRandomOrder()->first()->id,

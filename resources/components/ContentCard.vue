@@ -1,6 +1,6 @@
 <template>
-    <div class="row bg-light rounded-4 mb-3 p-3" id="card">
-        <div class="nav-link active col-xs-8 col-md-10" aria-current="page"
+    <div class="row bg-light rounded-4 mb-4 ps-3 pb-3 pt-3 pe-1" id="card">
+        <div class="nav-link active col-10 col-lg-11" aria-current="page"
             @click="navigate">
             <div>
                 <tag-list :subject="content.subject" :topic="content.topic"/>
@@ -11,7 +11,7 @@
             </div>
         </div>
 
-        <div class="col-xs-4 col-md-2  text-center p-2">
+        <div class="col-2 col-lg-1 text-center align-items-center">
             <p >{{content.created_at}}</p>
             <user v-if="content.creator" :user="content.creator"></user>
 

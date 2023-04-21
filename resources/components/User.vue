@@ -1,6 +1,9 @@
 <template>
     <div class="col" @click="navigate">
-            <h6 v-if="user != null && user.role!=null && showDetailed">{{user.role}}</h6>
+            
+        <h6 v-if="user != null && user.role!=null && showDetailed
+            && (user.role == 'admin' || user.role == 'moderator')"
+            class="text-danger">{{user.role}}</h6>
 
         <img v-if="user != null" class="mx-auto border border-2 border-dark rounded shadow" :style="{ width: showDetailed ? '120px' : '60px' }" v-bind:src="profileImage" :alt="user.rank.name" :title="user.rank.name" id="profpicture"/>
 

@@ -129,4 +129,9 @@ export class NebulooFetch{
         const response = http.post('images', formData);
         return response;
     };
+
+    static async getSubjects(){
+        const response = NebulooFetch.http.get('subjects')
+        return response;
+    };
 }

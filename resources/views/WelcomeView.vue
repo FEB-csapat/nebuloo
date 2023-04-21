@@ -7,33 +7,33 @@
         <div class="container bg-light rounded-4 mt-4 mx-auto text-center py-2 px-4 shadow">
                 <h4 class="m-3">Nem érted a Viète-formulákat? Kérdezz nyugodtan! Pont hogy érted? Oszdd meg a tudást a többiekkel!</h4>
                 <h5>Mászd meg a tudás ranglétráját és vállj bölcsé!</h5>
-                <p class="text-start">Rangok:</p>
+                <h5 class="text-start">Rangok:</h5>
 
-                <div class="d-flex justify-content-evenly">
+                <div class="row justify-content-evenly">
 
-                    <div class="col-xs-2">
-                        <div class="d-flex justify-content-center">
-                            <user :user="zoldfulu" :clickable="false"/>
+                    <div class="col-4 col-md-2">
+                        <div class="d-flex justify-content-center mb-2" style="letter-spacing: 4px">
+                            <user :user="zoldfulu" :clickable="false" :showDetailed="true"/>
                         </div>
                     </div>
-                    <div class="col-xs-2">
-                        <div class="d-flex justify-content-center">
-                            <user :user="okostojas" :clickable="false"/>
+                    <div class="col-4 col-md-2">
+                        <div class="d-flex justify-content-center mb-2" style="letter-spacing: 4px">
+                            <user :user="okostojas" :clickable="false" :showDetailed="true"/>
                         </div>
                     </div>
-                    <div class="col-xs-2">
-                        <div class="d-flex justify-content-center">
-                            <user :user="zseni" :clickable="false"/>
+                    <div class="col-4 col-md-2">
+                        <div class="d-flex justify-content-center mb-2" style="letter-spacing: 4px">
+                            <user :user="zseni" :clickable="false" :showDetailed="true"/>
                         </div>
                     </div>
-                    <div class="col-xs-2">
-                        <div class="d-flex justify-content-center">
-                            <user :user="langesz" :clickable="false"/>
+                    <div class="col-4 col-md-2">
+                        <div class="d-flex justify-content-center mb-2" style="letter-spacing: 4px">
+                            <user :user="langesz" :clickable="false" :showDetailed="true"/>
                         </div>
                     </div>
-                    <div class="col-xs-2">
-                        <div class="d-flex justify-content-center">
-                            <user :user="bolcs" :clickable="false"/>
+                    <div class="col-4 col-md-2">
+                        <div class="d-flex justify-content-center mb-2" style="letter-spacing: 4px">
+                            <user :user="bolcs" :clickable="false" :showDetailed="true"/>
                         </div>
                     </div>
                     

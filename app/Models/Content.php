@@ -39,7 +39,7 @@ class Content extends Model
 
     public function topic()
     {
-        return $this->hasOne(Topic::class, 'id');
+        return $this->hasOne(Topic::class, 'id', 'topic_id');
     }
 
     public function sumVoteScore(){

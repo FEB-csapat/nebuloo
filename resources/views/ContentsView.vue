@@ -2,21 +2,28 @@
     <div class="container mt-4">
         <h1 class="text-center mb-2">Tananyagok</h1>
 
-        <label for="search" class="form-label">Rendezés:</label>
-        <select class="form-select" style="width:160px" v-model="orderBy" @change="getAllContent()">
-            <option value="newest">Legújabbak</option>
-            <option value="oldest">Legrégebbiek</option>
-            <option value="popular">Legnépszerűbbek</option>
-        </select>
-
-        <h3 v-if="searchTerm != ''" class="text-center mb-4">Keresési találatok: {{ $route.query.search }}</h3>
-
-        <div class="row" v-if="isWaiting">
-            <div id="loading-spinner" class="spinner-border mx-auto" role="status">
+        <div id="filter-container">
+            <label for="search" class="form-label">Rendezés:</label>
+            <select class="form-select" style="width:160px" v-model="orderBy" @change="handleOrderBy">
+                <option value="newest">Legújabbak</option>
+                <option value="oldest">Legrégebbiek</option>
+                <option value="popular">Legnépszerűbbek</option>
+            </select>
+    
+            <tag-selector @subjectItemSelected="handleSubjectItemSelected" @topicItemSelected="handleTopicItemSelected"
+                :defaultSubjectId="subjectId" :defaultTopicId="topicId"
+                ref="tagSelector"/>
+    
+            <h3 v-if="searchTerm != ''" class="text-center mb-4">Keresési találatok: {{ $route.query.search }}</h3>
+    
+            <div class="row" v-if="isWaiting">
+                <div id="loading-spinner" class="spinner-border mx-auto" role="status">
+                </div>
             </div>
+    
+            <p @click="removeFilters" class="text-center text-secondary">Szürők törlése</p>    
         </div>
-
-
+        
         <div>
             <cards :Contents="Contents"/>
         </div>
@@ -46,11 +53,13 @@ import router from '../router';
 import { NebulooFetch } from '../utils/https.mjs';
 
 import Snackbar from '../components/snackbars/SnackBar.vue';
+import TagSelector from '../components/TagSelector.vue';
 export default{
     components:{
         Cards,
         Paginator,
-        Snackbar
+        Snackbar,
+        TagSelector,
     },
     data(){
         return{
@@ -59,6 +68,8 @@ export default{
             searchTerm: '',
             currentPage: 1,
             orderBy: 'newest',
+            subjectId: null,
+            topicId: null,
 
             links: {}, 
             meta: {},
@@ -72,7 +83,9 @@ export default{
             var queires = {
                 search: this.searchTerm,
                 page: this.currentPage,
-                orderBy: this.orderBy
+                orderBy: this.orderBy,
+                subject: this.subjectId,
+                topic: this.topicId,
             }
             var responseBody = (await NebulooFetch.getAllContent(queires)).data;
             this.Contents = responseBody.data;
@@ -82,22 +95,11 @@ export default{
             this.isWaiting = false;
         },
 
-        handlePaginate(url) {
-            this.currentPage = url.split('page=')[1];
-
-            this.getAllContent();
-            window.scrollTo(0,0);
-
-            this.$router.push({
-                name: 'contents',
-                query: { orderBy: this.orderBy, search: this.searchTerm, page: this.currentPage }
-            });            
-        },
+        
 
         createContent(){
             if(localStorage.getItem('userToken')==0) //Unauthenticated
             {
-
                // this.$refs.snackBar.showSnackbar();
                 alert('Tartalmak feltöltéséhez, kérlek jelentkezz be!', router.push('/login'))
             }
@@ -109,13 +111,65 @@ export default{
                 */
                 router.push('/contents/create')
             }            
+        },
+
+        handlePaginate(url) {
+            this.currentPage = url.split('page=')[1];
+
+            window.scrollTo(0,0);
+
+            this.refreshPage();          
+        },
+
+
+        handleSubjectItemSelected(subjectId) {
+            this.topicId = null;
+            this.subjectId = subjectId;
+            this.refreshPage();         
+        },
+        handleTopicItemSelected(topicId) {
+            this.topicId = topicId;
+            this.refreshPage();
+        },
+        handleOrderBy() {
+            this.refreshPage();
+        },
+
+        refreshPage(){
+            this.getAllContent();
+
+            this.$router.push({
+                name: 'contents',
+                query: { orderBy: this.orderBy, search: this.searchTerm,
+                    subject: this.subjectId, topic: this.topicId,  page: this.currentPage }
+            });
+
+
+            window.scrollTo(0,0); 
+        },
+
+        removeFilters(){
+            this.searchTerm = '';
+            this.subjectId = null;
+            this.topicId = null;
+            this.currentPage = 1;
+            this.orderBy = 'newest';
+
+            this.$refs.tagSelector.reset()
+
+            this.refreshPage();
         }
+
     },
     mounted(){
         this.orderBy = this.$route.query.orderBy;
         this.searchTerm = this.$route.query.search;
         this.currentPage = this.$route.query.page;
-        this.getAllContent();
+        this.subjectId = this.$route.query.subject;
+        this.topicId = this.$route.query.topic;
+        this.getAllContent().then(() => {
+            
+        });
 
         // WHat is this abomination?
         // TODO: fix whatever this is
@@ -127,11 +181,6 @@ export default{
             this.searchTerm = newSearchTerm
             this.getAllContent();
         },
-       /* '$route.query.page'(newPage) {
-            this.currentPage = newPage
-            this.getAllContent();
-        }
-        */
     }
 }
 </script>

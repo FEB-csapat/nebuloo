@@ -33,13 +33,14 @@ class Question extends Model
 
     public function subject()
     {
-        return $this->hasOne(Subject::class, 'id');
+        return $this->hasOne(Subject::class, 'id', 'subject_id');
     }
 
     public function topic()
     {
-        return $this->hasOne(Topic::class, 'id');
+        return $this->hasOne(Topic::class, 'id', 'topic_id');
     }
+
 
     public function sumVoteScore(){
         return $this->votes->where('direction', 'up')->count()

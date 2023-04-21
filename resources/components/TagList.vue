@@ -1,10 +1,10 @@
 <template>
     <div class="d-flex mb-1 align-items-center">
-        <tag v-if="subject != null" :tag="subject"/>
+        <tag v-if="subject != null" :subject="subject"/>
         
         <i v-if="topic != null" style="color:gray;" :class="['fas', 'fa-right-long', 'fa-lg']"/>
 
-        <tag v-if="topic != null" :tag="topic"/>
+        <tag v-if="topic != null" :topic="topic"/>
     </div></template>
 
 <script>

@@ -59,8 +59,7 @@
 
       methods: {
         search() {
-
-          if(this.searchTerm != ''){
+          if(this.searchTerm != null){
             if(this.$route.path == '/contents'){
               this.$router.push({
                 name: 'contents',
