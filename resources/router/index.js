@@ -85,13 +85,6 @@ const router = createRouter({
       meta:{requiresAuth: true}
     },
     {
-      path: '/questions/:id/edit',
-      name: 'EditQuestion',
-      component: EditQuestionView,
-      props: true,
-      meta:{requiresAuth: true}
-    },
-    {
       path: '/questions/edit/:id',
       name: 'EditQuestion',
       component: EditQuestionView,

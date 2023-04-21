@@ -10,4 +10,12 @@ export class UserManager{
     static userID(){
         return sessionStorage.getItem('Identifier');
     }
+
+    static userRank(){
+        return sessionStorage.getItem('userRank');
+    }
+
+    static userName(){
+        return sessionStorage.getItem('userName');
+    }
 }

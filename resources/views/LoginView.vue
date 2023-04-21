@@ -60,6 +60,8 @@ export default{
                 sessionStorage.setItem('userToken',response.data.token);
                 sessionStorage.setItem('Identifier',response.data.user.id);
                 sessionStorage.setItem('userRole',response.data.user.role);
+                sessionStorage.setItem('userRank',response.data.user.rank.id);
+                sessionStorage.setItem('userName',response.data.user.name);
                 NebulooFetch.initialize(response.data.token);
             })
             .then(response=>{

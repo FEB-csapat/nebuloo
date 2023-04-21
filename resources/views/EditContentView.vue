@@ -27,8 +27,7 @@ import router from '../router';
 export default{
     data(){
         return{
-            body:'',
-            isAdmin:false
+            body:''
         }
     },
     props:
@@ -109,13 +108,10 @@ export default{
                 });
             },
         });
-        if(UserManager.userRole()=="admin"){
-            this.isAdmin = true;
-        }
 
         const response = (await NebulooFetch.getDetailedContent(this.id));
         
-        if(response.data.creator.id!=UserManager.userID()&&!this.isAdmin){
+        if(response.data.creator.id!=UserManager.userID()&&!UserManager.userRole()=="admin"){
             alert("Nincs engedélyed ennek a tartalomnak a szerkeztéséhez!",router.back())
         }
 
