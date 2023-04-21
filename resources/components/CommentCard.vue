@@ -21,7 +21,7 @@
 
         </div>
         <div class="col-sm-1 col-xs-1">
-            <vote :contentId="comment.id" :voteCount="comment.recieved_votes" :vote="null"></vote>
+            <vote :contentId="comment.id" :voteCount="comment.recieved_votes" :myVote="comment.my_vote"></vote>
         </div>
     </div>
 </template>

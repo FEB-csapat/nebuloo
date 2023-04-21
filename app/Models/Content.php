@@ -17,6 +17,25 @@ class Content extends Model
     protected $fillable = ['title', 'body', 'creator_user_id'];
 
 
+    public static function create(array $attributes = [])
+    {
+        $content = static::query()->create($attributes);
+
+        // Create a default up vote for the content creator
+        Vote::create(
+            [
+                'owner_user_id' => $content->creator->id,
+                'reciever_user_id' => $content->creator->id,
+                'votable_type' => Content::class,
+                'votable_id' => $content->id,
+                'direction' => "up",
+            ]
+        );
+
+        return $content;
+    }
+    
+
     public function creator()
     {
         return $this->belongsTo(User::class, 'creator_user_id');

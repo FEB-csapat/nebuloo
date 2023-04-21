@@ -13,11 +13,11 @@
                 </div>
 
                 <div class="col-1">
-                    <vote :contentId="id" :voteCount="content.recieved_votes" :vote="null"></vote>
+                    <vote v-if="content!=null" :contentId="id" :voteCount="content.recieved_votes" :myVote="content.my_vote"></vote>
                 </div>
             </div>
 
-            <tag-list :subject="content.subject" :topic="content.topic"/>
+            <tag-list v-if="content!=null" :subject="content.subject" :topic="content.topic"/>
                 
             
             <div class="detailed_content_view_textarea">
@@ -43,7 +43,7 @@
 
             </div>
         </div>
-            <comment-section :comments="content.comments" :commentable_id="content.id" :commentable_type="contents"></comment-section>
+            <comment-section v-if="content!=null" :comments="content.comments" :commentable_id="content.id" :commentable_type="contents"></comment-section>
     </div>
     
 </template>
@@ -78,7 +78,7 @@ export default{
     },
     data() {
         return {
-            content: {},
+            content: null,
             creator: Object
         };
     },

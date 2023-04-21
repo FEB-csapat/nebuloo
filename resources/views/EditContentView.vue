@@ -117,7 +117,7 @@ export default{
 
         if (response.status == 200) {
             this.editor.value(response.data.body);
-            // set focus to the end 
+            // set the focus to the end 
             this.editor.codemirror.setCursor(this.editor.codemirror.lineCount(), 0);
         } else {
             // TODO: error handling: Something went wrong

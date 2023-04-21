@@ -13,16 +13,15 @@
             <tag-selector @subjectItemSelected="handleSubjectItemSelected" @topicItemSelected="handleTopicItemSelected"
                 :defaultSubjectId="subjectId" :defaultTopicId="topicId"
                 ref="tagSelector"/>
-    
-            <h3 v-if="searchTerm != ''" class="text-center mb-4">Keresési találatok: {{ $route.query.search }}</h3>
+            <p @click="removeFilters" class="text-center text-secondary">Szürők törlése</p>    
+        </div>
+
+        <h3 v-if="searchTerm != ''" class="text-center mb-4">Keresési találatok: {{ $route.query.search }}</h3>
     
             <div class="row" v-if="isWaiting">
                 <div id="loading-spinner" class="spinner-border mx-auto" role="status">
                 </div>
             </div>
-    
-            <p @click="removeFilters" class="text-center text-secondary">Szürők törlése</p>    
-        </div>
         
         <div>
             <cards :Contents="Contents"/>
@@ -30,18 +29,17 @@
         
         <h3 id="no-result" v-if="Contents.length == 0 && !isWaiting" class="text-center mb-4">Nincs találat</h3>
 
-        <div>
-            <paginator :links="links" :meta="meta" @paginate="handlePaginate" />
-        </div>
+        <paginator :links="links" :meta="meta" @paginate="handlePaginate" />
+        
     </div>
 
 
-        <div class="fab-button" @click="createContent">
-            <span class="m-3">Create new content</span>
-            <i class="fas fa-plus fa-lg"/>
-        </div>
+    <div class="fab-button" @click="createContent">
+        <span class="m-3">Create new content</span>
+        <i class="fas fa-plus fa-lg"/>
+    </div>
 
-        <SnackBar ref="snackBar" :message="'Sikeres bejelentkezés'"/>
+    <SnackBar ref="snackBar" :message="'Sikeres bejelentkezés'"/>
 
 </template>
 

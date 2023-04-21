@@ -114,11 +114,6 @@ body{
     padding: 6px;
 }
 
-.detailed_content_view_textarea img{
-    max-width: 100%;
-    height: auto;
-}
-
 .detailed_content_view_textarea .CodeMirror-vscrollbar{
     display: block;
 }
@@ -144,15 +139,15 @@ body{
     padding: 6px;
 }
 
-.card_content_view_textarea img{
-    max-width: 100%;
-    height: auto;
-}
-
 .card_content_view_textarea .CodeMirror-vscrollbar{
     display: block;
 }
 
 .card_content_view_textarea .CodeMirror-scroll{
     display: none;
+}
+
+.EasyMDEContainer img{
+    max-width: 100%;
+    height: auto;
 }

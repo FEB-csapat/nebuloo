@@ -16,6 +16,23 @@ class Question extends Model
     protected $fillable = ['title', 'body', 'creator_user_id'];
 
 
+    public static function create(array $attributes = [])
+    {
+        $question = static::query()->create($attributes);
+
+        // Create a default up vote for the question creator
+        Vote::create([
+            'owner_user_id' => $question->creator->id,
+            'reciever_user_id' => $question->creator->id,
+            'votable_type' => Question::class,
+            'votable_id' => $question->id,
+            'direction' => "up",
+        ]);
+
+        return $question;
+    }
+
+
     public function creator()
     {
         return $this->belongsTo(User::class, 'creator_user_id');

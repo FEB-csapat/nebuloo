@@ -14,6 +14,22 @@ class Comment extends Model
 
     protected $fillable = ['message', 'creator_user_id', 'parent_comment_id', 'commentable_id', 'commentable_type'];
 
+    public static function create(array $attributes = [])
+    {
+        $comment = static::query()->create($attributes);
+
+        // Create a default up vote for the comment creator
+        Vote::create([
+            'owner_user_id' => $comment->creator->id,
+            'reciever_user_id' => $comment->creator->id,
+            'votable_type' => Comment::class,
+            'votable_id' => $comment->id,
+            'direction' => "up",
+        ]);
+
+        return $comment;
+    }
+
     public function parent()
     {
         return $this->belongsTo(Comment::class, 'parent_comment_id');
