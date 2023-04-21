@@ -10,12 +10,12 @@ use Tests\TestCase;
 
 class ApiRegisterTest extends TestCase
 {
+    use DatabaseTransactions;
     private $user;
     public function test_create_a_user()
     {
         $data = [
-            'id'=>55000,
-            'name' => 'Test User',
+            'name' => 'TestUser',
             'email' => 'Testing@test.test',
             'password' => 'Test123@',
             'password_confirmation' => 'Test123@'
@@ -27,7 +27,7 @@ class ApiRegisterTest extends TestCase
         ])->post("/api/register", $data);
         $response->assertCreated();
             $this->assertDatabaseHas('users', [
-                'name' => 'Test User',
+                'name' => 'TestUser',
                 'email' => 'Testing@test.test'
             ]);
 
@@ -36,7 +36,7 @@ class ApiRegisterTest extends TestCase
      public function test_create_a_user_with_mismatched_password()
      {
          $data = [
-             'name' => 'Test User1',
+             'name' => 'TestUser1',
              'email' => 'Testing@test.test1',
              'password' => 'Test123@',
              'password_confirmation' => 'Test12@'
@@ -60,7 +60,7 @@ class ApiRegisterTest extends TestCase
      public function test_create_a_user_with_password_without_special()
      {
          $data = [
-             'name' => 'Test User2',
+             'name' => 'TestUser2',
              'email' => 'Testing@test.test2',
              'password' => 'Test12345',
              'password_confirmation' => 'Test12345'
@@ -84,7 +84,7 @@ class ApiRegisterTest extends TestCase
      public function test_create_a_user_with_short_password()
      {
          $data = [
-             'name' => 'Test User3',
+             'name' => 'TestUser3',
              'email' => 'Testing@test.test3',
              'password' => 'Te',
              'password_confirmation' => 'Te'
@@ -111,7 +111,7 @@ class ApiRegisterTest extends TestCase
      public function test_create_a_user_with_password_without_uppercase()
      {
          $data = [
-             'name' => 'Test User4',
+             'name' => 'TestUser4',
              'email' => 'Testing@test.test4',
              'password' => 'testing123@',
              'password_confirmation' => 'testing123@'
@@ -137,7 +137,7 @@ class ApiRegisterTest extends TestCase
      public function test_create_a_user_with_password_without_numeric()
      {
          $data = [
-             'name' => 'Test User5',
+             'name' => 'TestUser5',
              'email' => 'Testing@test.test5',
              'password' => 'testingtest@',
              'password_confirmation' => 'testingtest@'
@@ -163,7 +163,7 @@ class ApiRegisterTest extends TestCase
      public function test_create_a_user_with_password_without_lowercase()
      {
          $data = [
-             'name' => 'Test User6',
+             'name' => 'TestUser6',
              'email' => 'Testing@test.test6',
              'password' => 'TESTINGTEST12@',
              'password_confirmation' => 'TESTINGTEST12@'
@@ -189,7 +189,7 @@ class ApiRegisterTest extends TestCase
      public function test_create_a_user_without_filling_password_confirmation()
      {
          $data = [
-             'name' => 'Test User7',
+             'name' => 'TestUser7',
              'email' => 'Testing@test.test7',
              'password' => 'TESTINGTESt12@'
          ];
@@ -214,7 +214,7 @@ class ApiRegisterTest extends TestCase
      public function test_create_a_user_without_email()
      {
          $data = [
-             'name' => 'Test User8',
+             'name' => 'TestUser8',
              'password' => 'TESTINGTESt12@',
              'password_confirmation' => 'TESTINGTESt12@'
          ];
@@ -264,7 +264,7 @@ class ApiRegisterTest extends TestCase
      public function test_create_a_user_with_invalid_email()
      {
          $data = [
-            'name' => 'Test User10',
+            'name' => 'TestUser10',
              'email' => 'Testingtesttest',
              'password' => 'TESTINGTESt12@',
              'password_confirmation' => 'TESTINGTESt12@'
@@ -365,9 +365,12 @@ class ApiRegisterTest extends TestCase
      }
      public function test_create_a_user_that_already_exists()
      {
+        $otherUser = User::factory()->create([
+            'name'=>'Name'
+        ]);
          $data = [
-            'name' => 'Test User',
-            'email' => 'Testing@test.test',
+            'name' => $otherUser->name,
+            'email' => $otherUser->email,
             'password' => 'Test123@',
             'password_confirmation' => 'Test123@'
          ];
@@ -387,6 +390,32 @@ class ApiRegisterTest extends TestCase
                     ],
                     'email'=> [
                         'The email has already been taken.'
+                    ]
+                ]
+        ]);
+     }
+
+     public function test_create_a_user_with_Incorrect_name_form()
+     {
+         $data = [
+            'name' => 'Test@',
+            'email' => 'Testing@test.test232',
+            'password' => 'Test123@',
+            'password_confirmation' => 'Test123@'
+         ];
+    
+         $response = $this
+         ->withHeaders([
+             'Accept' => 'application/json',
+         ])->post("/api/register", $data);
+    
+         $response
+            ->assertStatus(422)
+            ->assertJson([
+                'message' => 'The name must only contain letters and numbers.',
+                'errors' => [
+                    'name'=> [
+                        'The name must only contain letters and numbers.'
                     ]
                 ]
         ]);
