@@ -7,8 +7,7 @@ use App\Http\Requests\StoreContentRequest;
 use App\Http\Requests\UpdateContentRequest;
 use App\Http\Resources\ContentResource;
 use App\Models\Content;
-use App\Models\Subject;
-use App\Models\Topic;
+use App\Models\Vote;
 use Illuminate\Http\Request;
 
 class ContentController extends Controller
@@ -87,6 +86,7 @@ class ContentController extends Controller
         $data = $request->validated();
         $data['creator_user_id'] = $request->user()->id;
         $newContent = Content::create($data);
+
         return new ContentResource($newContent);
     }
 
@@ -124,6 +124,7 @@ class ContentController extends Controller
             return new ContentResource($content);
         }
 
+        // TODO: rewrite this to a better error handling
         return response()->json(['error' => 'Could not update content'], 500);
     }
 

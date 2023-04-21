@@ -171,5 +171,9 @@ class TopicSeeder extends Seeder
             'subject_id' => 10,
             'name' => "Színház",
         ]);
+        Topic::factory()->create([
+            'subject_id' => 10,
+            'name' => "Realizmus",
+        ]);
     }
 }

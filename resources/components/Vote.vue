@@ -2,7 +2,7 @@
     <div id="vote_container" class="row text-center">
         <div class="col">
             <i id="upvote" @click="toggleUpvote" :class="['fas', 'fa-up-long', 'fa-lg', {'upvoted': voteState === 1}]"/>
-            <p id="votecount" class="pt-3 text-center" style="margin-left: 3px;">{{voteCount + voteState}}</p>
+            <p id="votecount" class="pt-3 text-center" style="margin-left: 3px;">{{voteCounted + voteState}}</p>
             <i id="downvote" @click="toggleDownvote" :class="['fas', 'fa-down-long', 'fa-lg', {'downvoted': voteState === -1}]"/>
         </div>
     </div>
@@ -15,14 +15,17 @@ export default{
     props:{
         contentId: Number, 
         myVote: String,
-        voteCount: Number
+        voteCount: {
+            type: Number,
+            default: 0
+        }
     },
     components:{
         
     },
     data(){
         return {
-           // voteCount: 0,
+            voteCounted: 0,
             voteState: 0
         }
     },
@@ -48,7 +51,17 @@ export default{
         }
     },
     mounted(){
-        this.voteState = this.myVote == 'up' ? 1 : this.myVote == 'down' ? -1 : 0;
+        this.voteCounted = this.voteCount;
+
+        if(this.myVote == 'up'){
+            this.voteState = 1;
+            this.voteCounted--;
+        }else if(this.myVote == 'down'){
+            this.voteState = -1;
+            this.voteCounted++;
+        }else{
+            this.voteState = 0;
+        }
     }
 }
 </script>
