@@ -5,7 +5,7 @@
                 <img src="https://placeholder.pics/svg/60" alt="">
                 <p class="fs-6"></p> <!-- Insert profile picture here-->
                 <p class="fs-4">{{name}}</p>
-                    <Form @submit="editMyData" @keydown="triggerChange" :initial-values="initData">
+                    <Form @submit="editData" @keydown="triggerChange" :initial-values="initData">
                         <h2 class="text-start"><label for="bio" class="form-label mt-2">Bio:</label></h2>
                         <Field type="text" class="form-control my-3" name="bio" id="bio"/>       
 
@@ -24,6 +24,7 @@
 import { NebulooFetch } from '../utils/https.mjs';
 import { Form ,Field } from 'vee-validate';
 import router from '../router';
+import { UserManager } from '../utils/UserManager';
 
 export default{
 
@@ -46,13 +47,30 @@ export default{
             required: false
         }        
     },
-    methods:{    
+    methods:{
+        editData(values){
+            if(UserManager.userRole()=="admin"&&UserManager.userID()!=this.id){
+                this.editProfileData(values);
+            }else{
+                this.editMyData(values);
+            }
+        },
         async editMyData(values){
             NebulooFetch.editMyDatas(values)
             .then(()=>{
                 alert("Sikeres változtatás");
                 router.push('/myprofile')
             });
+        },
+        async editProfileData(values){
+            NebulooFetch.editUserData(values,this.id)
+            .then(()=>{
+                alert("Sikeres felülírás.");
+                router.push('/profile/'+this.id)
+            })
+            .catch(error=>{
+                console.log(error)
+            })
         },
         triggerChange(){
             this.isChanged = true;
@@ -62,16 +80,22 @@ export default{
         
     },
     async mounted(){
-        NebulooFetch.getMyDatas()
-        .then(response=>{
-            this.initData.bio= response.data.bio;
-            this.initData.display_name= response.data.display_name;
-            this.name = response.data.name;
-        })
-        .catch(error=>{
-            console.log(error);
-        });
-        console.log(this.id);
+        if(UserManager.userID()!=this.id && UserManager.userRole()!=="admin")
+        {
+            alert("Nincs jogosultságod változtatásokat végezni más profilján!",router.push("/myprofile"))
+        }
+        else{
+            NebulooFetch.getUserData(this.id)
+            .then(response=>{
+                this.initData.bio= response.data.bio;
+                this.initData.display_name= response.data.display_name;
+                this.name = response.data.name;
+            })
+            .catch(error=>{
+                console.log(error);
+            });
+            console.log(this.id);
+        }
     }
 }
     </script>

@@ -201,10 +201,7 @@ methods:{
     
     async GetMyData(){
         this.responseBody = (await NebulooFetch.getMyDatas()).data;
-
         this.userdata = this.responseBody;
-
-        console.log(this.userdata.id);
     },
     async getProfileData(){
         this.userdata = (await NebulooFetch.getUserData(this.id)).data;

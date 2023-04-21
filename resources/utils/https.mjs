@@ -73,7 +73,11 @@ export class NebulooFetch{
     static async editMyDatas(data){
         const response = NebulooFetch.http.put('me',data)
         return response;
-    }
+    };
+    static async editUserData(data,id){
+        const response = NebulooFetch.http.put('users/'+id,data)
+        return response;
+    };
     static async createTicket(data){
         const response = NebulooFetch.http.post('tickets',data)
         return response;
