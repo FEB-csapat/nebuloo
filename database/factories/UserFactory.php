@@ -18,13 +18,13 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        $name = $this->faker->name();
+        $name = $this->faker->regexify('[A-Za-z0-9]{20}');
         return [
             'name' => $name,
             'display_name' => $name,
             'email' => fake()->unique()->safeEmail(),
             'bio' => $this->faker->realText(200),
-            'password' => Hash::make('Jelszo123')
+            'password' => Hash::make('Jelszo123@')
         ];
     }
 

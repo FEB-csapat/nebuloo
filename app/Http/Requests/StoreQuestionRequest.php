@@ -25,7 +25,7 @@ class StoreQuestionRequest extends FormRequest
     {
         return [
             "title" => "required|max:40",
-            "body" => ""
+            "body" => "required"
         ];
     }
 }

@@ -75,14 +75,20 @@ class CommentPolicy
     public function update(?User $user, Comment $comment)
     {
         // visitors cannot update comments
+        
+        
         if ($user === null) {
             return Response::deny('User must be logged in to update comments.');
+        }
+        if($user->hasAnyRole(['admin', 'moderator'])){
+            return Response::allow();
         }
         if($user->id != $comment->creator_user_id){
             return Response::deny('User can only edit their comments');
         }
 
         return Response::allow();
+
     }
 
     /**
