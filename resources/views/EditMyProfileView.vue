@@ -22,8 +22,8 @@
 </template>
 <script>
 import { NebulooFetch } from '../utils/https.mjs';
-import { Form ,Field } from 'vee-validate'
-
+import { Form ,Field } from 'vee-validate';
+import router from '../router';
 
 export default{
 
@@ -45,7 +45,7 @@ export default{
             NebulooFetch.editMyDatas(values)
             .then(()=>{
                 alert("Sikeres változtatás");
-                router.push('/myprofile');
+                router.push('/myprofile')
             });
         },
         triggerChange(){
