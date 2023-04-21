@@ -40,6 +40,12 @@ export default{
     components:{
         Field, Form
     },
+    props:{
+        id: {
+            type: Number,
+            required: false
+        }        
+    },
     methods:{    
         async editMyData(values){
             NebulooFetch.editMyDatas(values)
@@ -64,7 +70,8 @@ export default{
         })
         .catch(error=>{
             console.log(error);
-        })
+        });
+        console.log(this.id);
     }
 }
     </script>

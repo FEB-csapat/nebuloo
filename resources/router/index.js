@@ -121,8 +121,8 @@ const router = createRouter({
       props: true
     },
     {
-      path: '/myprofile/edit',
-      name: 'edit',
+      path: '/profile/edit/:id',
+      name: 'EditProfile',
       component: EditMyProfileView,
       meta:{requiresAuth: true},
       props: true

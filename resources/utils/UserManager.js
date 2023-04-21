@@ -1,9 +1,13 @@
 export class UserManager{
     static token(){
-        return localStorage.getItem('userToken');
+        return sessionStorage.getItem('userToken');
     }
 
     static userRole(){
-        return localStorage.getItem('userRole')
+        return sessionStorage.getItem('userRole');
+    }
+
+    static userID(){
+        return sessionStorage.getItem('Identifier');
     }
 }
