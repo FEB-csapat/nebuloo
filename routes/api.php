@@ -133,8 +133,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('tickets/me',[TicketController::class,'meIndex'])
     ->name('me.tickets.index');
     
-    Route::post('tickets',[TicketController::class,'store'])
-        ->name('tickets.store');
+    Route::post("tickets",[TicketController::class,"store"])
+        ->name("me.tickets.store");
     Route::delete('tickets/{id}', [TicketController::class, 'destroy'])
         ->name("tickets.destroy");
     

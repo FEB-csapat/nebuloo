@@ -72,10 +72,10 @@ class TicketPolicy
     public function create(?User $user, Ticket $ticket): Response
     {
 
-        // visitors cannot create ticket
-        if ($user === null) {
-            return Response::deny('User must be logged in to create ticket.');
-        }
+        //visitors cannot create ticket
+         if ($user === null) {
+             return Response::deny('User must be logged in to create ticket.');
+         }
 
         if($user->hasAnyRole(['admin', 'moderator']) ){
             return Response::allow();
