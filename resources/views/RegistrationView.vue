@@ -1,97 +1,89 @@
 <template>
     <div class="container mt-4">
         <div class="row bg-light shadow rounded-3 p-2">
-            <form @submit.prevent="Register">
+            <Form @submit="Register">
+                
     <label for="name" class="form-label mt-2">Felhasználó név:</label>
-    <input v-model="form.name" type="text" name="name" placeholder="Felhasználó név" class="form-control">
-    <div v-if="form.errors.has('name')" class="text-white bg-opacity-25 border border-danger p-2"> {{errors['name']}} </div>
+    <Field v-validate="''" type="text" name="name" placeholder="Felhasználó név" class="form-control"/>
+    <!-- <div v-if="form.errors.has('name')" class="text-white bg-opacity-25 border border-danger p-2"> {{errors['name']}} </div> -->
 
     <label for="email" class="form-label mt-2">E-mail cím:</label>
-    <input v-model="form.email" type="text" name="email" placeholder="E-mail cím" class="form-control">
-    <div v-if="form.errors.has('email')" class="text-white bg-opacity-25 border border-danger p-2"> {{errors['email']}} </div>
+    <Field v-validate="''" type="text" name="email" placeholder="E-mail cím" class="form-control"/>
+    <!-- <div v-if="form.errors.has('email')" class="text-white bg-opacity-25 border border-danger p-2"> {{errors['email']}} </div> -->
 
     <label for="password" class="form-label mt-2">Jelszó:</label>
-    <input v-validate="'required|string|min:8'" v-model="form.password" type="password" name="password" placeholder="Jelszó" ref="password" class="form-control">
+    <Field v-validate="''" type="password" name="password" placeholder="Jelszó" ref="password" class="form-control"/>
     <p class="text-muted ms-2">
         A jelszónak <b>legalább 8 karakter</b> hosszúnak kell lennie, és <b>tartalmaznia kell</b> az alábbiakat: Legalább 1 <b>Nagybetű</b>, <b>Kisbetű</b>, <b>Szám</b>, és <b>Speciális karakter</b>.
     </p>
-    <div v-if="form.errors.has('password')" class="text-white bg-opacity-25 border border-danger p-2"> {{errors['password']}} </div>
+    <!-- <div v-if="form.errors.has('password')" class="text-white bg-opacity-25 border border-danger p-2"> {{errors['password']}} </div> -->
 
     <label for="password_confirmation" class="form-label mt-2">Jelszó újra:</label>
-    <input v-validate="'required|confirmed:password'" v-model="form.password_confirmation" type="password" name="password_confirmation" placeholder="Jelszó újra" class="form-control">
-    <div v-if="form.errors.has('password_confirmation')" class="text-white bg-opacity-25 border border-danger p-2"> {{errors['password_confirmation']}} </div>            
-
+    <Field v-validate="''" type="password" name="password_confirmation" placeholder="Jelszó újra" class="form-control"/>
+    <!-- <div v-if="form.errors.has('password_confirmation')" class="text-white bg-opacity-25 border border-danger p-2"> {{errors['password_confirmation']}} </div>  -->    
+    
+    <!--
     <div class="form-check mt-2">
-        <input class="form-check-input" type="checkbox" value="" id="aszf">
+        <Field class="form-check-input" type="checkbox" id="aszf" name="aszf"/>
         <label class="form-check-label ms-1" for="aszf">
             Elfogadom az ÁSZF-et
         </label>
     </div>
-
+    -->
     <div class="col my-2">
         <button class="btn btn-primary">
             <router-link class="nav-link active" aria-current="page" to="/ASZF">ÁSZF</router-link>
         </button>
-    </div>
+    </div> 
 
     <div class="form-check mt-2">
-        <input class="form-check-input" type="checkbox" name="notify_by_email" id="notify_by_email" value="true" v-model="form.notify_by_email">
+        <Field class="form-check-input" type="checkbox" name="notify_by_email" id="notify_by_email" value="true"/>
         <label class="form-check-label ms-1" for="notify_by_email">
             Kérek értesítést e-mailben új tartalmakról
         </label>
     </div>
 
-
     <button type="submit" class="my-3 btn btn-primary">
         Regisztráció
     </button>
 
-
     <router-link class="nav-link active btn btn-success my-3 p-2" aria-current="page" to="login">Bejelentkezés</router-link>
-
-            
-</form>
+          
+            </Form>
         </div>
     </div>
-
+    
 </template>
 <script>
 import router from "../router/index.js";
-import Form from 'vform'
+import { Form ,Field } from 'vee-validate';
 import axios from 'axios'
 import SnackBar from "../components/snackbars/SnackBar.vue";
+import * as yup from 'yup';
 
 export default{
     data(){
         return{
-            form: new Form({
-            name: '',
-            email: '',
-            password: '',
-            password_confirmation: '',
-            notify_by_email: true,
-            
-        }),
-        errors:{
+            errors:{
             name: "TODO: speciális karakterek",
             email: "Az email-cím nem megfelelő!",
             password: "A jelszónak legalább 8 karakter hosszúnak kell lennie!",
             password_confirmation: "A két jelszó nem megegyező"
-        },
+            },
         }
     },
     components:{
-        SnackBar
+        SnackBar,Field, Form
     },
     methods:{
-        async Register(){
+        async Register(values){
             const regist = axios.create({
                 baseURL: "http://localhost:8881/api/",
                 headers: {'Content-Type': 'application/json'}
             });
 
-            console.log(this.form);
-            regist.post('register',this.form)
+            console.log(values);
+            regist.post('register',values)
             .then(response=>{
                 console.log(response);
                 alert("Sikeres regisztráció", router.push('/login'));
