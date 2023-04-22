@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Carbon\Carbon;
 
 class TicketResource extends JsonResource
 {
@@ -18,7 +19,9 @@ class TicketResource extends JsonResource
             'id'=>$this->id,
             'creator'=>new SimpleUserResource($this->creator),
             'body'=>$this->body,
-            'state'=>$this->state
+            'state'=>$this->state,
+            'created_at' => Carbon::parse($this->created_at)->format('Y.m.d H:i'),
+            'updated_at' => Carbon::parse($this->updated_at)->format('Y.m.d H:i'),
         ];
     }
 }
