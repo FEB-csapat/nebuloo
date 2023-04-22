@@ -105,6 +105,56 @@ class ApiCommentTest extends TestCase
         ]);
     }
 
+    public function test_create_a_comment_on_content_as_admin()
+    {
+        $content = Content::factory()->create();
+
+        $admin = User::factory()->create();
+        $admin->assignRole('admin');
+
+        $data = [
+            'message' => 'This is a comment on content'
+        ];
+
+        $response = $this->actingAs($admin, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->post("/api/contents/{$content->id}/comments", $data);
+
+        $response->assertCreated();
+        $this->assertDatabaseHas('comments', [
+            'message' => 'This is a comment on content',
+            'commentable_type' => 'App\Models\Content',
+            'commentable_id' => $content->id,
+            'creator_user_id' => $admin->id
+        ]);
+    }
+
+    public function test_create_a_comment_on_content_as_moderator()
+    {
+        $content = Content::factory()->create();
+
+        $moderator = User::factory()->create();
+        $moderator->assignRole('moderator');
+
+        $data = [
+            'message' => 'This is a comment on content'
+        ];
+
+        $response = $this->actingAs($moderator, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->post("/api/contents/{$content->id}/comments", $data);
+
+        $response->assertCreated();
+        $this->assertDatabaseHas('comments', [
+            'message' => 'This is a comment on content',
+            'commentable_type' => 'App\Models\Content',
+            'commentable_id' => $content->id,
+            'creator_user_id' => $moderator->id
+        ]);
+    }
+
     public function test_create_a_comment_on_content_as_guest()
     {
         $content = Content::factory()->create();
@@ -125,7 +175,7 @@ class ApiCommentTest extends TestCase
         ]);
     }
     
-    public function test_create_a_comment_on_question()
+    public function test_create_a_comment_on_question_as_user()
     {
         $question = Question::factory()->create();
 
@@ -144,6 +194,56 @@ class ApiCommentTest extends TestCase
             'commentable_type' => 'App\Models\Question',
             'commentable_id' => $question->id,
             'creator_user_id' => $this->user->id
+        ]);
+    }
+
+    public function test_create_a_comment_on_question_as_admin()
+    {
+        $question = Question::factory()->create();
+
+        $admin = User::factory()->create();
+        $admin->assignRole('admin');
+
+        $data = [
+            'message' => 'This is a comment on question'
+        ];
+        
+        $response = $this->actingAs($admin, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->post("/api/questions/{$question->id}/comments", $data);
+
+        $response->assertCreated();
+        $this->assertDatabaseHas('comments', [
+            'message' => 'This is a comment on question',
+            'commentable_type' => 'App\Models\Question',
+            'commentable_id' => $question->id,
+            'creator_user_id' => $admin->id
+        ]);
+    }
+
+    public function test_create_a_comment_on_question_as_moderator()
+    {
+        $question = Question::factory()->create();
+
+        $moderator = User::factory()->create();
+        $moderator->assignRole('moderator');
+
+        $data = [
+            'message' => 'This is a comment on question'
+        ];
+        
+        $response = $this->actingAs($moderator, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->post("/api/questions/{$question->id}/comments", $data);
+
+        $response->assertCreated();
+        $this->assertDatabaseHas('comments', [
+            'message' => 'This is a comment on question',
+            'commentable_type' => 'App\Models\Question',
+            'commentable_id' => $question->id,
+            'creator_user_id' => $moderator->id
         ]);
     }
 
@@ -168,7 +268,7 @@ class ApiCommentTest extends TestCase
     }
 
     
-    public function test_show_a_comment()
+    public function test_show_a_comment_as_user()
     {
         $comment = Comment::factory()->create();
 
@@ -184,6 +284,62 @@ class ApiCommentTest extends TestCase
         ]);
     }
 
+    public function test_show_a_comment_as_admin()
+    {
+        $comment = Comment::factory()->create();
+
+        $admin = User::factory()->create();
+        $admin->assignRole('admin');
+
+        $response = $this->actingAs($admin, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->get("/api/comments/{$comment->id}");
+
+        $response->assertOk();
+        $response->assertJson([
+            'id' => $comment->id,
+            'message' => $comment->message,
+        ]);
+    }
+
+    public function test_show_a_comment_as_moderator()
+    {
+        $comment = Comment::factory()->create();
+
+        $moderator = User::factory()->create();
+        $moderator->assignRole('moderator');
+
+        $response = $this->actingAs($moderator, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->get("/api/comments/{$comment->id}");
+
+        $response->assertOk();
+        $response->assertJson([
+            'id' => $comment->id,
+            'message' => $comment->message,
+        ]);
+    }
+
+public function test_show_a_comment_as_guest()
+    {
+        $comment = Comment::factory()->create();
+
+        $moderator = User::factory()->create();
+        $moderator->assignRole('moderator');
+
+        $response = $this->actingAs($moderator, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->get("/api/comments/{$comment->id}");
+
+        $response->assertOk();
+        $response->assertJson([
+            'id' => $comment->id,
+            'message' => $comment->message,
+        ]);
+    }
     
     public function test_update_others_comment()
     {
