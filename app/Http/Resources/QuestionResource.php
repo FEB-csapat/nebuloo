@@ -22,14 +22,15 @@ class QuestionResource extends JsonResource
             ->first();
         return [
             'id' => $this->id,
+            'subject' => new SubjectResource($this->subject),
+            'topic' => new TopicResource($this->topic),
+            'tags' => TagResource::collection($this->tags),
             'creator' => new SimpleUserResource($this->creator),
             'recieved_votes' => $this->sumVoteScore(),
             'my_vote' => $requestUserVote ? $requestUserVote->direction : null,
             'comments' => CommentResource::collection($this->comments),
             'title' => $this->title,
             'body' => $this->body,
-            'subject' => new SubjectResource($this->subject),
-            'topic' => new TopicResource($this->topic),
             'created_at' => Carbon::parse($this->created_at)->format('Y.m.d H:i'),
             'updated_at' => Carbon::parse($this->updated_at)->format('Y.m.d H:i'),
         ];

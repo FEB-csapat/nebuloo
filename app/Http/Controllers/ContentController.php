@@ -33,7 +33,6 @@ class ContentController extends Controller
                 ->where('body', 'like', "%{$querySearch}%");
         }
 
-        
         if ($querySubject != null) {
             $contents = $contents->where('subject_id', $querySubject);
         }

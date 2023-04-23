@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\PaginationHelper;
 use App\Http\Requests\StoreQuestionRequest;
 use App\Http\Requests\UpdateQuestionRequest;
 use App\Http\Resources\QuestionResource;
 use App\Models\Question;
+use App\Models\Vote;
 use Illuminate\Http\Request;
 
 class QuestionController extends Controller
@@ -21,22 +23,38 @@ class QuestionController extends Controller
     {
         $this->authorize('viewAny', Question::class);
 
-        $search = $request->input('search');
-        $tags = $request->input('tags');
+        $querySearch = $request->input('search');
+        $querySubject = $request->input('subject');
+        $queryTopic = $request->input('topic');
+        $queryOrderBy = $request->input('orderBy');
 
         $questions = Question::query();
 
-        if ($search != null) {
+        if ($querySearch != null) {
             $questions = $questions
-                ->where('title', 'like', "%{$search}%")
-                ->orWhere('body', 'like', "%{$search}%");
+                ->where('title', 'like', "%{$querySearch}%")
+                ->orWhere('body', 'like', "%{$querySearch}%");
         }
-
-        if ($tags != null) {
-            $questions = $questions->withAnyTags($tags);
+        if ($querySubject != null) {
+            $questions = $questions->where('subject_id', $querySubject);
         }
-
-        return QuestionResource::collection($questions->paginate());
+        if ($queryTopic != null) {
+            $questions = $questions->where('topic_id', $queryTopic);
+        }
+        if ($queryOrderBy != null) {
+            if($queryOrderBy == 'newest'){
+                $questions = $questions->get()->sortByDesc('created_at');
+            }else if($queryOrderBy == 'oldest'){
+                $questions = $questions->get()->sortBy('created_at');
+            }else if($queryOrderBy == 'popular'){
+                $questions = $questions->get()->sortByDesc(function ($question) {
+                    return $question->sumVoteScore();
+                });
+            }
+        }else{
+            $questions = $questions->get()->sortBy('created_at');
+        }
+        return PaginationHelper::paginate(QuestionResource::collection($questions));
     }
 
     /**

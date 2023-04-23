@@ -137,7 +137,7 @@ components:{
             this.currentPage = 1;
             this.orderBy = 'newest';
 
-            this.$refs.tagSelector.reset()
+            this.$refs.tagSelector.reset();
 
             this.refreshPage();
         }
