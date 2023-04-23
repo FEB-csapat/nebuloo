@@ -8,7 +8,7 @@
             <textarea id="body" v-model="commentbody" v-if="isEditing" class="form-control" rows="3" cols="10"></textarea>
 
             <div class="text-end" v-if="MyComment==true">
-                <button class="btn btn-success mx-1" @click="editModeOff()" v-if="isEditing"> 
+                <button class="btn btn-success m-2" @click="editModeOff()" v-if="isEditing"> 
                     Szerkeszt
                 </button>
                 <button class="btn btn-info mx-1" @click="editModeOn()" v-if="!isEditing">

@@ -51,11 +51,17 @@ export default{
     methods:{
         async AddComment(){
             const data = JSON.stringify(this.comment);
-                NebulooFetch.createComment(data,this.$route.path)
+            if(data.length>300){
+            window.alert("Túl hosszú a hozzászólása!");
+        }
+        else{
+            NebulooFetch.createComment(data,this.$route.path)
                 .then(()=>{
                     alert("Sikeres komment!");
                     window.location.reload();
                 });
+        }
+                
         },
     },
     computed:{
