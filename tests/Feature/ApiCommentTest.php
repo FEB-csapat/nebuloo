@@ -56,7 +56,8 @@ class ApiCommentTest extends TestCase
     
     public function test_list_only_my_comments()
     {
-        Comment::factory()->count(3)->create();
+        $otherUser = User::factory()->create();
+        Comment::factory()->count(3)->create(['creator_user_id' => $otherUser->id]);
         Comment::factory()->count(2)->create(['creator_user_id' => $this->user->id]);
 
         $response = $this->actingAs($this->user, 'sanctum')
@@ -326,10 +327,7 @@ public function test_show_a_comment_as_guest()
     {
         $comment = Comment::factory()->create();
 
-        $moderator = User::factory()->create();
-        $moderator->assignRole('moderator');
-
-        $response = $this->actingAs($moderator, 'sanctum')
+        $response = $this
         ->withHeaders([
             'Accept' => 'application/json',
         ])->get("/api/comments/{$comment->id}");
@@ -341,7 +339,7 @@ public function test_show_a_comment_as_guest()
         ]);
     }
     
-    public function test_update_others_comment()
+    public function test_update_others_comment_as_user()
     {
         $otherUser = User::factory()->create();
         $comment = Comment::factory()->create(['creator_user_id' => $otherUser->id]);
@@ -535,6 +533,42 @@ public function test_show_a_comment_as_guest()
         $comment = Comment::factory()->create(['creator_user_id' => $this->user->id]);
 
         $response = $this->actingAs($this->user, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->delete("/api/comments/{$comment->id}");
+
+        $response->assertOk();
+        $this->assertDatabaseMissing('comments', [
+            'id' => $comment->id
+        ]);
+    }
+
+    public function test_delete_my_comment_as_admin()
+    {
+        $admin = User::factory()->create();
+        $admin->assignRole('admin');
+
+        $comment = Comment::factory()->create(['creator_user_id' => $admin->id]);
+
+        $response = $this->actingAs($admin, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->delete("/api/comments/{$comment->id}");
+
+        $response->assertOk();
+        $this->assertDatabaseMissing('comments', [
+            'id' => $comment->id
+        ]);
+    }
+
+    public function test_delete_my_comment_as_moderator()
+    {
+        $moderator = User::factory()->create();
+        $moderator->assignRole('moderator');
+
+        $comment = Comment::factory()->create(['creator_user_id' => $moderator->id]);
+
+        $response = $this->actingAs($moderator, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
         ])->delete("/api/comments/{$comment->id}");
