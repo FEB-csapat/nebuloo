@@ -122,7 +122,7 @@ components:{
             this.refreshPage();
         },
         refreshPage(){
-            this.getAllQuestion();
+            this.getAllQuestions();
             this.$router.push({
                 name: 'questions',
                 query: { orderBy: this.orderBy, search: this.searchTerm,

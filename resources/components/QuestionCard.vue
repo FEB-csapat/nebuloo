@@ -4,7 +4,7 @@
         <div class="nav-link active col-sm-10" aria-current="page"
             @click="navigate">
             <div>
-                <tag v-for="tag in question.tags" :tag="tag"></tag>
+                <tag-list :subject="question.subject" :topic="question.topic"/>
                 <div>
                     <h1>
                         {{ question.title }}
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import Tag from './Tag.vue';
+import TagList from './TagList.vue';
 import Vote from './Vote.vue';
 import User from './User.vue';
 import DetailedQuestionView from '../views/DetailedQuestionView.vue';
@@ -39,7 +39,7 @@ export default{
         },
     },
     components:{
-        Tag,
+        TagList,
         Vote,
         User,
         DetailedQuestionView
