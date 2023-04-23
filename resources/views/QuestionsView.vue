@@ -2,6 +2,20 @@
     <div class="container mt-4">
         <h1 class="text-center mb-4">Kérdések</h1>
 
+        <div id="filter-container">
+            <label for="search" class="form-label">Rendezés:</label>
+            <select class="form-select" style="width:160px" v-model="orderBy" @change="handleOrderBy">
+                <option value="newest">Legújabbak</option>
+                <option value="oldest">Legrégebbiek</option>
+                <option value="popular">Legnépszerűbbek</option>
+            </select>
+    
+            <tag-selector @subjectItemSelected="handleSubjectItemSelected" @topicItemSelected="handleTopicItemSelected"
+                :defaultSubjectId="subjectId" :defaultTopicId="topicId"
+                ref="tagSelector"/>
+            <p @click="removeFilters" class="text-center text-secondary">Szürők törlése</p>    
+        </div>
+        
         <h3 v-if="searchTerm != ''" class="text-center mb-4">Keresési találatok: {{ $route.query.search }}</h3>
 
         <div class="row" v-if="isWaiting">
@@ -9,47 +23,133 @@
                 <span class="visually-hidden">Loading...</span>
             </div>
         </div>
-        <cards :Questions="Questions"/>
+        <div>
+            <cards :Questions="Questions"/>
+        </div>
 
-        <h3 v-if="Questions.length == 0 && !isWaiting" class="text-center mb-4">Nincs találat</h3>
+        <h3 id="no-result" v-if="Questions.length == 0 && !isWaiting" class="text-center mb-4">Nincs találat</h3>
+
+        <paginator :links="links" :meta="meta" @paginate="handlePaginate" />
 
     </div>
-    <router-link class="nav-link active" aria-current="page" to="questions/create">
-        <div class="fab-button" @click="onClick">
+        <div class="fab-button" @click="createQuestion()">
             <span class="m-3">Create new question</span>
             <i class="fas fa-plus fa-lg"/>
         </div>
-    </router-link>
+
+        <SnackBar ref="snackBar" :message="'Sikeres bejelentkezés'"/>
+
 </template>
 
 <script>
 import Cards from '../components/Cards.vue'
-
+import Paginator from '../components/Paginator.vue';
+import router from '../router';
 import { NebulooFetch } from '../utils/https.mjs';
-
+import Snackbar from '../components/snackbars/SnackBar.vue';
+import TagSelector from '../components/TagSelector.vue';
 export default{
 components:{
-        Cards
+        Cards,
+        Paginator,
+        Snackbar,
+        TagSelector,
     },
     data(){
         return{
             Questions: [],
             isWaiting: true,
-            searchTerm: ''
+            searchTerm: '',
+            currentPage: 1,
+            orderBy: 'newest',
+            subjectId: null,
+            topicId: null,
+
+            links: {}, 
+            meta: {},
+            logedin: false,
         }
     },
     methods:{
         async getAllQuestions(){
             this.isWaiting = true;
+            this.Questions = [];
             var queires = {
-                search: this.searchTerm
+                search: this.searchTerm,
+                page: this.currentPage,
+                orderBy: this.orderBy,
+                subject: this.subjectId,
+                topic: this.topicId,
             }
-            this.Questions = (await NebulooFetch.getAllQuestions(queires)).data.data;
+            var responseBody = (await NebulooFetch.getAllQuestions(queires)).data;
+            this.Questions = responseBody.data;
+            this.links = responseBody.links;
+            this.meta = responseBody.meta;
             this.isWaiting = false;
         },
+        createQuestion(){
+            if(localStorage.getItem('userToken')==0) //Unauthenticated
+            {
+               // this.$refs.snackBar.showSnackbar();
+                alert('Kérdések feltöltéséhez, kérlek jelentkezz be!', router.push('/login'))
+            }
+            else{
+                /*
+                this.$refs.snackBar.showSnackbar('Sikertelen szerkesztés', null, function () {
+                    console.log('callback');
+                });
+                */
+                router.push('/question/create')
+            }            
+        },
+        handlePaginate(url) {
+            this.currentPage = url.split('page=')[1];
+
+            window.scrollTo(0,0);
+
+            this.refreshPage();          
+        },
+        handleSubjectItemSelected(subjectId) {
+            this.topicId = null;
+            this.subjectId = subjectId;
+            this.refreshPage();         
+        },
+        handleTopicItemSelected(topicId) {
+            this.topicId = topicId;
+            this.refreshPage();
+        },
+        handleOrderBy() {
+            this.refreshPage();
+        },
+        refreshPage(){
+            this.getAllQuestion();
+            this.$router.push({
+                name: 'questions',
+                query: { orderBy: this.orderBy, search: this.searchTerm,
+                    subject: this.subjectId, topic: this.topicId,  page: this.currentPage }
+            });
+            window.scrollTo(0,0); 
+        },
+        removeFilters(){
+            this.searchTerm = '';
+            this.subjectId = null;
+            this.topicId = null;
+            this.currentPage = 1;
+            this.orderBy = 'newest';
+
+            this.$refs.tagSelector.reset()
+
+            this.refreshPage();
+        }
     },
     async mounted(){
+        this.orderBy = this.$route.query.orderBy;
+        this.searchTerm = this.$route.query.search;
+        this.currentPage = this.$route.query.page;
+        this.subjectId = this.$route.query.subject;
+        this.topicId = this.$route.query.topic;
         this.getAllQuestions();
+        if(NebulooFetch.token!='0') this.logedin = true;
     },
 
     watch: {
