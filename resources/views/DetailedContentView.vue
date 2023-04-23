@@ -3,9 +3,9 @@
         <h1 class="text-center mb-4">Tananyag megtekintése</h1>
         <div class="row bg-light shadow rounded-3 p-2" id="contentid">
             <div class="row">
-                <div class="col-11">
+                <div class="col-11 text-center">
 
-                    <user v-if="user!=null" :user="content.creator"></user>   
+                    <user v-if="content!=null" :user="content.creator"></user>   
 
                     <div class="col">
                         <p v-if="content != null">{{content?.created_at}}</p>
