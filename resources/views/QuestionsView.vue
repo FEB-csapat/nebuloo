@@ -33,7 +33,7 @@
 
     </div>
         <div class="fab-button" @click="createQuestion()">
-            <span class="m-3">Create new question</span>
+            <span class="m-3">Új kérdés létrehozása</span>
             <i class="fas fa-plus fa-lg"/>
         </div>
 
