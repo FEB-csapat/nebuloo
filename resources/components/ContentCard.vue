@@ -1,6 +1,6 @@
 <template>
-    <div class="row bg-light rounded-4 mb-4 ps-3 pb-3 pt-3 pe-1" id="card">
-        <div class="nav-link active col-10 col-lg-11" aria-current="page"
+    <div class="d-flex bg-light rounded-4 mb-4 p-3 contentcard" id="card">
+        <div class="nav-link active" aria-current="page"
             @click="navigate">
             <div>
                 <tag-list :subject="content.subject" :topic="content.topic"/>
@@ -11,8 +11,11 @@
             </div>
         </div>
 
-        <div class="col-2 col-lg-1 text-center align-items-center">
-            <p >{{content.created_at}}</p>
+        <div class="text-center">
+            <p >{{splittedDate[0]}}</p>
+            <p>
+                {{splittedDate[1]}}
+            </p>
             <user v-if="content.creator" :user="content.creator"></user>
 
             <vote :contentId="content.id" :voteCount="content.recieved_votes" :myVote="content.my_vote"></vote>
@@ -29,10 +32,15 @@ import User from './User.vue';
 import DetailedContentView from '../views/DetailedContentView.vue';
 
 export default{
+    data(){
+        return{
+            splittedDate:[]
+        }
+    },
     props:{
         content: {
             type: Object,
-            required: true
+            required: true,
         },
     },
     components:{
@@ -53,6 +61,10 @@ export default{
                     content: this.content
                 }
             })
+        },
+        splitDate(){
+            this.splittedDate = this.content.created_at.split(" ");
+            console.log(this.splittedDate);
         }
     },
 
@@ -65,7 +77,8 @@ export default{
         });
 
         this.editor.togglePreview();
-    },
+        this.splitDate();
+    }
 }
 </script>
 
