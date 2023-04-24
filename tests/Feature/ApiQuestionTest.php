@@ -53,6 +53,12 @@ class ApiQuestionTest extends TestCase
         ]);
         
         $response->assertStatus(201);
+        
+        $this->assertDatabaseHas('questions', [
+            'title'=>'test title',
+            'body'=>'test body',
+            'creator_user_id' => $this->user->id
+        ]);
     }
 
 
@@ -85,13 +91,11 @@ class ApiQuestionTest extends TestCase
             'title' => 'test title'
         ]);
         
-        $response
-            ->assertStatus(422)
-            ->assertJson([
-                'message' => 'The body field is required.',
-                'errors' => [
-                    'body' => ['The body field is required.']
-                ]
+        $response->assertStatus(201);
+        $this->assertDatabaseHas('questions', [
+            'title'=>'test title',
+            'body'=>null,
+            'creator_user_id' => $this->user->id
         ]);
     }
 
@@ -107,13 +111,10 @@ class ApiQuestionTest extends TestCase
         $response
             ->assertStatus(422)
             ->assertJson([
-                'message' => 'The title field is required. (and 1 more error)',
+                'message' => 'The title field is required.',
                 'errors' => [
                     'title' => [
                         'The title field is required.'
-                    ],
-                    'body' => [
-                        'The body field is required.'
                     ]
                 ]
         ]);
