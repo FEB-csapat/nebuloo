@@ -210,7 +210,7 @@ methods:{
         if (window.confirm("Biztosan törölni szeretné fiókját?")) {
             NebulooFetch.deleteMyProfile()
             .then(()=>{
-                sessionStorage.removeItem('userToken');
+                UserManager.clear();
                 alert("Sikeres törlés!",router.push('/'));
             })
         }
@@ -227,7 +227,7 @@ methods:{
             })
         },
         SignOut(){
-            sessionStorage.clear();
+            UserManager.clear();
             router.push('/');
         },
 },
@@ -248,7 +248,6 @@ computed: {
   },
 
 async mounted(){
-    console.log(this.id);
     
     if(this.id==null) //MyProfile
     {
@@ -259,7 +258,7 @@ async mounted(){
         this.getProfileData();
         this.myprofile = false;
     }
-    if(UserManager.userRole()==='admin'){
+    if(UserManager.getUser().role ==='admin'){
         this.admin= true;
     }
 }

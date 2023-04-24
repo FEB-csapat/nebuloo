@@ -1,6 +1,7 @@
 <template>
-    <div class="container my-3 ">
-        <h1 class="text-center mb-4">Kérdés megtekintése</h1>
+    <div class="container">
+        <h2 class="text-center mt-3 mb-2">Kérdés megtekintése</h2>
+
         <div class="row bg-light shadow rounded-3 p-2">
             <div class="row">
                 <div class="col-11">
@@ -51,6 +52,8 @@ import User from '../components/User.vue';
 import { NebulooFetch } from '../utils/https.mjs';
 import router from '../router';
 
+import { UserManager } from '../utils/UserManager.js';
+
 export default{
     data() {
         return {
@@ -97,7 +100,7 @@ export default{
     },
     computed:{
         MyPost(){
-            const identifier = sessionStorage.getItem('Identifier');
+            const identifier = UserManager.getUser().id;
             return identifier == this.creator.id;
             },
     },

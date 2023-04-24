@@ -1,21 +1,34 @@
 export class UserManager{
-    static token(){
+
+    static setToken(token){
+        return sessionStorage.setItem('userToken', token);
+    }
+
+    static getToken(){
         return sessionStorage.getItem('userToken');
     }
 
-    static userRole(){
-        return sessionStorage.getItem('userRole');
+    static setUser(user){
+        sessionStorage.setItem('Identifier', user.id);
+        sessionStorage.setItem('userRole', user.role);
+        sessionStorage.setItem('userRankId', user.rank.id);
+        sessionStorage.setItem('userRankName', user.rank.name);
+        sessionStorage.setItem('userName', user.name);
     }
 
-    static userID(){
-        return sessionStorage.getItem('Identifier');
+    static getUser(){
+        return {
+            role: sessionStorage.getItem('userRole'),
+            id: sessionStorage.getItem('Identifier'),
+            rank: {
+                id: sessionStorage.getItem('userRankId'),
+                name: sessionStorage.getItem('userRankName')
+            },
+            name: sessionStorage.getItem('userName')
+        }
     }
 
-    static userRank(){
-        return sessionStorage.getItem('userRank');
-    }
-
-    static userName(){
-        return sessionStorage.getItem('userName');
+    static clear(){
+        sessionStorage.clear();
     }
 }

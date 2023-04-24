@@ -31,6 +31,8 @@ import Vote from './Vote.vue';
 import { NebulooFetch } from '../utils/https.mjs';
 import User from './User.vue';
 
+import { UserManager } from '../utils/UserManager';
+
 export default{
     data(){
         return{
@@ -77,7 +79,7 @@ export default{
     },
     computed:{
         MyComment(){
-            const identifier = sessionStorage.getItem('Identifier');
+            const identifier = UserManager.getUser().id;//sessionStorage.getItem('Identifier');
             return identifier == this.comment.creator.id;
             },
             commentData(){

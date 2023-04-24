@@ -6,22 +6,23 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse show navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li v-if="showContentsButton" class="nav-item mx-2">
-            <button class="btn" id="button"><router-link class="nav-link active" aria-current="page" to="/contents">Tananyagok</router-link></button>
-          </li>
-          <li v-if="showQuestionsButton" class="nav-item mx-2">
-              <button class="btn" id="button"><router-link class="nav-link active" aria-current="page" to="/questions">Kérdések</router-link></button>
-          </li>
-        </ul>
+
+
+        <div class="me-auto mb-2 ">
+          <button v-if="showContentsButton" class="btn ms-2 mt-2" id="button"><router-link class="nav-link active" aria-current="page" to="/contents">Tananyagok</router-link></button>
+        
+            <button v-if="showQuestionsButton" class="btn ms-2  mt-2   " id="button"><router-link class="nav-link active" aria-current="page" to="/questions">Kérdések</router-link></button>
+        </div>
+
         <form v-if="showSearchBar" class="d-flex" @submit.prevent="search">
           <input v-model="searchTerm" class="form-control me-2" type="search" placeholder="Keresés" aria-label="Search">
           <button class="btn btn-outline-light me-2" type="submit">Keresés</button>
         </form>
-        <div class="row h-100">
+
+        <div v-if="showProfile" class="row h-100">
           <div class="col text-center">
               <router-link class="nav-link active" aria-current="page" to="/myprofile">
-                <user/>
+                <user :user="user"/>
               </router-link>
           </div>
         </div>
@@ -33,6 +34,7 @@
   <script>
   import { RouterLink } from 'vue-router';
   import User from './User.vue';
+  import { UserManager } from '../utils/UserManager';
   export default{
       name:"NavBar",
       components:{
@@ -49,11 +51,15 @@
         showSearchBar() {
           return this.$route.path == '/questions' || this.$route.path == '/contents';
         },
+        showProfile() {
+          return this.$route.path != '/myprofile';
+        },
       },
 
       data() {
         return {
-          searchTerm: ''
+          searchTerm: '',
+          user: null,
         }
       },
 
@@ -75,6 +81,9 @@
             }
           }
         }
+      },
+      mounted(){
+        this.user = UserManager.getUser();
       }
     }
   </script>

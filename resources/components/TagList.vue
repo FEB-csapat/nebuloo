@@ -5,7 +5,8 @@
         <i v-if="topic != null" style="color:gray;" :class="['fas', 'fa-right-long', 'fa-lg']"/>
 
         <tag v-if="topic != null" :topic="topic"/>
-    </div></template>
+    </div>
+</template>
 
 <script>
 import Tag from './Tag.vue';

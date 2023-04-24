@@ -76,6 +76,8 @@
 <script>
 import { NebulooFetch } from '../utils/https.mjs';
 import User from '../components/User.vue';
+
+import { UserManager } from '../utils/UserManager';
 export default {
     data(){
         return{
@@ -106,7 +108,7 @@ export default {
         User
     },
     async mounted(){
-        this.token = sessionStorage.getItem('userToken');
+        this.token = UserManager.getToken();
     }
 
 }

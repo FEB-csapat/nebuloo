@@ -1,6 +1,6 @@
 <template>
-    <div class="container mt-4">
-        <h1 class="text-center mb-4">Kérdések</h1>
+    <div class="container">
+        <h2 class="text-center mt-3 mb-1">Kérdések</h2>
 
         <div id="filter-container">
             <label for="search" class="form-label">Rendezés:</label>
@@ -99,7 +99,7 @@ components:{
                     console.log('callback');
                 });
                 */
-                router.push('/question/create')
+                router.push('/questions/create')
             }            
         },
         handlePaginate(url) {

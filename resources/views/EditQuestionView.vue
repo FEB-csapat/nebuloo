@@ -83,7 +83,7 @@ export default{
     },
     async mounted(){
         await this.getDetailedQuestion();
-        if(this.question.creator.id!=UserManager.userID()&&!UserManager.userRole()=="admin"){
+        if(this.question.creator.id!=UserManager.getUser().id && !UserManager.getUser().role =="admin"){
             alert("Nincs engedélyed ennek a tartalomnak a szerkeztéséhez!",router.back())
         }
     }

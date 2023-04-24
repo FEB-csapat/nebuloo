@@ -1,4 +1,4 @@
-<template>
+    <template>
     <div class="col" @click="navigate">
             
         <h6 v-if="user != null && user.role!=null && showDetailed
@@ -10,7 +10,7 @@
         <p class="text-secondary" v-if="user != null && user.rank!=null && showDetailed">{{user.rank.name}}</p>
 
         <h5 v-if="user != null && showDetailed" class="mt-1">{{user.name}}</h5>
-        <h6 v-else-if="user != null && !showDetailed">{{user.name}}</h6>
+        <h6 v-else-if="user != null && !showDetailed" class="mt-1   ">{{user.name}}</h6>
     </div>
 </template>
 
@@ -40,7 +40,7 @@ export default{
     },
     data(){
         return{
-            profileImage: "../assets/images/"
+          //  profileImage: "../assets/images/"
 
 
         }
@@ -49,7 +49,7 @@ export default{
         navigate(){
             if(this.clickable && this.user != null){
                 this.$router.push({
-                    name: 'myprofile',
+                    name: 'profile',
                     params: {
                         id: this.user.id    
                     },
@@ -57,6 +57,32 @@ export default{
             }
         }
     },
+
+    computed: {
+        profileImage: function(){
+            if(this.user != null && this.user.rank != null){
+                switch( Number(this.user.rank.id) ){
+                    case 1:
+                        return zoldfulu;
+                    case 2:
+                        return okostojas;
+                    case 3:
+                        return zseni;
+                    case 4:
+                        return langesz;
+                    case 5:
+                        return bolcs;
+                    
+                    default:
+                        return zoldfulu;
+                }
+            }else{
+                return zoldfulu;
+            }
+        }
+    },
+
+    /*
     mounted(){
         if(this.user != null && this.user.rank != null){
             switch(this.user.rank.id){
@@ -78,6 +104,7 @@ export default{
             }
         }
     }
+    */
 }
 </script>
 

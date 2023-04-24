@@ -1,8 +1,8 @@
     <template>
-    <div class="container my-3 ">
-        <div class="row bg-light shadow rounded-3 p-2">
-            <h1 class="text-center mb-4">Új tananyag létrehozása</h1>
+    <div class="container">
+        <h2 class="text-center mt-3 mb-2">Új tananyag létrehozása</h2>
 
+        <div class="row bg-light shadow rounded-3 p-2">
                 <div>
                     <textarea ref="editor" name="leiras" id="leiras" class="form-control"></textarea>    
                     <label for="cimkek" class="form-label pt-2">Címkék hozzáadása</label>
@@ -26,7 +26,7 @@ import { NebulooFetch } from '../utils/https.mjs';
 export default{
     data(){
         return{
-            body:''
+            body: ''
         }
     },
     methods:{
@@ -107,13 +107,6 @@ export default{
                     onError(error.message);
                 });
             },
-            /*
-            autosave: {
-                enabled: true,
-                uniqueId: "MyUniqueID",
-                delay: 1000,
-            },
-            */
         });
     },
 };

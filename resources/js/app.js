@@ -24,11 +24,13 @@ import '../assets/style.css'
 
 import '@fortawesome/fontawesome-free/css/all.css'
 import { NebulooFetch } from '../utils/https.mjs';
+import { UserManager } from '../utils/UserManager.js';
 
-if(sessionStorage.getItem('userToken')===null){
+
+if(UserManager.getToken() == null){
     NebulooFetch.initialize(0); /*Universal token */
 }else{
-    NebulooFetch.initialize(sessionStorage.getItem('userToken'));
+    NebulooFetch.initialize(UserManager.getToken());
 }
 
 const app = createApp(App)

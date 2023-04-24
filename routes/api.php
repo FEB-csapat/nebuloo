@@ -137,6 +137,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
         ->name("me.tickets.store");
     Route::delete('tickets/{id}', [TicketController::class, 'destroy'])
         ->name("tickets.destroy");
+
+    Route::put('tickets/{id}', [TicketController::class, "update"])
+        ->name("tickets.update");
     
     Route::post('{commentable}/{id}/comments', [CommentController::class, "store"])
         ->name("commentable.comments.store");
@@ -200,10 +203,7 @@ Route::group(['middleware' => ['role:admin']], function () {
         ->name('tickets.index');
     Route::get('tickets/{id}',[TicketController::class,'show'])
         ->name('tickets.show');
-    Route::post('tickets',[TicketController::class,'store'])
-        ->name('tickets.store');
-    Route::put('tickets/{id}', [TicketController::class, "update"])
-        ->name("tickets.update");
+    
     Route::delete('tickets/{id}', [TicketController::class, 'destroy'])
         ->name("tickets.destroy");
 });

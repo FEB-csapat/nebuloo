@@ -19,6 +19,8 @@ import EditQuestionView from '../views/EditQuestionView.vue'
 
 import EditContentView from '../views/EditContentView.vue'
 
+import { UserManager } from '../utils/UserManager';
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -145,7 +147,7 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  if (to.meta.requiresAuth && sessionStorage.getItem('userToken') === null) 
+  if (to.meta.requiresAuth && UserManager.getToken() === null) 
   {
     next('login');
     alert("A folytatáshoz kérlek jelentkezz be!");

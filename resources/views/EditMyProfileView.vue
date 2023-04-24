@@ -49,7 +49,7 @@ export default{
     },
     methods:{
         editData(values){
-            if(UserManager.userRole()=="admin"&&UserManager.userID()!=this.id){
+            if(UserManager.getUser().role == "admin"&&UserManager.getUser().id !=this.id){
                 this.editProfileData(values);
             }else{
                 this.editMyData(values);
@@ -80,7 +80,7 @@ export default{
         
     },
     async mounted(){
-        if(UserManager.userID()!=this.id && UserManager.userRole()!=="admin")
+        if(UserManager.getUser().id !=this.id && UserManager.getUser().role !=="admin")
         {
             alert("Nincs jogosultságod változtatásokat végezni más profilján!",router.push("/myprofile"))
         }

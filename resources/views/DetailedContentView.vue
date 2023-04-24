@@ -1,25 +1,25 @@
 <template>
-    <div class="container my-3 ">
-        <h1 class="text-center mb-4">Tananyag megtekintése</h1>
+    <div class="container">
+        <h2 class="text-center mt-3 mb-2">Tananyag megtekintése</h2>
         <div class="row bg-light shadow rounded-3 p-2" id="contentid">
             <div class="row">
-                <div class="col-11 text-center">
+                <div class="col text-center ">
+                    <div class="d-flex justify-content-between">
+                    <div class="">
+                        <user v-if="content!=null" :user="content.creator"></user>  
 
-                    <user v-if="content!=null" :user="content.creator"></user>   
-
-                    <div class="col">
-                        <p v-if="content != null">{{content?.created_at}}</p>
+                        <div class="">
+                            <p v-if="content != null">{{contentCreationDate}}</p>
+                            <p v-if="content != null">{{contentCreationTime}}</p>
+                        </div>
                     </div>
-                </div>
-
-                <div class="col-1">
-                    <vote v-if="content!=null" :contentId="id" :voteCount="content.recieved_votes" :myVote="content.my_vote"></vote>
+                        <vote v-if="content!=null" :contentId="id" :voteCount="content.recieved_votes" :myVote="content.my_vote"></vote>
+                    </div>
                 </div>
             </div>
 
             <tag-list v-if="content!=null" :subject="content.subject" :topic="content.topic"/>
-                
-            
+
             <div class="detailed_content_view_textarea">
                 <textarea ref="editor" name="leiras" id="leiras" class="form-control">Betöltés...</textarea>
             </div>
@@ -30,12 +30,12 @@
                         Letöltés
                     </button>
                 </div>
-                <div class="col-sm-4 text-center" v-if="MyPost">
+                <div class="col-sm-4 text-center" v-if="isMyContent">
                     <button class=" btn btn-success" @click="goToEdit()">
                         Szerkesztés
                     </button>
                 </div>
-                <div class="col-sm-4 text-end" v-if="MyPost">
+                <div class="col-sm-4 text-end" v-if="isMyContent">
                     <button class="btn btn-danger" @click="deletePost()">
                         Tananyag törlése
                     </button> 
@@ -45,7 +45,6 @@
         </div>
             <comment-section v-if="content!=null" :comments="content.comments" :commentable_id="content.id" :commentable_type="contents"></comment-section>
     </div>
-    
 </template>
 
 <script>
@@ -60,6 +59,8 @@ import TagList from '../components/TagList.vue';
 import CommentSection from '../components/CommentSection.vue';
 import router from '../router';
 import html2pdf from 'html2pdf.js';
+
+import { UserManager } from '../utils/UserManager.js';
 
 export default{
     props:
@@ -111,6 +112,7 @@ export default{
             html2pdf(document.getElementById('contentid'), {image : {type: 'jpeg', quality: 1}, filename: 'Tananyag.pdf'});
         }
     },
+    
     async mounted(){
         this.getDetailedContent();
 
@@ -124,11 +126,18 @@ export default{
 
         this.editor.togglePreview();
     },
+    
     computed:{
-        MyPost(){
-            const identifier = sessionStorage.getItem('Identifier');
+        isMyContent(){
+            const identifier = UserManager.getUser().id;
             return identifier == this.creator.id;
-            },
+        },
+        contentCreationDate: function(){
+            return this.content.created_at.split(' ')[0];
+        },
+        contentCreationTime: function(){
+            return this.content.created_at.split(' ')[1];
+        },
     },
 };
 </script>

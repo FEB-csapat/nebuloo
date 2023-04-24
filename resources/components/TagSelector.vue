@@ -1,31 +1,27 @@
 <template>
-    <h5>TODO: align tag items at the left side</h5>
-    <div class="row mb-1 align-items-end">
-        <div class="col">
+    <div class="d-flex mb-1 align-items-end">
+        <div>
             <label for="search" class="form-label">Tantárgy:</label>
-            <select id="subject-selector" class="form-select" style="width:160px;" v-model="subject" @change="subjectItemSelected()">
+            <select id="subject-selector" class="form-select" v-model="subject" @change="subjectItemSelected()">
                 <option v-for="subj in subjects" :key="subj.id" :value="subj">{{ subj.name }}</option>
             </select>
         </div>
 
 
-        <div v-if="subject != null" class="col">
-            <i style="color:gray; margin-bottom: 12px" :class="['fas', 'fa-right-long', 'fa-lg',]"/>
+        <div v-if="subject != null" class="m-2" >
+            <i style="color:gray; " :class="['fas', 'fa-right-long', 'fa-lg',]"/>
         </div>
 
-        <div v-if="subject != null" class="col">
+        <div v-if="subject != null" >
             <div class="row align-items-start">
-                
-    
-                <div class="col">
+                <div>
                     <label for="" class="form-label">Témakör:</label>
-                    <select id="topic-selector" class="form-select" style="width:160px" v-model="topic" @change="topicItemSelected()">
+                    <select id="topic-selector" class="form-select" v-model="topic" @change="topicItemSelected()">
                         <option v-for="top in topics" :key="top.id" :value="top">{{ top.name }}</option>
                     </select>
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 

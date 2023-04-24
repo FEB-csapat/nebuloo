@@ -1,7 +1,8 @@
 <template>
-    <div class="container my-3 ">
+    <div class="container">
+        <h2 id="text-center mt-3 mb-2">Új kérdés feltétele</h2>
+
         <div class="row bg-light shadow rounded-3 p-2">
-            <h1 id="title">Új kérdés feltétele</h1>
             <div>
                 <label for="cim" class="form-label pt-2">Cím*</label>
                 <input type="text" id="cim" v-model="title" class="form-control">

@@ -35,6 +35,8 @@ import router from '../router/index';
 
 import SnackBar from '../components/snackbars/SnackBar.vue';
 
+import { UserManager } from '../utils/UserManager';
+
 export default{
     data(){
         return{
@@ -53,11 +55,11 @@ export default{
 
             login.post('login', values)
             .then(response=>{
-                sessionStorage.setItem('userToken',response.data.token);
-                sessionStorage.setItem('Identifier',response.data.user.id);
-                sessionStorage.setItem('userRole',response.data.user.role);
-                sessionStorage.setItem('userRank',response.data.user.rank.id);
-                sessionStorage.setItem('userName',response.data.user.name);
+                UserManager.setUser(response.data.user);
+
+                
+                UserManager.setToken(response.data.token);
+
                 NebulooFetch.initialize(response.data.token);
             })
             .then(response=>{
@@ -66,7 +68,8 @@ export default{
                 router.push('/contents');
             })
             .catch(error=>{
-                this.errorMessage = error.response.data.message;
+                console.log(error);
+               // this.errorMessage = error.response.data.message;
             })
         }
     }
