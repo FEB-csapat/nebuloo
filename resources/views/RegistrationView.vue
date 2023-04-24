@@ -90,7 +90,6 @@ export default{
             .catch(errors=>{
                 console.log(errors);
                 this.errors = errors;
-                window.alert("Hibás adatok!");
             })
         }
     }
