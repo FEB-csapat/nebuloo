@@ -1,9 +1,9 @@
 <template>
-    <div class="d-flex justify-content-between bg-light shadow rounded-3 p-2 mt-2">
-        <div class="col-sm-1 col-xs-2">
+    <div class="d-flex justify-content-center bg-light shadow rounded-3 p-2 mt-2 commentcard">
+        <div class="mx-1">
             <user class="text-center" :user="comment.creator"></user> 
         </div>
-        <div class="col-xs-9 col-sm-10">
+        <div class="mx-1">
             <p style="margin-left: 5px;" v-if="!isEditing">{{comment.message}}</p>
             <textarea id="body" v-model="commentbody" v-if="isEditing" class="form-control" rows="3" cols="10"></textarea>
 
@@ -20,7 +20,7 @@
             </div>
 
         </div>
-        <div class="col-sm-1 col-xs-1">
+        <div class="mx-1">
             <vote :contentId="comment.id" :voteCount="comment.recieved_votes" :myVote="comment.my_vote"></vote>
         </div>
     </div>
@@ -61,6 +61,7 @@ export default{
         },
         editModeOn(){
             this.isEditing = true;
+            this.commentbody = this.comment.message;
         },
         async editModeOff(){
             if (window.confirm("Biztosan szerkeszteni szeretné hozzászólását?")) {

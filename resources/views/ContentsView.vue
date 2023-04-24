@@ -35,7 +35,7 @@
 
 
     <div class="fab-button" @click="createContent">
-        <span class="m-3">Create new content</span>
+        <span class="m-3">Új tananyag létrehozása</span>
         <i class="fas fa-plus fa-lg"/>
     </div>
 

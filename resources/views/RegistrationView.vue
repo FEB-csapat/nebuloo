@@ -4,24 +4,24 @@
             <Form @submit="Register">
                 
     <label for="name" class="form-label mt-2">Felhasználó név:</label>
-    <Field v-validate="''" type="text" name="name" placeholder="Felhasználó név" class="form-control"/>
-    <!-- <div v-if="form.errors.has('name')" class="text-white bg-opacity-25 border border-danger p-2"> {{errors['name']}} </div> -->
+    <Field rules="alpha_num" type="text" name="name" placeholder="Felhasználó név" class="form-control"/>
+    <ErrorMessage name="name" class="bg-opacity-25 border border-danger p-2 d-flex" />
 
     <label for="email" class="form-label mt-2">E-mail cím:</label>
-    <Field v-validate="''" type="text" name="email" placeholder="E-mail cím" class="form-control"/>
-    <!-- <div v-if="form.errors.has('email')" class="text-white bg-opacity-25 border border-danger p-2"> {{errors['email']}} </div> -->
+    <Field rules="email" type="text" name="email" placeholder="E-mail cím" class="form-control"/>
+    <ErrorMessage name="email" class="bg-opacity-25 border border-danger p-2 d-flex" />
 
     <label for="password" class="form-label mt-2">Jelszó:</label>
-    <Field v-validate="''" type="password" name="password" placeholder="Jelszó" ref="password" class="form-control"/>
+    <Field :rules="{ regex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/ }" type="password" name="password" placeholder="Jelszó" ref="password" class="form-control"/>
+    <ErrorMessage name="password" class="bg-opacity-25 border border-danger p-2 d-flex" />
     <p class="text-muted ms-2">
         A jelszónak <b>legalább 8 karakter</b> hosszúnak kell lennie, és <b>tartalmaznia kell</b> az alábbiakat: Legalább 1 <b>Nagybetű</b>, <b>Kisbetű</b>, <b>Szám</b>, és <b>Speciális karakter</b>.
     </p>
-    <!-- <div v-if="form.errors.has('password')" class="text-white bg-opacity-25 border border-danger p-2"> {{errors['password']}} </div> -->
 
     <label for="password_confirmation" class="form-label mt-2">Jelszó újra:</label>
-    <Field v-validate="''" type="password" name="password_confirmation" placeholder="Jelszó újra" class="form-control"/>
-    <!-- <div v-if="form.errors.has('password_confirmation')" class="text-white bg-opacity-25 border border-danger p-2"> {{errors['password_confirmation']}} </div>  -->    
-    
+    <Field rules="confirmed:@password" type="password" name="password_confirmation" placeholder="Jelszó újra" class="form-control"/>
+    <ErrorMessage name="password_confirmation" class="bg-opacity-25 border border-danger p-2 d-flex" />
+
     <!--
     <div class="form-check mt-2">
         <Field class="form-check-input" type="checkbox" id="aszf" name="aszf"/>
@@ -56,10 +56,10 @@
 </template>
 <script>
 import router from "../router/index.js";
-import { Form ,Field } from 'vee-validate';
-import axios from 'axios'
+import { Form ,Field, ErrorMessage } from 'vee-validate';
+import axios from 'axios';
 import SnackBar from "../components/snackbars/SnackBar.vue";
-import * as yup from 'yup';
+
 
 export default{
     data(){
@@ -73,7 +73,7 @@ export default{
         }
     },
     components:{
-        SnackBar,Field, Form
+        SnackBar,Field, Form, ErrorMessage
     },
     methods:{
         async Register(values){
