@@ -31,6 +31,13 @@ if(sessionStorage.getItem('userToken')===null){
     NebulooFetch.initialize(sessionStorage.getItem('userToken'));
 }
 
+import AllRules from '@vee-validate/rules';
+import { defineRule } from 'vee-validate';
+
+Object.keys(AllRules).forEach(rule => {
+    defineRule(rule, AllRules[rule]);
+  });
+
 const app = createApp(App)
 
 app.use(router)
