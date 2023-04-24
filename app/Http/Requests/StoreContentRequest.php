@@ -24,7 +24,9 @@ class StoreContentRequest extends FormRequest
     public function rules()
     {
         return [
-            "body" => "required|min:1"
+            "body" => "required|min:1",
+            "subject_id" => "nullable|integer|exists:subjects,id",
+            "topic_id" => "nullable|integer|exists:topics,id",
         ];
     }
 }

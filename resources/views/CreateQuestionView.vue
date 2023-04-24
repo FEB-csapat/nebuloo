@@ -1,56 +1,62 @@
 <template>
-    <div class="container">
-        <h2 id="text-center mt-3 mb-2">Új kérdés feltétele</h2>
+<div class="container">
+    <h2 id="text-center mt-3 mb-2">Új kérdés feltétele</h2>
 
-        <div class="row bg-light shadow rounded-3 p-2">
-            <div>
-                <label for="cim" class="form-label pt-2">Cím*</label>
-                <input type="text" id="cim" v-model="title" class="form-control">
+    <div class="row bg-light shadow rounded-3 p-2">
+        <div>
+            <tag-selector @subjectItemSelected="handleSubjectItemSelected" @topicItemSelected="handleTopicItemSelected"
+                :defaultSubjectId="subjectId" :defaultTopicId="topicId"
+                ref="tagSelector"/>
 
-                <label for="leiras" class="form-label pt-2">Leírás*</label>
-                <textarea name="leiras" id="leiras" v-model="body" rows="5" class="form-control"></textarea>
+            <label for="cim" class="form-label pt-2">Cím*</label>
+            <input type="text" id="cim" v-model="title" class="form-control">
 
-                <label for="cimkek" class="form-label pt-2">Címkék hozzáadása</label>
-                    <input type="text" name="cimkek" id="cimkek" class="form-control">
-            </div>
-            <div class="text-end p-2">
-                <button class="btn" id="button" @click="NewQuestion()">
-                    Létrehozás
-                </button>
-            </div>
+            <label for="leiras" class="form-label pt-2">Leírás</label>
+            <textarea name="leiras" id="leiras" v-model="body" rows="5" class="form-control"></textarea>
+
+        </div>
+        <div class="text-end p-2">
+            <button class="btn" id="button" @click="createQuestion()">
+                Létrehozás
+            </button>
         </div>
     </div>
-    </template>
-    
-    <script>
-    import { NebulooFetch } from '../utils/https.mjs';
-    export default{
-        data(){
-            return{
-                title:"",
-                body:"",
-            }
-        },
-        methods:{
-            async NewQuestion(){
-                const data = JSON.stringify(this.question);
-                NebulooFetch.createQuestion(data)
-                .then(()=>{
-                    alert("Sikeres létrehozás!");
-                    router.push('/myprofile');
-                });
-            }
-        },
-        mounted(){
-            
-        },
-        computed:{
-            question(){
-                return{
-                    title:this.title,
-                    body:this.body
-                }
-            }
+</div>
+</template>
+
+<script>
+import { NebulooFetch } from '../utils/https.mjs';
+import TagSelector from '../components/TagSelector.vue';
+
+export default{
+    components:{
+        TagSelector,
+    },
+    data(){
+        return{
+            title:"",
+            body:"",
+            subjectId: null,
+            topicId: null,
         }
-    };
-    </script>
+    },
+    methods:{
+        async createQuestion(){
+            NebulooFetch.createQuestion(this.title, this.body, this.subjectId, this.topicId)
+            .then(()=>{
+                alert("Sikeres létrehozás!");
+                router.push('/myprofile');
+            });
+        },
+        handleSubjectItemSelected(subjectId) {
+            this.subjectId = subjectId;
+        },
+        handleTopicItemSelected(topicId) {
+            this.topicId = topicId;
+        },
+    },
+    mounted(){
+        
+    },
+};
+</script>

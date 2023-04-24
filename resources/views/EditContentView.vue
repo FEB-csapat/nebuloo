@@ -3,9 +3,11 @@
         <div class="row bg-light shadow rounded-3 p-2">
             <h1 id="title">Tananyag szerkesztése</h1>
                 <div>
-                    <textarea ref="editor" name="leiras" id="leiras" class="form-control"></textarea>    
-                    <label for="cimkek" class="form-label pt-2">Címkék hozzáadása</label>
-                    <input type="text" name="cimkek" id="cimkek" class="form-control">
+                    <tag-selector @subjectItemSelected="handleSubjectItemSelected" @topicItemSelected="handleTopicItemSelected"
+                    :defaultSubjectId="subjectId" :defaultTopicId="topicId"
+                    ref="tagSelector"/>
+
+                    <textarea ref="editor" name="leiras" id="leiras" class="form-control"></textarea>
                 </div>
 
             <div class="text-end p-3">
@@ -24,10 +26,17 @@ import { NebulooFetch } from '../utils/https.mjs';
 import { UserManager } from '../utils/UserManager';
 import router from '../router';
 
+import TagSelector from '../components/TagSelector.vue';
+
 export default{
+    components:{
+        TagSelector,
+    },
     data(){
         return{
-            body:''
+            body:'',
+            subjectId: null,
+            topicId: null,
         }
     },
     props:
@@ -43,11 +52,8 @@ export default{
             if(body==""){
                 alert("A poszt nem lehet üres!")
             }
-            var data={
-                body: body,
-                //TODO: tags
-            }
-            NebulooFetch.updateContent(data, this.id)
+
+            NebulooFetch.updateContent(this.id, body, this.subjectId, this.topicId)
             .then(response=>{
                 console.log(response)
                 alert("Sikeres szerkesztés!",this.$router.push({name: 'contentById', params:{id: response.data.id}}))
@@ -55,6 +61,12 @@ export default{
             .catch(error=>{
              //   console.log(error)
             })
+        },
+        handleSubjectItemSelected(subjectId) {
+            this.subjectId = subjectId;
+        },
+        handleTopicItemSelected(topicId) {
+            this.topicId = topicId;
         },
     },
     async mounted(){

@@ -1,13 +1,15 @@
 <template>
-    <div class="d-flex justify-content-center bg-light shadow rounded-3 p-2 mt-2 commentcard">
-        <div class="mx-1">
-            <user class="text-center" :user="comment.creator"></user> 
+    <div class="d-flex justify-content-between bg-light shadow rounded-3 p-2 mt-2 commentcard" id="card">
+        
+        <div class="align-items-center" style="max-width: 85px; min-width: 72px">
+            <user id="text-overflow" :user="comment.creator"></user>
         </div>
+
         <div class="mx-1">
             <p style="margin-left: 5px;" v-if="!isEditing">{{comment.message}}</p>
             <textarea id="body" v-model="commentbody" v-if="isEditing" class="form-control" rows="3" cols="10"></textarea>
 
-            <div class="text-end" v-if="MyComment==true">
+            <div class="text-end" v-if="isMyComment==true">
                 <button class="btn btn-success m-2" @click="editModeOff()" v-if="isEditing"> 
                     Szerkeszt
                 </button>
@@ -20,7 +22,7 @@
             </div>
 
         </div>
-        <div class="mx-1">
+        <div class="">
             <vote :contentId="comment.id" :voteCount="comment.recieved_votes" :myVote="comment.my_vote"></vote>
         </div>
     </div>
@@ -79,11 +81,10 @@ export default{
         },
     },
     computed:{
-        MyComment(){
-            const identifier = UserManager.getUser().id;//sessionStorage.getItem('Identifier');
-            return identifier == this.comment.creator.id;
-            },
-            commentData(){
+        isMyComment(){
+            return UserManager.getUser().id == this.comment.creator.id;
+        },
+        commentData(){
             return{
                 message:this.commentbody
             }

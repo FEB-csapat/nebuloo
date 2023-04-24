@@ -24,7 +24,6 @@ class QuestionResource extends JsonResource
             'id' => $this->id,
             'subject' => new SubjectResource($this->subject),
             'topic' => new TopicResource($this->topic),
-            'tags' => TagResource::collection($this->tags),
             'creator' => new SimpleUserResource($this->creator),
             'recieved_votes' => $this->sumVoteScore(),
             'my_vote' => $requestUserVote ? $requestUserVote->direction : null,

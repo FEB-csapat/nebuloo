@@ -2,7 +2,12 @@
 <div class="container my-3 ">
     <h1 class="text-center mb-4">Kérdés szerkesztése</h1>
     <div class="row bg-light shadow rounded-3 p-2">
-        <Form @submit="editQuestion" :initial-values="initData">
+        
+        <tag-selector @subjectItemSelected="handleSubjectItemSelected" @topicItemSelected="handleTopicItemSelected"
+                :defaultSubjectId="subjectId" :defaultTopicId="topicId"
+                ref="tagSelector"/>
+
+        <Form @submit="updateQuestion" :initial-values="initData">
             <label for="title" class="form-label mt-2">Kérdés címe:</label>
             <Field id="title" type="text" name='title' class="form-control"/>
 
@@ -29,10 +34,11 @@ import { NebulooFetch } from '../utils/https.mjs';
 import SnackBar from '../components/snackbars/SnackBar.vue';
 import {Form, Field} from 'vee-validate'
 import { UserManager } from '../utils/UserManager';
-
+import TagSelector from '../components/TagSelector.vue';
 export default{
     components:{
-        SnackBar
+        SnackBar,
+        TagSelector
     },
     data(){
         return {
@@ -41,6 +47,8 @@ export default{
                 title:'',
                 body:''
             },
+            subjectId: null,
+            topicId: null,
         };
     },
     components:{
@@ -59,8 +67,9 @@ export default{
             this.initData.title = this.question.title;
             this.initData.body = this.question.body;
         },
-        async editQuestion(values){
-            var response = (await NebulooFetch.editQuestion(values,this.id));
+        async updateQuestion(values){
+
+            var response = (await NebulooFetch.updateQuestion(this.id, values.title, values.body, this.subjectId, this.topicId));
 
             if(response.status == 200){
                // this.$router.push('/questions/'+id);
@@ -79,6 +88,12 @@ export default{
                     id: this.question.id,
                 }
             })
+        },
+        handleSubjectItemSelected(subjectId) {
+            this.subjectId = subjectId;
+        },
+        handleTopicItemSelected(topicId) {
+            this.topicId = topicId;
         },
     },
     async mounted(){

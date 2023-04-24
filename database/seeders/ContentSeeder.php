@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Content;
 
 use Illuminate\Database\Seeder;
-use Spatie\Tags\Tag;
 
 class ContentSeeder extends Seeder
 {
@@ -19,7 +18,7 @@ class ContentSeeder extends Seeder
         Content::factory()->create([
             'creator_user_id' => 1,
             'body' => "Example content",
-        ])->attachTag("history", 'offical-subject');
+        ]);
 
         Content::factory()->create([
             'creator_user_id' => 1,
@@ -96,15 +95,9 @@ Dosztojevszkij munkássága az orosz irodalom történetében egyedülálló, é
         Content::factory()->create([
             'creator_user_id' => 2,
             'body' => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        ])->attachTag("history", 'offical-subject');
+        ]);
 
         
-        Content::factory()->count(20)->create()
-            ->each(function ($content) {
-                $col = Tag::inRandomOrder();
-                for($i = 0; $i < 3; $i++ ){
-                    $content->attachTag($col->first());
-                }
-            });
+        Content::factory()->count(20)->create();
     }
 }

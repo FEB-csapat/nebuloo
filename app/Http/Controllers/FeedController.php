@@ -9,9 +9,7 @@ use App\Http\Resources\SimpleQuestionResource;
 use App\Models\Content;
 use App\Models\Question;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
 
 class FeedController extends Controller
 {

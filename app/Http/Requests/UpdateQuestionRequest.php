@@ -25,7 +25,9 @@ class UpdateQuestionRequest extends FormRequest
     {
         return [
             "title" => "required|max:40",
-            "body" => ""
+            "body" => "",
+            "subject_id" => "nullable|integer|exists:subjects,id",
+            "topic_id" => "nullable|integer|exists:topics,id",
         ];
     }
 }

@@ -16,10 +16,23 @@ export class UserManager{
         sessionStorage.setItem('userName', user.name);
     }
 
+    static get user() {
+        return this.getUser();
+    }
+
     static getUser(){
+        var id = sessionStorage.getItem('Identifier');
+
+        
+        console.log("asdasd: " + id);
+
+
+        if(id == null){
+            return null;
+        }
         return {
             role: sessionStorage.getItem('userRole'),
-            id: sessionStorage.getItem('Identifier'),
+            id: id,
             rank: {
                 id: sessionStorage.getItem('userRankId'),
                 name: sessionStorage.getItem('userRankName')

@@ -1,12 +1,14 @@
-    <template>
+<template>
     <div class="container">
         <h2 class="text-center mt-3 mb-2">Új tananyag létrehozása</h2>
 
         <div class="row bg-light shadow rounded-3 p-2">
                 <div>
-                    <textarea ref="editor" name="leiras" id="leiras" class="form-control"></textarea>    
-                    <label for="cimkek" class="form-label pt-2">Címkék hozzáadása</label>
-                    <input type="text" name="cimkek" id="cimkek" class="form-control">
+                    <tag-selector @subjectItemSelected="handleSubjectItemSelected" @topicItemSelected="handleTopicItemSelected"
+                    :defaultSubjectId="subjectId" :defaultTopicId="topicId"
+                    ref="tagSelector"/>
+
+                    <textarea ref="editor" name="leiras" id="leiras" class="form-control mt-2"></textarea>
                 </div>
     
             <div class="text-end p-3">
@@ -16,17 +18,22 @@
             </div>
         </div>
     </div>
-    
 </template>
 
 <script>
 import EasyMDE from 'easymde';
 import { NebulooFetch } from '../utils/https.mjs';
+import TagSelector from '../components/TagSelector.vue';
 
 export default{
+    components:{
+        TagSelector,
+    },
     data(){
         return{
-            body: ''
+            body: '',
+            subjectId: null,
+            topicId: null,
         }
     },
     methods:{
@@ -37,11 +44,7 @@ export default{
                 alert("A poszt nem lehet üres!");
                 return;
             }
-            var data = {
-                body: body,
-              //  tags: document.getElementById("cimkek").value,
-            }
-            var response = (await NebulooFetch.createContent(data));
+            var response = (await NebulooFetch.createContent(body, this.subjectId, this.topicId));
 
             if(response.status == 201){
                 this.$router.push({ name: 'contentById', params:  {id: response.data.id} })
@@ -50,12 +53,13 @@ export default{
                 alert("Hiba történt a poszt létrehozása közben!");
             }
         }, 
-    },
-    computed:{
-    
-    },
-    components:{
 
+        handleSubjectItemSelected(subjectId) {
+            this.subjectId = subjectId;
+        },
+        handleTopicItemSelected(topicId) {
+            this.topicId = topicId;
+        },
     },
     mounted(){
         this.editor = new EasyMDE({

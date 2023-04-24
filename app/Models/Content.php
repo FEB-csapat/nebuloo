@@ -4,17 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Tags\HasTags;
 
 class Content extends Model
 {
-    use HasFactory, HasTags;
+    use HasFactory;
 
     protected $table = 'contents';
     protected $primaryKey = 'id';
 
 
-    protected $fillable = ['title', 'body', 'creator_user_id'];
+    protected $fillable = ['title', 'body', 'creator_user_id', 'subject_id', 'topic_id'];
 
 
     public static function create(array $attributes = [])

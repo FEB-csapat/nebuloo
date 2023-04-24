@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('creator_user_id')->nullable()
                 ->references('id')->on('users')->cascadeOnDelete();
-          //  $table->morphs('taggable');
             $table->string('name');
             $table->timestamps();
         });

@@ -2,13 +2,13 @@
 <div class="container">
     
     <div class="row bg-light mt-3 mb-2 rounded-3 p-3 shadow">
-            <div class="col text-end mb-4" v-if="myprofile">
+            <div class="col text-end mb-4" v-if="isMyProfile">
                 <button class="btn" id="button" @click="SignOut()">
                         Kijelentkezés
                 </button>
             </div>
         <div class="row text-center mb-4">
-            <user v-if="userdata!=null" :user="userdata" v-bind:showDetailed="true"></user> 
+            <user v-if="userData!=null" :user="userData" v-bind:showDetailed="true"></user> 
         </div>
         <div class="row mb-2">
             <div class="col-sm-4">
@@ -18,40 +18,40 @@
                 <p>
                     votescore
                 </p>
-                <h6 v-if="userdata!=null">
-                    {{this.userdata.recieved_votes}}
+                <h6 v-if="userData!=null">
+                    {{this.userData.recieved_votes}}
                 </h6>
             </div>
             <div class="col-6 mb-2">
                 <p>
                     questions
                 </p>
-                <h6 v-if="userdata!=null">
-                    {{ this.userdata.questions.length }}
+                <h6 v-if="userData!=null">
+                    {{ this.userData.questions.length }}
                 </h6>
             </div>
             <div class="col-6 mb-2">
                 <p>
                     contents
                 </p>
-                <h6 v-if="userdata!=null">
-                    {{ this.userdata.contents.length }}
+                <h6 v-if="userData!=null">
+                    {{ this.userData.contents.length }}
                 </h6>
             </div>
             <div class="col-6 mb-2">
                 <p>
                     comments
                 </p>
-                <h6 v-if="userdata!=null">
-                    {{ this.userdata.comments.length }}
+                <h6 v-if="userData!=null">
+                    {{ this.userData.comments.length }}
                 </h6>
             </div>
         </div>
     </div>
     <div class="col-sm-8">
         <h2>Bio:</h2>
-    <p v-if="userdata != null" class="ps-5">
-        {{ userdata.bio }}
+    <p v-if="userData != null" class="ps-5">
+        {{ userData.bio }}
     </p>
     </div>
         </div>
@@ -63,7 +63,7 @@
         <li>Matematika</li>
         <li>Filozófia</li>
     </ul>
-    <div class="row text-center" v-if="myprofile">
+    <div class="row text-center" v-if="isMyProfile">
         <div class="col-6">
                 <button class="btn btn-info"  @click="navigate">
                         Profilom szerkesztése
@@ -75,12 +75,12 @@
                 </button>
         </div>
     </div>
-    <div class="row my-4" v-if="admin">
+    <div class="row my-4" v-if="isAdmin">
         <h2>
             Admin panel:
         </h2>
         <div class="col-sm-6">
-            <select v-model="pickedrole" class="form-select mb-2 col-12" name="roleselector">
+            <select v-model="pickedRole" class="form-select mb-2 col-12" name="roleselector">
                 <option value="moderator">Moderátor</option>
                 <option value="user">User</option>
             </select>
@@ -91,7 +91,7 @@
             
         </div>
     </div>
-    <div class="row my-2 text-center" v-if="admin">
+    <div class="row my-2 text-center" v-if="isAdmin">
         <div class="col-6">
             <button class="btn btn-info" @click="editProfile()">Profil szerkesztése</button>
         </div>
@@ -103,30 +103,30 @@
     
 
     <h2 class="mt-5 mb-2">Kérdéseim:</h2>
-    <p v-if="IHaveQuestions==false">
+    <p v-if="hasQuestions==false">
         Nincsenek kérdéseim.
     </p>
-    <cards :Questions="userdata.questions" v-else/>
+    <cards :Questions="userData.questions" v-else/>
 
     <h2 class="mt-4 mb-2">Tananyagaim:</h2>
-    <p v-if="IHaveContents==false">
+    <p v-if="hasContents==false">
         Nincsenek tananyagaim.
     </p>
-    <cards :Contents="userdata.contents" v-else/>
+    <cards :Contents="userData.contents" v-else/>
 
     <h2 class="mt-4">Kommentjeim:</h2>
     <div>
-        <p v-if="IHaveComments==false">
+        <p v-if="hasComments==false">
             Nincsenek kommentjeim.
         </p>
-        <comment-card v-else v-for="comment in userdata.comments" :key="comment.id" :comment="comment" />
+        <comment-card v-else v-for="comment in userData.comments" :key="comment.id" :comment="comment" />
     </div>
     
     <h2 class="mt-4">Hibajegyeim:</h2>
-    <p v-if="IHaveTickets==false">
+    <p v-if="hasTickets==false">
         Nincsenek Hibajegyeim.
     </p>
-    <cards :Tickets="userdata.tickets" v-else/>
+    <cards :Tickets="userData.tickets" v-else/>
 
 </div>
 </template>
@@ -142,11 +142,11 @@ import { UserManager } from '../utils/UserManager';
 export default{
 data(){
     return{
-        userdata: null,
-        myprofile: false,
-        admin: false,
+        userData: null,
+        isMyProfile: false,
+        isAdmin: false,
 
-        pickedrole: null
+        pickedRole: null
     }   
 },
 components:{
@@ -165,7 +165,7 @@ methods:{
     async changeProfileRole(){
         if(window.confirm("Biztosan megakarja változtatni a felhasználó jogosultságait?")){
             var data={
-                role: this.pickedrole
+                role: this.pickedRole
             };
             NebulooFetch.changeUserRole(this.id,data)
             .then(()=>{
@@ -191,20 +191,20 @@ methods:{
         router.push({
             name: 'EditProfile',
             params: {
-                id:  this.userdata.id
+                id:  this.userData.id
             },
             props:{
-                id: this.userdata.id
+                id: this.userData.id
             }
         }) 
     },
     
-    async GetMyData(){
+    async getMyData(){
         this.responseBody = (await NebulooFetch.getMyDatas()).data;
-        this.userdata = this.responseBody;
+        this.userData = this.responseBody;
     },
     async getProfileData(){
-        this.userdata = (await NebulooFetch.getUserData(this.id)).data;
+        this.userData = (await NebulooFetch.getUserData(this.id)).data;
     },
     async deleteMe(){
         if (window.confirm("Biztosan törölni szeretné fiókját?")) {
@@ -219,10 +219,10 @@ methods:{
             this.$router.push({
                 name: 'EditProfile',
                 params: {
-                    id:  this.userdata.id
+                    id:  this.userData.id
                 },
                 props: {
-                    id: this.userdata.id
+                    id: this.userData.id
                 }
             })
         },
@@ -232,17 +232,17 @@ methods:{
         },
 },
 computed: { 
-    IHaveQuestions(){
-        return this.userdata != null && this.userdata.questions != 0;
+    hasQuestions(){
+        return this.userData != null && this.userData.questions != 0;
     },
-    IHaveComments(){
-        return this.userdata != null && this.userdata.comments != 0;
+    hasComments(){
+        return this.userData != null && this.userData.comments != 0;
     },
-    IHaveContents(){
-        return this.userdata != null && this.userdata.contents != 0;
+    hasContents(){
+        return this.userData != null && this.userData.contents != 0;
     },
-    IHaveTickets(){
-        return this.userdata != null && this.userdata.tickets != 0;
+    hasTickets(){
+        return this.userData != null && this.userData.tickets != 0;
     },
     
   },
@@ -251,15 +251,15 @@ async mounted(){
     
     if(this.id==null) //MyProfile
     {
-        this.GetMyData();
-        this.myprofile = true;
+        this.getMyData();
+        this.isMyProfile = true;
     }
     else{
         this.getProfileData();
-        this.myprofile = false;
+        this.isMyProfile = false;
     }
     if(UserManager.getUser().role ==='admin'){
-        this.admin= true;
+        this.isAdmin= true;
     }
 }
 

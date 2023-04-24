@@ -1,26 +1,29 @@
 <template>
-    <div class="d-flex bg-light rounded-4 mb-4 p-3 contentcard" id="card">
-        <div class="nav-link active" aria-current="page"
-            @click="navigate">
-            <div>
-                <tag-list :subject="content.subject" :topic="content.topic"/>
-                
-                <div class="card_content_view_textarea">
-                    <textarea ref="editor" name="leiras" id="leiras" class="form-control">{{content.body}}</textarea>
+    <div class="col bg-light rounded-4 mb-4 ps-3 pb-3 pt-3 pe-1" id="card">
+        <div class="d-flex justify-content-between me-2">
+            <tag-list :subject="content.subject" :topic="content.topic"/>
+            <p class="text-end">{{content.created_at}}</p>
+        </div>
+
+        <div class="d-flex">
+            <div class="nav-link active" aria-current="page"
+                @click="navigate">
+                <div>
+                    <div class="card_content_view_textarea">
+                        <textarea ref="editor" name="leiras" id="leiras" class="form-control">{{content.body}}</textarea>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="text-center">
-            <p >{{splittedDate[0]}}</p>
-            <p>
-                {{splittedDate[1]}}
-            </p>
-            <user v-if="content.creator" :user="content.creator"></user>
-
-            <vote :contentId="content.id" :voteCount="content.recieved_votes" :myVote="content.my_vote"></vote>
+    
+            <div class="text-center align-items-center" style="max-width: 85px; min-width: 72px">
+                <user v-if="content.creator" :user="content.creator"></user>
+    
+                <vote :contentId="content.id" :voteCount="content.recieved_votes" :myVote="content.my_vote"></vote>
+            </div>
         </div>
     </div>
+
+    
 </template>
 
 <script>

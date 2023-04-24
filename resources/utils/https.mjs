@@ -46,20 +46,46 @@ export class NebulooFetch{
         return response;
     };
 
-    static async createQuestion(data){
+    static async createQuestion(title, body, subjectId, topicId){
+        var data = {
+            title: title,
+            body: body,
+            subject_id: subjectId,
+            topic_id: topicId,
+        };
+
         const response = NebulooFetch.http.post('questions',data)
         return response;
     };
-    static async editQuestion(data,id){
-        const response = NebulooFetch.http.put('questions/'+id, data)
+    static async updateQuestion(editedQuestionId, title, body, subjectId, topicId){
+        var data = {
+            title: title,
+            body: body,
+            subject_id: subjectId,
+            topic_id: topicId,
+        };
+
+        const response = NebulooFetch.http.put('questions/'+editedQuestionId, data)
         return response;
     }
-    static async createContent(data){
-        const response = NebulooFetch.http.post('contents',data);
+    static async createContent(body, subjectId, topicId){
+
+        var data = {
+            body: body,
+            subject_id: subjectId,
+            topic_id: topicId,
+        };
+
+        const response = NebulooFetch.http.post('contents', data);
         return response;
     };
-    static async updateContent(data,id){
-        const response = NebulooFetch.http.put('contents/'+id,data);
+    static async updateContent(editedContentId, body, subjectId, topicId){
+        var data = {
+            body: body,
+            subject_id: subjectId,
+            topic_id: topicId,
+        };
+        const response = NebulooFetch.http.put('contents/'+editedContentId, data);
         return response;
     };
     static async getMyDatas(){

@@ -25,7 +25,9 @@ class StoreQuestionRequest extends FormRequest
     {
         return [
             "title" => "required|max:40",
-            "body" => "required"
+            "body" => "",
+            "subject_id" => "nullable|integer|exists:subjects,id",
+            "topic_id" => "nullable|integer|exists:topics,id",
         ];
     }
 }

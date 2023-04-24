@@ -74,7 +74,6 @@
 </template>
 
 <script>
-import { NebulooFetch } from '../utils/https.mjs';
 import User from '../components/User.vue';
 
 import { UserManager } from '../utils/UserManager';
@@ -83,23 +82,23 @@ export default {
         return{
             token: '',
             zoldfulu: {
-                name: 'Zöldfülű',
+                display_name: 'Zöldfülű',
                 rank: { id: 1},
             },
             okostojas: {
-                name: 'Okostojás',
+                display_name: 'Okostojás',
                 rank: { id: 2},
             },
             zseni: {
-                name: 'Zseni',
+                display_name: 'Zseni',
                 rank: { id: 3},
             },
             langesz: {
-                name: 'Lángész',
+                display_name: 'Lángész',
                 rank: { id: 4},
             },
             bolcs: {
-                name: 'Bölcs',
+                display_name: 'Bölcs',
                 rank: { id: 5},
             },
         }
@@ -110,6 +109,5 @@ export default {
     async mounted(){
         this.token = UserManager.getToken();
     }
-
 }
 </script>

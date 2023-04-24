@@ -17,7 +17,6 @@ class DatabaseSeederProduction extends Seeder
     public function run()
     {
         $this->call([
-            TagSeeder::class,
             RankSeeder::class,
             UserSeeder::class,
             ContentSeeder::class,

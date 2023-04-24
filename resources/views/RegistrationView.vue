@@ -14,7 +14,7 @@
     <label for="password" class="form-label mt-2">Jelszó:</label>
     <Field :rules="{ regex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/ }" type="password" name="password" placeholder="Jelszó" ref="password" class="form-control"/>
     <ErrorMessage name="password" class="bg-opacity-25 border border-danger p-2 d-flex" />
-    <p class="text-muted ms-2">
+    <p class="text-muted ms-1">
         A jelszónak <b>legalább 8 karakter</b> hosszúnak kell lennie, és <b>tartalmaznia kell</b> az alábbiakat: Legalább 1 <b>Nagybetű</b>, <b>Kisbetű</b>, <b>Szám</b>, és <b>Speciális karakter</b>.
     </p>
 
@@ -48,7 +48,6 @@
     </button>
 
     <router-link class="nav-link active btn btn-success my-3 p-2" aria-current="page" to="login">Bejelentkezés</router-link>
-          
             </Form>
         </div>
     </div>

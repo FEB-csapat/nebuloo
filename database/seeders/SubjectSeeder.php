@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Subject;
 
 use Illuminate\Database\Seeder;
-use Spatie\Tags\Tag;
 
 class SubjectSeeder extends Seeder
 {

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('creator_user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->string('title');
-            $table->longText('body');
+            $table->longText('body')->nullable();
 
             $table->foreignId('subject_id')->nullable()
                 ->references('id')->on('subjects')->cascadeOnDelete();

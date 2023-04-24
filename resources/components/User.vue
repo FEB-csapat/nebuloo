@@ -38,13 +38,6 @@ export default{
             default: true
         }
     },
-    data(){
-        return{
-          //  profileImage: "../assets/images/"
-
-
-        }
-    },
     methods:{
         navigate(){
             if(this.clickable && this.user != null){
@@ -81,30 +74,6 @@ export default{
             }
         }
     },
-
-    /*
-    mounted(){
-        if(this.user != null && this.user.rank != null){
-            switch(this.user.rank.id){
-            case 1:
-                this.profileImage = zoldfulu;
-                break;
-            case 2:
-                this.profileImage = okostojas;
-                break;
-            case 3:
-                this.profileImage = zseni;
-                break;
-            case 4:
-                this.profileImage = langesz;
-                break;
-            case 5:
-                this.profileImage = bolcs;
-                break;
-            }
-        }
-    }
-    */
 }
 </script>
 

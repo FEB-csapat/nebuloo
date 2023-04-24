@@ -9,13 +9,13 @@
 
 
         <div class="me-auto mb-2 ">
-          <button v-if="showContentsButton" class="btn ms-2 mt-2" id="button"><router-link class="nav-link active" aria-current="page" to="/contents">Tananyagok</router-link></button>
+          <button v-if="showContentsButton" style="width: 110px;" class="btn ms-2 mt-2" id="button"><router-link class="nav-link active" aria-current="page" to="/contents">Tananyagok</router-link></button>
         
-            <button v-if="showQuestionsButton" class="btn ms-2  mt-2   " id="button"><router-link class="nav-link active" aria-current="page" to="/questions">Kérdések</router-link></button>
+            <button v-if="showQuestionsButton" style="width: 110px;" class="btn ms-2  mt-2   " id="button"><router-link class="nav-link active" aria-current="page" to="/questions">Kérdések</router-link></button>
         </div>
 
         <form v-if="showSearchBar" class="d-flex" @submit.prevent="search">
-          <input v-model="searchTerm" class="form-control me-2" type="search" placeholder="Keresés" aria-label="Search">
+          <input v-model="searchTerm" class="form-control me-2" type="search" placeholder="Keresés" aria-label="Search"/>
           <button class="btn btn-outline-light me-2" type="submit">Keresés</button>
         </form>
 
@@ -43,23 +43,28 @@
       },
       computed: {
         showContentsButton() {
-          return this.$route.path !== '/contents';
+          return !(this.$route.path == '/contents'
+          || this.$route.path == '/login' || this.$route.path == '/registration');
         },
         showQuestionsButton() {
-          return this.$route.path !== '/questions';
+          return !(this.$route.path == '/questions'
+          || this.$route.path == '/login' || this.$route.path == '/registration');
         },
         showSearchBar() {
           return this.$route.path == '/questions' || this.$route.path == '/contents';
         },
         showProfile() {
-          return this.$route.path != '/myprofile';
+          return this.user != null && this.$route.path != '/myprofile'
+              && this.$route.path != '/login' && this.$route.path != '/registration';
         },
+
+        user: function(){return UserManager.user }
       },
 
       data() {
         return {
           searchTerm: '',
-          user: null,
+         // user: null,
         }
       },
 
@@ -83,7 +88,7 @@
         }
       },
       mounted(){
-        this.user = UserManager.getUser();
+      //  this.user = UserManager.getUser();
       }
     }
   </script>

@@ -28,8 +28,6 @@ class ContentResource extends JsonResource
 
             'subject' => new SubjectResource($this->subject),
             'topic' => new TopicResource($this->topic),
-            // deprecated
-            'tags' => TagResource::collection($this->tags),
             'creator' => new SimpleUserResource($this->creator),
             'recieved_votes' => $this->sumVoteScore(),
             'my_vote' => $requestUserVote ? $requestUserVote->direction : null,

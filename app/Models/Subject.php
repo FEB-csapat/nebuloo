@@ -25,9 +25,4 @@ class Subject extends Model
     {
         return $this->hasMany(Topic::class, 'subject_id');
     }
-
-    public function taggable()
-    {
-        return $this->morphTo();
-    }
 }
