@@ -43,7 +43,7 @@
         </label>
     </div>
 
-    <button type="submit" class="my-3 btn btn-primary">
+    <button type="submit" class="my-3 btn btn-primary" id="registrationbutton">
         Regisztráció
     </button>
 
@@ -90,6 +90,7 @@ export default{
             .catch(errors=>{
                 console.log(errors);
                 this.errors = errors;
+                window.alert("Hibás adatok!");
             })
         }
     }
