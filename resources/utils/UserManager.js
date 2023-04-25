@@ -48,15 +48,15 @@ export class UserManager{
     }
 
     static isAdmin(){
-        return this.getUser().role == "admin";
+        return this.getUser()?.role == "admin";
     }
 
     static isModerator(){
-        return this.getUser().role == "moderator";
+        return this.getUser()?.role == "moderator";
     }
 
     static isUser(){
-        return this.getUser().role == "user";
+        return this.getUser()?.role == "user";
     }
 
     static isGuest(){

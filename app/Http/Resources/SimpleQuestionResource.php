@@ -26,7 +26,7 @@ class SimpleQuestionResource extends JsonResource
             'my_vote' => $requestUserVote ? $requestUserVote->direction : null,
             'title' => $this->title,
             'body' => $this->body,
-            'subject' => new SubjectResource($this->subject),
+            'subject' => new SimpleSubjectResource($this->subject),
             'topic' => new TopicResource($this->topic),
             'created_at' => Carbon::parse($this->created_at)->format('Y.m.d H:i'),
             'updated_at' => Carbon::parse($this->updated_at)->format('Y.m.d H:i'),

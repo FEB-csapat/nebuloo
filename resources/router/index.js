@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import WelcomeView from '../views/WelcomeView.vue'
 import QuestionsView from '../views/QuestionsView.vue'
 import ProfileView from '../views/ProfileView.vue'
-import EditMyProfileView from '../views/EditMyProfileView.vue'
+import EditProfileView from '../views/EditProfileView.vue'
 import ContentsView from '../views/ContentsView.vue'
 import LoginView from '../views/LoginView.vue'
 import ASZF from '../views/ASZF.vue'
@@ -111,7 +111,7 @@ const router = createRouter({
     {
       path: '/profile/edit/:id',
       name: 'EditProfile',
-      component: EditMyProfileView,
+      component: EditProfileView,
       meta:{requiresAuth: true},
       props: true
     },

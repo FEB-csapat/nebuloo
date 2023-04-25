@@ -23,10 +23,7 @@ class ContentResource extends JsonResource
         return [
             'id' => $this->id,
             'body' => $this->body,
-
-        //    'subject_id' => $this->subject_id,
-
-            'subject' => new SubjectResource($this->subject),
+            'subject' => new SimpleSubjectResource($this->subject),
             'topic' => new TopicResource($this->topic),
             'creator' => new SimpleUserResource($this->creator),
             'recieved_votes' => $this->sumVoteScore(),

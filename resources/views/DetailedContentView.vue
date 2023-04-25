@@ -147,6 +147,9 @@ export default{
         contentCreationTime: function(){
             return this.content.created_at.split(' ')[1];
         },
+        isLoggedIn(){
+            return UserManager.isLoggedIn();
+        }
     },
 };
 </script>

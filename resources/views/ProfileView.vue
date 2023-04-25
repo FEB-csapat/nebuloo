@@ -257,9 +257,9 @@ async mounted(){
         this.getProfileData();
         this.isMyProfile = false;
     }
-    if(UserManager.getUser().role ==='admin'){
-        this.isAdmin= true;
-    }
+    
+    this.isAdmin= UserManager.isAdmin();
+    
 }
 
 }
