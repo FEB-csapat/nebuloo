@@ -248,6 +248,7 @@ computed: {
   },
 
 async mounted(){
+    console.log(this.id);
     
     if(this.id==null) //MyProfile
     {
