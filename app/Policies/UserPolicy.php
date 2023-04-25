@@ -74,8 +74,7 @@ class UserPolicy
             return Response::allow();
         }
         // only admin can update users
-        return $userRequester->hasAnyRole(['admin']);
-
+        return $userRequester->hasAnyRole(['admin', 'moderator']);
     }
 
     /**
@@ -87,14 +86,17 @@ class UserPolicy
      */
     public function delete(?User $userRequester, User $userRequested)
     {
-        // delete self if not admin or moderator
-        if($userRequester->id == $userRequested->id
-        && !$userRequester->hasAnyRole(['admin', 'moderator'])){
+        // admin can delete anybody, except themself
+        if($userRequester->hasAnyRole(['admin'])
+        && $userRequester->id != $userRequested->id){
+            return Response::allow();
+        }
+        // 
+        if($userRequester->id == $userRequested->id){
             return Response::allow();
         }
 
-        // only admin can delete other users
-        return $userRequester->hasAnyRole(['admin']);
+        return Response::deny();
     }
 
     /**
@@ -115,29 +117,5 @@ class UserPolicy
             return Response::allow();
         }
         return Response::deny('User is not permitted for this action.');
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $userRequester
-     * @param  \App\Models\Vote  $vote
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function restore(User $userRequester, User $userRequested)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $userRequester
-     * @param  \App\Models\Vote  $vote
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function forceDelete(User $userRequester, User $userRequested)
-    {
-        //
     }
 }

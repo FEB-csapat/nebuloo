@@ -54,7 +54,6 @@ class FeedController extends Controller
             ->sortBy('created_at')
             ->take($perPage);
         
-        // TODO fix pagination
         $page = request()->get('page', 1);
 
         $paginatedCollection = new LengthAwarePaginator(

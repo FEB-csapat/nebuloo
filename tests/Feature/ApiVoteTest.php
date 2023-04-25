@@ -23,7 +23,7 @@ class ApiVoteTest extends TestCase
     }
 
     /** @test */
-    public function user_can_vote_on_a_content()
+    public function test_user_can_vote_on_a_content()
     {
         $content = Content::factory()->create();
 
@@ -55,7 +55,7 @@ class ApiVoteTest extends TestCase
     }
 
     /** @test */
-    public function user_can_update_their_vote()
+    public function test_user_can_update_their_vote()
     {
         $reciever_user = User::factory()->create();
 
@@ -103,7 +103,7 @@ class ApiVoteTest extends TestCase
 
     
     /** @test */
-    public function user_can_delete_a_vote()
+    public function test_user_can_delete_a_vote()
     {
         $reciever_user = User::factory()->create();
 
@@ -127,5 +127,35 @@ class ApiVoteTest extends TestCase
         $this->assertDatabaseMissing('votes', [
             'id' => $vote->id,
         ]);
+    }
+
+    public function test_user_can_vote_only_once()
+    {
+        $content = Content::factory()->create();
+
+        $vote = Vote::factory()->create([
+            'owner_user_id' => $this->user->id,
+            'reciever_user_id' => $content->creator->id,
+            'votable_id' => $content->id,
+            'votable_type' => Content::class,
+            'direction' => 'up'
+        ]);
+
+        $response = $this->actingAs($this->user, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->post("/api/contents/{$content->id}/votes", [
+            'direction' => 'up',
+        ]);
+
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                'votable_type' => 'App\Models\Content',
+                'votable_id' => $content->id,
+                'direction' => 'up',
+            ]);
+
+        $this->assertEquals($vote->id, $response->json()['id']);
     }
 }       
