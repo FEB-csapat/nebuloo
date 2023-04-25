@@ -1,7 +1,7 @@
 <template>
     <div class="container my-3 ">
         <div class="row bg-light shadow rounded-3 p-2">
-            <h1 id="title">Tananyag szerkesztése</h1>
+            <h1>Tananyag szerkesztése</h1>
                 <div>
                     <tag-selector @subjectItemSelected="handleSubjectItemSelected" @topicItemSelected="handleTopicItemSelected"
                     :defaultSubjectId="subjectId" :defaultTopicId="topicId"

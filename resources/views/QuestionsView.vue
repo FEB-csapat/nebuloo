@@ -3,16 +3,22 @@
         <h2 class="text-center mt-3 mb-1">Kérdések</h2>
 
         <div id="filter-container">
-            <label for="search" class="form-label">Rendezés:</label>
-            <select class="form-select" style="width:160px" v-model="orderBy" @change="handleOrderBy">
-                <option value="newest">Legújabbak</option>
-                <option value="oldest">Legrégebbiek</option>
-                <option value="popular">Legnépszerűbbek</option>
-            </select>
-    
-            <tag-selector @subjectItemSelected="handleSubjectItemSelected" @topicItemSelected="handleTopicItemSelected"
-                :defaultSubjectId="subjectId" :defaultTopicId="topicId"
-                ref="tagSelector"/>
+            <div class="d-flex justify-content-between">
+                <div class="">
+                    <tag-selector @subjectItemSelected="handleSubjectItemSelected" @topicItemSelected="handleTopicItemSelected"
+                    :defaultSubjectId="subjectId" :defaultTopicId="topicId"
+                    ref="tagSelector"/>
+                </div>
+
+                <div class="ms-1">
+                    <label for="search" class="form-label">Rendezés:</label>
+                    <select class="form-select" style="width:160px" v-model="orderBy" @change="handleOrderBy">
+                        <option value="newest">Legújabbak</option>
+                        <option value="oldest">Legrégebbiek</option>
+                        <option value="popular">Legnépszerűbbek</option>
+                    </select>
+                </div>
+            </div>
             <p @click="removeFilters" class="text-center text-secondary">Szürők törlése</p>    
         </div>
         

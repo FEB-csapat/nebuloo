@@ -7,7 +7,7 @@
         </div>
 
         <div class="d-flex">
-            <div class="nav-link active col-sm-10 col-lg-11" aria-current="page"
+            <div class="flex-fill" aria-current="page"
                 @click="navigate">
                 <div>
                     <h2>

@@ -1,10 +1,13 @@
-#title{
-    letter-spacing: 0.5em;
+#nebuloo-title{
+    letter-spacing: 0.2em;
+    font-family: 'Caveat', cursive;
+    font-size: 46px;
 }
 
 #welcome-title{
     letter-spacing: 0.2em;
-    font-size: 70px;
+    font-size: 74px;
+    font-family: 'Caveat', cursive;
 }
 
 #welcome-subtitle{

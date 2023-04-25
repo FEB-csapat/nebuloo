@@ -5,7 +5,7 @@
             <user id="text-overflow" :user="comment.creator"></user>
         </div>
 
-        <div class="mx-1">
+        <div class="flex-fill">
             <p style="margin-left: 5px;" v-if="!isEditing">{{comment.message}}</p>
             <textarea id="body" v-model="commentbody" v-if="isEditing" class="form-control" rows="3" cols="10"></textarea>
 
@@ -22,7 +22,7 @@
             </div>
 
         </div>
-        <div class="">
+        <div class="" style="width=20px">
             <vote :contentId="comment.id" :voteCount="comment.recieved_votes" :myVote="comment.my_vote"></vote>
         </div>
     </div>

@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <h2 class="text-center mt-3 mb-2">Tananyag megtekintése</h2>
-        <div class="row bg-light shadow rounded-3 p-2" id="contentid">
+        <div class="row bg-light shadow rounded-3 pt-2 pb-2" id="contentid">
             <div class="row">
                 <div class="col text-center ">
                     <div class="d-flex justify-content-between">

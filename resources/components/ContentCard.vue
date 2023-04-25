@@ -6,7 +6,7 @@
         </div>
 
         <div class="d-flex">
-            <div class="nav-link active" aria-current="page"
+            <div class="flex-fill" aria-current="page"
                 @click="navigate">
                 <div>
                     <div class="card_content_view_textarea">
