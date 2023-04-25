@@ -64,6 +64,7 @@ export default{
             })
             .catch(error=>{
                 console.log(error);
+                window.alert("Hibás felhasználónév vagy jelszó!");
                // this.errorMessage = error.response.data.message;
             })
         }
