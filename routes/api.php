@@ -132,9 +132,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('tickets/me',[TicketController::class,'meIndex'])
     ->name('me.tickets.index');
-    
+     Route::get('tickets',[TicketController::class,'index'])
+        ->name('tickets.index');
+    Route::delete('tickets/{id}', [TicketController::class, 'destroy'])
+        ->name("tickets.destroy");
     Route::post("tickets",[TicketController::class,"store"])
         ->name("me.tickets.store");
+    Route::get('tickets/{id}',[TicketController::class,'show'])
+        ->name('tickets.show');
     Route::delete('tickets/{id}', [TicketController::class, 'destroy'])
         ->name("tickets.destroy");
 
@@ -199,11 +204,5 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::delete('users/{id}', [UserController::class, "destroy"])
         ->name("users.destroy");
 
-    Route::get('tickets',[TicketController::class,'index'])
-        ->name('tickets.index');
-    Route::get('tickets/{id}',[TicketController::class,'show'])
-        ->name('tickets.show');
-    
-    Route::delete('tickets/{id}', [TicketController::class, 'destroy'])
-        ->name("tickets.destroy");
+   
 });

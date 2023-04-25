@@ -207,9 +207,9 @@ class ApiTicketTest extends TestCase
         ]);
 
 
-        $response->assertOk();
+        $response->assertOK();
 
-        $this->assertDatabaseMissing('tickets', [
+        $this->assertDatabaseHas('tickets', [
             'id' => $ticket->id,
             'body' => 'updated ticket'
         ]);
@@ -298,14 +298,14 @@ class ApiTicketTest extends TestCase
         ]);
 
 
-        $response->assertOk();
+        $response->assertStatus(403);
 
-        $this->assertDatabaseHas('tickets', [
+        $this->assertDatabaseMissing('tickets', [
             'id' => $ticket->id,
             'body' => 'updated ticket'
         ]);
     }
-//TODO: User interactions are forbidden
+
     public function test_update_my_ticket_as_guest()
     {
     
@@ -372,11 +372,10 @@ class ApiTicketTest extends TestCase
             'Accept' => 'application/json',
         ])->delete("/api/tickets/{$ticket->id}");
 
-        $response
-            ->assertStatus(403);
-            $this->assertDatabaseHas('tickets', [
-                'id' => $ticket->id
-            ]);
+        $response->assertOk();
+        $this->assertDatabaseMissing('tickets', [
+            'id' => $ticket->id
+        ]);
     }
 
     public function test_delete_others_ticket_as_admin()
