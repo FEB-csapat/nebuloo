@@ -123,7 +123,7 @@ export default{
 
         const response = (await NebulooFetch.getDetailedContent(this.id));
         
-        if(response.data.creator.id!=UserManager.getUser().id &&!UserManager.getUser().role == "admin"){
+        if(response.data.creator.id!=UserManager.getUser().id || !UserManager.isModerator() || !UserManager.isAdmin()){
             alert("Nincs engedélyed ennek a tartalomnak a szerkeztéséhez!",router.back())
         }
 

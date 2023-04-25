@@ -210,7 +210,7 @@ methods:{
         if (window.confirm("Biztosan törölni szeretné fiókját?")) {
             NebulooFetch.deleteMyProfile()
             .then(()=>{
-                UserManager.clear();
+                UserManager.logout();
                 alert("Sikeres törlés!",router.push('/'));
             })
         }
@@ -227,7 +227,7 @@ methods:{
             })
         },
         SignOut(){
-            UserManager.clear();
+            UserManager.logout();
             router.push('/');
         },
 },

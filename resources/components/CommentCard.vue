@@ -82,7 +82,7 @@ export default{
     },
     computed:{
         isMyComment(){
-            return UserManager.getUser().id == this.comment.creator.id;
+            return UserManager.getUser()?.id == this.comment.creator.id;
         },
         commentData(){
             return{

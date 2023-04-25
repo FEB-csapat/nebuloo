@@ -1,7 +1,7 @@
 <template>
-    <div id="snackbar">
+    <div id="snackbar" class="row">
         <p id="snackbar_message">{{message}}</p>
-        <button id="snackbar_button_text" v-if="buttonText != null" class="btn btn-primary ml-3" :click="handleClick()">{{buttonText}}</button>
+        <button id="snackbar_button_text" v-if="buttonText != null" class="btn btn-primary ml-3" @click="handleClick()">{{buttonText}}</button>
     </div>
 </template>
 
@@ -16,11 +16,14 @@ export default{
         };
     },
     methods:{
-      
         handleClick(){
           console.log("click");
-            this.onClick();
-           // this.$emit('onClick');
+          this.onClick();
+        },
+
+
+        log(){
+          console.log("log");
         },
         
         showSnackbar(message, buttonText, onClick) {
@@ -44,9 +47,6 @@ export default{
             setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 6000);
         }
     },
-    async mounted(){
-        
-    },
 };
 </script>
 
@@ -54,7 +54,7 @@ export default{
 #snackbar {
     visibility: hidden;
     min-width: 250px;
-    width: 95%;
+    width: 98%;
     background-color: #333;
     color: #fff;
     text-align: center;

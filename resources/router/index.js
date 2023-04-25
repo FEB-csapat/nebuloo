@@ -106,7 +106,6 @@ const router = createRouter({
       path: '/profile/:id',
       name: 'profile',
       component: ProfileView,
-      meta:{requiresAuth: true},
       props: true
     },
     {

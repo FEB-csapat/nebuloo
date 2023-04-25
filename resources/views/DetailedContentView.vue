@@ -8,7 +8,7 @@
                     <div class="">
                         <user v-if="content!=null" :user="content.creator"></user>  
 
-                        <div class="">
+                        <div v-if="content!=null" class="">
                             <p v-if="content != null">{{contentCreationDate}}</p>
                             <p v-if="content != null">{{contentCreationTime}}</p>
                         </div>
@@ -129,8 +129,7 @@ export default{
     
     computed:{
         isMyContent(){
-            const identifier = UserManager.getUser().id;
-            return identifier == this.creator.id;
+            return UserManager.getUser()?.id == this.creator.id;
         },
         contentCreationDate: function(){
             return this.content.created_at.split(' ')[0];

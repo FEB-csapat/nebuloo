@@ -59,7 +59,7 @@
               && this.$route.path != '/login' && this.$route.path != '/registration';
         },
 
-        user: function(){return UserManager.user }
+        user: function(){return UserManager.getUser() }
       },
 
       data() {
@@ -88,8 +88,5 @@
           }
         }
       },
-      mounted(){
-      //  this.user = UserManager.getUser();
-      }
     }
   </script>

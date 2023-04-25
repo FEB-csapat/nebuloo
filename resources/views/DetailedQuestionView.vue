@@ -25,14 +25,14 @@
 
         </div>
 
-        <div class="row" v-if="MyPost==true">
+        <div class="row" v-if="isMyQuestion==true">
                 <div class="col-sm-6">
                     <button class="btn btn-success" @click="navigate()">
                         Kérdés szerkesztése
                     </button>
                 </div>
                 <div class="col-sm-6 text-end">
-                    <button class="btn btn-danger" @click="DeletePost()">
+                    <button class="btn btn-danger" @click="deletePost()">
                         Kérdés törlése
                     </button> 
                 </div>
@@ -88,7 +88,7 @@ export default{
             this.question = responseBody;
             this.creator = this.question.creator;
         },
-        DeletePost(){
+        deletePost(){
             if (window.confirm("Biztosan törölni szeretné kérdését?")) {
                 NebulooFetch.deleteMyPost(this.$route.path)
                 .then(()=>{
@@ -99,10 +99,9 @@ export default{
         },
     },
     computed:{
-        MyPost(){
-            const identifier = UserManager.getUser().id;
-            return identifier == this.creator.id;
-            },
+        isMyQuestion(){
+            return UserManager.getUser()?.id == this.creator.id;
+        },
     },
     mounted(){
         this.getDetailedQuestion();

@@ -16,16 +16,8 @@ export class UserManager{
         sessionStorage.setItem('userName', user.name);
     }
 
-    static get user() {
-        return this.getUser();
-    }
-
     static getUser(){
         var id = sessionStorage.getItem('Identifier');
-
-        
-        console.log("asdasd: " + id);
-
 
         if(id == null){
             return null;
@@ -41,7 +33,34 @@ export class UserManager{
         }
     }
 
-    static clear(){
+    static login(token, user){
+        this.setToken(token);
+        this.setUser(user);
+    }
+
+    static logout(){
         sessionStorage.clear();
     }
+
+
+    static isLoggedIn(){
+        return this.getToken() != null;
+    }
+
+    static isAdmin(){
+        return this.getUser().role == "admin";
+    }
+
+    static isModerator(){
+        return this.getUser().role == "moderator";
+    }
+
+    static isUser(){
+        return this.getUser().role == "user";
+    }
+
+    static isGuest(){
+        return this.getToken() != null;
+    }
+
 }

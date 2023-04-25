@@ -9,7 +9,6 @@
                     :defaultSubjectId="subjectId" :defaultTopicId="topicId"
                     ref="tagSelector"/>
                 </div>
-
                 <div class="ms-1">
                     <label for="search" class="form-label">Rendezés:</label>
                     <select class="form-select" style="width:160px" v-model="orderBy" @change="handleOrderBy">
@@ -46,7 +45,7 @@
         <i class="fas fa-plus fa-lg"/>
     </div>
 
-    <SnackBar ref="snackBar" :message="'Sikeres bejelentkezés'"/>
+    <SnackBar ref="snackBar"/>
 
 </template>
 
@@ -57,13 +56,16 @@ import router from '../router';
 
 import { NebulooFetch } from '../utils/https.mjs';
 
-import Snackbar from '../components/snackbars/SnackBar.vue';
+import SnackBar from '../components/snackbars/SnackBar.vue';
 import TagSelector from '../components/TagSelector.vue';
+
+import { UserManager } from '../utils/UserManager';
+
 export default{
     components:{
         Cards,
         Paginator,
-        Snackbar,
+        SnackBar,
         TagSelector,
     },
     data(){
@@ -102,17 +104,13 @@ export default{
 
         createContent(){
             // TODO fix this uglingess
-            if(localStorage.getItem('userToken')==0) //Unauthenticated
+            if(!UserManager.isLoggedIn()) //Unauthenticated
             {
-               // this.$refs.snackBar.showSnackbar();
-                alert('Tartalmak feltöltéséhez, kérlek jelentkezz be!', router.push('/login'))
+                this.$refs.snackBar.showSnackbar('Tananyag létrehozásához, kérlek jelentkezz be!', 'Bejelentkezés', function () {
+                    router.push('/login')
+                });
             }
             else{
-                /*
-                this.$refs.snackBar.showSnackbar('Sikertelen szerkesztés', null, function () {
-                    console.log('callback');
-                });
-                */
                 router.push('/contents/create')
             }            
         },

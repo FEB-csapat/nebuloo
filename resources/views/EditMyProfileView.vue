@@ -49,7 +49,7 @@ export default{
     },
     methods:{
         editData(values){
-            if(UserManager.getUser().role == "admin"&&UserManager.getUser().id !=this.id){
+            if(UserManager.isAdmin() && UserManager.getUser().id !=this.id){
                 this.editProfileData(values);
             }else{
                 this.editMyData(values);

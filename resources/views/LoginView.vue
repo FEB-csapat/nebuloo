@@ -55,16 +55,11 @@ export default{
 
             login.post('login', values)
             .then(response=>{
-                UserManager.setUser(response.data.user);
-
-                
-                UserManager.setToken(response.data.token);
+                UserManager.login(response.data.token, response.data.user);
 
                 NebulooFetch.initialize(response.data.token);
             })
             .then(response=>{
-              //  alert("Sikeres bejelentkezés!");
-                this.$refs.snackBar.showSnackbar();
                 router.push('/contents');
             })
             .catch(error=>{

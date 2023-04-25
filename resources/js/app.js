@@ -26,6 +26,14 @@ import '@fortawesome/fontawesome-free/css/all.css'
 import { NebulooFetch } from '../utils/https.mjs';
 import { UserManager } from '../utils/UserManager.js';
 
+import AllRules from '@vee-validate/rules';
+import { defineRule } from 'vee-validate';
+
+
+//import EventBus from './EventBus.js'
+
+//createApp.prototype.$eventBus = EventBus
+
 
 if(UserManager.getToken() == null){
     NebulooFetch.initialize(0); /*Universal token */
@@ -33,12 +41,9 @@ if(UserManager.getToken() == null){
     NebulooFetch.initialize(UserManager.getToken());
 }
 
-import AllRules from '@vee-validate/rules';
-import { defineRule } from 'vee-validate';
-
 Object.keys(AllRules).forEach(rule => {
     defineRule(rule, AllRules[rule]);
-  });
+});
 
 const app = createApp(App)
 

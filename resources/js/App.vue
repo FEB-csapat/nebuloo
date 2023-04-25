@@ -4,11 +4,16 @@ import { RouterLink, RouterView } from 'vue-router';
 import Footer from '../components/Footer.vue';
 //import router from './router/index.js';
 
+import SnackBar from '../components/snackbars/SnackBar.vue';
+
+
+
 export default{
   components:{
     NavBar,
     RouterView,
-    Footer
+    Footer,
+    SnackBar
   },
 
   computed: { 
@@ -25,5 +30,8 @@ export default{
   <RouterView/>
   <!-- TODO fix footer at the bottom of the page-->
   <Footer/>
+
+  <SnackBar ref="snackBar" :message="'Sikeres bejelentkezés'"/>
+
 </template>
 
