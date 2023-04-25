@@ -1,7 +1,8 @@
-﻿using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
+using OpenQA.Selenium.Support.UI;
 
 namespace NebulooWebTest
 {
@@ -38,28 +39,8 @@ namespace NebulooWebTest
             var submitButton = driver.FindElement(By.Id("registrationbutton"));
             submitButton.Click();
 
-            while (true)
-            {
-                try
-                {
-                    IAlert simpleAlert = driver.SwitchTo().Alert();
-                    if (simpleAlert.Text.Contains("Sikeres regisztráció"))
-                    {
-                        simpleAlert.Accept();
-                        break;
-                    }
-                    else
-                    {
-                        simpleAlert.Dismiss();
-                        Assert.Fail();
-                        break;
-                    }
-                }
-                catch
-                {
-
-                }
-            }
+            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 15));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
             driver.Quit();
         }
 

@@ -1,7 +1,8 @@
-﻿using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
+using OpenQA.Selenium.Support.UI;
 
 namespace NebulooWebTest
 {
@@ -22,7 +23,6 @@ namespace NebulooWebTest
         public void SuccessfulLoginTest()
         {
             driver.Url = baseUrl + "login";
-            string currentPage = driver.Url;
             var usernameTextbox = driver.FindElement(By.Name("identifier"));
             usernameTextbox.SendKeys("Admin");
 
@@ -32,27 +32,66 @@ namespace NebulooWebTest
             var submitButton = driver.FindElement(By.XPath("//*[@id=\"button\"]"));
             submitButton.Click();
 
-            while (true)
-            {
-                try
-                {
-                    string newPage = driver.Url;
-                    if (currentPage == newPage)
-                    {
-                        Assert.Fail();
-                        break;
-                    }
-                    else
-                    {
-                        Assert.Pass();
-                        break;
-                    }
-                }
-                catch
-                {
+            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 15));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents"));
 
-                }
-            }
+            driver.Quit();
+        }
+
+        [Test]
+        public void LoginWithBadIdentifierTest()
+        {
+            driver.Url = baseUrl + "login";
+            var usernameTextbox = driver.FindElement(By.Name("identifier"));
+            usernameTextbox.SendKeys("Admin@");
+
+            var passwordTextbox = driver.FindElement(By.Name("password"));
+            passwordTextbox.SendKeys("admin123");
+
+            var submitButton = driver.FindElement(By.XPath("//*[@id=\"button\"]"));
+            submitButton.Click();
+
+            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 15));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
+
+            driver.Quit();
+        }
+
+        [Test]
+        public void LoginWithBadPasswordTest()
+        {
+            driver.Url = baseUrl + "login";
+            var usernameTextbox = driver.FindElement(By.Name("identifier"));
+            usernameTextbox.SendKeys("Admin");
+
+            var passwordTextbox = driver.FindElement(By.Name("password"));
+            passwordTextbox.SendKeys("a");
+
+            var submitButton = driver.FindElement(By.XPath("//*[@id=\"button\"]"));
+            submitButton.Click();
+
+            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 15));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
+
+            driver.Quit();
+        }
+
+        [Test]
+        public void LoginWithBadIdentifierAndPasswordTest()
+        {
+            driver.Url = baseUrl + "login";
+            var usernameTextbox = driver.FindElement(By.Name("identifier"));
+            usernameTextbox.SendKeys("Admin@");
+
+            var passwordTextbox = driver.FindElement(By.Name("password"));
+            passwordTextbox.SendKeys("a");
+
+            var submitButton = driver.FindElement(By.XPath("//*[@id=\"button\"]"));
+            submitButton.Click();
+
+            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 15));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
+
             driver.Quit();
         }
     }

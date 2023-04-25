@@ -1,4 +1,4 @@
-﻿using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
@@ -9,7 +9,8 @@ namespace NebulooWebTest
     {
         IWebDriver driver;
 
-        static string baseUrl = "http://localhost:8881/";
+        static string baseUrl = "http://localhost:8881";
+        
 
         [SetUp]
         public void Setup()
@@ -21,7 +22,7 @@ namespace NebulooWebTest
         [Test]
         public void SuccessfulRegistrationTest()
         {
-            driver.Url = baseUrl + "registration";
+            driver.Navigate().GoToUrl(baseUrl+"registration");
 
             var usernameTextbox = driver.FindElement(By.Name("name"));
             usernameTextbox.SendKeys("NewUser12222");
