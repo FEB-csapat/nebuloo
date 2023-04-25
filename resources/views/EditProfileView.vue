@@ -1,21 +1,21 @@
 <template>
     <div class="container ">
-        <div class="row bg-light shadow rounded-3 p-2">
+        <div class="row bg-light mt-3 mb-2 rounded-3 p-3 shadow">
             <div class="col text-center">
-                <img src="https://placeholder.pics/svg/60" alt="">
-                <p class="fs-6"></p> <!-- Insert profile picture here-->
-                <p class="fs-4">{{name}}</p>
-                    <Form @submit="editData" @keydown="triggerChange" :initial-values="initData">
-                        <h2 class="text-start"><label for="bio" class="form-label mt-2">Bio:</label></h2>
-                        <Field type="text" class="form-control my-3" name="bio" id="bio"/>       
+                <user v-if="userData!=null" :user="userData" v-bind:showDetailed="true"></user> 
+                
+                
+                <Form v-if="userData!=null" @submit="editData" @keydown="triggerChange" :initial-values="userData">
 
-                        
+                    <h3 class="text-start"><label for="display_name" class="form-label mt-2">Megjelenítési név:</label></h3>
+                    <Field type="text" class="form-control my-3" name="display_name" id="display_name"/>
 
-                        <h2 class="text-start"><label for="display_name" class="form-label mt-2">Megjelenítési név:</label></h2>
-                        <Field type="text" class="form-control my-3" name="display_name" id="display_name"/>
 
-                        <button class="btn btn-success" type="submit" v-if="isChanged">Elmentés</button>
-                    </Form>
+                    <h3 class="text-start"><label for="bio" class="form-label mt-2">Bio:</label></h3>
+                    <Field type="text" class="form-control my-3" name="bio" id="bio"/>
+
+                    <button class="btn btn-success" type="submit" v-if="isChanged">Elmentés</button>
+                </Form>
             </div>
         </div>
     </div>
@@ -26,20 +26,22 @@ import { Form ,Field } from 'vee-validate';
 import router from '../router';
 import { UserManager } from '../utils/UserManager';
 
+import User from '../components/User.vue';
+
 export default{
 
     data(){
         return{
-            name:'',
             initData:{
                 bio:'',
                 display_name:''
             },
+            userData: null,
             isChanged: false
         }
     },
     components:{
-        Field, Form
+        Field, Form, User
     },
     props:{
         id: {
@@ -85,15 +87,7 @@ export default{
             alert("Nincs jogosultságod változtatásokat végezni más profilján!",router.push("/myprofile"))
         }
         else{
-            NebulooFetch.getUserData(this.id)
-            .then(response=>{
-                this.initData.bio= response.data.bio;
-                this.initData.display_name= response.data.display_name;
-                this.name = response.data.name;
-            })
-            .catch(error=>{
-                console.log(error);
-            });
+            this.userData = (await NebulooFetch.getUserData(this.id)).data;
         }
     }
 }

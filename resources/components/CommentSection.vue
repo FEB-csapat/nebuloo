@@ -2,7 +2,7 @@
     <div class="col mt-3">
         <h2>Kommentek:</h2>
 
-        <div id="comment_writer_container" class="bg-light shadow rounded-3 mt-2 p-2">
+        <div v-if="isLoggedIn" id="comment_writer_container" class="bg-light shadow rounded-3 mt-2 p-2">
             <label for="cim" class="form-label pt-2">Írj kommentet:</label>
 
             <textarea id="body" v-model="message" class="form-control" rows="3" cols="10"></textarea>
@@ -11,6 +11,8 @@
                 <button type="button" class="btn" id="button" @click="AddComment()" >Küldés</button>
             </div>
         </div>
+
+        <h4 v-else class="text-center p-2">A kommentek írásához, kérlek jelentkezz be!</h4>
         
         <p class="text-center" v-if="comments == null">Betöltés...</p>
         <div v-else-if="comments.length != 0" id="comment_cards_container">
@@ -25,6 +27,8 @@
 
 import CommentCard from './CommentCard.vue';
 import { NebulooFetch } from '../utils/https.mjs';
+
+import { UserManager } from '../utils/UserManager';
 export default{
     props:{
         comments: {
@@ -50,26 +54,22 @@ export default{
     },
     methods:{
         async AddComment(){
-            const data = JSON.stringify(this.comment);
-            if(data.length>300){
-            window.alert("Túl hosszú a hozzászólása!");
-        }
-        else{
-            NebulooFetch.createComment(data,this.$route.path)
+            if(this.message.length>300){
+                window.alert("Túl hosszú a hozzászólása!");
+            }
+            else{
+                NebulooFetch.createComment(this.message, this.$route.path)
                 .then(()=>{
-                    alert("Sikeres komment!");
-                    window.location.reload();
+                    this.$emit('commentAdded');
+                    this.message = "";
                 });
-        }
-                
+            }
         },
     },
     computed:{
-            comment(){
-                return{
-                    message:this.message
-                }
-            }
-        },
+        isLoggedIn(){
+            return UserManager.isLoggedIn();
+        }
+    }
 };
 </script>

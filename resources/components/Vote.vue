@@ -1,15 +1,22 @@
 <template>
     <div id="vote_container" class="row text-center">
-        <div class="col">
+        <div v-if="isLoggedIn" class="col">
             <i id="upvote" @click="toggleUpvote" :class="['fas', 'fa-up-long', 'fa-lg', {'upvoted': voteState === 1}]"/>
             <p id="votecount" class="pt-3 text-center" style="margin-left: 3px;">{{voteCounted + voteState}}</p>
             <i id="downvote" @click="toggleDownvote" :class="['fas', 'fa-down-long', 'fa-lg', {'downvoted': voteState === -1}]"/>
+        </div>
+        <div v-else class="col">
+            <i :class="['fas', 'fa-up-long', 'fa-lg', 'is-guest']"/>
+            <p class="pt-3 text-center" style="margin-left: 3px;">{{voteCounted + voteState}}</p>
+            <i :class="['fas', 'fa-down-long', 'fa-lg', 'is-guest']"/>
         </div>
     </div>
 </template>
 
 <script>
 import { NebulooFetch } from '../utils/https.mjs';
+
+import { UserManager } from '../utils/UserManager';
 
 export default{
     props:{
@@ -50,6 +57,11 @@ export default{
             NebulooFetch.synchronizeVote(this.contentId, 'contents', this.voteState);
         }
     },
+    computed: {
+        isLoggedIn(){
+            return UserManager.isLoggedIn();
+        }
+    },
     mounted(){
         this.voteCounted = this.voteCount;
 
@@ -75,25 +87,29 @@ export default{
 fa-up-long{
     color: blue;
     transition: transform 1s ease-in-out;
-  }
-  #upvote:hover{
+}
+#upvote:hover{
     color: #0000FF;
     transform: scale(1.2);
     transition: transform 0.1s ease-in-out;
-  }
-  #downvote:hover{
+}
+#downvote:hover{
     color: #FF0000;
     transform: scale(1.2);
     transition: transform 0.1s ease-in-out;
-  }
-  .upvoted {
+}
+.upvoted {
     color: blue;
     transform: scale(1.2);
-  }
+    }
 
-  .downvoted {
+.downvoted {
     color: red;
     transform: scale(1.2);
-  }
+}
+
+.is-guest{
+    color: grey;
+}
 
 </style>

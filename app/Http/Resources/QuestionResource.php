@@ -22,7 +22,7 @@ class QuestionResource extends JsonResource
             ->first();
         return [
             'id' => $this->id,
-            'subject' => new SubjectResource($this->subject),
+            'subject' => new SimpleSubjectResource($this->subject),
             'topic' => new TopicResource($this->topic),
             'creator' => new SimpleUserResource($this->creator),
             'recieved_votes' => $this->sumVoteScore(),
