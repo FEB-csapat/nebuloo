@@ -80,7 +80,6 @@ export default{
 
             links: {}, 
             meta: {},
-            logedin: false,
         }
     },
     methods:{
@@ -103,8 +102,7 @@ export default{
         },
 
         createContent(){
-            // TODO fix this uglingess
-            if(!UserManager.isLoggedIn()) //Unauthenticated
+            if(!UserManager.isLoggedIn())
             {
                 this.$refs.snackBar.showSnackbar('Tananyag létrehozásához, kérlek jelentkezz be!', 'Bejelentkezés', function () {
                     router.push('/login')
@@ -170,10 +168,6 @@ export default{
         this.getAllContent().then(() => {
             
         });
-
-        // WHat is this abomination?
-        // TODO: fix whatever this is
-        if(NebulooFetch.token!='0') this.logedin = true;
     },
 
     watch: {

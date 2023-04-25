@@ -43,7 +43,8 @@
 
             </div>
         </div>
-            <comment-section v-if="content!=null" :comments="content.comments" :commentable_id="content.id" :commentable_type="contents"></comment-section>
+        <comment-section v-if="content!=null" @commentAdded="commentAdded" :comments="content.comments" :commentable_id="content.id" :commentable_type="contents"></comment-section>
+        <SnackBar ref="snackBar"/>
     </div>
 </template>
 
@@ -59,6 +60,8 @@ import TagList from '../components/TagList.vue';
 import CommentSection from '../components/CommentSection.vue';
 import router from '../router';
 import html2pdf from 'html2pdf.js';
+import SnackBar from '../components/snackbars/SnackBar.vue';
+
 
 import { UserManager } from '../utils/UserManager.js';
 
@@ -75,7 +78,9 @@ export default{
         CommentCard,
         Vote,
         User,
-        TagList
+        TagList,
+        SnackBar,
+
     },
     data() {
         return {
@@ -110,6 +115,11 @@ export default{
         },
         downloadContent(){
             html2pdf(document.getElementById('contentid'), {image : {type: 'jpeg', quality: 1}, filename: 'Tananyag.pdf'});
+        },
+
+        commentAdded(){
+            this.$refs.snackBar.showSnackbar('Sikeres komment hozzáadás!');
+            this.getDetailedContent();
         }
     },
     

@@ -1,6 +1,5 @@
 <template>
 <div class="container">
-    
     <div class="row bg-light mt-3 mb-2 rounded-3 p-3 shadow">
             <div class="col text-end mb-4" v-if="isMyProfile">
                 <button class="btn" id="button" @click="SignOut()">
@@ -245,7 +244,7 @@ computed: {
         return this.userData != null && this.userData.tickets != 0;
     },
     
-  },
+},
 
 async mounted(){
     

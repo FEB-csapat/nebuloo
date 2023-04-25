@@ -50,26 +50,17 @@ export default{
     },
     methods:{
         async AddComment(){
-            const data = JSON.stringify(this.comment);
-            if(data.length>300){
-            window.alert("Túl hosszú a hozzászólása!");
-        }
-        else{
-            NebulooFetch.createComment(data,this.$route.path)
+            if(this.message.length>300){
+                window.alert("Túl hosszú a hozzászólása!");
+            }
+            else{
+                NebulooFetch.createComment(this.message, this.$route.path)
                 .then(()=>{
-                    alert("Sikeres komment!");
-                    window.location.reload();
+                    this.$emit('commentAdded');
+                    this.message = "";
                 });
-        }
-                
-        },
-    },
-    computed:{
-            comment(){
-                return{
-                    message:this.message
-                }
             }
         },
+    },
 };
 </script>

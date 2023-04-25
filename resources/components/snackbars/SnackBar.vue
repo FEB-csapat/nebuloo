@@ -21,7 +21,6 @@ export default{
           this.onClick();
         },
 
-
         log(){
           console.log("log");
         },
@@ -45,7 +44,8 @@ export default{
           
             snackbar.className = "show";
             setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 6000);
-        }
+        },
+        
     },
 };
 </script>

@@ -130,10 +130,13 @@ export class NebulooFetch{
             return NebulooFetch.http.delete(votableType + '/' + votableId + '/votes');
         }
     };
-    static async createComment(data,path)
+    static async createComment(message ,path)
     {
-            const response = NebulooFetch.http.post(path+'/comments',data)
-            return response;
+        var data = {
+            message: message,
+        };
+        const response = NebulooFetch.http.post(path+'/comments', data)
+        return response;
     };
     static async editComment(data,id){
         const response = NebulooFetch.http.put('comments/'+id, data)
