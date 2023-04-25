@@ -100,7 +100,7 @@ export default{
     },
     computed:{
         isMyQuestion(){
-            return UserManager.getUser()?.id == this.creator.id;
+            return (UserManager.getUser()?.id == this.creator.id || UserManager.isAdmin());
         },
     },
     mounted(){

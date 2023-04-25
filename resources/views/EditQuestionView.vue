@@ -8,10 +8,10 @@
                 ref="tagSelector"/>
 
         <Form @submit="updateQuestion" :initial-values="initData">
-            <label for="title" class="form-label mt-2">Kérdés címe:</label>
+            <label for="title" class="form-label mt-2">Cím:</label>
             <Field id="title" type="text" name='title' class="form-control"/>
 
-            <label for="body" class="form-label mt-2">Kérdés törzse:</label>
+            <label for="body" class="form-label mt-2">Leírás:</label>
             <Field name="body" id="body" type="text" rows="8" class="form-control"/>
             <div class="row">
                 <div class="col-sm-6">
