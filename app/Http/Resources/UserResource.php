@@ -31,7 +31,7 @@ class UserResource extends JsonResource
             'tickets' => TicketResource::collection($this->tickets),
             'recieved_votes' => $this->sumVoteScore(),
             'rank'=>$this->getRank(),
-            
+            'banned'=>$this->banned,
             'created_at' => Carbon::parse($this->created_at)->format('Y.m.d H:i'),
             'updated_at' => Carbon::parse($this->updated_at)->format('Y.m.d H:i'),
         ];

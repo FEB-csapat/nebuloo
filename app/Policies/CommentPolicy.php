@@ -19,6 +19,10 @@ class CommentPolicy
      */
     public function viewAny(?User $user)
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         return true;
     }
 
@@ -30,6 +34,10 @@ class CommentPolicy
      */
     public function viewMe(?User $user)
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         if ($user === null) {
             return Response::deny('User must be logged in to view their comments.');
         }
@@ -45,6 +53,10 @@ class CommentPolicy
      */
     public function view(?User $user, Comment $comment)
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         return true;
     }
 
@@ -58,6 +70,10 @@ class CommentPolicy
      */
     public function create(?User $user)
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         // visitors cannot create comments
         if ($user === null) {
             return Response::deny('User must be logged in to create comments.');
@@ -74,6 +90,10 @@ class CommentPolicy
      */
     public function update(?User $user, Comment $comment)
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         // visitors cannot update comments
         
         
@@ -100,6 +120,10 @@ class CommentPolicy
      */
     public function delete(?User $user, Comment $comment)
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+        
         // visitors cannot delete comments
         if ($user === null) {
             return Response::deny('User must be logged in to update comments.');

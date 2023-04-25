@@ -20,7 +20,10 @@ class RolePolicy
      */
     public function update(User $user, $id): Response
     {
-
+        if($user->banned==true){
+            return Response::deny();
+        }
+        
         if($user->hasAnyRole(['admin'])
         && $user->id != $id){
             return Response::allow();

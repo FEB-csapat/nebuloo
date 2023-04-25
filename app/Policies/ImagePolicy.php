@@ -19,6 +19,9 @@ class ImagePolicy
      */
     public function viewAny(?User $user)
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
         //
     }
 
@@ -31,6 +34,9 @@ class ImagePolicy
      */
     public function view(?User $user, Comment $comment)
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
         return true;
     }
 
@@ -42,6 +48,10 @@ class ImagePolicy
      */
     public function create(?User $user)
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         // visitors cannot upload images
         if ($user === null) {
             return Response::deny('User must be logged in to create comments.');
@@ -59,6 +69,10 @@ class ImagePolicy
      */
     public function delete(?User $user, Comment $comment)
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+        
         // visitors cannot delete comments
         if ($user === null) {
             return Response::deny('User must be logged in to update comments.');

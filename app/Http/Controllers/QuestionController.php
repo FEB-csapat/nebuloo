@@ -79,6 +79,7 @@ class QuestionController extends Controller
      */
     public function store(StoreQuestionRequest $request)
     {
+        $this->authorize('create', Question::class);
         $data = $request->validated();
         $data['creator_user_id'] = $request->user()->id;
         $newQuestion = Question::create($data);

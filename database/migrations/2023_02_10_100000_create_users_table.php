@@ -19,16 +19,13 @@ return new class extends Migration
             
             $table->string('email')->unique();
             $table->string('email_verified_at')->nullable();
-
             $table->string('password')->nullable();
-
             $table->rememberToken();
-            
             $table->string('name');
             $table->string('display_name');
             $table->string('bio')->nullable();
-
             $table->boolean('notify_by_email')->default(true);
+            $table->boolean('banned')->default(false);
             $table->timestamps();
         });
     }

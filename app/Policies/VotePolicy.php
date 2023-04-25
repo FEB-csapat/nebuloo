@@ -19,6 +19,10 @@ class VotePolicy
      */
     public function viewAny(?User $user): Response
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         if($user === null){
             //TODO fix error messages...
             return Response::deny("Only logged in user...");
@@ -35,6 +39,9 @@ class VotePolicy
      */
     public function create(?User $user)
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
         // visitors cannot create votes
         if ($user === null) {
             return Response::deny("Only logged in user...");
@@ -51,6 +58,10 @@ class VotePolicy
      */
     public function update(?User $user, Vote $vote)
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+        
         // visitors cannot update vote
         if ($user === null) {
             return Response::deny("Only logged in user...");
@@ -71,6 +82,10 @@ class VotePolicy
      */
     public function delete(?User $user, Vote $vote)
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         // visitors cannot delete votes
         if ($user === null) {
             return Response::deny("Only logged in user...");

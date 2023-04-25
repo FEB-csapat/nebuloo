@@ -182,6 +182,8 @@ Route::group(['middleware' => ['role:admin|moderator']], function () {
     Route::put('users/{id}/ban', [UserController::class, "ban"])
         ->name("users.ban");
 
+        Route::put('users/{id}/unban', [UserController::class, "unban"])
+        ->name("users.unban");
 
     Route::put('/subjects/{id}', [SubjectController::class, "update"])
         ->name("subjects.update");

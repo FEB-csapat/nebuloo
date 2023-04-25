@@ -19,6 +19,10 @@ class UserPolicy
      */
     public function viewAny(?User $userRequester)
     {
+        if($userRequester->banned==true){
+            return Response::deny();
+        }
+
         return Response::allow();
     }
 
@@ -31,6 +35,10 @@ class UserPolicy
      */
     public function view(?User $userRequester, User $userRequested)
     {
+        if($userRequester->banned==true){
+            return Response::deny();
+        }
+
         return Response::allow();
     }
 
@@ -43,6 +51,10 @@ class UserPolicy
      */
     public function viewMe(?User $user)
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         if($user === null){
             return Response::deny('Log in to view information.');
         }
@@ -70,6 +82,10 @@ class UserPolicy
      */
     public function update(?User $userRequester, User $userRequested)
     {
+        if($userRequester->banned==true){
+            return Response::deny();
+        }
+
         if($userRequester->id == $userRequested->id){
             return Response::allow();
         }
@@ -86,6 +102,9 @@ class UserPolicy
      */
     public function delete(?User $userRequester, User $userRequested)
     {
+        if($userRequester->banned==true){
+            return Response::deny();
+        }
         // admin can delete anybody, except themself
         if($userRequester->hasAnyRole(['admin'])
         && $userRequester->id != $userRequested->id){
@@ -108,12 +127,28 @@ class UserPolicy
      */
     public function ban(User $userRequester, User $userRequested)
     {
+        if($userRequester->banned==true){
+            return Response::deny();
+        }
         // Only admin and moderator can ban
         if($userRequester->hasAnyRole(['admin', 'moderator'])){
             // Admin cannot be banned
             if($userRequested->hasAnyRole('admin')){
                 Response::deny('Admin cannot be banned.');
             }
+            return Response::allow();
+        }
+        return Response::deny('User is not permitted for this action.');
+    }
+
+    public function unban(User $userRequester, User $userRequested)
+    {
+        if($userRequester->banned==true){
+            return Response::deny();
+        }
+        // Only admin and moderator can unban
+        if($userRequester->hasAnyRole(['admin', 'moderator'])){
+
             return Response::allow();
         }
         return Response::deny('User is not permitted for this action.');

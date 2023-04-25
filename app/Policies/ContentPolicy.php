@@ -20,6 +20,10 @@ class ContentPolicy
      */
     public function viewAny(?User $user): Response
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         return Response::allow();
     }
 
@@ -32,6 +36,10 @@ class ContentPolicy
      */
     public function view(?User $user, Content $content): Response
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         return Response::allow();
     }
 
@@ -43,6 +51,10 @@ class ContentPolicy
      */
     public function viewMe(?User $user): Response
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         if ($user === null) {
             return Response::deny('User must be logged in to create content.');
         }
@@ -58,6 +70,9 @@ class ContentPolicy
      */
     public function create(?User $user, Content $content): Response
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
         
         // visitors cannot create content
         if ($user === null) {
@@ -84,6 +99,10 @@ class ContentPolicy
      */
     public function update(?User $user, Content $content): Response
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         // visitors cannot update content
         if ($user === null) {
             return Response::deny('User must be logged in to edit content.');
@@ -109,6 +128,10 @@ class ContentPolicy
      */
     public function delete(?User $user, Content $content): Response
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+        
         // visitors cannot delete content
         if ($user === null) {
             return Response::deny('User must be logged in to delete content.');

@@ -25,7 +25,7 @@ class User extends Authenticatable
     ];
 
     protected $fillable = [
-        'email', 'email_verified_at', 'name', 'display_name', 'bio', 'password'
+        'email', 'email_verified_at', 'name', 'display_name', 'bio', 'password','banned'
     ];
 
     public function ownedVotes()

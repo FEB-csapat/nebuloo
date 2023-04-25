@@ -20,6 +20,10 @@ class SubjectPolicy
      */
     public function viewAny(?User $user): Response
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         return Response::allow();
     }
 
@@ -31,6 +35,10 @@ class SubjectPolicy
      */
     public function view(?User $user, Subject $subject): Response
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         return Response::allow();
     }
     
@@ -42,6 +50,10 @@ class SubjectPolicy
      */
     public function create(?User $user)
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         // visitors cannot create votes
         if ($user === null) {
             return Response::deny("Only logged in user...");
@@ -58,6 +70,10 @@ class SubjectPolicy
      */
     public function update(?User $user, Subject $subject)
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         if($user->hasAnyRole(['admin', 'moderator'])){
             return Response::allow();
         }
@@ -74,6 +90,10 @@ class SubjectPolicy
      */
     public function delete(?User $user, Subject $subject)
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         if($user->hasAnyRole(['admin', 'moderator'])){
             return Response::allow();
         }

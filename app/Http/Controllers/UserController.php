@@ -137,8 +137,15 @@ class UserController extends Controller
     public function ban(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        $this->authorize('ban', User::class);
-        $user->delete();
+        $this->authorize('ban', $user, User::class);
+        $user->update(['banned'=>true]);
+    }
+
+    public function unban(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $this->authorize('unban', $user, User::class);
+        $user->update(['banned'=>false]);
     }
 
 

@@ -22,7 +22,7 @@ namespace NebulooWebTest
         [Test]
         public void SuccessfulRegistrationTest()
         {
-            driver.Navigate().GoToUrl(baseUrl+"registration");
+            driver.Url = baseUrl + "registration";
 
             var usernameTextbox = driver.FindElement(By.Name("name"));
             usernameTextbox.SendKeys("NewUser12222");

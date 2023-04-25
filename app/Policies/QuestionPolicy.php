@@ -20,6 +20,10 @@ class QuestionPolicy
      */
     public function viewAny(?User $user): Response
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         return Response::allow();
     }
 
@@ -32,6 +36,10 @@ class QuestionPolicy
      */
     public function view(?User $user, Question $question): Response
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         return Response::allow();
     }
 
@@ -43,6 +51,10 @@ class QuestionPolicy
      */
     public function viewMe(?User $user): Response
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         if ($user === null) {
             return Response::deny('User must be logged in to create question.');
         }
@@ -56,9 +68,12 @@ class QuestionPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(?User $user, Question $question): Response
+    public function create(?User $user): Response
     {
-        
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         // visitors cannot create question
         if ($user === null) {
             return Response::deny('User must be logged in to create question.');
@@ -67,12 +82,8 @@ class QuestionPolicy
         if($user->hasAnyRole(['admin', 'moderator']) ){
             return Response::allow();
         }
-
-        if($user->id == $question->creator_user_id){
-            return Response::allow();
-        }
         
-        return Response::deny('User is not permitted for this action.');
+        return Response::allow();
     }
 
     /**
@@ -84,6 +95,10 @@ class QuestionPolicy
      */
     public function update(?User $user, Question $question): Response
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         // visitors cannot update question
         if ($user === null) {
             return Response::deny('User must be logged in to edit question.');
@@ -109,6 +124,10 @@ class QuestionPolicy
      */
     public function delete(?User $user, Question $question): Response
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+        
         // visitors cannot delete question
         if ($user === null) {
             return Response::deny('User must be logged in to delete question.');

@@ -19,6 +19,10 @@ class TopicPolicy
      */
     public function viewAny(?User $user): Response
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         return Response::allow();
     }
 
@@ -30,6 +34,10 @@ class TopicPolicy
      */
     public function view(?User $user, Topic $topic): Response
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         return Response::allow();
     }
     
@@ -41,6 +49,10 @@ class TopicPolicy
      */
     public function create(?User $user)
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         // visitors cannot create votes
         if ($user === null) {
             return Response::deny("Only logged in user...");
@@ -57,6 +69,10 @@ class TopicPolicy
      */
     public function update(?User $user, Topic $topic)
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         if($user->hasAnyRole(['admin', 'moderator'])){
             return Response::allow();
         }
@@ -73,6 +89,10 @@ class TopicPolicy
      */
     public function delete(?User $user, Topic $topic)
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         if($user->hasAnyRole(['admin', 'moderator'])){
             return Response::allow();
         }

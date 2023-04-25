@@ -19,6 +19,10 @@ class TicketPolicy
      */
     public function view(?User $user): Response
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         if ($user === null) {
             return Response::deny('User must be logged in to view ticket.');
         }
@@ -31,6 +35,10 @@ class TicketPolicy
 
     public function viewMe(?User $user): Response
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         if ($user === null) {
             return Response::deny('User must be logged in to view ticket.');
         }
@@ -39,6 +47,10 @@ class TicketPolicy
 
     public function update(?User $user, Ticket $ticket): Response
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         // visitors cannot update question
         if ($user === null) {
             return Response::deny('User must be logged in to edit ticket.');
@@ -53,6 +65,10 @@ class TicketPolicy
 
     public function delete(?User $user, Ticket $ticket): Response
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
+
         // visitors cannot delete ticket
         if ($user === null) {
             return Response::deny('User must be logged in to delete ticket.');
@@ -71,6 +87,9 @@ class TicketPolicy
 
     public function create(?User $user, Ticket $ticket): Response
     {
+        if($user->banned==true){
+            return Response::deny();
+        }
 
         //visitors cannot create ticket
          if ($user === null) {
