@@ -32,7 +32,6 @@ class RoleController extends Controller
     {
         $user = User::findOrFail($id);
         $data = $request->validated();
-
         $user->syncRoles($data['role']);
         $user->save();
         

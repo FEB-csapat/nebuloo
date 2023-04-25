@@ -68,7 +68,7 @@ class ContentPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(?User $user, Content $content): Response
+    public function create(?User $user): Response
     {
         if($user->banned==true){
             return Response::deny();
@@ -82,12 +82,8 @@ class ContentPolicy
         if($user->hasAnyRole(['admin', 'moderator']) ){
             return Response::allow();
         }
-
-        if($user->id == $content->creator_user_id){
-            return Response::allow();
-        }
         
-        return Response::deny('User is not permitted for this action.');
+        return Response::allow();
     }
 
     /**

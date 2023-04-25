@@ -85,7 +85,7 @@ class TicketPolicy
         return Response::deny('User is not permitted for this action');
     }
 
-    public function create(?User $user, Ticket $ticket): Response
+    public function create(?User $user): Response
     {
         if($user->banned==true){
             return Response::deny();
@@ -100,10 +100,6 @@ class TicketPolicy
             return Response::allow();
         }
 
-        if($user->id == $ticket->creator_user_id){
-            return Response::allow();
-        }
-
-        return Response::deny('User is not permitted for this action.');
+        return Response::allow();
     }
 }

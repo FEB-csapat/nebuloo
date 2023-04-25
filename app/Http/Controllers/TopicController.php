@@ -57,8 +57,8 @@ class TopicController extends Controller
      */
     public function store(StoreTopicRequest $request)
     {
+        $this->authorize('create', Topic::class);
         $data = $request->validated();
-
         $data['creator_user_id'] = $request->user()->id;
         
         $newTopic = Topic::create($data);

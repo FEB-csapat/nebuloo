@@ -45,8 +45,8 @@ class SubjectController extends Controller
      */
     public function store(StoreSubjectRequest $request)
     {
+        $this->authorize('create', Subject::class);
         $data = $request->validated();
-
         $data['creator_user_id'] = $request->user()->id;
         
         $newSubject = Subject::create($data);

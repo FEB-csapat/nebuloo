@@ -29,6 +29,7 @@ class TicketController extends Controller
 
     public function store(StoreTicketRequest $request)
     {
+        $this->authorize('create', Ticket::class);
         $data = $request->validated();
         $data['creator_user_id'] = $request->user()->id;
         $data['state'] = false;

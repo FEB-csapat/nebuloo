@@ -34,11 +34,9 @@ class ImageController extends Controller
      */
     public function store(StoreImageRequest $request)
     {
+        $this->authorize('create', Image::class);
         $request->validated();
-
         $path = $request->file('image')->store('public/images');
-
-
         $image = new Image();
         $image->path = $path;
         $image->creator_user_id = auth()->user()->id;

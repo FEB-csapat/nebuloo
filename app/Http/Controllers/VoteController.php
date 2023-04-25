@@ -35,6 +35,7 @@ class VoteController extends Controller
      */
     public function store(StoreVoteRequest $request, $votableType, int $votableId)
     {
+        $this->authorize('create', Vote::class);
         $data = $request->validated();
 
         $data['owner_user_id'] = $request->user()->id;

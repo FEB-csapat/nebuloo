@@ -82,6 +82,7 @@ class ContentController extends Controller
      */
     public function store(StoreContentRequest $request)
     {
+        $this->authorize('create', Content::class);
         $data = $request->validated();
         $data['creator_user_id'] = $request->user()->id;
         $newContent = Content::create($data);
