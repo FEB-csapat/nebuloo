@@ -64,5 +64,4 @@ export class UserManager{
     static isGuest(){
         return this.getToken() != null;
     }
-
 }

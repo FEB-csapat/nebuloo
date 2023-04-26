@@ -25,10 +25,10 @@
         <h3 v-if="searchTerm != ''" class="text-center mb-4">Keresési találatok: {{ $route.query.search }}</h3>
 
         <div class="row" v-if="isWaiting">
-            <div class="spinner-border mx-auto" role="status">
-                <span class="visually-hidden">Loading...</span>
+            <div id="loading-spinner" class="spinner-border mx-auto" role="status">
             </div>
         </div>
+
         <div>
             <cards :Questions="Questions"/>
         </div>
@@ -43,7 +43,7 @@
             <i class="fas fa-plus fa-lg"/>
         </div>
 
-        <SnackBar ref="snackBar" :message="'Sikeres bejelentkezés'"/>
+        <SnackBar ref="snackBar"/>
 
 </template>
 
@@ -52,13 +52,16 @@ import Cards from '../components/Cards.vue'
 import Paginator from '../components/Paginator.vue';
 import router from '../router';
 import { NebulooFetch } from '../utils/https.mjs';
-import Snackbar from '../components/snackbars/SnackBar.vue';
+import SnackBar from '../components/snackbars/SnackBar.vue';
 import TagSelector from '../components/TagSelector.vue';
+
+import { UserManager } from '../utils/UserManager';
+
 export default{
 components:{
         Cards,
         Paginator,
-        Snackbar,
+        SnackBar,
         TagSelector,
     },
     data(){
@@ -73,7 +76,6 @@ components:{
 
             links: {}, 
             meta: {},
-            logedin: false,
         }
     },
     methods:{
@@ -94,34 +96,30 @@ components:{
             this.isWaiting = false;
         },
         createQuestion(){
-            if(localStorage.getItem('userToken')==0) //Unauthenticated
+            if(!UserManager.isLoggedIn())
             {
-               // this.$refs.snackBar.showSnackbar();
-                alert('Kérdések feltöltéséhez, kérlek jelentkezz be!', router.push('/login'))
+                this.$refs.snackBar.showSnackbar('Kérdések létrehozásához, kérlek jelentkezz be!', 'Bejelentkezés', function () {
+                    router.push('/login')
+                });
             }
             else{
-                /*
-                this.$refs.snackBar.showSnackbar('Sikertelen szerkesztés', null, function () {
-                    console.log('callback');
-                });
-                */
                 router.push('/questions/create')
-            }            
+            }             
         },
         handlePaginate(url) {
             this.currentPage = url.split('page=')[1];
-
             window.scrollTo(0,0);
-
             this.refreshPage();          
         },
         handleSubjectItemSelected(subjectId) {
             this.topicId = null;
             this.subjectId = subjectId;
+            this.currentPage = 1;
             this.refreshPage();         
         },
         handleTopicItemSelected(topicId) {
             this.topicId = topicId;
+            this.currentPage = 1;
             this.refreshPage();
         },
         handleOrderBy() {
@@ -155,12 +153,12 @@ components:{
         this.subjectId = this.$route.query.subject;
         this.topicId = this.$route.query.topic;
         this.getAllQuestions();
-        if(NebulooFetch.token!='0') this.logedin = true;
     },
 
     watch: {
         '$route.query.search'(newSearchTerm) {
-            this.searchTerm = newSearchTerm
+            this.searchTerm = newSearchTerm;
+            this.currentPage = 1;
             this.getAllQuestions();
         }
     }

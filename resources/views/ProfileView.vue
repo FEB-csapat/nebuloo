@@ -253,7 +253,7 @@ async mounted(){
     {
         this.getMyData();
         this.isMyProfile = true;
-    }else if(this.id== UserManager.getUser().id)
+    }else if(this.id == UserManager.getUser()?.id)
     {
         this.$router.push('/myprofile',);
         this.getMyData();
