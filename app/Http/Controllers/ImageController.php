@@ -11,26 +11,12 @@ use App\Models\Image;
 use Illuminate\Support\Facades\Storage;
 
 class ImageController extends Controller
-{
+{    
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
-    {
-        $this->authorize('viewAny', Content::class, auth()->user());
-        $contents = Content::all();
-        return ContentResource::collection($contents);
-    }
-
-    
-    
-    /**
-     * Store a newly created resource in storage.
+     * Store a newly created image in storage.
      *
      * @param  \App\Http\Requests\StoreImageRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\ImageResource
      */
     public function store(StoreImageRequest $request)
     {
@@ -41,42 +27,22 @@ class ImageController extends Controller
         $image->path = $path;
         $image->creator_user_id = auth()->user()->id;
         $image->save();
-
         return new ImageResource($image);
-
-        return response()->json(['id' => $image->id], 201);
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified image.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function show($id)
     {
-
         $image = Image::findOrFail($id);
-
-/*
-        $path = Storage::url($image->path);
-
-        // Return the image as a response
-        return response()->file(storage_path('app' . $path));
-
-            */
-
-     //   return new ImageResource($image);
-
-
-      //  return response()->json($image);
-
         if (!$image) {
-            return response()->json(['message' => 'Image not found'], 404);
+            abort(404, 'Image not found');
         }
-
         $path = $image->path;
-
         return response()->file(Storage::path($path));
     }
 
@@ -84,14 +50,15 @@ class ImageController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Request $request, $id)
     {
         $content = Content::findOrFail($id);
-
-        $this->authorize('delete', $content, Content::class);
-        
+        $this->authorize('delete', $content);
         $content->delete();
+        return response()->json([
+            'message' => 'Successfully deleted content!',
+        ], 200);
     }
 }

@@ -33,7 +33,7 @@
 <script>
 import { Form ,Field } from 'vee-validate';
 import axios from 'axios'
-import { NebulooFetch } from '../utils/https.mjs';
+import { RequestHelper } from '../utils/RequestHelper';
 import router from '../router/index';
 
 import SnackBar from '../components/snackbars/SnackBar.vue';
@@ -63,7 +63,7 @@ export default{
             .then(response=>{
                 UserManager.login(response.data.token, response.data.user);
 
-                NebulooFetch.initialize(response.data.token);
+                RequestHelper.initialize(response.data.token);
             })
             .then(response=>{
                 router.push('/contents');

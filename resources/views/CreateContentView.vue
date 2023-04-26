@@ -22,7 +22,7 @@
 
 <script>
 import EasyMDE from 'easymde';
-import { NebulooFetch } from '../utils/https.mjs';
+import { RequestHelper } from '../utils/RequestHelper';
 import TagSelector from '../components/TagSelector.vue';
 
 export default{
@@ -44,7 +44,7 @@ export default{
                 alert("A poszt nem lehet üres!");
                 return;
             }
-            var response = (await NebulooFetch.createContent(body, this.subjectId, this.topicId));
+            var response = (await RequestHelper.createContent(body, this.subjectId, this.topicId));
 
             if(response.status == 201){
                 this.$router.push({ name: 'contentById', params:  {id: response.data.id} })
@@ -96,7 +96,7 @@ export default{
             previewImagesInEditor: true,
             imageUploadFunction: function (file, onSuccess, onError) {
 
-                NebulooFetch.uploadImage(file)
+                RequestHelper.uploadImage(file)
                 .then(function (response) {
                     if (response.status == 201) {
                         return response.data;

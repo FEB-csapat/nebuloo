@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Subject;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Content>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Topic>
  */
 class TopicFactory extends Factory
 {

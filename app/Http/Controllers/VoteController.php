@@ -13,27 +13,27 @@ use Illuminate\Http\Request;
 
 class VoteController extends Controller
 {
-    protected $model = Vote::class;
-
     /**
-     * Display a listing of the resource.
+     * Display a listing of votes.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function meIndex(Request $request)
     {
-        $this->authorize('viewAny', Vote::class, auth()->user());
+        $this->authorize('viewAny', Vote::class);
         $votes = Vote::where('owner_user_id', auth()->user()->id)->get();
         return SimpleVoteResource::collection($votes);
     }
     
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created vote in storage.
      *
-     * @param  App\Http\Requests\StoreVoteRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  \App\Http\Requests\StoreVoteRequest  $request
+     * @param  string  $votableType
+     * @param  int $votableId
+     * @return \App\Http\Resources\SimpleVoteResource
      */
-    public function store(StoreVoteRequest $request, $votableType, int $votableId)
+    public function store(StoreVoteRequest $request, string $votableType, int $votableId)
     {
         $this->authorize('create', Vote::class);
         $data = $request->validated();
@@ -82,45 +82,47 @@ class VoteController extends Controller
 
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified vote in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UpdateVoteRequest  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\SimpleVoteResource
      */
     public function update(UpdateVoteRequest $request, $id)
     {
         $vote = Vote::findOrFail($id);
 
-        $this->authorize('update', $vote, Vote::class);
+        $this->authorize('update', $vote);
 
         $data = $request->validated();
         
         if($vote->update($data)){
             return new SimpleVoteResource($vote);
         }
+        abort(500, 'Vote update failed.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified vote from storage by vote id.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Request $request, $id)
     {
         $vote = Vote::findOrFail($id);
-
-        $this->authorize('delete', $vote, Vote::class);
-        
+        $this->authorize('delete', $vote);
         $vote->delete();
+        return response()->json([
+            'message' => 'Successfully deleted vote!',
+        ], 200);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified vote from storage by votable id.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroyByVotableId(Request $request, $votableType, $votableId)
     {
@@ -150,12 +152,14 @@ class VoteController extends Controller
                     break;
             }
         }else{
-            // TODO write proper error message
             abort(404, 'Votable type not found');
         }
 
-        $this->authorize('delete', $vote, Vote::class);
-        
+        $this->authorize('delete', $vote);
         $vote->delete();
+        
+        return response()->json([
+            'message' => 'Successfully deleted vote!',
+        ], 200);
     }
 }

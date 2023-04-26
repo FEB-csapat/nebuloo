@@ -4,10 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Content;
 use App\Models\User;
-
-use Illuminate\Database\Seeder;
-
 use App\Models\Vote;
+use Illuminate\Database\Seeder;
 
 class VoteSeeder extends Seeder
 {

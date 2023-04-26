@@ -18,11 +18,11 @@ export default{
     props:{
 
         subject: {
-            type: String,
+            type: Object,
             required: false
         },
         topic: {
-            type: String,
+            type: Object,
             required: false
         },
     },

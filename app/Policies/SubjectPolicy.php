@@ -3,7 +3,6 @@
 namespace App\Policies;
 
 use App\Models\Subject;
-use App\Models\Vote;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -13,7 +12,7 @@ class SubjectPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view any models.
+     * Determine whether the user can view any subjects.
      *
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
@@ -28,7 +27,7 @@ class SubjectPolicy
     }
 
     /**
-     * Determine whether the user can view any models.
+     * Determine whether the user can view any subject.
      *
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
@@ -43,7 +42,7 @@ class SubjectPolicy
     }
     
     /**
-     * Determine whether the user can create models.
+     * Determine whether the user can create subject.
      *
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
@@ -62,7 +61,7 @@ class SubjectPolicy
     }
 
     /**
-     * Determine whether the user can update the model.
+     * Determine whether the user can update the subject.
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\Subject  $subject
@@ -82,10 +81,10 @@ class SubjectPolicy
     }
 
     /**
-     * Determine whether the user can delete the model.
+     * Determine whether the user can delete the subject.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Vote  $vote
+     * @param  \App\Models\Subject $subject
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function delete(?User $user, Subject $subject)

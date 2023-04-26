@@ -5,7 +5,7 @@
             <h1>Tananyag szerkesztése</h1>
             <div v-if="isWaiting" id="loading-spinner" class="spinner-border mx-auto" role="status"></div>
                 <div>
-                    <tag-selector @subjectItemSelected="handleSubjectItemSelected" @topicItemSelected="handleTopicItemSelected"
+                    <tag-selector v-if="!isWaiting" @subjectItemSelected="handleSubjectItemSelected" @topicItemSelected="handleTopicItemSelected"
                     :defaultSubjectId="subjectId" :defaultTopicId="topicId"
                     ref="tagSelector"/>
 
@@ -24,7 +24,7 @@
 
 <script>
 import EasyMDE from 'easymde';
-import { NebulooFetch } from '../utils/https.mjs';
+import { RequestHelper } from '../utils/RequestHelper';
 import { UserManager } from '../utils/UserManager';
 import router from '../router';
 
@@ -56,7 +56,7 @@ export default{
                 alert("A poszt nem lehet üres!")
             }
 
-            NebulooFetch.updateContent(this.id, body, this.subjectId, this.topicId)
+            RequestHelper.updateContent(this.id, body, this.subjectId, this.topicId)
             .then(response=>{
                 console.log(response)
                 alert("Sikeres szerkesztés!",this.$router.push({name: 'contentById', params:{id: response.data.id}}))
@@ -107,7 +107,7 @@ export default{
             previewImagesInEditor: true,
             imageUploadFunction: function (file, onSuccess, onError) {
 
-                NebulooFetch.uploadImage(file)
+                RequestHelper.uploadImage(file)
                 .then(function (response) {
                     if (response.status == 201) {
                         return response.data;
@@ -124,14 +124,16 @@ export default{
             },
         });
 
-        const response = (await NebulooFetch.getDetailedContent(this.id));
-        this.isWaiting = false;
+        const response = (await RequestHelper.getDetailedContent(this.id));
+        
 
         if(!UserManager.isMine(response.data.creator.id) && !UserManager.isModerator() && !UserManager.isAdmin()){
             alert("Nincs engedélyed ennek a tartalomnak a szerkeztéséhez!",router.back())
         }
 
         if (response.status == 200) {
+            this.subjectId = response.data.subject?.id;
+            this.topicId = response.data.topic?.id;
             this.editor.value(response.data.body);
             // set the focus to the end 
             this.editor.codemirror.setCursor(this.editor.codemirror.lineCount(), 0);
@@ -139,7 +141,7 @@ export default{
             // TODO: error handling: Something went wrong
         }
 
-
+        this.isWaiting = false;
     }
 }
 </script>

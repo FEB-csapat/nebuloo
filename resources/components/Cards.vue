@@ -10,9 +10,9 @@ import QuestionCard from './QuestionCard.vue';
 import TicketCard from './TicketCard.vue';
 export default{
     props:{
-        Questions: Array,
-        Contents: Array,
-        Tickets: Array
+        Questions: Object,
+        Contents: Object,
+        Tickets: Object
     },
     components:{
         ContentCard,

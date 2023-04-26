@@ -27,7 +27,7 @@
 
 <script>
 import Tag from './Tag.vue';
-import { NebulooFetch } from '../utils/https.mjs';
+import { RequestHelper } from '../utils/RequestHelper';
 
 export default{
     components:{
@@ -43,7 +43,7 @@ export default{
         }
     },
     props:{
-        defultSubjectId: {
+        defaultSubjectId: {
             type: Number,
             default: null,
             required: false
@@ -60,12 +60,12 @@ export default{
             this.isWaiting = true;
             this.subjects = [];
             
-            this.subjects = (await NebulooFetch.getSubjects()).data;
+            this.subjects = (await RequestHelper.getSubjects()).data;
 
             this.isWaiting = false;
 
-            if(this.defultSubjectId != null){
-                this.subject = this.subjects.find(subj => subj.id == this.defultSubjectId);
+            if(this.defaultSubjectId != null){
+                this.subject = this.subjects.find(subj => subj.id == this.defaultSubjectId);
                 this.topics = this.subject.topics;
             }
             if(this.defaultTopicId != null){

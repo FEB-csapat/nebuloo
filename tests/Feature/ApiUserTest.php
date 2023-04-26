@@ -115,7 +115,7 @@ class ApiUserTest extends TestCase
 
 
 
-    public function test_delete_profile()
+    public function test_delete_user_self()
     {
         $response = $this->actingAs($this->user, 'sanctum')
         ->withHeaders([

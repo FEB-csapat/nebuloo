@@ -18,7 +18,7 @@
             <div class="text-center align-items-center" style="max-width: 85px; min-width: 72px">
                 <user v-if="content.creator" :user="content.creator"></user>
     
-                <vote :contentId="content.id" :voteCount="content.recieved_votes" :myVote="content.my_vote"></vote>
+                <vote :votableId="content.id" :voteCount="content.recieved_votes" :myVote="content.my_vote"></vote>
             </div>
         </div>
     </div>

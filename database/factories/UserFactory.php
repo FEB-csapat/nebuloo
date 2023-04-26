@@ -27,14 +27,4 @@ class UserFactory extends Factory
             'password' => Hash::make('Jelszo123@')
         ];
     }
-
-    /**
-     * Indicate that the model's email address should be unverified.
-     *
-     * @return static
-     */
-    public function unverified()
-    {
-
-    }
 }

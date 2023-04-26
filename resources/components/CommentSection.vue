@@ -19,14 +19,14 @@
             <CommentCard v-for="comment in comments" :key="comment.id" :comment="comment" />
         </div>
 
-        <p class="text-center" v-else>Nincs még komment</p>
+        <p class="text-center mt-2" v-else>Nincs még komment</p>
     </div>
 </template>
 
 <script>
 
 import CommentCard from './CommentCard.vue';
-import { NebulooFetch } from '../utils/https.mjs';
+import { RequestHelper } from '../utils/RequestHelper';
 
 import { UserManager } from '../utils/UserManager';
 export default{
@@ -54,11 +54,15 @@ export default{
     },
     methods:{
         async AddComment(){
-            if(this.message.length>300){
+            var trimmedMessage = this.message.trim();
+            if(trimmedMessage.length == ""){
+                return;
+            }
+            if(trimmedMessage.length>300){
                 window.alert("Túl hosszú a hozzászólása!");
             }
             else{
-                NebulooFetch.createComment(this.message, this.$route.path)
+                RequestHelper.createComment(trimmedMessage, commentable_type, commentable_id)
                 .then(()=>{
                     this.$emit('commentAdded');
                     this.message = "";

@@ -22,7 +22,6 @@ return new class extends Migration
                 ->references('id')->on('subjects')->cascadeOnDelete();
             $table->foreignId('topic_id')->nullable()
                 ->references('id')->on('topics')->cascadeOnDelete();
-            //$table->string('attachements');
             //$table->string('license'); ??
 
             $table->timestamps();

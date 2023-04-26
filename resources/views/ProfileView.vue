@@ -133,7 +133,7 @@
 </template>
 <script>
 import Cards from '../components/Cards.vue'
-import { NebulooFetch } from '../utils/https.mjs';
+import { RequestHelper } from '../utils/RequestHelper';
 import CommentCard from '../components/CommentCard.vue';
 import router from '../router';
 import User from '../components/User.vue';
@@ -160,7 +160,6 @@ props:{
         type: Number,
         required: false
     }
-        
 },
 methods:{
     async changeProfileRole(){
@@ -168,7 +167,7 @@ methods:{
             var data={
                 role: this.pickedRole
             };
-            NebulooFetch.changeUserRole(this.id,data)
+            RequestHelper.changeUserRole(this.id,data)
             .then(()=>{
                 alert("Sikeresen megváltoztatva!");
             })
@@ -179,7 +178,7 @@ methods:{
     },
     async banProfile(){
         if(window.confirm("Biztosan tiltani akarja a felhasználót?")){
-            NebulooFetch.banUser(this.id)
+            RequestHelper.banUser(this.id)
             .then(()=>{
                 alert("A felhasználó sikeresen kitiltva!")
             })
@@ -201,7 +200,7 @@ methods:{
     },
     async deleteProfile(){
         if(window.confirm("Biztosan törölni akarja a felhasználót?")){
-            NebulooFetch.deleteUser(this.id)
+            RequestHelper.deleteUser(this.id)
             .then(()=>{
                 alert("A felhasználó sikeresen kitiltva!")
             })
@@ -212,17 +211,17 @@ methods:{
     },
     
     async getMyData(){
-        this.responseBody = (await NebulooFetch.getMyDatas()).data;
+        this.responseBody = (await RequestHelper.getMyDatas()).data;
         this.userData = this.responseBody;
         this.isWaiting=false;
     },
     async getProfileData(){
-        this.userData = (await NebulooFetch.getUserData(this.id)).data;
+        this.userData = (await RequestHelper.getUserData(this.id)).data;
         this.isWaiting=false;
     },
     async deleteMe(){
         if (window.confirm("Biztosan törölni szeretné fiókját?")) {
-            NebulooFetch.deleteMyProfile()
+            RequestHelper.deleteMyProfile()
             .then(()=>{
                 UserManager.logout();
                 alert("Sikeres törlés!",router.push('/'));

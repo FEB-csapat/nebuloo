@@ -3,10 +3,9 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\User;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Content>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Subject>
  */
 class SubjectFactory extends Factory
 {

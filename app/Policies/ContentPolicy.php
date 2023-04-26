@@ -143,28 +143,4 @@ class ContentPolicy
         }
         return Response::deny('User is not permitted for this action');
     }
-
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Content  $content
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function restore(?User $user, Content $content)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Content  $content
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function forceDelete(?User $user, Content $content)
-    {
-        //
-    }
 }

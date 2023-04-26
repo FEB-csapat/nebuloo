@@ -11,9 +11,9 @@ use Illuminate\Http\Request;
 class TopicController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of topics.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index(Request $request)
     {
@@ -23,9 +23,9 @@ class TopicController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the topic.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function indexBySubjectId(Request $request, int $id)
     {
@@ -35,69 +35,65 @@ class TopicController extends Controller
     }
     
     /**
-     * Display the specified resource.
+     * Display the specified topic.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\TopicResource
      */
     public function show(Request $request, $id)
     {
         $topic = Topic::findOrFail($id);
-
         $this->authorize('view', $topic);
-
         return new TopicResource($topic);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created topic in storage.
      *
-     * @param  App\Http\Requests\StoreTopicRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  \App\Http\Requests\StoreTopicRequest  $request
+     * @return \App\Http\Resources\TopicResource
      */
     public function store(StoreTopicRequest $request)
     {
         $this->authorize('create', Topic::class);
         $data = $request->validated();
         $data['creator_user_id'] = $request->user()->id;
-        
         $newTopic = Topic::create($data);
         return new TopicResource($newTopic);
     }
 
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified topic in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UpdateTopicRequest  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\TopicResource
      */
     public function update(UpdateTopicRequest $request, int $id)
     {
         $topic = Topic::findOrFail($id);
-
         $this->authorize('update', $topic);
-
         $data = $request->validated();
-        
         if($topic->update($data)){
             return new TopicResource($topic);
         }
+        abort(500, 'Could not update topic.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified topic from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Request $request, $id)
     {
         $topic = Topic::findOrFail($id);
-
         $this->authorize('delete', $topic);
-        
         $topic->delete();
+        return response()->json([
+            'message' => 'Successfully deleted topic!',
+        ], 200);
     }
 }

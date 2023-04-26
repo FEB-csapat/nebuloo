@@ -7,7 +7,6 @@ use App\Http\Requests\StoreContentRequest;
 use App\Http\Requests\UpdateContentRequest;
 use App\Http\Resources\ContentResource;
 use App\Models\Content;
-use App\Models\Vote;
 use Illuminate\Http\Request;
 
 class ContentController extends Controller
@@ -41,7 +40,6 @@ class ContentController extends Controller
             $contents = $contents->where('topic_id', $queryTopic);
         }
 
-
         if ($queryOrderBy != null) {
             if($queryOrderBy == 'newest'){
                 $contents = $contents->get()->sortByDesc('created_at');
@@ -68,9 +66,7 @@ class ContentController extends Controller
     public function meIndex(Request $request)
     {
         $this->authorize('viewMe', Content::class);
-
         $contents = Content::where('creator_user_id', $request->user()->id)->get();
-
         return ContentResource::collection($contents);
     }
     
@@ -86,7 +82,6 @@ class ContentController extends Controller
         $data = $request->validated();
         $data['creator_user_id'] = $request->user()->id;
         $newContent = Content::create($data);
-
         return new ContentResource($newContent);
     }
 
@@ -99,9 +94,7 @@ class ContentController extends Controller
     public function show(Request $request, $id)
     {
         $content = Content::findOrFail($id);
-
         $this->authorize('view', $content);
-        
         return new ContentResource($content);
     }
 
@@ -115,32 +108,27 @@ class ContentController extends Controller
     public function update(UpdateContentRequest $request, $id)
     {
         $content = Content::findOrFail($id);
-
         $this->authorize('update', $content);
-
         $data = $request->validated();
-        
         if($content->update($data)){
             return new ContentResource($content);
         }
-
-        // TODO: rewrite this to a better error handling
-        return response()->json(['error' => 'Could not update content'], 500);
+        abort(500, 'Could not update content.');
     }
 
     /**
      * Remove the specified content from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Request $request, $id)
     {
         $content = Content::findOrFail($id);
-
         $this->authorize('delete', $content);
-        
         $content->delete();
-
+        return response()->json([
+            'message' => 'Successfully deleted content!',
+        ], 200);
     }
 }

@@ -1,15 +1,14 @@
 import axios from "axios";
-import router from "../router/index.js";
 
-export class NebulooFetch{
+export class RequestHelper {
     static baseUrl = "http://localhost:8881/api/";
 
     static http;
     static token;
 
     static initialize(token){
-        NebulooFetch.token = token;
-        NebulooFetch.http = axios.create({
+        RequestHelper.token = token;
+        RequestHelper.http = axios.create({
             baseURL: this.baseUrl,
             headers: {
                 'Authorization':"Bearer " + token,
@@ -19,30 +18,30 @@ export class NebulooFetch{
     };
 
     static getFeed(queries){
-        const response = NebulooFetch.http.get("feed", {params: queries});
+        const response = RequestHelper.http.get("feed", {params: queries});
         return response;
     }
 
     static getAllQuestions(queries){
-        const response = NebulooFetch.http.get("questions", {params: queries});
+        const response = RequestHelper.http.get("questions", {params: queries});
         return response;
     };
     static getAllContent(queries){
-        const response = NebulooFetch.http.get("contents", {params: queries});
+        const response = RequestHelper.http.get("contents", {params: queries});
         return response;
     };
 
     static getDetailedContent(id){
-        const response = NebulooFetch.http.get("contents/" + id);
+        const response = RequestHelper.http.get("contents/" + id);
         return response;
     };
     static async getDetailedQuestion(id){
-        const response = NebulooFetch.http.get("questions/" + id);
+        const response = RequestHelper.http.get("questions/" + id);
         return response;
     };
 
     static async deleteMyPost(path){
-        const response = NebulooFetch.http.delete("me"+path)
+        const response = RequestHelper.http.delete("me"+path)
         return response;
     };
 
@@ -54,7 +53,7 @@ export class NebulooFetch{
             topic_id: topicId,
         };
 
-        const response = NebulooFetch.http.post('questions',data)
+        const response = RequestHelper.http.post('questions',data)
         return response;
     };
     static async updateQuestion(editedQuestionId, title, body, subjectId, topicId){
@@ -65,7 +64,7 @@ export class NebulooFetch{
             topic_id: topicId,
         };
 
-        const response = NebulooFetch.http.put('questions/'+editedQuestionId, data)
+        const response = RequestHelper.http.put('questions/'+editedQuestionId, data)
         return response;
     }
     static async createContent(body, subjectId, topicId){
@@ -76,7 +75,7 @@ export class NebulooFetch{
             topic_id: topicId,
         };
 
-        const response = NebulooFetch.http.post('contents', data);
+        const response = RequestHelper.http.post('contents', data);
         return response;
     };
     static async updateContent(editedContentId, body, subjectId, topicId){
@@ -85,69 +84,69 @@ export class NebulooFetch{
             subject_id: subjectId,
             topic_id: topicId,
         };
-        const response = NebulooFetch.http.put('contents/'+editedContentId, data);
+        const response = RequestHelper.http.put('contents/'+editedContentId, data);
         return response;
     };
     static async getMyDatas(){
-        const response = NebulooFetch.http.get("me");
+        const response = RequestHelper.http.get("me");
         return response;
     };
     static async deleteMyProfile(){
-        const response = NebulooFetch.http.delete("me")
+        const response = RequestHelper.http.delete("me")
         return response;
     };
     static async editMyDatas(data){
-        const response = NebulooFetch.http.put('me',data)
+        const response = RequestHelper.http.put('me',data)
         return response;
     };
     static async editUserData(data,id){
-        const response = NebulooFetch.http.put('users/'+id,data)
+        const response = RequestHelper.http.put('users/'+id,data)
         return response;
     };
     static async createTicket(data){
-        const response = NebulooFetch.http.post('tickets',data)
+        const response = RequestHelper.http.post('tickets',data)
         return response;
     };
     static async getUserData(id){
-        const response = NebulooFetch.http.get('users/'+id)
+        const response = RequestHelper.http.get('users/'+id)
         return response;
     };
     static async changeUserRole(id,data){
-        const response = NebulooFetch.http.put('user/'+id+'/role',data)
+        const response = RequestHelper.http.put('user/'+id+'/role',data)
         return response;
     };
     static async banUser(id){
-        const response = NebulooFetch.http.put('users/'+id+'/ban')
+        const response = RequestHelper.http.put('users/'+id+'/ban')
         return response;
     };
     static async deleteUser(id){
-        const response = NebulooFetch.http.delete('users/'+id)
+        const response = RequestHelper.http.delete('users/'+id)
         return response;
     }
  
     static synchronizeVote(votableId, votableType, voteState){
         if(voteState == 1){
-            return NebulooFetch.http.post(votableType + '/' + votableId + '/votes', {'direction': 'up'});
+            return RequestHelper.http.post(votableType + '/' + votableId + '/votes', {'direction': 'up'});
         }else if(voteState == -1){
-            return NebulooFetch.http.post(votableType + '/' + votableId + '/votes', {'direction': 'down'});
+            return RequestHelper.http.post(votableType + '/' + votableId + '/votes', {'direction': 'down'});
         }else{
-            return NebulooFetch.http.delete(votableType + '/' + votableId + '/votes');
+            return RequestHelper.http.delete(votableType + '/' + votableId + '/votes');
         }
     };
-    static async createComment(message ,path)
+    static async createComment(message, commentableType, commentableId)
     {
         var data = {
             message: message,
         };
-        const response = NebulooFetch.http.post(path+'/comments', data)
+        const response = RequestHelper.http.post(commentableType+ '/' + commentableId+ '/comments', data)
         return response;
     };
     static async editComment(data,id){
-        const response = NebulooFetch.http.put('comments/'+id, data)
+        const response = RequestHelper.http.put('comments/'+id, data)
         return response;
     };
     static async deleteMyComment(id){
-        const response = NebulooFetch.http.delete('comments/'+id)
+        const response = RequestHelper.http.delete('comments/'+id)
         return response;
     };
 
@@ -156,7 +155,7 @@ export class NebulooFetch{
         var http = axios.create({
             baseURL: this.baseUrl,
             headers: {
-                'Authorization':"Bearer " + NebulooFetch.token,
+                'Authorization':"Bearer " + RequestHelper.token,
             }
         });
 
@@ -168,7 +167,7 @@ export class NebulooFetch{
     };
 
     static async getSubjects(){
-        const response = NebulooFetch.http.get('subjects')
+        const response = RequestHelper.http.get('subjects')
         return response;
     };
 }

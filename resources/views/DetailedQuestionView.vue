@@ -5,7 +5,7 @@
         <div class="row bg-light shadow rounded-3 p-2">
             <div v-if="isWaiting" id="loading-spinner" class="spinner-border mx-auto" role="status"></div>
 
-            <div class="row">
+            <div v-else class="row">
                 <div class="col-11">
 
                     <user :user="question.creator"></user>   
@@ -16,8 +16,11 @@
                 </div>
 
                 <div class="col-1">
-                    <vote :contentId="id" :voteCount="question.recieved_votes" :vote="null"></vote>
+                    <vote :votableId="id" :voteCount="question.recieved_votes"></vote>
                 </div>
+
+            <tag-list v-if="question!=null" :subject="question.subject" :topic="question.topic"/>
+
             <h1>
                 {{ question.title }}
             </h1>
@@ -41,7 +44,7 @@
             </div>
     </div>
 
-    <comment-section :comments="question.comments" :commentable_id="question.id" :commentable_type="questions"/>
+    <comment-section v-if="question!=null" :comments="question.comments" :commentable_id="question.id" :commentable_type="'questions'"/>
 
 </div>
 </template>
@@ -51,7 +54,8 @@ import CommentCard  from '../components/CommentCard.vue';
 import CommentSection from '../components/CommentSection.vue';
 import Vote from '../components/Vote.vue';
 import User from '../components/User.vue';
-import { NebulooFetch } from '../utils/https.mjs';
+import TagList from '../components/TagList.vue';
+import { RequestHelper } from '../utils/RequestHelper';
 import router from '../router';
 
 import { UserManager } from '../utils/UserManager.js';
@@ -59,8 +63,7 @@ import { UserManager } from '../utils/UserManager.js';
 export default{
     data() {
         return {
-            question: {},
-            creator: Object,
+            question: null,
             isWaiting: true
         };
     },
@@ -68,7 +71,8 @@ export default{
         CommentSection,
         CommentCard,
         Vote,
-        User
+        User,
+        TagList
     },
     props:{
         id: {
@@ -87,14 +91,13 @@ export default{
             })
         },
         async getDetailedQuestion(){
-            var responseBody = (await NebulooFetch.getDetailedQuestion(this.id)).data;
+            var responseBody = (await RequestHelper.getDetailedQuestion(this.id)).data;
             this.question = responseBody;
-            this.creator = this.question.creator;
             this.isWaiting=false;
         },
         deletePost(){
             if (window.confirm("Biztosan törölni szeretné kérdését?")) {
-                NebulooFetch.deleteMyPost(this.$route.path)
+                RequestHelper.deleteMyPost(this.$route.path)
                 .then(()=>{
                     alert("Sikeres törlés!");
                     router.push('/myprofile');
@@ -104,7 +107,7 @@ export default{
     },
     computed:{
         isMyQuestion(){
-            return (UserManager.getUser()?.id == this.creator.id || UserManager.isAdmin());
+            return (UserManager.getUser()?.id == this.question?.creator?.id || UserManager.isAdmin());
         },
     },
     mounted(){

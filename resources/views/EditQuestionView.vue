@@ -4,11 +4,9 @@
     <div class="row bg-light shadow rounded-3 p-2">
     <div v-if="isWaiting" id="loading-spinner" class="spinner-border mx-auto" role="status"></div>
 
-        <tag-selector @subjectItemSelected="handleSubjectItemSelected" @topicItemSelected="handleTopicItemSelected"
+        <tag-selector v-if="!isWaiting" @subjectItemSelected="handleSubjectItemSelected" @topicItemSelected="handleTopicItemSelected"
                 :defaultSubjectId="subjectId" :defaultTopicId="topicId"
                 ref="tagSelector"/>
-
-
 
         <label for="cim" class="form-label pt-2">Cím*</label>
         <input type="text" id="cim" v-model="title" class="form-control">
@@ -32,7 +30,7 @@
 </template>
 
 <script>
-import { NebulooFetch } from '../utils/https.mjs';
+import { RequestHelper } from '../utils/RequestHelper';
 import SnackBar from '../components/snackbars/SnackBar.vue';
 import { UserManager } from '../utils/UserManager';
 import TagSelector from '../components/TagSelector.vue';
@@ -62,17 +60,17 @@ export default{
     },
     methods:{
         async getDetailedQuestion(){
-            var responseBody = (await NebulooFetch.getDetailedQuestion(this.id)).data;
+            var responseBody = (await RequestHelper.getDetailedQuestion(this.id)).data;
             this.question = responseBody
             this.title = this.question.title;
             this.body = this.question.body;
-            this.subjectId = this.question.subject.id;
-            this.topicId = this.question.topic.id;
+            this.subjectId = this.question.subject?.id;
+            this.topicId = this.question.topic?.id;
 
         },
         async updateQuestion(){
 
-            var response = (await NebulooFetch.updateQuestion(this.question.id, this.title, this.body, this.subjectId, this.topicId));
+            var response = (await RequestHelper.updateQuestion(this.question.id, this.title, this.body, this.subjectId, this.topicId));
 
             if(response.status == 200){
                // this.$router.push('/questions/'+id);

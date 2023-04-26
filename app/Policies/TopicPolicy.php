@@ -12,7 +12,7 @@ class TopicPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view any models.
+     * Determine whether the user can view any topic.
      *
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
@@ -27,12 +27,12 @@ class TopicPolicy
     }
 
     /**
-     * Determine whether the user can view any models.
+     * Determine whether the user can view any topic.
      *
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(?User $user, Topic $topic): Response
+    public function view(?User $user): Response
     {
         if($user?->banned==true){
             return Response::deny();
@@ -42,7 +42,7 @@ class TopicPolicy
     }
     
     /**
-     * Determine whether the user can create models.
+     * Determine whether the user can create topic.
      *
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
@@ -61,7 +61,7 @@ class TopicPolicy
     }
 
     /**
-     * Determine whether the user can update the model.
+     * Determine whether the user can update the topic.
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\Topic  $topic
@@ -81,7 +81,7 @@ class TopicPolicy
     }
 
     /**
-     * Determine whether the user can delete the model.
+     * Determine whether the user can delete the topic.
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\Vote  $vote

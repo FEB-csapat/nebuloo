@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { NebulooFetch } from '../utils/https.mjs';
+import { RequestHelper } from '../utils/RequestHelper';
 import TagSelector from '../components/TagSelector.vue';
 
 export default{
@@ -42,7 +42,7 @@ export default{
     },
     methods:{
         async createQuestion(){
-            NebulooFetch.createQuestion(this.title, this.body, this.subjectId, this.topicId)
+            RequestHelper.createQuestion(this.title, this.body, this.subjectId, this.topicId)
             .then(()=>{
                 alert("Sikeres létrehozás!");
                 router.push('/myprofile');

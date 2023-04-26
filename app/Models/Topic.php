@@ -11,10 +11,7 @@ class Topic extends Model
 
     protected $table = 'topics';
     protected $primaryKey = 'id';
-
-
     protected $fillable = ['name', 'creator_user_id', 'subject_id'];
-
 
     public function creator()
     {

@@ -14,13 +14,13 @@
 </template>
 
 <script>
-import { NebulooFetch } from '../utils/https.mjs';
+import { RequestHelper } from '../utils/RequestHelper';
 
 import { UserManager } from '../utils/UserManager';
 
 export default{
     props:{
-        contentId: Number, 
+        votableId: Number, 
         myVote: String,
         voteCount: {
             type: Number,
@@ -54,7 +54,7 @@ export default{
             this.synchronizeVote();
         },
         synchronizeVote(){
-            NebulooFetch.synchronizeVote(this.contentId, 'contents', this.voteState);
+            RequestHelper.synchronizeVote(this.votableId, 'contents', this.voteState);
         }
     },
     computed: {

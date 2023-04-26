@@ -11,17 +11,6 @@ use App\Models\User;
 class RoleController extends Controller
 {
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateRoleRequest  $request
@@ -36,16 +25,5 @@ class RoleController extends Controller
         $user->save();
         
         return new UserResource($user);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

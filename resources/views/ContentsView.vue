@@ -55,7 +55,7 @@ import Cards from '../components/Cards.vue'
 import Paginator from '../components/Paginator.vue';
 import router from '../router';
 
-import { NebulooFetch } from '../utils/https.mjs';
+import { RequestHelper } from '../utils/RequestHelper';
 
 import SnackBar from '../components/snackbars/SnackBar.vue';
 import TagSelector from '../components/TagSelector.vue';
@@ -94,7 +94,7 @@ export default{
                 subject: this.subjectId,
                 topic: this.topicId,
             };
-            var responseBody = (await NebulooFetch.getAllContent(queires)).data;
+            var responseBody = (await RequestHelper.getAllContent(queires)).data;
             this.Contents = responseBody.data;
             this.links = responseBody.links;
             this.meta = responseBody.meta;

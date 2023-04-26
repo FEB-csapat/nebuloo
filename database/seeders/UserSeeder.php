@@ -23,33 +23,13 @@ class UserSeeder extends Seeder
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // permissions for admin
-        $permission_users_all = Permission::findOrCreate('users.*');
-        $permission_contents_all = Permission::findOrCreate('contents.*');
-        $permission_questions_all = Permission::findOrCreate('questions.*');
-        $permission_comments_all = Permission::findOrCreate('comments.*');
-
-        // permissions for moderators
-    // $permission_contents_all = Permission::create(['name' => 'contents.*']);
-    //  $permission_questions_all = Permission::create(['name' => 'questions.*']);
-        $permission_comments_create_delete = Permission::findOrCreate('comments.create,delete');
-
-        // permissions for users
-
-
+        
         $adminRole = Role::findOrCreate('admin');
-        $adminRole->givePermissionTo($permission_users_all);
-        $adminRole->givePermissionTo($permission_contents_all);
-        $adminRole->givePermissionTo($permission_questions_all);
-        $adminRole->givePermissionTo($permission_comments_all);
 
         $moderatorRole = Role::findOrCreate('moderator');
-        $moderatorRole->givePermissionTo($permission_contents_all);
-        $moderatorRole->givePermissionTo($permission_questions_all);
-        $moderatorRole->givePermissionTo($permission_comments_create_delete);
 
         $userRole = Role::findOrCreate('user');
-
+        
 
         $userAdmin = User::factory()->create([
             'email' => 'admin@adminmail.com',
@@ -59,7 +39,7 @@ class UserSeeder extends Seeder
             'bio' => 'My hobbies are reading and programming',      
             'password' => Hash::make('admin123')  
         ]);
-        $userAdmin->assignRole($adminRole);
+        $userAdmin->assignRole('admin');
 
 
         $userErik = User::factory()->create([
@@ -70,7 +50,7 @@ class UserSeeder extends Seeder
             'bio' => 'My hobbies are reading and programming',      
             'password' => Hash::make('Jelszo123')  
         ]);
-        $userErik->assignRole($moderatorRole);
+        $userErik->assignRole('moderator');
 
 
         $userFeco = User::factory()->create([
@@ -80,7 +60,7 @@ class UserSeeder extends Seeder
             'email' => 'feco@fakemail.com',
             'email_verified_at' => Carbon::now(),
         ]);
-        $userFeco->assignRole($moderatorRole);
+        $userFeco->assignRole('moderator');
 
 
         $userBence = User::factory()->create([
@@ -90,7 +70,7 @@ class UserSeeder extends Seeder
             'display_name' => 'Bencus',
             'bio' => 'I\'m here for the money',
         ]);
-        $userBence->assignRole($moderatorRole);
+        $userBence->assignRole('moderator');
         
         User::factory()->count(15)->create()->each(function ($user) {
             $user->assignRole('user');

@@ -23,14 +23,14 @@
 
         </div>
         <div class="" style="width=20px">
-            <vote :contentId="comment.id" :voteCount="comment.recieved_votes" :myVote="comment.my_vote"></vote>
+            <vote :votableId="comment.id" :voteCount="comment.recieved_votes" :myVote="comment.my_vote"></vote>
         </div>
     </div>
 </template>
 
 <script>
 import Vote from './Vote.vue';
-import { NebulooFetch } from '../utils/https.mjs';
+import { RequestHelper } from '../utils/RequestHelper';
 import User from './User.vue';
 
 import { UserManager } from '../utils/UserManager';
@@ -54,7 +54,7 @@ export default{
     methods:{
         deleteComment(){
             if (window.confirm("Biztosan törölni szeretné hozzászólását?")) {
-                NebulooFetch.deleteMyComment(this.comment.id)
+                RequestHelper.deleteMyComment(this.comment.id)
                 .then(()=>{
                     alert("Sikeres törlés!");
                     window.location.reload();
@@ -76,7 +76,7 @@ export default{
         },
         async editComment(){
             const data = JSON.stringify(this.commentData);
-            var response = (await NebulooFetch.editComment(data,this.comment.id));
+            var response = (await RequestHelper.editComment(data,this.comment.id));
             window.location.reload();
         },
     },

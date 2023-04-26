@@ -22,7 +22,7 @@
     </div>
 </template>
 <script>
-import { NebulooFetch } from '../utils/https.mjs';
+import { RequestHelper } from '../utils/RequestHelper';
 import { Form ,Field } from 'vee-validate';
 import router from '../router';
 import { UserManager } from '../utils/UserManager';
@@ -60,14 +60,14 @@ export default{
             }
         },
         async editMyData(values){
-            NebulooFetch.editMyDatas(values)
+            RequestHelper.editMyDatas(values)
             .then(()=>{
                 alert("Sikeres változtatás");
                 router.push('/myprofile')
             });
         },
         async editProfileData(values){
-            NebulooFetch.editUserData(values,this.id)
+            RequestHelper.editUserData(values,this.id)
             .then(()=>{
                 alert("Sikeres felülírás.");
                 router.push('/profile/'+this.id)
@@ -89,7 +89,7 @@ export default{
             alert("Nincs jogosultságod változtatásokat végezni más profilján!",router.push("/myprofile"))
         }
         else{
-            this.userData = (await NebulooFetch.getUserData(this.id)).data;
+            this.userData = (await RequestHelper.getUserData(this.id)).data;
             this.isWaiting = false;
         }
     }

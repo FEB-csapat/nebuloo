@@ -8,7 +8,6 @@ use App\Http\Controllers\TicketController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
-use App\Http\Controllers\FeedController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\VoteController;
@@ -16,17 +15,20 @@ use App\Http\Controllers\ImageController;
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
+|==========================================================================
+| Public routes
 |--------------------------------------------------------------------------
-| API Routes
+| API routes accessible to all: guests, users, moderators, admins
 |--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
 */
 
+/*
+|--------------------------------------------------------------------------
+| Register and login routes
+|--------------------------------------------------------------------------
+*/
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, "login"]);
 
@@ -35,9 +37,6 @@ Route::get('/users', [UserController::class, "index"])
     ->name("users.index");
 Route::get('/users/{id}', [UserController::class, "show"])
     ->name("users.show");
-
-Route::get('/feed', [FeedController::class, "index"])
-    ->name("feed.index");
 
 Route::get('/contents', [ContentController::class, "index"])
     ->name("contents.index");
@@ -80,7 +79,25 @@ Route::get('/comments/{id}', [CommentController::class, "show"])
 Route::get('images/{id}', [ImageController::class, "show"])
     ->name("images.show");
 
+Route::get('/ranks', [RankController::class, "index"])
+    ->name("ranks.index");
 
+Route::get('/ranks/{id}', [RankController::class, "show"])
+    ->name("ranks.show");
+/*
+|--------------------------------------------------------------------------
+| End of public routes
+|==========================================================================
+*/
+
+
+/*
+|==========================================================================
+| User routes
+|--------------------------------------------------------------------------
+| API routes accessible only to: users, moderators, admins
+|--------------------------------------------------------------------------
+*/
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/me', [UserController::class, "showMe"])
         ->name("me.show");
@@ -132,7 +149,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('tickets/me',[TicketController::class,'meIndex'])
     ->name('me.tickets.index');
-     Route::get('tickets',[TicketController::class,'index'])
+    Route::get('tickets',[TicketController::class,'index'])
         ->name('tickets.index');
     Route::delete('tickets/{id}', [TicketController::class, 'destroy'])
         ->name("tickets.destroy");
@@ -164,17 +181,21 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::delete('votes/{id}', [VoteController::class, "destroy"])
         ->name("votes.destroy");
 });
+/*
+|--------------------------------------------------------------------------
+| End of user routes
+|==========================================================================
+*/
+
+
 
 /*
-* API routes for rank
+|==========================================================================
+| Moderator and admin routes
+|--------------------------------------------------------------------------
+| API routes accessible only to: moderators, admins
+|--------------------------------------------------------------------------
 */
-Route::get('/ranks', [RankController::class, "index"])
-    ->name("ranks.index");
-
-Route::get('/ranks/{id}', [RankController::class, "show"])
-    ->name("ranks.show");
-
-
 Route::group(['middleware' => ['role:admin|moderator']], function () {
     Route::put('users/{id}', [UserController::class, "update"])
         ->name("users.update");
@@ -196,7 +217,20 @@ Route::group(['middleware' => ['role:admin|moderator']], function () {
     Route::delete('/topics/{id}', [TopicController::class, "destroy"])
         ->name("topics.destroy");
 });
+/*
+|--------------------------------------------------------------------------
+| End of moderator and admin routes
+|==========================================================================
+*/
 
+
+/*
+|==========================================================================
+| Admin routes
+|--------------------------------------------------------------------------
+| API routes accessible only to: admins
+|--------------------------------------------------------------------------
+*/
 
 Route::group(['middleware' => ['role:admin']], function () {
 
@@ -205,6 +239,9 @@ Route::group(['middleware' => ['role:admin']], function () {
 
     Route::delete('users/{id}', [UserController::class, "destroy"])
         ->name("users.destroy");
-
-   
 });
+/*
+|--------------------------------------------------------------------------
+| End of admin routes
+|==========================================================================
+*/

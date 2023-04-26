@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { NebulooFetch } from '../utils/https.mjs';
+import { RequestHelper } from '../utils/RequestHelper';
 
 export default{
 }

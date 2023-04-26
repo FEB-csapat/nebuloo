@@ -4,15 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\RankResource;
 use App\Models\Rank;
-use Illuminate\Http\Request;
-
 
 class RankController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of ranks.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index()
     {
@@ -21,10 +19,10 @@ class RankController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified rank.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\RankResource
      */
     public function show($id)
     {

@@ -7,17 +7,14 @@ use App\Http\Requests\StoreQuestionRequest;
 use App\Http\Requests\UpdateQuestionRequest;
 use App\Http\Resources\QuestionResource;
 use App\Models\Question;
-use App\Models\Vote;
 use Illuminate\Http\Request;
 
 class QuestionController extends Controller
 {
-    protected $model = Question::class;
-
     /**
-     * Display a listing of the resource.
+     * Display a listing of questions.
      *
-     * @return \App\Http\Resources\QuestionResource
+     * @return array
      */
     public function index(Request $request)
     {
@@ -58,23 +55,21 @@ class QuestionController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of questions created by the user.
      *
-     * @return \App\Http\Resources\QuestionResource
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function meIndex(Request $request)
     {
         $this->authorize('viewMe', Question::class);
-
         $questions = Question::where('creator_user_id', $request->user()->id)->get();
-        
         return QuestionResource::collection($questions);
     }
     
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created question in storage.
      *
-     * @param  App\Http\Requests\StoreQuestionRequest  $request
+     * @param  \App\Http\Requests\StoreQuestionRequest $request
      * @return \App\Http\Resources\QuestionResource
      */
     public function store(StoreQuestionRequest $request)
@@ -87,7 +82,7 @@ class QuestionController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified question.
      *
      * @param  int  $id
      * @return \App\Http\Resources\QuestionResource
@@ -95,44 +90,41 @@ class QuestionController extends Controller
     public function show(Request $request, $id)
     {
         $question = Question::findOrFail($id);
-
-        $this->authorize('view', [$question], Question::class);
-        
+        $this->authorize('view', $question);
         return new QuestionResource($question);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified question in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UpdateQuestionRequest  $request
      * @param  int  $id
      * @return \App\Http\Resources\QuestionResource
      */
     public function update(UpdateQuestionRequest $request, $id)
     {
         $question = Question::findOrFail($id);
-
-        $this->authorize('update', $question, Question::class);
-
+        $this->authorize('update', $question);
         $data = $request->validated();
-        
         if($question->update($data)){
             return new QuestionResource($question);
         }
+        abort(500, 'Could not update question.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified question from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Request $request, $id)
     {
         $question = Question::findOrFail($id);
-
-        $this->authorize('delete', $question, Question::class);
-        
+        $this->authorize('delete', $question);
         $question->delete();
+        return response()->json([
+            'message' => 'Successfully deleted question!',
+        ], 200);
     }
 }

@@ -12,7 +12,7 @@ class CommentPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view any models.
+     * Determine whether the user can view any comment.
      *
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
@@ -23,11 +23,11 @@ class CommentPolicy
             return Response::deny();
         }
 
-        return true;
+        return Response::allow();
     }
 
     /**
-     * Determine whether the user can view any models.
+     * Determine whether the user can view any comment.
      *
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
@@ -45,7 +45,7 @@ class CommentPolicy
     }
 
     /**
-     * Determine whether the user can view the model.
+     * Determine whether the user can view the comment.
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\Comment  $comment
@@ -57,13 +57,11 @@ class CommentPolicy
             return Response::deny();
         }
 
-        return true;
+        return Response::allow();
     }
 
-    
-
     /**
-     * Determine whether the user can create models.
+     * Determine whether the user can create comment.
      *
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
@@ -82,7 +80,7 @@ class CommentPolicy
     }
 
     /**
-     * Determine whether the user can update the model.
+     * Determine whether the user can update the comment.
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\Comment  $comment
@@ -95,8 +93,6 @@ class CommentPolicy
         }
 
         // visitors cannot update comments
-        
-        
         if ($user === null) {
             return Response::deny('User must be logged in to update comments.');
         }
@@ -108,7 +104,6 @@ class CommentPolicy
         }
 
         return Response::allow();
-
     }
 
     /**
@@ -138,29 +133,5 @@ class CommentPolicy
         }
 
         return Response::allow();
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function restore(?User $user, Comment $comment)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function forceDelete(?User $user, Comment $comment)
-    {
-        //
     }
 }

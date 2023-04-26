@@ -16,7 +16,7 @@
     </div>
 </template>
 <script>
- import { NebulooFetch } from '../utils/https.mjs';
+ import { RequestHelper } from '../utils/RequestHelper';
 import router from '../router';
     export default{
         data(){
@@ -27,7 +27,7 @@ import router from '../router';
         methods:{
             async NewTicket(){
                 const data = JSON.stringify(this.ticket);
-                NebulooFetch.createTicket(data)
+                RequestHelper.createTicket(data)
                 .then(()=>{
                     alert("Sikeres küldés!");
                     router.push('/myprofile');

@@ -12,9 +12,7 @@ class Subject extends Model
     protected $table = 'subjects';
     protected $primaryKey = 'id';
 
-
     protected $fillable = ['name', 'creator_user_id'];
-
 
     public function creator()
     {

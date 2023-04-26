@@ -10,38 +10,35 @@ use App\Http\Requests\StoreCommentRequest;
 
 class CommentController extends Controller
 {
-        /**
-     * Display a listing of the resource.
+    /**
+     * Display a listing of comments.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index(Request $request)
     {
-        
         $this->authorize('viewAny', Comment::class);
-        
         $comments = Comment::all();
         return CommentResource::collection($comments);
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the comment created by the user.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function meIndex(Request $request)
     {
         $this->authorize('viewMe', Comment::class);
-        
         $comments = Comment::where('creator_user_id', $request->user()->id)->get();
         return CommentResource::collection($comments);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created comment in storage.
      *
-     * @param  App\Http\Requests\StoreCommentRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  \App\Http\Requests\StoreCommentRequest  $request
+     * @return \App\Http\Resources\CommentResource
      */
     public function store(StoreCommentRequest $request, $commentableType, $commentableId)
     {
@@ -55,7 +52,7 @@ class CommentController extends Controller
         }else if($commentableType == 'questions'){
             $data['commentable_type'] = 'App\Models\Question';
         }else{
-            abort(500, 'Commentable type not found');
+            abort(404, 'Commentable type not found');
         }
 
         $data['commentable_id'] = $commentableId;
@@ -70,54 +67,57 @@ class CommentController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified comment.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\CommentResource
      */
     public function show(Request $request, $id)
     {
         $comment = Comment::findOrFail($id);
         
-        $this->authorize('view', $comment, Comment::class);
+        $this->authorize('view', $comment);
 
         return new CommentResource($comment);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified comment in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UpdateCommentRequest  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\CommentResource
      */
     public function update(UpdateCommentRequest $request, $id)
     {
-
         $comment = Comment::findOrFail($id);
 
-        $this->authorize('update', $comment, Comment::class);
+        $this->authorize('update', $comment);
 
         $data = $request->validated();
         
         if($comment->update($data)){
             return new CommentResource($comment);
         }
+        abort(500, 'Could not update comment.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified comment from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Request $request, $id)
     {
         $comment = Comment::findOrFail($id);
 
-        $this->authorize('delete', $comment, Comment::class);
+        $this->authorize('delete', $comment);
 
         $comment->delete();
+        return response()->json([
+            'message' => 'Successfully deleted comment!',
+        ], 200);
     }
 
 }

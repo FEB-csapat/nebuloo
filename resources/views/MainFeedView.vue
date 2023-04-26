@@ -27,7 +27,7 @@
 <script>
 import Cards from '../components/Cards.vue'
 
-import { NebulooFetch } from '../utils/https.mjs';
+import { RequestHelper } from '../utils/RequestHelper';
 
 export default{
     components:{
@@ -46,7 +46,7 @@ export default{
             var queires = {
                 search: this.searchTerm
             }
-            this.Contents = (await NebulooFetch.getAllContent(queires)).data.data;
+            this.Contents = (await RequestHelper.getAllContent(queires)).data.data;
             this.isWaiting = false;
         },
     },

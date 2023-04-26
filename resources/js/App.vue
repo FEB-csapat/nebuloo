@@ -2,11 +2,8 @@
 import NavBar from '../components/NavBar.vue';
 import { RouterLink, RouterView } from 'vue-router';
 import Footer from '../components/Footer.vue';
-//import router from './router/index.js';
 
 import SnackBar from '../components/snackbars/SnackBar.vue';
-
-
 
 export default{
   components:{

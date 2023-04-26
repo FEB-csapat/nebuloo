@@ -22,7 +22,7 @@
             <div class="text-center align-items-center" style="max-width: 85px; min-width: 72px">
                 <user v-if="question.creator" :user="question.creator"></user> 
     
-                <vote :contentId="question.id" :voteCount="question.recieved_votes" :myVote="question.my_vote"></vote>
+                <vote :votableId="question.id" :voteCount="question.recieved_votes" :myVote="question.my_vote"></vote>
             </div>
         </div>
 

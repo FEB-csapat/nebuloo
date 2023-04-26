@@ -13,7 +13,6 @@ class User extends Authenticatable
 {
     use HasFactory, HasApiTokens, HasRoles;
     
-
     protected $table = 'users';
     protected $primaryKey = 'id';
 

@@ -2,9 +2,6 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-
-use App\Models\Question;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\App;
 

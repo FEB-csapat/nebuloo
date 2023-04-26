@@ -12,7 +12,7 @@ class UserPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view any models.
+     * Determine whether the user can view any users.
      *
      * @param  \App\Models\User  $userRequester
      * @return \Illuminate\Auth\Access\Response|bool
@@ -22,15 +22,14 @@ class UserPolicy
         if($userRequester->banned==true){
             return Response::deny();
         }
-
         return Response::allow();
     }
 
     /**
-     * Determine whether the user can view the model.
+     * Determine whether the user can view the user.
      *
      * @param  \App\Models\User  $userRequester
-     * @param  \App\Models\User  $vote
+     * @param  \App\Models\User  $userRequested
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function view(?User $userRequester, User $userRequested)
@@ -38,7 +37,6 @@ class UserPolicy
         if($userRequester->banned==true){
             return Response::deny();
         }
-
         return Response::allow();
     }
 
@@ -46,7 +44,6 @@ class UserPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $userRequester
-     * @param  \App\Models\User  $vote
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function viewMe(?User $user)
@@ -62,7 +59,7 @@ class UserPolicy
     }
 
     /**
-     * Determine whether the user can create models.
+     * Determine whether the user can create user.
      *
      * @param  \App\Models\User  $userRequester
      * @return \Illuminate\Auth\Access\Response|bool
@@ -74,10 +71,10 @@ class UserPolicy
     }
 
     /**
-     * Determine whether the user can update the model.
+     * Determine whether the user can update the user.
      *
      * @param  \App\Models\User  $userRequester
-     * @param  \App\Models\Vote  $vote
+     * @param  \App\Models\User  $userRequested
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function update(?User $userRequester, User $userRequested)
@@ -97,7 +94,7 @@ class UserPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $userRequester
-     * @param  \App\Models\Vote  $vote
+     * @param  \App\Models\User  $userRequested
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function delete(?User $userRequester, User $userRequested)
@@ -124,10 +121,10 @@ class UserPolicy
     }
 
     /**
-     * Determine whether the user can restore the model.
+     * Determine whether the user can ban other user.
      *
      * @param  \App\Models\User  $userRequester
-     * @param  \App\Models\Vote  $vote
+     * @param  \App\Models\User  $userRequested
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function ban(?User $userRequester, User $userRequested)
@@ -154,6 +151,13 @@ class UserPolicy
         return Response::deny('User is not permitted for this action.');
     }
 
+    /**
+     * Determine whether the user can unban other user.
+     *
+     * @param  \App\Models\User  $userRequester
+     * @param  \App\Models\User  $userRequested
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
     public function unban(User $userRequester, User $userRequested)
     {
         if($userRequester->banned==true){

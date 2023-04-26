@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    /**
+     * Store a newly registered user in storage.
+     *
+     * @param  \App\Http\Requests\StoreUserRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function register(StoreUserRequest $request)
     {
         $request->validated();
@@ -22,13 +28,18 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
         $user->assignRole('user');
-
         
         return response()->json([
             'message' => 'Successfully created user!',
         ], 201);
     }
 
+    /**
+     * Log in a user.
+     *
+     * @param  \App\Http\Requests\LoginUserRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function login(LoginUserRequest $request)
     {
         $data = $request->validated();
@@ -41,11 +52,12 @@ class AuthController extends Controller
         }
 
         if(!$user){
-            return response()->json(['message' => 'No user found with such username or email!'], 404);
+            abort(404, 'No user found with such username or email!');
         }
 
         if($user->banned){
-            return response()->json(['message' => 'Banned user is not permitted to log in!'], 403);
+            abort(403, 'Banned user is not permitted to log in!');
+            
         }
 
         if (Hash::check($data['password'], $user->password)) {
@@ -55,7 +67,7 @@ class AuthController extends Controller
                 'user' => new UserResource($user),
             ], 200);
         } else {
-            return response()->json(['message' => 'Wrong password!'], 401);
+            abort(401, 'Wrong password!');
         }
     }
 }

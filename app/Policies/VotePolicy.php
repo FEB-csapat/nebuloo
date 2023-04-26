@@ -12,7 +12,7 @@ class VotePolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view any models.
+     * Determine whether the user can view any votes.
      *
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
@@ -32,7 +32,7 @@ class VotePolicy
 
     
     /**
-     * Determine whether the user can create models.
+     * Determine whether the user can create vote.
      *
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
@@ -50,7 +50,7 @@ class VotePolicy
     }
 
     /**
-     * Determine whether the user can update the model.
+     * Determine whether the user can update the vote.
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\Vote  $vote
@@ -74,7 +74,7 @@ class VotePolicy
     }
 
     /**
-     * Determine whether the user can delete the model.
+     * Determine whether the user can delete the vote.
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\Vote  $vote
@@ -96,29 +96,5 @@ class VotePolicy
         }
 
         return Response::allow();
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Vote  $vote
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function restore(User $user, Vote $vote)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Vote  $vote
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function forceDelete(User $user, Vote $vote)
-    {
-        //
     }
 }

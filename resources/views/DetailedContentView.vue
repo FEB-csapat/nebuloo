@@ -15,7 +15,7 @@
                             <p v-if="content != null">{{contentCreationTime}}</p>
                         </div>
                     </div>
-                        <vote v-if="content!=null" :contentId="id" :voteCount="content.recieved_votes" :myVote="content.my_vote"></vote>
+                        <vote v-if="content!=null" :votableId="id" :voteCount="content.recieved_votes" :myVote="content.my_vote"></vote>
                     </div>
                 </div>
             </div>
@@ -45,13 +45,13 @@
 
             </div>
         </div>
-        <comment-section v-if="content!=null" @commentAdded="commentAdded" :comments="content.comments" :commentable_id="content.id" :commentable_type="contents"></comment-section>
+        <comment-section v-if="content!=null" @commentAdded="commentAdded" :comments="content.comments" :commentable_id="content.id" :commentable_type="'contents'"></comment-section>
         <SnackBar ref="snackBar"/>
     </div>
 </template>
 
 <script>
-import { NebulooFetch } from '../utils/https.mjs';
+import { RequestHelper } from '../utils/RequestHelper';
 
 import EasyMDE from 'easymde';
 import CommentCard  from '../components/CommentCard.vue';
@@ -93,7 +93,7 @@ export default{
     },
     methods:{
         async getDetailedContent(){
-            var responseBody = (await NebulooFetch.getDetailedContent(this.id)).data;
+            var responseBody = (await RequestHelper.getDetailedContent(this.id)).data;
             this.content = responseBody;
             this.creator = this.content.creator;
             this.editor.value(this.content.body);
@@ -102,7 +102,7 @@ export default{
         async deletePost(){
             if (window.confirm("Biztosan törölni szeretné posztját?")) {
         
-                NebulooFetch.deleteMyPost(this.$route.path)
+                RequestHelper.deleteMyPost(this.$route.path)
                 .then(()=>{
                     alert("Sikeres törlés!");
                     router.push('/myprofile');

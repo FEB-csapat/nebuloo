@@ -11,10 +11,7 @@ class Content extends Model
 
     protected $table = 'contents';
     protected $primaryKey = 'id';
-
-
     protected $fillable = ['title', 'body', 'creator_user_id', 'subject_id', 'topic_id'];
-
 
     public static function create(array $attributes = [])
     {

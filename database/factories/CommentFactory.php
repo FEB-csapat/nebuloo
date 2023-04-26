@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 use App\Models\Question;
 use App\Models\Content;
 use App\Models\User;
@@ -34,16 +33,6 @@ class CommentFactory extends Factory
                 'parent_comment_id' => null,
                 'message' => $this->faker->paragraph
             ];
-        
-    }
-    
-    /**
-     * Indicate that the model's email address should be unverified.
-     *
-     * @return static
-     */
-    public function unverified()
-    {
         
     }
 }

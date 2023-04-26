@@ -11,9 +11,8 @@ class RolePolicy
 {
     use HandlesAuthorization;
 
-    
     /**
-     * Determine whether the user can update the model.
+     * Determine whether the user can update the role.
      *
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
@@ -31,17 +30,5 @@ class RolePolicy
         // only admin can update users  
         return Response::deny();
 
-    }
-
-    /**
-     * Determine whether the user can delete the model.
-     *
-     * @param  \App\Models\User  $userRequester
-     * @param  \App\Models\Vote  $vote
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function delete(?User $user, $id)
-    {
-        
     }
 }
