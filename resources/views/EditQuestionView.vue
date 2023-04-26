@@ -97,7 +97,7 @@ export default{
     },
     async mounted(){
         await this.getDetailedQuestion();
-        if(this.question.creator.id!=UserManager.getUser().id && UserManager.getUser().role !="admin"){
+        if(!UserManager.isMine(this.question.creator.id) && !UserManager.isAdmin()){
             alert("Nincs engedélyed ennek a tartalomnak a szerkeztéséhez!",router.back())
         }
     }

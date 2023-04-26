@@ -82,7 +82,7 @@ export default{
     },
     computed:{
         isMyComment(){
-            return (UserManager.getUser()?.id == this.comment.creator.id || UserManager.isAdmin());
+            return (UserManager.isMine(this.comment.creator.id) || UserManager.isAdmin());
         },
         commentData(){
             return{

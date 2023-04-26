@@ -65,4 +65,7 @@ export class UserManager{
         return this.getToken() != null;
     }
 
+    static isMine(id){
+        return this.getUser()?.id == id;
+    }
 }

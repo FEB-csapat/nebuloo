@@ -139,7 +139,7 @@ export default{
     
     computed:{
         isMyContent(){
-            return (UserManager.getUser()?.id == this.creator.id || UserManager.isAdmin());
+            return (UserManager.isMine(this.creator.id) || UserManager.isAdmin());
         },
         contentCreationDate: function(){
             return this.content.created_at.split(' ')[0];
