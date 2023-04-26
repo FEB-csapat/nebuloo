@@ -12,6 +12,9 @@
 
                 <div v-if="errorMessage" class="error-message bg-danger text-white bg-opacity-25 border border-danger p-2">{{errorMessage}}</div>
             </Form>
+
+            <div v-if="isWaiting" id="loading-spinner" class="spinner-border mx-auto" role="status"></div>
+
             <div class="col-sm-12 my-3">
                 <p>
                     Nincs még felhasználód? Regisztrálj egyet!
@@ -40,7 +43,8 @@ import { UserManager } from '../utils/UserManager';
 export default{
     data(){
         return{
-            errorMessage: null
+            errorMessage: null,
+            isWaiting: false
         }
     },
     components: {
@@ -48,6 +52,8 @@ export default{
     },
     methods:{
         async Login(values){
+            this.isWaiting = true;
+
             const login = axios.create({
                 baseURL: "http://localhost:8881/api/",
                 headers: {'Content-Type': 'application/json'}

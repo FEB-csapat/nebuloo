@@ -3,6 +3,8 @@
         <h2 class="text-center mt-3 mb-2">Kérdés megtekintése</h2>
 
         <div class="row bg-light shadow rounded-3 p-2">
+            <div v-if="isWaiting" id="loading-spinner" class="spinner-border mx-auto" role="status"></div>
+
             <div class="row">
                 <div class="col-11">
 
@@ -58,7 +60,8 @@ export default{
     data() {
         return {
             question: {},
-            creator: Object
+            creator: Object,
+            isWaiting: true
         };
     },
     components:{
@@ -87,6 +90,7 @@ export default{
             var responseBody = (await NebulooFetch.getDetailedQuestion(this.id)).data;
             this.question = responseBody;
             this.creator = this.question.creator;
+            this.isWaiting=false;
         },
         deletePost(){
             if (window.confirm("Biztosan törölni szeretné kérdését?")) {
@@ -105,6 +109,7 @@ export default{
     },
     mounted(){
         this.getDetailedQuestion();
+
     },
 };
 </script>

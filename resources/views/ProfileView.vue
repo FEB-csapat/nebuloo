@@ -6,7 +6,9 @@
                         Kijelentkezés
                 </button>
             </div>
+            
         <div class="row text-center mb-4">
+            <div v-if="isWaiting" id="loading-spinner" class="spinner-border mx-auto" role="status"></div>
             <user v-if="userData!=null" :user="userData" v-bind:showDetailed="true" :clickable="false"></user> 
         </div>
 
@@ -144,7 +146,8 @@ data(){
         userData: null,
         isMyProfile: false,
 
-        pickedRole: null
+        pickedRole: null,
+        isWaiting: true
     }   
 },
 components:{
@@ -211,9 +214,11 @@ methods:{
     async getMyData(){
         this.responseBody = (await NebulooFetch.getMyDatas()).data;
         this.userData = this.responseBody;
+        this.isWaiting=false;
     },
     async getProfileData(){
         this.userData = (await NebulooFetch.getUserData(this.id)).data;
+        this.isWaiting=false;
     },
     async deleteMe(){
         if (window.confirm("Biztosan törölni szeretné fiókját?")) {

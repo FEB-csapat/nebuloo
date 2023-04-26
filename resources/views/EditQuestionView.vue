@@ -2,10 +2,13 @@
 <div class="container my-3 ">
     <h1 class="text-center mb-4">Kérdés szerkesztése</h1>
     <div class="row bg-light shadow rounded-3 p-2">
-        
+    <div v-if="isWaiting" id="loading-spinner" class="spinner-border mx-auto" role="status"></div>
+
         <tag-selector @subjectItemSelected="handleSubjectItemSelected" @topicItemSelected="handleTopicItemSelected"
                 :defaultSubjectId="subjectId" :defaultTopicId="topicId"
                 ref="tagSelector"/>
+
+
 
         <label for="cim" class="form-label pt-2">Cím*</label>
         <input type="text" id="cim" v-model="title" class="form-control">
@@ -47,7 +50,8 @@ export default{
             title:'',
             body:'',
             subjectId: null,
-            topicId: null
+            topicId: null,
+            isWaiting: true
         };
     },
     props:{
@@ -97,6 +101,7 @@ export default{
     },
     async mounted(){
         await this.getDetailedQuestion();
+        this.isWaiting = false;
         if(!UserManager.isMine(this.question.creator.id) && !UserManager.isAdmin()){
             alert("Nincs engedélyed ennek a tartalomnak a szerkeztéséhez!",router.back())
         }

@@ -2,6 +2,8 @@
     <div class="container">
         <h2 class="text-center mt-3 mb-2">Tananyag megtekintése</h2>
         <div class="row bg-light shadow rounded-3 pt-2 pb-2" id="contentid">
+            <div v-if="isWaiting" id="loading-spinner" class="spinner-border mx-auto" role="status"></div>
+
             <div class="row">
                 <div class="col text-center ">
                     <div class="d-flex justify-content-between">
@@ -85,12 +87,12 @@ export default{
     data() {
         return {
             content: null,
-            creator: Object
+            creator: Object,
+            isWaiting: true
         };
     },
     methods:{
         async getDetailedContent(){
-            this.isWaiting = true;
             var responseBody = (await NebulooFetch.getDetailedContent(this.id)).data;
             this.content = responseBody;
             this.creator = this.content.creator;
