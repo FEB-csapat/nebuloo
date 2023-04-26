@@ -123,8 +123,8 @@ export default{
 
         const response = (await NebulooFetch.getDetailedContent(this.id));
         
-        if(response.data.creator.id != UserManager.getUser()?.id || !UserManager.isModerator() || !UserManager.isAdmin()){
-            alert("Nincs engedélyed ennek a tartalomnak a szerkeztéséhez!", router.back())
+        if(!UserManager.isMine(response.data.creator.id) && !UserManager.isModerator() && !UserManager.isAdmin()){
+            alert("Nincs engedélyed ennek a tartalomnak a szerkeztéséhez!",router.back())
         }
 
         if (response.status == 200) {

@@ -64,4 +64,8 @@ export class UserManager{
     static isGuest(){
         return this.getToken() != null;
     }
+    
+    static isMine(id){
+        return this.getUser()?.id == id;
+    }
 }

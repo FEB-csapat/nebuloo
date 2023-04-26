@@ -51,7 +51,7 @@ export default{
     },
     methods:{
         editData(values){
-            if(UserManager.isAdmin() && UserManager.getUser().id !=this.id){
+            if(UserManager.isAdmin() && !UserManager.isMine(this.id)){
                 this.editProfileData(values);
             }else{
                 this.editMyData(values);

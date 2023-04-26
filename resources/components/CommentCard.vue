@@ -11,7 +11,7 @@
 
             <div class="text-end" v-if="isMyComment==true">
                 <button class="btn btn-success m-2" @click="editModeOff()" v-if="isEditing"> 
-                    Szerkeszt
+                    Mentés
                 </button>
                 <button class="btn btn-info mx-1" @click="editModeOn()" v-if="!isEditing">
                     Szerkesztés
@@ -82,7 +82,7 @@ export default{
     },
     computed:{
         isMyComment(){
-            return UserManager.getUser()?.id == this.comment.creator.id;
+            return (UserManager.isMine(this.comment.creator.id) || UserManager.isAdmin());
         },
         commentData(){
             return{
