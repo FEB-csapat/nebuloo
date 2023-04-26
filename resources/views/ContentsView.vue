@@ -22,12 +22,13 @@
             <p @click="removeFilters" class="text-center text-secondary">Szürők törlése</p>    
         </div>
 
-        <h3 v-if="searchTerm != ''" class="text-center mb-4">Keresési találatok "{{ $route.query.search }}" kifejezésre:</h3>
-    
-            <div class="row" v-if="isWaiting">
-                <div id="loading-spinner" class="spinner-border mx-auto" role="status">
-                </div>
+        <h3 v-if="searchTerm != null && searchTerm != ''" class="text-center mb-4">Keresési találatok "{{ searchTerm }}" kifejezésre:</h3>
+        <h3 v-else class="text-center mb-4">Kerési találatok:</h3>
+
+        <div class="row" v-if="isWaiting">
+            <div id="loading-spinner" class="spinner-border mx-auto" role="status">
             </div>
+        </div>
         
         <div>
             <cards :Contents="Contents"/>
@@ -92,7 +93,7 @@ export default{
                 orderBy: this.orderBy,
                 subject: this.subjectId,
                 topic: this.topicId,
-            }
+            };
             var responseBody = (await NebulooFetch.getAllContent(queires)).data;
             this.Contents = responseBody.data;
             this.links = responseBody.links;
@@ -115,9 +116,7 @@ export default{
 
         handlePaginate(url) {
             this.currentPage = url.split('page=')[1];
-
             window.scrollTo(0,0);
-
             this.refreshPage();          
         },
 
@@ -167,9 +166,7 @@ export default{
         this.currentPage = this.$route.query.page;
         this.subjectId = this.$route.query.subject;
         this.topicId = this.$route.query.topic;
-        this.getAllContent().then(() => {
-            
-        });
+        this.getAllContent();
     },
 
     watch: {

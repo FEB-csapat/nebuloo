@@ -82,7 +82,7 @@ export default{
         
     },
     async mounted(){
-        if(!UserManager.isMine(this.id) && !UserManager.isAdmin())
+        if(UserManager.getUser()?.id != this.id && !UserManager.isAdmin)
         {
             alert("Nincs jogosultságod változtatásokat végezni más profilján!",router.push("/myprofile"))
         }

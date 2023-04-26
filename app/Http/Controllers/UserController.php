@@ -93,7 +93,7 @@ class UserController extends Controller
     public function updateMe(UpdateUserRequest $request)
     {
         $user = auth()->user();
-        $this->authorize('update', $user, User::class);
+        $this->authorize('update', $user);
 
         $data = $request->validated();
         if($user->update($data)){
@@ -110,7 +110,7 @@ class UserController extends Controller
     public function destroy(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        $this->authorize('delete', User::class);
+        $this->authorize('delete', auth()->user(), $user);
         $user->delete();
     }
 

@@ -2,12 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Models\Comment;
-use App\Models\Content;
-use App\Models\Question;
 use App\Models\User;
 use Tests\TestCase;
-
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ApiLoginTest extends TestCase
@@ -19,18 +16,16 @@ class ApiLoginTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->user =[
-            'name' => 'TestingUser',
-            'email' => 'Testing@tester.test',
-            'password' => 'Test123@',
-            'password_confirmation' => 'Test123@'
-        ];
-        $this
-        ->withHeaders([
-            'Accept' => 'application/json',
-        ])->post("/api/register", $this->user);
+        $this->user = User::factory()->create([
+         /*   'name' => 'TestingUser',
+            'display_name' => 'TestingUser',
+            'email' => 'Testing@tester.test',*/
+            'password' => Hash::make('Test123@')
+            
+        ]);
+
         $this->data = [
-            'identifier' => 'TestingUser',
+            'identifier' => $this->user->name,//'TestingUser',
             'password' => 'Test123@'
         ];
     }
@@ -42,13 +37,21 @@ class ApiLoginTest extends TestCase
             'Accept' => 'application/json',
         ])->post("/api/login", $this->data);
 
-        $response->assertOk();
+        $response->assertOk()
+        ->assertJsonStructure([
+            'token',
+            'user'
+        ])->assertJson([
+            'user' => [
+                'id' => $this->user->id,
+            ]
+        ]);
     }
 
     public function test_login_with_email()
     {
         $this->data = array_merge($this->data, [
-            'identifier' => 'Testing@tester.test'
+            'identifier' => $this->user->email
         ]);
 
         $response = $this
@@ -56,7 +59,15 @@ class ApiLoginTest extends TestCase
             'Accept' => 'application/json',
         ])->post("/api/login", $this->data);
 
-        $response->assertOk();
+        $response->assertOk()
+        ->assertJsonStructure([
+            'token',
+            'user'
+        ])->assertJson([
+            'user' => [
+                'id' => $this->user->id,
+            ]
+        ]);
     }
 
     public function test_login_with_non_existing_username()
@@ -74,7 +85,7 @@ class ApiLoginTest extends TestCase
         ->assertStatus(404)
         ->assertJson([
             'message' => 'Nem található ilyen felhasználónév vagy email-cím!',
-    ]);
+        ]);
     }
 
     public function test_login_with_non_existing_email()
@@ -169,7 +180,7 @@ class ApiLoginTest extends TestCase
             'errors' => [
                 'identifier' => ['The identifier field is required.']
             ]
-    ]);
+        ]);
     }
 
     public function test_login_without_password()
@@ -190,7 +201,7 @@ class ApiLoginTest extends TestCase
             'errors' => [
                 'password' => ['The password field is required.']
             ]
-    ]);
+        ]);
     }
 
     public function test_login_without_password_and_identifier()
@@ -213,6 +224,24 @@ class ApiLoginTest extends TestCase
                 'password' => ['The password field is required.'],
                 'identifier' => ['The identifier field is required.']
             ]
-    ]);
+        ]);
     }
+
+    public function test_login_as_banned_user()
+    {
+        $this->user->banned = true;
+        $this->user->save();
+
+        $response = $this
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->post("/api/login", $this->data);
+
+        $response
+        ->assertStatus(403)
+        ->assertJson([
+            'message' => 'Banned user is not permitted to log in!',
+        ]);
+    }
+
 }

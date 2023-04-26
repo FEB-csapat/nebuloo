@@ -41,7 +41,11 @@ class AuthController extends Controller
         }
 
         if(!$user){
-            return response()->json(['message' => 'Nem található ilyen felhasználónév vagy email-cím!'], 404);
+            return response()->json(['message' => 'No user found with such username or email!'], 404);
+        }
+
+        if($user->banned){
+            return response()->json(['message' => 'Banned user is not permitted to log in!'], 403);
         }
 
         if (Hash::check($data['password'], $user->password)) {
@@ -51,7 +55,7 @@ class AuthController extends Controller
                 'user' => new UserResource($user),
             ], 200);
         } else {
-            return response()->json(['message' => 'Hibás a jelszó!'], 401);
+            return response()->json(['message' => 'Wrong password!'], 401);
         }
     }
 }
