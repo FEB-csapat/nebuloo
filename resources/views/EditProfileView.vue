@@ -2,6 +2,7 @@
     <div class="container ">
         <div class="row bg-light mt-3 mb-2 rounded-3 p-3 shadow">
             <div class="col text-center">
+                <div v-if="isWaiting" id="loading-spinner" class="spinner-border mx-auto" role="status"></div>
                 <user v-if="userData!=null" :user="userData" v-bind:showDetailed="true"></user> 
                 
                 
@@ -37,7 +38,8 @@ export default{
                 display_name:''
             },
             userData: null,
-            isChanged: false
+            isChanged: false,
+            isWaiting: true
         }
     },
     components:{
@@ -88,6 +90,7 @@ export default{
         }
         else{
             this.userData = (await NebulooFetch.getUserData(this.id)).data;
+            this.isWaiting = false;
         }
     }
 }

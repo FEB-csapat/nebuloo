@@ -1,7 +1,9 @@
 <template>
     <div class="container my-3 ">
         <div class="row bg-light shadow rounded-3 p-2">
+            
             <h1>Tananyag szerkesztése</h1>
+            <div v-if="isWaiting" id="loading-spinner" class="spinner-border mx-auto" role="status"></div>
                 <div>
                     <tag-selector @subjectItemSelected="handleSubjectItemSelected" @topicItemSelected="handleTopicItemSelected"
                     :defaultSubjectId="subjectId" :defaultTopicId="topicId"
@@ -37,6 +39,7 @@ export default{
             body:'',
             subjectId: null,
             topicId: null,
+            isWaiting: true
         }
     },
     props:
@@ -122,7 +125,8 @@ export default{
         });
 
         const response = (await NebulooFetch.getDetailedContent(this.id));
-        
+        this.isWaiting = false;
+
         if(!UserManager.isMine(response.data.creator.id) && !UserManager.isModerator() && !UserManager.isAdmin()){
             alert("Nincs engedélyed ennek a tartalomnak a szerkeztéséhez!",router.back())
         }

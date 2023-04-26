@@ -22,14 +22,15 @@
     <Field rules="confirmed:@password" type="password" name="password_confirmation" placeholder="Jelszó újra" class="form-control"/>
     <ErrorMessage name="password_confirmation" class="bg-opacity-25 border border-danger p-2 d-flex" />
 
-    <!--
+    
     <div class="form-check mt-2">
-        <Field class="form-check-input" type="checkbox" id="aszf" name="aszf"/>
+        <Field rules="required" class="form-check-input" type="checkbox" id="aszf" name="aszf"/>
         <label class="form-check-label ms-1" for="aszf">
             Elfogadom az ÁSZF-et
         </label>
+        <ErrorMessage name="aszf"/>
     </div>
-    -->
+    
     <div class="col my-2">
         <button class="btn btn-primary">
             <router-link class="nav-link active" aria-current="page" to="/ASZF">ÁSZF</router-link>
@@ -46,9 +47,12 @@
     <button type="submit" class="my-3 btn btn-primary" id="registrationbutton">
         Regisztráció
     </button>
-
+    
+    </Form>
+        
+    <div v-if="isWaiting" id="loading-spinner" class="spinner-border mx-auto" role="status"></div>
     <router-link class="nav-link active btn btn-success my-3 p-2" aria-current="page" to="login">Bejelentkezés</router-link>
-            </Form>
+
         </div>
     </div>
     
@@ -64,11 +68,12 @@ export default{
     data(){
         return{
             errors:{
-            name: "TODO: speciális karakterek",
-            email: "Az email-cím nem megfelelő!",
+            name: "A felhasználónév már foglalt!",
+            email: "Ez az email cím már foglalt!",
             password: "A jelszónak legalább 8 karakter hosszúnak kell lennie!",
             password_confirmation: "A két jelszó nem megegyező"
             },
+            isWaiting: false,
         }
     },
     components:{
@@ -76,6 +81,8 @@ export default{
     },
     methods:{
         async Register(values){
+            this.isWaiting = true;
+
             const regist = axios.create({
                 baseURL: "http://localhost:8881/api/",
                 headers: {'Content-Type': 'application/json'}
@@ -85,7 +92,8 @@ export default{
             regist.post('register',values)
             .then(response=>{
                 console.log(response);
-                alert("Sikeres regisztráció", router.push('/login'));
+                router.push('/login');
+                alert("Sikeres regisztráció");                
             })
             .catch(errors=>{
                 console.log(errors);

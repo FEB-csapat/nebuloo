@@ -120,6 +120,10 @@ export class NebulooFetch{
         const response = NebulooFetch.http.put('users/'+id+'/ban')
         return response;
     };
+    static async deleteUser(id){
+        const response = NebulooFetch.http.delete('users/'+id)
+        return response;
+    }
  
     static synchronizeVote(votableId, votableType, voteState){
         if(voteState == 1){
