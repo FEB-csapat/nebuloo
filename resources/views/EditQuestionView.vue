@@ -7,23 +7,22 @@
                 :defaultSubjectId="subjectId" :defaultTopicId="topicId"
                 ref="tagSelector"/>
 
-        <Form @submit="updateQuestion" :initial-values="initData">
-            <label for="title" class="form-label mt-2">Cím:</label>
-            <Field id="title" type="text" name='title' class="form-control"/>
+        <label for="cim" class="form-label pt-2">Cím*</label>
+        <input type="text" id="cim" v-model="title" class="form-control">
 
-            <label for="body" class="form-label mt-2">Leírás:</label>
-            <Field name="body" id="body" type="text" rows="8" class="form-control"/>
-            <div class="row">
-                <div class="col-sm-6">
-                    <button class="my-3 btn" id="button" @click="navigateToDetailedView()">
-                        Vissza
-                    </button>
-                </div>
-                <div class="col-sm-6 text-end">
-                    <button type="submit" class="my-3 btn" id="button">Változtatás elfogadása</button>
-                </div>
+        <label for="leiras" class="form-label pt-2">Leírás</label>
+        <textarea name="leiras" id="leiras" v-model="body" rows="5" class="form-control"></textarea>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <button class="my-3 btn" id="button" @click="navigateToDetailedView()">
+                    Vissza
+                </button>
             </div>
-        </Form>
+            <div class="col-sm-6 text-end">
+                <button type="submit" class="my-3 btn" id="button" @click="updateQuestion()">Változtatás elfogadása</button>
+            </div>
+        </div>
     </div>
     <SnackBar ref="snackBar"/>
 </div>
@@ -32,9 +31,10 @@
 <script>
 import { NebulooFetch } from '../utils/https.mjs';
 import SnackBar from '../components/snackbars/SnackBar.vue';
-import {Form, Field} from 'vee-validate'
 import { UserManager } from '../utils/UserManager';
 import TagSelector from '../components/TagSelector.vue';
+
+
 export default{
     components:{
         SnackBar,
@@ -43,16 +43,12 @@ export default{
     data(){
         return {
             question: {},
-            initData:{
-                title:'',
-                body:''
-            },
+
+            title:'',
+            body:'',
             subjectId: null,
-            topicId: null,
+            topicId: null
         };
-    },
-    components:{
-        Field, Form
     },
     props:{
     id: {
@@ -64,12 +60,15 @@ export default{
         async getDetailedQuestion(){
             var responseBody = (await NebulooFetch.getDetailedQuestion(this.id)).data;
             this.question = responseBody
-            this.initData.title = this.question.title;
-            this.initData.body = this.question.body;
-        },
-        async updateQuestion(values){
+            this.title = this.question.title;
+            this.body = this.question.body;
+            this.subjectId = this.question.subject.id;
+            this.topicId = this.question.topic.id;
 
-            var response = (await NebulooFetch.updateQuestion(this.id, values.title, values.body, this.subjectId, this.topicId));
+        },
+        async updateQuestion(){
+
+            var response = (await NebulooFetch.updateQuestion(this.question.id, this.title, this.body, this.subjectId, this.topicId));
 
             if(response.status == 200){
                // this.$router.push('/questions/'+id);
@@ -98,7 +97,7 @@ export default{
     },
     async mounted(){
         await this.getDetailedQuestion();
-        if(this.question.creator.id!=UserManager.getUser().id && !UserManager.getUser().role =="admin"){
+        if(this.question.creator.id!=UserManager.getUser().id && UserManager.getUser().role !="admin"){
             alert("Nincs engedélyed ennek a tartalomnak a szerkeztéséhez!",router.back())
         }
     }
