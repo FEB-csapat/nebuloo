@@ -161,7 +161,7 @@ class UserController extends Controller
         $this->authorize('unban', $user);
         $user->update(['banned'=>false]);
         return response()->json([
-            'message' => 'Successfully banned user!',
+            'message' => 'Successfully unbanned user!',
         ], 200);
     }
 

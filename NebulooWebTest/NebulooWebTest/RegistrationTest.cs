@@ -36,10 +36,38 @@ namespace NebulooWebTest
             var passwordAgainTextbox = driver.FindElement(By.Name("password_confirmation"));
             passwordAgainTextbox.SendKeys("Jelszo123@");
 
+            var ASZF = driver.FindElement(By.Name("aszf"));
+            ASZF.Click();
+
             var submitButton = driver.FindElement(By.Id("registrationbutton"));
             submitButton.Click();
 
             var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 15));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
+
+
+            IAlert simpleAlert = driver.SwitchTo().Alert();
+            simpleAlert.Accept();
+
+            //destruction
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/login"));
+
+
+            var usernameTextboxLogin = driver.FindElement(By.Name("identifier"));
+            usernameTextboxLogin.SendKeys("NewUser12222");
+
+            var passwordTextboxLogin = driver.FindElement(By.Name("password"));
+            passwordTextboxLogin.SendKeys("Jelszo123@");
+
+            var submitButtonLogin = driver.FindElement(By.XPath("/html/body/div/div[1]/div[1]/form/button"));
+            submitButtonLogin.Click();
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents"));
+
+            driver.Url = baseUrl + "myprofile";
+            var deleteuserButton = driver.FindElement(By.XPath("/html/body/div/div[1]/div[1]/div[4]/div[2]/button"));
+            deleteuserButton.Click();
+            IAlert UserDeleteAlert = driver.SwitchTo().Alert();
+            UserDeleteAlert.Accept();
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
             driver.Quit();
         }

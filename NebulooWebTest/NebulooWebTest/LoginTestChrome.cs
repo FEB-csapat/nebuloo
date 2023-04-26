@@ -29,7 +29,7 @@ namespace NebulooWebTest
             var passwordTextbox = driver.FindElement(By.Name("password"));
             passwordTextbox.SendKeys("admin123");
 
-            var submitButton = driver.FindElement(By.XPath("//*[@id=\"button\"]"));
+            var submitButton = driver.FindElement(By.XPath("/html/body/div/div[1]/div[1]/form/button"));
             submitButton.Click();
 
             var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 15));
@@ -48,7 +48,7 @@ namespace NebulooWebTest
             var passwordTextbox = driver.FindElement(By.Name("password"));
             passwordTextbox.SendKeys("admin123");
 
-            var submitButton = driver.FindElement(By.XPath("//*[@id=\"button\"]"));
+            var submitButton = driver.FindElement(By.XPath("/html/body/div/div[1]/div[1]/form/button"));
             submitButton.Click();
 
             var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 15));
@@ -67,7 +67,7 @@ namespace NebulooWebTest
             var passwordTextbox = driver.FindElement(By.Name("password"));
             passwordTextbox.SendKeys("a");
 
-            var submitButton = driver.FindElement(By.XPath("//*[@id=\"button\"]"));
+            var submitButton = driver.FindElement(By.XPath("/html/body/div/div[1]/div[1]/form/button"));
             submitButton.Click();
 
             var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 15));
@@ -86,7 +86,7 @@ namespace NebulooWebTest
             var passwordTextbox = driver.FindElement(By.Name("password"));
             passwordTextbox.SendKeys("a");
 
-            var submitButton = driver.FindElement(By.XPath("//*[@id=\"button\"]"));
+            var submitButton = driver.FindElement(By.XPath("/html/body/div/div[1]/div[1]/form/button"));
             submitButton.Click();
 
             var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 15));
