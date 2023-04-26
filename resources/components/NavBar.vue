@@ -23,7 +23,7 @@
         <div v-if="showProfile" class="row h-100">
           <div class="col text-center">
               <router-link class="nav-link active" aria-current="page" to="/myprofile">
-                <user :user="user"/>
+                <user :user="user" :clickable="false"/>
               </router-link>
           </div>
         </div>

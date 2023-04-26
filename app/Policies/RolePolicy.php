@@ -20,7 +20,7 @@ class RolePolicy
      */
     public function update(User $user, $id): Response
     {
-        if($user->banned==true){
+        if($user?->banned==true){
             return Response::deny();
         }
         

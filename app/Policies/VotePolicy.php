@@ -19,7 +19,7 @@ class VotePolicy
      */
     public function viewAny(?User $user): Response
     {
-        if($user->banned==true){
+        if($user?->banned==true){
             return Response::deny();
         }
 
@@ -39,7 +39,7 @@ class VotePolicy
      */
     public function create(?User $user)
     {
-        if($user->banned==true){
+        if($user?->banned==true){
             return Response::deny();
         }
         // visitors cannot create votes
@@ -58,7 +58,7 @@ class VotePolicy
      */
     public function update(?User $user, Vote $vote)
     {
-        if($user->banned==true){
+        if($user?->banned==true){
             return Response::deny();
         }
         
@@ -82,7 +82,7 @@ class VotePolicy
      */
     public function delete(?User $user, Vote $vote)
     {
-        if($user->banned==true){
+        if($user?->banned==true){
             return Response::deny();
         }
 

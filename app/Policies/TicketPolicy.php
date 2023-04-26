@@ -19,7 +19,7 @@ class TicketPolicy
      */
     public function view(?User $user): Response
     {
-        if($user->banned==true){
+        if($user?->banned==true){
             return Response::deny();
         }
 
@@ -35,7 +35,7 @@ class TicketPolicy
 
     public function viewMe(?User $user): Response
     {
-        if($user->banned==true){
+        if($user?->banned==true){
             return Response::deny();
         }
 
@@ -47,7 +47,7 @@ class TicketPolicy
 
     public function update(?User $user, Ticket $ticket): Response
     {
-        if($user->banned==true){
+        if($user?->banned==true){
             return Response::deny();
         }
 
@@ -65,7 +65,7 @@ class TicketPolicy
 
     public function delete(?User $user, Ticket $ticket): Response
     {
-        if($user->banned==true){
+        if($user?->banned==true){
             return Response::deny();
         }
 
@@ -87,7 +87,7 @@ class TicketPolicy
 
     public function create(?User $user): Response
     {
-        if($user->banned==true){
+        if($user?->banned==true){
             return Response::deny();
         }
 

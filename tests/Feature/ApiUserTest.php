@@ -1,10 +1,6 @@
 <?php
 
 namespace Tests\Feature;
-
-use App\Models\Comment;
-use App\Models\Content;
-use App\Models\Question;
 use App\Models\User;
 use Tests\TestCase;
 

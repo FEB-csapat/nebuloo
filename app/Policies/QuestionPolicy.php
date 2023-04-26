@@ -20,7 +20,7 @@ class QuestionPolicy
      */
     public function viewAny(?User $user): Response
     {
-        if($user->banned==true){
+        if($user?->banned==true){
             return Response::deny();
         }
 
@@ -36,7 +36,7 @@ class QuestionPolicy
      */
     public function view(?User $user, Question $question): Response
     {
-        if($user->banned==true){
+        if($user?->banned==true){
             return Response::deny();
         }
 
@@ -51,7 +51,7 @@ class QuestionPolicy
      */
     public function viewMe(?User $user): Response
     {
-        if($user->banned==true){
+        if($user?->banned==true){
             return Response::deny();
         }
 
@@ -70,7 +70,7 @@ class QuestionPolicy
      */
     public function create(?User $user): Response
     {
-        if($user->banned==true){
+        if($user?->banned==true){
             return Response::deny();
         }
 
@@ -95,7 +95,7 @@ class QuestionPolicy
      */
     public function update(?User $user, Question $question): Response
     {
-        if($user->banned==true){
+        if($user?->banned==true){
             return Response::deny();
         }
 
@@ -124,7 +124,7 @@ class QuestionPolicy
      */
     public function delete(?User $user, Question $question): Response
     {
-        if($user->banned==true){
+        if($user?->banned==true){
             return Response::deny();
         }
         

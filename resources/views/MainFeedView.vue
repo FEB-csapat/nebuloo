@@ -2,7 +2,8 @@
     <div class="container mt-4">
         <h1 class="text-center mb-4">Contents</h1>
 
-        <h3 v-if="searchTerm != ''" class="text-center mb-4">Keresési találatok: {{ $route.query.search }}</h3>
+        <h3 v-if="searchTerm != null && searchTerm != ''" class="text-center mb-4">Keresési találatok: {{ searchTerm }}</h3>
+        <h3 v-else>Keresési találatok:</h3>
 
         <div class="row" v-if="isWaiting">
             <div class="spinner-border mx-auto" role="status">

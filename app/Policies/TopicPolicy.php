@@ -19,7 +19,7 @@ class TopicPolicy
      */
     public function viewAny(?User $user): Response
     {
-        if($user->banned==true){
+        if($user?->banned==true){
             return Response::deny();
         }
 
@@ -34,7 +34,7 @@ class TopicPolicy
      */
     public function view(?User $user, Topic $topic): Response
     {
-        if($user->banned==true){
+        if($user?->banned==true){
             return Response::deny();
         }
 
@@ -49,7 +49,7 @@ class TopicPolicy
      */
     public function create(?User $user)
     {
-        if($user->banned==true){
+        if($user?->banned==true){
             return Response::deny();
         }
 
@@ -69,7 +69,7 @@ class TopicPolicy
      */
     public function update(?User $user, Topic $topic)
     {
-        if($user->banned==true){
+        if($user?->banned==true){
             return Response::deny();
         }
 
@@ -89,7 +89,7 @@ class TopicPolicy
      */
     public function delete(?User $user, Topic $topic)
     {
-        if($user->banned==true){
+        if($user?->banned==true){
             return Response::deny();
         }
 

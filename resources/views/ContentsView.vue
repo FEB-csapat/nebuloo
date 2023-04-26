@@ -22,7 +22,7 @@
             <p @click="removeFilters" class="text-center text-secondary">Szürők törlése</p>    
         </div>
 
-        <h3 v-if="searchTerm != ''" class="text-center mb-4">Keresési találatok: {{ $route.query.search }}</h3>
+        <h3 v-if="searchTerm != ''" class="text-center mb-4">Keresési találatok "{{ $route.query.search }}" kifejezésre:</h3>
     
             <div class="row" v-if="isWaiting">
                 <div id="loading-spinner" class="spinner-border mx-auto" role="status">
@@ -124,10 +124,12 @@ export default{
         handleSubjectItemSelected(subjectId) {
             this.topicId = null;
             this.subjectId = subjectId;
+            this.currentPage = 1;
             this.refreshPage();         
         },
         handleTopicItemSelected(topicId) {
             this.topicId = topicId;
+            this.currentPage = 1;
             this.refreshPage();
         },
         handleOrderBy() {
@@ -172,7 +174,8 @@ export default{
 
     watch: {
         '$route.query.search'(newSearchTerm) {
-            this.searchTerm = newSearchTerm
+            this.searchTerm = newSearchTerm;
+            this.currentPage = 1;
             this.getAllContent();
         },
     }

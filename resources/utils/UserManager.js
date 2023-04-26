@@ -14,6 +14,7 @@ export class UserManager{
         sessionStorage.setItem('userRankId', user.rank.id);
         sessionStorage.setItem('userRankName', user.rank.name);
         sessionStorage.setItem('userName', user.name);
+        sessionStorage.setItem('userDisplayName', user.display_name);
     }
 
     static getUser(){
@@ -29,7 +30,8 @@ export class UserManager{
                 id: sessionStorage.getItem('userRankId'),
                 name: sessionStorage.getItem('userRankName')
             },
-            name: sessionStorage.getItem('userName')
+            name: sessionStorage.getItem('userName'),
+            display_name: sessionStorage.getItem('userDisplayName')
         }
     }
 

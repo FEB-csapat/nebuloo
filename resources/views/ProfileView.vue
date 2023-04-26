@@ -7,15 +7,19 @@
                 </button>
             </div>
         <div class="row text-center mb-4">
-            <user v-if="userData!=null" :user="userData" v-bind:showDetailed="true"></user> 
+            <user v-if="userData!=null" :user="userData" v-bind:showDetailed="true" :clickable="false"></user> 
         </div>
+
+
+        <h5 v-if="userData!=null">Felhasználónév: {{userData.name}}</h5>
+
         <div class="row mb-2">
             <div class="col-sm-4">
             <h2>Statisztika:</h2>
                 <div class="row">
             <div class="col-6 mb-2">
                 <p>
-                    votescore
+                    Szavazások:
                 </p>
                 <h6 v-if="userData!=null">
                     {{this.userData.recieved_votes}}
@@ -23,7 +27,7 @@
             </div>
             <div class="col-6 mb-2">
                 <p>
-                    questions
+                    Kérdések:
                 </p>
                 <h6 v-if="userData!=null">
                     {{ this.userData.questions.length }}
@@ -31,7 +35,7 @@
             </div>
             <div class="col-6 mb-2">
                 <p>
-                    contents
+                    Tananyagok:
                 </p>
                 <h6 v-if="userData!=null">
                     {{ this.userData.contents.length }}
@@ -39,7 +43,7 @@
             </div>
             <div class="col-6 mb-2">
                 <p>
-                    comments
+                    Kommentek:
                 </p>
                 <h6 v-if="userData!=null">
                     {{ this.userData.comments.length }}
@@ -55,26 +59,21 @@
     </div>
         </div>
 
-    <h2>Érdekeltségi kör:</h2>
-
-    <ul class="ps-5">
-        <li>Fizika</li>
-        <li>Matematika</li>
-        <li>Filozófia</li>
-    </ul>
     <div class="row text-center" v-if="isMyProfile">
         <div class="col-6">
-                <button class="btn btn-info"  @click="navigate">
-                        Profilom szerkesztése
-                </button>
+            <button class="btn btn-info"  @click="navigate">
+                Profilom szerkesztése
+            </button>
         </div>
         <div class="col-6">
-                <button class="btn btn-danger" @click="deleteMe()">
-                        Fiókom törlése
-                </button>
+            <button class="btn btn-danger" @click="deleteMe()">
+                Fiókom törlése
+            </button>
         </div>
     </div>
-    <div class="row my-4" v-if="isAdmin">
+
+    <div class="row my-4" v-if="isAdmin && !isMyProfile">
+        <hr>
         <h2>
             Admin panel:
         </h2>
@@ -90,7 +89,7 @@
             
         </div>
     </div>
-    <div class="row my-2 text-center" v-if="isAdmin">
+    <div class="row my-2 text-center" v-if="isAdmin && !isMyProfile">
         <div class="col-6">
             <button class="btn btn-info" @click="editProfile()">Profil szerkesztése</button>
         </div>
@@ -102,27 +101,27 @@
     
 
     <h2 class="mt-5 mb-2">Kérdéseim:</h2>
-    <p v-if="hasQuestions==false">
+    <p v-if="!hasQuestions">
         Nincsenek kérdéseim.
     </p>
     <cards :Questions="userData.questions" v-else/>
 
     <h2 class="mt-4 mb-2">Tananyagaim:</h2>
-    <p v-if="hasContents==false">
+    <p v-if="!hasContents">
         Nincsenek tananyagaim.
     </p>
     <cards :Contents="userData.contents" v-else/>
 
     <h2 class="mt-4">Kommentjeim:</h2>
     <div>
-        <p v-if="hasComments==false">
+        <p v-if="!hasComments">
             Nincsenek kommentjeim.
         </p>
         <comment-card v-else v-for="comment in userData.comments" :key="comment.id" :comment="comment" />
     </div>
     
     <h2 class="mt-4">Hibajegyeim:</h2>
-    <p v-if="hasTickets==false">
+    <p v-if="!hasTickets">
         Nincsenek Hibajegyeim.
     </p>
     <cards :Tickets="userData.tickets" v-else/>
@@ -143,7 +142,6 @@ data(){
     return{
         userData: null,
         isMyProfile: false,
-        isAdmin: false,
 
         pickedRole: null
     }   
@@ -243,7 +241,9 @@ computed: {
     hasTickets(){
         return this.userData != null && this.userData.tickets != 0;
     },
-    
+    isAdmin(){
+        return UserManager.isAdmin();
+    }
 },
 
 async mounted(){
@@ -253,14 +253,16 @@ async mounted(){
     {
         this.getMyData();
         this.isMyProfile = true;
+    }else if(this.id== UserManager.getUser().id)
+    {
+        this.$router.push('/myprofile',);
+        this.getMyData();
+        this.isMyProfile = true;
     }
     else{
         this.getProfileData();
         this.isMyProfile = false;
     }
-    
-    this.isAdmin= UserManager.isAdmin();
-    
 }
 
 }

@@ -19,7 +19,7 @@ class ImagePolicy
      */
     public function viewAny(?User $user)
     {
-        if($user->banned==true){
+        if($user?->banned==true){
             return Response::deny();
         }
         //
@@ -34,7 +34,7 @@ class ImagePolicy
      */
     public function view(?User $user, Comment $comment)
     {
-        if($user->banned==true){
+        if($user?->banned==true){
             return Response::deny();
         }
         return true;
@@ -48,7 +48,7 @@ class ImagePolicy
      */
     public function create(?User $user)
     {
-        if($user->banned==true){
+        if($user?->banned==true){
             return Response::deny();
         }
 
@@ -69,7 +69,7 @@ class ImagePolicy
      */
     public function delete(?User $user, Comment $comment)
     {
-        if($user->banned==true){
+        if($user?->banned==true){
             return Response::deny();
         }
         

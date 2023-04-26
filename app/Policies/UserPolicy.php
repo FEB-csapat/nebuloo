@@ -51,7 +51,7 @@ class UserPolicy
      */
     public function viewMe(?User $user)
     {
-        if($user->banned==true){
+        if($user?->banned==true){
             return Response::deny();
         }
 
