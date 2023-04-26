@@ -72,29 +72,30 @@
         </div>
     </div>
 
-    <div class="row my-4" v-if="isAdmin && !isMyProfile">
+    <div class="row my-4" v-if="(isAdmin || isMod) && !isMyProfile">
         <hr>
         <h2>
             Admin panel:
         </h2>
-        <div class="col-sm-6">
+        <div class="col-sm-6" v-if="isAdmin">
             <select v-model="pickedRole" class="form-select mb-2 col-12" name="roleselector">
                 <option value="moderator">Moderátor</option>
                 <option value="user">User</option>
             </select>
                 <label for="roleselector" class="form-label col-6">Jogosultság adása:</label>
-                <button class="btn btn-success col-6" @click="changeProfileRole()">Mentés</button>
-            
-            
-            
+                <button class="btn btn-success col-6" @click="changeProfileRole()">Mentés</button>                       
         </div>
     </div>
+
     <div class="row my-2 text-center" v-if="isAdmin && !isMyProfile">
-        <div class="col-6">
+        <div class="col-4">
             <button class="btn btn-info" @click="editProfile()">Profil szerkesztése</button>
         </div>
-        <div class="col-6">
+        <div class="col-4">
             <button class="btn btn-danger" @click="banProfile()">Felhasználó tiltása</button>
+        </div>
+        <div class="col-4" v-if="isAdmin">
+            <button class="btn btn-danger" @click="deleteProfile()">Felhasználó törlése</button>
         </div>
     </div>
     </div>
@@ -195,6 +196,17 @@ methods:{
             }
         }) 
     },
+    async deleteProfile(){
+        if(window.confirm("Biztosan törölni akarja a felhasználót?")){
+            NebulooFetch.deleteUser(this.id)
+            .then(()=>{
+                alert("A felhasználó sikeresen kitiltva!")
+            })
+            .catch(error=>{
+                console.log(error)
+            });
+        }
+    },
     
     async getMyData(){
         this.responseBody = (await NebulooFetch.getMyDatas()).data;
@@ -243,6 +255,9 @@ computed: {
     },
     isAdmin(){
         return UserManager.isAdmin();
+    },
+    isMod(){
+        return UserManager.isModerator();
     }
 },
 
