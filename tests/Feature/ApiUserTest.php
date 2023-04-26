@@ -172,7 +172,6 @@ class ApiUserTest extends TestCase
             'Accept' => 'application/json',
         ])->delete('/api/users/'.$this->user->id);
 
-
         $response->assertOk();
         $this->assertDatabaseMissing('users', [
             'id' => $this->user->id
@@ -191,9 +190,12 @@ class ApiUserTest extends TestCase
         ])->delete('/api/users/'.$admin->id);
 
 
-        $response->assertStatus(403);
+        $response->assertStatus(403)
+        ->assertJson([
+            'message' => 'Admin cannot be deleted!'
+        ]);
         $this->assertDatabaseHas('users', [
-            'id' => $admin->id
+            'id' => $this->user->id
         ]);
     }
 
@@ -205,7 +207,7 @@ class ApiUserTest extends TestCase
         $response = $this->actingAs($moderator, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
-        ])->delete('/api/users/'.$moderator->id);
+        ])->delete('/api/me');
 
 
         $response->assertStatus(200);
@@ -228,11 +230,137 @@ class ApiUserTest extends TestCase
         ])->delete('/api/users/'.$this->user->id);
 
 
-        $response->assertStatus(403);
+        $response->assertStatus(403)
+        ->assertJson([
+            'message' => 'Admin cannot be deleted!'
+        ]);
         $this->assertDatabaseHas('users', [
             'id' => $this->user->id
         ]);
     }
+
+
+    public function test_ban_user_as_user()
+    {
+        $otherUser = User::factory()->create();
+        
+        $response = $this->actingAs($this->user, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->put('/api/users/'.$otherUser->id.'/ban');
+
+
+        $response->assertStatus(403);
+        
+        $this->assertDatabaseHas('users', [
+            'id' => $this->user->id,
+            'banned' => false
+        ]);
+    }
+
+
+    public function test_ban_user_as_admin()
+    {
+        $admin = User::factory()->create();
+        $admin->assignRole('admin');
+
+        $response = $this->actingAs($admin, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->put('/api/users/'.$this->user->id.'/ban');
+
+
+        $response->assertOk();
+        
+        $this->assertDatabaseHas('users', [
+            'id' => $this->user->id,
+            'banned' => true
+        ]);
+    }
+
+    public function test_ban_user_as_moderator()
+    {
+        $moderator = User::factory()->create();
+        $moderator->assignRole('moderator');
+
+        $response = $this->actingAs($moderator, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->put('/api/users/'.$this->user->id.'/ban');
+
+
+        $response->assertOk();
+        
+        $this->assertDatabaseHas('users', [
+            'id' => $this->user->id,
+            'banned' => true
+        ]);
+    }
+
+
+    public function test_ban_admin_as_admin()
+    {
+        $admin = User::factory()->create();
+        $admin->assignRole('admin');
+
+        $this->user->assignRole('admin');
+
+        $response = $this->actingAs($admin, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->put('/api/users/'.$this->user->id.'/ban');
+
+
+        $response->assertStatus(403);
+        
+        $this->assertDatabaseHas('users', [
+            'id' => $this->user->id,
+            'banned' => false
+        ]);
+    }
+
+    public function test_ban_admin_as_moderator()
+    {
+        $admin = User::factory()->create();
+        $admin->assignRole('admin');
+
+        $this->user->assignRole('moderator');
+
+        $response = $this->actingAs($this->user, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->put('/api/users/'.$admin->id.'/ban');
+
+
+        $response->assertStatus(403);
+        
+        $this->assertDatabaseHas('users', [
+            'id' => $this->user->id,
+            'banned' => false
+        ]);
+    }
+
+    public function test_ban_moderator_as_moderator()
+    {
+        $moderator = User::factory()->create();
+        $moderator->assignRole('moderator');
+
+        $this->user->assignRole('moderator');
+
+        $response = $this->actingAs($moderator, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->put('/api/users/'.$this->user->id.'/ban');
+
+
+        $response->assertStatus(403);
+        
+        $this->assertDatabaseHas('users', [
+            'id' => $this->user->id,
+            'banned' => false
+        ]);
+    }
+
 
     // tearDown
     protected function tearDown(): void

@@ -106,8 +106,13 @@ class UserPolicy
             return Response::deny();
         }
         // admin can delete anybody, except themself
-        if($userRequester->hasAnyRole(['admin'])
-        && $userRequester->id != $userRequested->id){
+        if($userRequester->hasAnyRole(['admin'])){
+            if($userRequested->hasAnyRole(['admin'])){
+                return Response::deny('Admin cannot be deleted!');
+            }
+            if($userRequester->id == $userRequested->id){
+                return Response::deny('Admin cannot delete themself!');
+            }
             return Response::allow();
         }
         // 
@@ -125,15 +130,23 @@ class UserPolicy
      * @param  \App\Models\Vote  $vote
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function ban(User $userRequester, User $userRequested)
+    public function ban(?User $userRequester, User $userRequested)
     {
         if($userRequester->banned==true){
             return Response::deny();
         }
         // Only admin and moderator can ban
-        if($userRequester->hasAnyRole(['admin', 'moderator'])){
+        if($userRequester->hasAnyRole(['admin'])){
             // Admin cannot be banned
             if($userRequested->hasAnyRole('admin')){
+                Response::deny('Admin cannot be banned.');
+            }
+            return Response::allow();
+        }
+
+        if($userRequester->hasAnyRole(['moderator'])){
+            if($userRequested->hasAnyRole('admin')
+            || $userRequested->hasAnyRole('moderator')){
                 Response::deny('Admin cannot be banned.');
             }
             return Response::allow();

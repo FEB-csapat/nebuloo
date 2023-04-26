@@ -84,7 +84,7 @@ class ApiLoginTest extends TestCase
         $response
         ->assertStatus(404)
         ->assertJson([
-            'message' => 'Nem található ilyen felhasználónév vagy email-cím!',
+            'message' => 'No user found with such username or email!',
         ]);
     }
 
@@ -102,7 +102,7 @@ class ApiLoginTest extends TestCase
         $response
         ->assertStatus(404)
         ->assertJson([
-            'message' => 'Nem található ilyen felhasználónév vagy email-cím!',
+            'message' => 'No user found with such username or email!',
     ]);
     }
 
@@ -120,7 +120,7 @@ class ApiLoginTest extends TestCase
         $response
         ->assertStatus(401)
         ->assertJson([
-            'message' => 'Hibás a jelszó!',
+            'message' => 'Wrong password!',
     ]);
     }
 
@@ -139,8 +139,8 @@ class ApiLoginTest extends TestCase
         $response
         ->assertStatus(404)
         ->assertJson([
-            'message' => 'Nem található ilyen felhasználónév vagy email-cím!',
-    ]);
+            'message' => 'No user found with such username or email!',
+        ]);
     }
 
     public function test_login_with_wrong_password_and_non_existing_email()
@@ -158,8 +158,8 @@ class ApiLoginTest extends TestCase
         $response
         ->assertStatus(404)
         ->assertJson([
-            'message' => 'Nem található ilyen felhasználónév vagy email-cím!',
-    ]);
+            'message' => 'No user found with such username or email!',
+        ]);
     }
 
     public function test_login_without_identifier()

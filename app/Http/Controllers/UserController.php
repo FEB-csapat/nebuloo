@@ -74,7 +74,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $this->authorize('update', $user, User::class);
+        $this->authorize('update', $user);
 
         $data = $request->validated();
         if($user->update($data)){
@@ -110,7 +110,7 @@ class UserController extends Controller
     public function destroy(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        $this->authorize('delete', auth()->user(), $user);
+        $this->authorize('delete', $user);
         $user->delete();
     }
 
@@ -137,14 +137,14 @@ class UserController extends Controller
     public function ban(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        $this->authorize('ban', $user, User::class);
+        $this->authorize('ban', $user);
         $user->update(['banned'=>true]);
     }
 
     public function unban(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        $this->authorize('unban', $user, User::class);
+        $this->authorize('unban', $user);
         $user->update(['banned'=>false]);
     }
 
