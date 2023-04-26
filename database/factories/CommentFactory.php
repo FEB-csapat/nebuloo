@@ -13,21 +13,19 @@ use App\Models\User;
 class CommentFactory extends Factory
 {
     /**
-     * Define the model's default state.
+     * Define the comment's default state.
      *
      * @return array<string, mixed>
      */
     public function definition()
     {
-            Content::factory()->create();
-            Question::factory()->create();
-
             $commentableType = $this->faker->randomElement(['App\Models\Content', 'App\Models\Question']);
-            $commentable = $commentableType === 'App\Models\Content' ? Content::inRandomOrder()->first() : Question::inRandomOrder()->first();
+            $commentable = $commentableType === 'App\Models\Content'
+                ? Content::inRandomOrder()->first()
+                : Question::inRandomOrder()->first();
 
-            $user = User::factory()->create();
             return [
-                'creator_user_id' => /*User::inRandomOrder()->first()*/$user->id,
+                'creator_user_id' => User::inRandomOrder()->first()->id,
                 'commentable_id' => $commentable->id,
                 'commentable_type' => $commentableType,
                 'parent_comment_id' => null,

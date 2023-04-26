@@ -12,7 +12,7 @@ use App\Models\User;
 class QuestionFactory extends Factory
 {
     /**
-     * Define the model's default state.
+     * Define the question's default state.
      *
      * @return array<string, mixed>
      */

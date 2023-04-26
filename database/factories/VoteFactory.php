@@ -14,7 +14,7 @@ use App\Models\User;
 class VoteFactory extends Factory
 {
     /**
-     * Define the model's default state.
+     * Define the vote's default state.
      *
      * @return array<string, mixed>
      */

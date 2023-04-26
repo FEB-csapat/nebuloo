@@ -2,7 +2,7 @@
     <div class="row h-100 bg-primary bg-opacity-75 py-5 text-center text-light">
         <h1 id="welcome-title" class="pt-3 pb-3">Nebuloo</h1>
         <h4 id="welcome-subtitle" class="py-3">Tananyag megosztó fórum</h4>
-        <h5 id="welcome-motto" class="pb-5 pt-3 fs-6">Mert a tudás mindenkit megillet</h5>
+        <h5 id="welcome-motto" class="pb-5 pt-3 fs-4">Mert a tudás mindenkit megillet</h5>
     </div>
         <div class="container bg-light rounded-4 mt-4 mx-auto text-center py-2 px-4 shadow">
                 <h4 class="m-3">Nem érted a Viète-formulákat? Kérdezz nyugodtan! Pont hogy érted? Oszdd meg a tudást a többiekkel!</h4>
@@ -61,9 +61,8 @@
             <div v-else class="container bg-light rounded-3 shadow">
                 <h3 class="text-center" >Már be vagy jelentkezve</h3>
 
-                <div class="text-center">
+                <div class="text-center mb-2">
                     <router-link class="nav-link active" aria-current="page" to="/contents">
-
                         <button class="btn shadow" style="background-color: #ffffff; color: #4285f4;">Folytatás</button>
                     </router-link>
                 </div>

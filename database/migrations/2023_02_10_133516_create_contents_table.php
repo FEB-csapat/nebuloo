@@ -23,7 +23,6 @@ return new class extends Migration
             $table->foreignId('topic_id')->nullable()
                 ->references('id')->on('topics')->cascadeOnDelete();
             //$table->string('license'); ??
-
             $table->timestamps();
         });
     }

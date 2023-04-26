@@ -17,12 +17,7 @@ export default{
     },
     methods:{
         handleClick(){
-          console.log("click");
           this.onClick();
-        },
-
-        log(){
-          console.log("log");
         },
         
         showSnackbar(message, buttonText, onClick) {

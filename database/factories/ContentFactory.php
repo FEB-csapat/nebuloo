@@ -5,7 +5,6 @@ namespace Database\Factories;
 use App\Models\Subject;
 use App\Models\Topic;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 use App\Models\User;
 
 /**
@@ -14,7 +13,7 @@ use App\Models\User;
 class ContentFactory extends Factory
 {
     /**
-     * Define the model's default state.
+     * Define the content's default state.
      *
      * @return array<string, mixed>
      */

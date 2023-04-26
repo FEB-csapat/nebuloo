@@ -18,12 +18,10 @@ return new class extends Migration
             $table->foreignId('creator_user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->string('title');
             $table->longText('body')->nullable();
-
             $table->foreignId('subject_id')->nullable()
                 ->references('id')->on('subjects')->cascadeOnDelete();
             $table->foreignId('topic_id')->nullable()
                 ->references('id')->on('topics')->cascadeOnDelete();
-
             $table->timestamps();
         });
     }

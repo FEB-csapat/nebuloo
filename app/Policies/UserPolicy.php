@@ -19,7 +19,7 @@ class UserPolicy
      */
     public function viewAny(?User $userRequester)
     {
-        if($userRequester->banned==true){
+        if($userRequester?->banned==true){
             return Response::deny();
         }
         return Response::allow();
@@ -34,7 +34,7 @@ class UserPolicy
      */
     public function view(?User $userRequester, User $userRequested)
     {
-        if($userRequester->banned==true){
+        if($userRequester?->banned==true){
             return Response::deny();
         }
         return Response::allow();
@@ -79,7 +79,7 @@ class UserPolicy
      */
     public function update(?User $userRequester, User $userRequested)
     {
-        if($userRequester->banned==true){
+        if($userRequester?->banned==true){
             return Response::deny();
         }
 
@@ -99,7 +99,7 @@ class UserPolicy
      */
     public function delete(?User $userRequester, User $userRequested)
     {
-        if($userRequester->banned==true){
+        if($userRequester?->banned==true){
             return Response::deny();
         }
         // admin can delete anybody, except themself
@@ -129,7 +129,7 @@ class UserPolicy
      */
     public function ban(?User $userRequester, User $userRequested)
     {
-        if($userRequester->banned==true){
+        if($userRequester?->banned==true){
             return Response::deny();
         }
         // Only admin and moderator can ban
@@ -160,7 +160,7 @@ class UserPolicy
      */
     public function unban(User $userRequester, User $userRequested)
     {
-        if($userRequester->banned==true){
+        if($userRequester?->banned==true){
             return Response::deny();
         }
         // Only admin and moderator can unban

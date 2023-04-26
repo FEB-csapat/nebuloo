@@ -58,7 +58,6 @@ export default{
 
             RequestHelper.updateContent(this.id, body, this.subjectId, this.topicId)
             .then(response=>{
-                console.log(response)
                 alert("Sikeres szerkesztés!",this.$router.push({name: 'contentById', params:{id: response.data.id}}))
             })
             .catch(error=>{

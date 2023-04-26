@@ -67,7 +67,6 @@ export default{
         },
         splitDate(){
             this.splittedDate = this.content.created_at.split(" ");
-            console.log(this.splittedDate);
         }
     },
 

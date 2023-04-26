@@ -88,15 +88,12 @@ export default{
                 headers: {'Content-Type': 'application/json'}
             });
 
-            console.log(values);
             regist.post('register',values)
             .then(response=>{
-                console.log(response);
                 router.push('/login');
                 alert("Sikeres regisztráció");                
             })
             .catch(errors=>{
-                console.log(errors);
                 this.errors = errors;
             })
         }

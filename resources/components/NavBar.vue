@@ -27,6 +27,11 @@
               </router-link>
           </div>
         </div>
+
+        <button v-if="!showProfile && !isLoggedIn" style="width: 120px;" class="btn ms-2 mt-2" id="button">
+          <router-link class="nav-link active" aria-current="page" to="/login">Bejelentkezés</router-link>
+        </button>
+
       </div>
     </div>
   </nav>
@@ -57,6 +62,9 @@
         showProfile() {
           return this.user != null && this.$route.path != '/myprofile'
               && this.$route.path != '/login' && this.$route.path != '/registration';
+        },
+        isLoggedIn() {
+          return this.user != null;
         },
 
         user: function(){return UserManager.getUser() }
