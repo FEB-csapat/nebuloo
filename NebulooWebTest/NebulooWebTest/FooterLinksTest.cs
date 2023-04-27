@@ -16,7 +16,6 @@ namespace NebulooWebTest
         [SetUp]
         public void Setup()
         {
-            seederhandler.LoginSeederSetUp();
             new DriverManager().SetUpDriver(new ChromeConfig());
             driver = new ChromeDriver();
             wait = new WebDriverWait(driver, new TimeSpan(0, 0, 15));
@@ -60,9 +59,24 @@ namespace NebulooWebTest
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/ASZF"));
             driver.Quit();
         }
-        [TearDown]
-        public void TearDown()
+        [Test]
+        public void FooterTicket_as_userTest()
         {
+            driver.Url = baseUrl+"login";
+            seederhandler.LoginSeederSetUp();
+            var usernameTextbox = driver.FindElement(By.Name("identifier"));
+            usernameTextbox.SendKeys("TestUser");
+
+            var passwordTextbox = driver.FindElement(By.Name("password"));
+            passwordTextbox.SendKeys("Password@123");
+
+            var submitButton = driver.FindElement(By.XPath("/html/body/div/div[1]/div[1]/form/button"));
+            submitButton.Click();
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents"));
+            var ticketLink = driver.FindElement(By.XPath("/html/body/div/div[4]/footer/div[2]/div[2]/a"));
+            ticketLink.SendKeys(Keys.Return);
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/tickets/create"));
+            driver.Quit();
             seederhandler.LoginSeederTearDown();
         }
     }
