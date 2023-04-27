@@ -60,8 +60,8 @@ namespace NebulooWebTest
             submitButtonContent.Click();
 
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
-            IAlert NoBodyAlert = driver.SwitchTo().Alert();
-            NoBodyAlert.Accept();
+            IAlert nobodyAlert = driver.SwitchTo().Alert();
+            nobodyAlert.Accept();
             driver.Quit();
         }
         [Test]
@@ -78,8 +78,8 @@ namespace NebulooWebTest
             var savecontentupdateButton = driver.FindElement(By.XPath("/html/body/div/div[1]/div/div[2]/button"));
             savecontentupdateButton.Click();
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
-            IAlert SuccessfulupdateAlert = driver.SwitchTo().Alert();
-            SuccessfulupdateAlert.Accept();
+            IAlert successfulupdateAlert = driver.SwitchTo().Alert();
+            successfulupdateAlert.Accept();
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents/1"));
             driver.Quit();
         }
@@ -104,14 +104,31 @@ namespace NebulooWebTest
             IAlert nobodyupdateAlert = driver.SwitchTo().Alert();
             if (nobodyupdateAlert.Text.ToString() == "A poszt nem lehet üres!")
             {
-                Assert.Fail();
+                Assert.Pass();
                 nobodyupdateAlert.Accept();
+                driver.Quit();
             }
             else
             {
                 Assert.Fail();
+                driver.Quit();
             }
-            driver.Quit();
+        }
+        [Test]
+        public void ContentDeletionTest()
+        {
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents"));
+            driver.Url = baseUrl + "contents/1";
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath("/html/body/div/div[1]/div[1]/div[4]/div[2]/button")));
+            var contendeleteButton = driver.FindElement(By.XPath("/html/body/div/div[1]/div[1]/div[4]/div[3]/button"));
+            contendeleteButton.Click();
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
+            IAlert deleteconfirmationAlert = driver.SwitchTo().Alert();
+            deleteconfirmationAlert.Accept();
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
+            IAlert successfuldeletionAlert = driver.SwitchTo().Alert();
+            successfuldeletionAlert.Accept();
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/myprofile"));
         }
 
         [TearDown]

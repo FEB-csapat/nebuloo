@@ -41,7 +41,7 @@ export class RequestHelper {
     };
 
     static async deleteMyPost(path){
-        const response = RequestHelper.http.delete("me"+path)
+        const response = RequestHelper.http.delete(path)
         return response;
     };
 
