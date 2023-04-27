@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateRoleRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\SimpleUserResource;
@@ -98,6 +99,24 @@ class UserController extends Controller
             return new UserResource($user);
         }
         abort(500, 'Could not update user.');
+    }
+
+    /**
+     * Update the specified user's role in storage.
+     *
+     * @param  \App\Http\Requests\UpdateRoleRequest  $request
+     * @param  int  $id
+     * @return \App\Http\Resources\UserResource
+     */
+    public function updateRole(UpdateRoleRequest $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $this->authorize('updateRole', $user);
+        $data = $request->validated();
+        $user->syncRoles($data['role']);
+        $user->save();
+        
+        return new UserResource($user);
     }
     
     /**

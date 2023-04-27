@@ -362,6 +362,43 @@ class ApiUserTest extends TestCase
     }
 
 
+    public function test_grant_role_as_admin()
+    {
+        $admin = User::factory()->create();
+        $admin->assignRole('admin');
+
+        $response = $this->actingAs($admin, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->put('/api/users/'.$this->user->id.'/role', [
+            'role' => 'admin'
+        ]);
+
+
+        $response->assertStatus(200);
+        $this->assertTrue($this->user->getRoleNames()->count() > 0);
+        $this->assertEquals('admin', $this->user->getRoleNames()[0]);
+    }
+
+
+    public function test_grant_role_as_moderator()
+    {
+        $moderator = User::factory()->create();
+        $moderator->assignRole('moderator');
+
+        $response = $this->actingAs($moderator, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->put('/api/users/'.$this->user->id.'/role', [
+            'role' => 'admin'
+        ]);
+
+        $response->assertStatus(200);
+        $this->assertTrue($this->user->getRoleNames()->count() > 0);
+        $this->assertEquals('admin', $this->user->getRoleNames()[0]);
+    }
+
+
     // tearDown
     protected function tearDown(): void
     {

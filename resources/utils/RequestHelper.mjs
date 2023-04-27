@@ -112,7 +112,7 @@ export class RequestHelper {
         return response;
     };
     static async changeUserRole(id,data){
-        const response = RequestHelper.http.put('user/'+id+'/role',data)
+        const response = RequestHelper.http.put('users/'+id+'/role',data)
         return response;
     };
     static async banUser(id){

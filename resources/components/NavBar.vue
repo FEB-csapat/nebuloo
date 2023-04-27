@@ -28,7 +28,7 @@
           </div>
         </div>
 
-        <button v-if="!showProfile && !isLoggedIn" style="width: 120px;" class="btn ms-2 mt-2" id="button">
+        <button v-if="!showProfile && !isLoggedIn" style="width: 130px;" class="btn ms-2 text-center" id="button">
           <router-link class="nav-link active" aria-current="page" to="/login">Bejelentkezés</router-link>
         </button>
 

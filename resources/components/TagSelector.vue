@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex mb-1 align-items-end">
+    <div class="d-flex mb-2 align-items-end">
         <div>
             <label for="search" class="form-label">Tantárgy:</label>
             <select id="subject-selector" class="form-select" v-model="subject" @change="subjectItemSelected()">

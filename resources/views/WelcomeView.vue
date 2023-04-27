@@ -58,14 +58,18 @@
                     </div>
                 </div>
             </div>
-            <div v-else class="container bg-light rounded-3 shadow">
+            <div v-else class="container bg-light rounded-3 p-1 shadow">
                 <h3 class="text-center" >Már be vagy jelentkezve</h3>
 
-                <div class="text-center mb-2">
-                    <router-link class="nav-link active" aria-current="page" to="/contents">
-                        <button class="btn shadow" style="background-color: #ffffff; color: #4285f4;">Folytatás</button>
-                    </router-link>
+
+                <div class="text-center">
+                    <user v-if="user != null" :user="user"/>
                 </div>
+
+
+                <router-link class="text-center nav-link active mb-2" aria-current="page" to="/contents">
+                    <button class="btn shadow" style="background-color: #ffffff; color: #4285f4;">Folytatás</button>
+                </router-link>
                 
 
             </div>
@@ -107,6 +111,11 @@ export default {
     },
     async mounted(){
         this.token = UserManager.getToken();
+    },
+    computed: {
+        user(){
+            return UserManager.getUser();
+        }
     }
 }
 </script>

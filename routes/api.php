@@ -231,10 +231,9 @@ Route::group(['middleware' => ['role:admin|moderator']], function () {
 | API routes accessible only to: admins
 |--------------------------------------------------------------------------
 */
-
 Route::group(['middleware' => ['role:admin']], function () {
 
-    Route::put('user/{id}/role', [RoleController::class, "update"])
+    Route::put('users/{id}/role', [UserController::class, "updateRole"])
         ->name("users.role.update");
 
     Route::delete('users/{id}', [UserController::class, "destroy"])

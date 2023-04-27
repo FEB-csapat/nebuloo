@@ -90,6 +90,34 @@ class UserPolicy
         return $userRequester->hasAnyRole(['admin', 'moderator']);
     }
 
+
+    // TODO: fix this
+    /**
+     * Determine whether the user can update the user's role.
+     *
+     * @param  \App\Models\User  $userRequester
+     * @param  \App\Models\User  $userRequested
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function updateRole(?User $userRequester, User $userRequested)
+    {
+        if($userRequester?->banned==true){
+            return Response::deny();
+        }
+        
+        if($userRequester->hasAnyRole(['admin'])){
+            if($userRequested->hasAnyRole(['admin'])){
+                return Response::deny('Admin\'s role cannot be updated!');
+            }
+            if($userRequester->id == $userRequested->id){
+                return Response::deny('Admin cannot update role for themself!');
+            }
+            return Response::allow();
+        }
+
+        return Response::deny();
+    }
+
     /**
      * Determine whether the user can delete the model.
      *

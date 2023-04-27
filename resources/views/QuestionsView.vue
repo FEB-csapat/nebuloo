@@ -38,12 +38,12 @@
         <paginator :links="links" :meta="meta" @paginate="handlePaginate" />
 
     </div>
-        <div class="fab-button" @click="createQuestion()">
-            <span class="m-3">Új kérdés létrehozása</span>
-            <i class="fas fa-plus fa-lg"/>
-        </div>
+    <div class="fab-button" @click="createQuestion()">
+        <span class="m-3">Új kérdés létrehozása</span>
+        <i class="fas fa-plus fa-lg"/>
+    </div>
 
-        <SnackBar ref="snackBar"/>
+    <SnackBar ref="snackBar"/>
 
 </template>
 

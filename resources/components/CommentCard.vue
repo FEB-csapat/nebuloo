@@ -10,13 +10,13 @@
             <textarea id="body" v-model="commentbody" v-if="isEditing" class="form-control" rows="3" cols="10"></textarea>
 
             <div class="text-end" v-if="isMyComment==true">
-                <button class="btn btn-success m-2" @click="editModeOff()" v-if="isEditing"> 
+                <button class="btn btn-success  m-2" @click="editModeOff()" v-if="isEditing"> 
                     Mentés
                 </button>
-                <button class="btn btn-info mx-1" @click="editModeOn()" v-if="!isEditing">
+                <button class="btn btn-outline-info btn-sm mx-1" @click="editModeOn()" v-if="!isEditing">
                     Szerkesztés
                 </button>
-                <button class="btn btn-danger mx-1" @click="deleteComment()" v-if="!isEditing"> 
+                <button class="btn btn-outline-danger btn-sm mx-1" @click="deleteComment()" v-if="!isEditing"> 
                     Törlés
                 </button>
             </div>
