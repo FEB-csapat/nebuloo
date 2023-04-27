@@ -42,9 +42,7 @@ namespace NebulooWebTest
 
             var submitButtonContent = driver.FindElement(By.XPath("/html/body/div/div[1]/div/div[2]/button"));
             submitButtonContent.Click();
-            //TODO: Fix indexing
-            //if gives alert->Dont have to fix index => We can check if it gives successalert instead of checking index
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents/2"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents/"));
             driver.Quit();
 
         }

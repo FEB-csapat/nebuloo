@@ -54,6 +54,8 @@ namespace NebulooWebTest
         [Test]
         public void NavbarMyprofile_as_userTest()
         {
+            //doesnt work because after login on navbar there is a login button instead of myprofile
+            //TODO: fix refresh of navbar after login
             driver.Url = baseUrl + "login";
             seederhandler.LoginSeederSetUp();
             var usernameTextbox = driver.FindElement(By.Name("identifier"));
@@ -81,7 +83,6 @@ namespace NebulooWebTest
             driver.Quit();
             seederhandler.LoginSeederTearDown();
         }
-        //TODO:myprofile->logged in
         //TODO:searchbar
     }
 }
