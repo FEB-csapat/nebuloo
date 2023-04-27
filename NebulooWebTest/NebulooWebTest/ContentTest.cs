@@ -120,8 +120,8 @@ namespace NebulooWebTest
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents"));
             driver.Url = baseUrl + "contents/1";
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath("/html/body/div/div[1]/div[1]/div[4]/div[2]/button")));
-            var contendeleteButton = driver.FindElement(By.XPath("/html/body/div/div[1]/div[1]/div[4]/div[3]/button"));
-            contendeleteButton.Click();
+            var contentdeleteButton = driver.FindElement(By.XPath("/html/body/div/div[1]/div[1]/div[4]/div[3]/button"));
+            contentdeleteButton.Click();
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
             IAlert deleteconfirmationAlert = driver.SwitchTo().Alert();
             deleteconfirmationAlert.Accept();
@@ -129,6 +129,16 @@ namespace NebulooWebTest
             IAlert successfuldeletionAlert = driver.SwitchTo().Alert();
             successfuldeletionAlert.Accept();
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/myprofile"));
+        }
+        [Test]
+        public void ContentShowTest()
+        {
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath("/html/body/div/div[1]/div[2]/div/div[2]/div[1]/div/div/div/div[3]")));
+            var contentCard = driver.FindElement(By.XPath("/html/body/div/div[1]/div[2]/div/div[2]/div[1]/div/div/div/div[3]"));
+            contentCard.Click();
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents/1"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath("/html/body/div/div[1]/div[1]/div[1]/div/div/div[1]/div[1]/img")));
         }
 
         [TearDown]
