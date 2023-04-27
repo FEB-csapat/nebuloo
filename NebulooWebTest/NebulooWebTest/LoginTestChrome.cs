@@ -8,15 +8,18 @@ namespace NebulooWebTest
 {
     public class LoginTestChrome
     {
+        SeederHandler seederhandler = new SeederHandler();
         IWebDriver driver;
-
         static string baseUrl = "http://localhost:8881/";
+        WebDriverWait wait;
 
         [SetUp]
         public void Setup()
         {
             new DriverManager().SetUpDriver(new ChromeConfig());
             driver = new ChromeDriver();
+            seederhandler.LoginSeederSetUp();
+            wait = new WebDriverWait(driver, new TimeSpan(0, 0, 15));
         }
 
         [Test]
@@ -24,15 +27,14 @@ namespace NebulooWebTest
         {
             driver.Url = baseUrl + "login";
             var usernameTextbox = driver.FindElement(By.Name("identifier"));
-            usernameTextbox.SendKeys("Admin");
+            usernameTextbox.SendKeys("TestUser");
 
             var passwordTextbox = driver.FindElement(By.Name("password"));
-            passwordTextbox.SendKeys("admin123");
+            passwordTextbox.SendKeys("Password@123");
 
             var submitButton = driver.FindElement(By.XPath("/html/body/div/div[1]/div[1]/form/button"));
             submitButton.Click();
 
-            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 15));
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents"));
 
             driver.Quit();
@@ -43,15 +45,14 @@ namespace NebulooWebTest
         {
             driver.Url = baseUrl + "login";
             var usernameTextbox = driver.FindElement(By.Name("identifier"));
-            usernameTextbox.SendKeys("Admin@");
+            usernameTextbox.SendKeys("TestUser@");
 
             var passwordTextbox = driver.FindElement(By.Name("password"));
-            passwordTextbox.SendKeys("admin123");
+            passwordTextbox.SendKeys("Password@123");
 
             var submitButton = driver.FindElement(By.XPath("/html/body/div/div[1]/div[1]/form/button"));
             submitButton.Click();
 
-            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 15));
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
 
             driver.Quit();
@@ -62,7 +63,7 @@ namespace NebulooWebTest
         {
             driver.Url = baseUrl + "login";
             var usernameTextbox = driver.FindElement(By.Name("identifier"));
-            usernameTextbox.SendKeys("Admin");
+            usernameTextbox.SendKeys("TestUser");
 
             var passwordTextbox = driver.FindElement(By.Name("password"));
             passwordTextbox.SendKeys("a");
@@ -70,7 +71,6 @@ namespace NebulooWebTest
             var submitButton = driver.FindElement(By.XPath("/html/body/div/div[1]/div[1]/form/button"));
             submitButton.Click();
 
-            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 15));
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
 
             driver.Quit();
@@ -81,7 +81,7 @@ namespace NebulooWebTest
         {
             driver.Url = baseUrl + "login";
             var usernameTextbox = driver.FindElement(By.Name("identifier"));
-            usernameTextbox.SendKeys("Admin@");
+            usernameTextbox.SendKeys("TestUser@");
 
             var passwordTextbox = driver.FindElement(By.Name("password"));
             passwordTextbox.SendKeys("a");
@@ -89,10 +89,14 @@ namespace NebulooWebTest
             var submitButton = driver.FindElement(By.XPath("/html/body/div/div[1]/div[1]/form/button"));
             submitButton.Click();
 
-            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 15));
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
 
             driver.Quit();
+        }
+        [TearDown]
+        public void TearDown()
+        {
+            seederhandler.LoginSeederTearDown();
         }
     }
 }

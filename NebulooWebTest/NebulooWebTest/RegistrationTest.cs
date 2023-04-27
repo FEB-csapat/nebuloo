@@ -7,21 +7,25 @@ using OpenQA.Selenium.Support.UI;
 namespace NebulooWebTest
 {
     public class RegistrationTest
-    { 
+    {
+        SeederHandler seederhandler = new SeederHandler();
         IWebDriver driver;
 
         static string baseUrl = "http://localhost:8881/";
-    
+        WebDriverWait wait;
         [SetUp]
         public void Setup()
         {
             new DriverManager().SetUpDriver(new ChromeConfig());
             driver = new ChromeDriver();
+
+            wait = new WebDriverWait(driver, new TimeSpan(0, 0, 15));
         }
 
         [Test]
         public void SuccessfulRegistrationTest()
         {
+            seederhandler.RegistrationSeederSetUp();
             driver.Url = baseUrl + "registration";
 
             var usernameTextbox = driver.FindElement(By.Name("name"));
@@ -42,32 +46,6 @@ namespace NebulooWebTest
             var submitButton = driver.FindElement(By.Id("registrationbutton"));
             submitButton.Click();
 
-            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 15));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
-
-
-            IAlert simpleAlert = driver.SwitchTo().Alert();
-            simpleAlert.Accept();
-
-            //destruction
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/login"));
-
-
-            var usernameTextboxLogin = driver.FindElement(By.Name("identifier"));
-            usernameTextboxLogin.SendKeys("NewUser12222");
-
-            var passwordTextboxLogin = driver.FindElement(By.Name("password"));
-            passwordTextboxLogin.SendKeys("Jelszo123@");
-
-            var submitButtonLogin = driver.FindElement(By.XPath("/html/body/div/div[1]/div[1]/form/button"));
-            submitButtonLogin.Click();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents"));
-
-            driver.Url = baseUrl + "myprofile";
-            var deleteuserButton = driver.FindElement(By.XPath("/html/body/div/div[1]/div[1]/div[4]/div[2]/button"));
-            deleteuserButton.Click();
-            IAlert UserDeleteAlert = driver.SwitchTo().Alert();
-            UserDeleteAlert.Accept();
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
             driver.Quit();
         }
@@ -239,6 +217,11 @@ namespace NebulooWebTest
                 Assert.Fail();
             }
             driver.Quit();
+        }
+        [TearDown]
+        public void TearDown()
+        {
+            seederhandler.RegistrationSeederSetUp();
         }
     }
 }

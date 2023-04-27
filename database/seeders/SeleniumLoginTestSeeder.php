@@ -7,10 +7,8 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 
-
-class SeleniumContentTest_1_Seeder extends Seeder
+class SeleniumLoginTestSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,9 +17,6 @@ class SeleniumContentTest_1_Seeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->delete();
-        DB::table('contents')->delete();
-
         $user = User::factory()->create([
             'name' => "TestUser",
             'display_name' => "TestUser",
@@ -29,12 +24,6 @@ class SeleniumContentTest_1_Seeder extends Seeder
             'email_verified_at' => Carbon::now(),     
             'bio' => 'My hobbies are reading and programming',
             'password' => Hash::make('Password@123')  
-        ]);
-
-        Content::factory()->create([
-            'creator_user_id' => $user->id,
-            'body' => "Example content",
-            'id'=>1
         ]);
     }
 }
