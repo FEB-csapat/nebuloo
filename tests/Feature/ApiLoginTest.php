@@ -87,7 +87,7 @@ class ApiLoginTest extends TestCase
         $response
         ->assertStatus(404)
         ->assertJson([
-            'message' => 'No user found with such username or email!',
+            'message' => 'Nem található felhasználó ilyen névvel, vagy e-maillel!',
         ]);
     }
 
@@ -105,7 +105,7 @@ class ApiLoginTest extends TestCase
         $response
         ->assertStatus(404)
         ->assertJson([
-            'message' => 'No user found with such username or email!',
+            'message' => 'Nem található felhasználó ilyen névvel, vagy e-maillel',
     ]);
     }
 
@@ -123,7 +123,7 @@ class ApiLoginTest extends TestCase
         $response
         ->assertStatus(401)
         ->assertJson([
-            'message' => 'Wrong password!',
+            'message' => 'Hibás jelszó!',
     ]);
     }
 
@@ -142,7 +142,7 @@ class ApiLoginTest extends TestCase
         $response
         ->assertStatus(404)
         ->assertJson([
-            'message' => 'No user found with such username or email!',
+            'message' => 'Nem található felhasználó ilyen névvel, vagy e-maillel',
         ]);
     }
 
@@ -161,7 +161,7 @@ class ApiLoginTest extends TestCase
         $response
         ->assertStatus(404)
         ->assertJson([
-            'message' => 'No user found with such username or email!',
+            'message' => 'Nem található felhasználó ilyen névvel, vagy e-maillel',
         ]);
     }
 
@@ -243,7 +243,7 @@ class ApiLoginTest extends TestCase
         $response
         ->assertStatus(403)
         ->assertJson([
-            'message' => 'Banned user is not permitted to log in!',
+            'message' => 'A felhasználói fiók tiltva van!',
         ]);
     }
 

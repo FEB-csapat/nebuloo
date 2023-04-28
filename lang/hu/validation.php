@@ -176,6 +176,10 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'name' => 'felhasználónév',
+        'email' => 'e-mail cím',
+        'password' => 'jelszó'
+    ],
 
 ];

@@ -52,11 +52,11 @@ class AuthController extends Controller
         }
 
         if(!$user){
-            abort(404, 'No user found with such username or email!');
+            abort(404, 'Nem található felhasználó ilyen névvel, vagy e-maillel!');
         }
 
         if($user->banned){
-            abort(403, 'Banned user is not permitted to log in!');
+            abort(403, 'A felhasználói fiók tiltva van!');
             
         }
 
@@ -67,7 +67,7 @@ class AuthController extends Controller
                 'user' => new UserResource($user),
             ], 200);
         } else {
-            abort(401, 'Wrong password!');
+            abort(401, 'Hibás jelszó!');
         }
     }
 }

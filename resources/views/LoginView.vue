@@ -10,7 +10,7 @@
 
                 <button type="submit" class="my-3 btn" id="button" name="login">Bejelentkezés</button>
 
-                <div v-if="errorMessage" class="error-message bg-danger text-white bg-opacity-25 border border-danger p-2">{{errorMessage}}</div>
+                <div v-if="errorMessage" class="error-message bg-danger text-white bg-opacity-25 border border-danger p-2 d-flex">{{errorMessage}}</div>
             </Form>
 
             <loading-spinner :show="isWaiting"/>
@@ -55,6 +55,7 @@ export default{
     methods:{
         async Login(values){
             this.isWaiting = true;
+            this.errorMessage = null;
 
             const login = axios.create({
                 baseURL: "http://localhost:8881/api/",
@@ -72,8 +73,8 @@ export default{
             })
             .catch(error=>{
                 console.log(error);
-                window.alert("Hibás felhasználónév vagy jelszó!");
-               // this.errorMessage = error.response.data.message;
+                this.isWaiting = false;
+                this.errorMessage = error.response.data.message;
             })
         }
     }
