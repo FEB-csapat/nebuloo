@@ -24,7 +24,7 @@
 
     
     <div class="form-check mt-2">
-        <Field rules="required" class="form-check-input" type="checkbox" id="aszf" name="aszf" value="false"/>
+        <Field rules="required" class="form-check-input" type="checkbox" id="aszf" name="aszf"/>
         <label class="form-check-label ms-1" for="aszf">
             Elfogadom az ÁSZF-et
         </label>
@@ -84,7 +84,7 @@ export default{
             this.isWaiting = true;
 
             const regist = axios.create({
-                baseURL: "http://192.168.1.8:8881/api/",
+                baseURL: "http://localhost:8881/api/",
                 headers: {'Content-Type': 'application/json'}
             });
 
