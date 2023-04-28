@@ -33,7 +33,7 @@
     
     <div class="col my-2">
         <button class="btn btn-primary">
-            <router-link class="nav-link active" aria-current="page" to="/ASZF">ÁSZF</router-link>
+            <router-link class="nav-link active" aria-current="page" :to="{ name: 'aszf'}">ÁSZF</router-link>
         </button>
     </div> 
 
@@ -50,8 +50,8 @@
     
     </Form>
         
-    <div v-if="isWaiting" id="loading-spinner" class="spinner-border mx-auto" role="status"></div>
-    <router-link class="nav-link active btn btn-success my-3 p-2" aria-current="page" to="login">Bejelentkezés</router-link>
+    <loading-spinner :show="isWaiting"/>
+    <router-link class="nav-link active btn btn-success my-3 p-2" aria-current="page" :to="{ name: 'login'}">Bejelentkezés</router-link>
 
         </div>
     </div>
@@ -62,7 +62,7 @@ import router from "../router/index.js";
 import { Form ,Field, ErrorMessage } from 'vee-validate';
 import axios from 'axios';
 import SnackBar from "../components/snackbars/SnackBar.vue";
-
+import LoadingSpinner from "../components/LoadingSpinner.vue";
 
 export default{
     data(){
@@ -77,7 +77,7 @@ export default{
         }
     },
     components:{
-        SnackBar,Field, Form, ErrorMessage
+        SnackBar,Field, Form, ErrorMessage, LoadingSpinner
     },
     methods:{
         async Register(values){
@@ -90,7 +90,7 @@ export default{
 
             regist.post('register',values)
             .then(response=>{
-                router.push('/login');
+                this.$router.push({name: 'login'});
                 alert("Sikeres regisztráció");                
             })
             .catch(errors=>{

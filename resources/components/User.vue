@@ -1,6 +1,5 @@
-    <template>
-    <div class="col" @click="navigate">
-            
+<template>
+    <div class="col text-center" @click="navigateToUserProfileView()">
         <h6 v-if="user != null && user.role!=null && showDetailed
             && (user.role == 'admin' || user.role == 'moderator')"
             class="text-danger">{{user.role}}</h6>
@@ -39,14 +38,14 @@ export default{
         }
     },
     methods:{
-        navigate(){
+        navigateToUserProfileView(){
             if(this.clickable && this.user != null){
                 this.$router.push({
-                    name: 'profile',
+                    name: 'userProfile',
                     params: {
                         id: this.user.id    
                     },
-                })
+                });
             }
         }
     },

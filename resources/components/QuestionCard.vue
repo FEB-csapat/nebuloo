@@ -1,14 +1,15 @@
 
 <template>
-    <div class="col bg-light rounded-4 mb-4 ps-3 pb-3 pt-3 pe-1" id="card">
-        <div class="d-flex justify-content-between me-2">
+    <div class="col bg-light rounded-4 mb-4" id="card">
+        <div class="d-flex justify-content-between me-2 ps-3 pt-3 pe-1"
+            @click="navigateToDetailedView">
             <tag-list :subject="question.subject" :topic="question.topic"/>
             <p class="text-end">{{question.created_at}}</p>
         </div>
 
-        <div class="d-flex">
-            <div class="flex-fill" aria-current="page"
-                @click="navigate">
+        <div class="d-flex ps-3 pe-1">
+            <div class="flex-fill justify-content-between flex-column" aria-current="page"
+                @click="navigateToDetailedView">
                 <div>
                     <h2>
                         {{ question.title }}
@@ -17,9 +18,10 @@
                         {{ question.body }}
                     </p>
                 </div>
+                <p>Kommentek: {{question.comments_count}}</p>
             </div>
     
-            <div class="text-center align-items-center" style="max-width: 85px; min-width: 72px">
+            <div class="text-center align-items-center pb-2" style="max-width: 85px; min-width: 72px">
                 <user v-if="question.creator" :user="question.creator"></user> 
     
                 <vote :votableId="question.id" :voteCount="question.recieved_votes" :myVote="question.my_vote"></vote>
@@ -48,7 +50,7 @@ export default{
         DetailedQuestionView
     },
     methods:{
-        navigate(){
+        navigateToDetailedView(){
             this.$router.push({
                 name: 'questionById',
                 params: {

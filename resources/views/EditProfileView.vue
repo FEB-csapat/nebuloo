@@ -2,7 +2,10 @@
     <div class="container ">
         <div class="row bg-light mt-3 mb-2 rounded-3 p-3 shadow">
             <div class="col text-center">
-                <div v-if="isWaiting" id="loading-spinner" class="spinner-border mx-auto" role="status"></div>
+                
+
+                <loading-spinner :show="isWaiting"/>
+                
                 <user v-if="userData!=null" :user="userData" v-bind:showDetailed="true"></user> 
                 
                 
@@ -29,6 +32,8 @@ import { UserManager } from '../utils/UserManager';
 
 import User from '../components/User.vue';
 
+import LoadingSpinner from '../components/LoadingSpinner.vue';
+
 export default{
 
     data(){
@@ -43,7 +48,7 @@ export default{
         }
     },
     components:{
-        Field, Form, User
+        Field, Form, User, LoadingSpinner
     },
     props:{
         id: {
@@ -63,14 +68,21 @@ export default{
             RequestHelper.editMyProfile(values)
             .then(()=>{
                 alert("Sikeres változtatás");
-                router.push('/myprofile')
+                this.$router.push({
+                    name: 'myUserProfile',
+                });
             });
         },
         async editProfileData(values){
             RequestHelper.editUserData(this.id, values)
             .then(()=>{
                 alert("Sikeres felülírás.");
-                router.push('/profile/'+this.id)
+                this.$router.push({
+                    name: 'userProfile',
+                    params: {
+                        id: this.id    
+                    },
+                });
             })
             .catch(error=>{
                 console.log(error)
@@ -86,7 +98,10 @@ export default{
     async mounted(){
         if(UserManager.getUser()?.id != this.id && !UserManager.isAdmin)
         {
-            alert("Nincs jogosultságod változtatásokat végezni más profilján!",router.push("/myprofile"))
+            alert("Nincs jogosultságod változtatásokat végezni más profilján!",
+                this.$router.push({
+                        name: 'myUserProfile'
+            }));
         }
         else{
             this.userData = (await RequestHelper.getUserData(this.id)).data;

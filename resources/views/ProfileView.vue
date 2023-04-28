@@ -1,17 +1,16 @@
 <template>
 <div class="container">
     <div class="row bg-light mt-3 mb-2 rounded-3 p-3 shadow">
-        <div class="col text-end mb-4" v-if="isMyProfile">
-            <button class="btn" id="button" @click="SignOut()">
+        <div class="col text-end" v-if="isMyProfile">
+            <button class="btn" id="button" @click="signOut()">
                 Kijelentkezés
             </button>
         </div>
             
         <div class="row text-center mb-4">
-            <div v-if="isWaiting" id="loading-spinner" class="spinner-border mx-auto" role="status"></div>
+            <loading-spinner :show="isWaiting"/>
             <user v-if="userData!=null" :user="userData" v-bind:showDetailed="true" :clickable="false"></user> 
         </div>
-
 
         <h5 v-if="userData!=null">Felhasználónév: {{userData.name}}</h5>
 
@@ -19,51 +18,33 @@
             <div class="col-sm-4">
             <h2>Statisztika:</h2>
                 <div class="row">
-            <div class="col-6 mb-2">
-                <p>
-                    Szavazások:
-                </p>
-                <h6 v-if="userData!=null">
-                    {{this.userData.recieved_votes}}
-                </h6>
+            <div class="col-6 mb-2 text-center">
+                <p>Szavazások:</p>
+                <h5 v-if="userData!=null">{{this.userData.recieved_votes}}</h5>
             </div>
-            <div class="col-6 mb-2">
-                <p>
-                    Kérdések:
-                </p>
-                <h6 v-if="userData!=null">
-                    {{ this.userData.questions.length }}
-                </h6>
+            <div class="col-6 mb-2 text-center">
+                <p>Kérdések:</p>
+                <h5 v-if="userData!=null">{{ this.userData.questions.length }}</h5>
             </div>
-            <div class="col-6 mb-2">
-                <p>
-                    Tananyagok:
-                </p>
-                <h6 v-if="userData!=null">
-                    {{ this.userData.contents.length }}
-                </h6>
+            <div class="col-6 mb-2 text-center">
+                <p>Tananyagok:</p>
+                <h5 v-if="userData!=null">{{ this.userData.contents.length }}</h5>
             </div>
-            <div class="col-6 mb-2">
-                <p>
-                    Kommentek:
-                </p>
-                <h6 v-if="userData!=null">
-                    {{ this.userData.comments.length }}
-                </h6>
+            <div class="col-6 mb-2 text-center">
+                <p>Kommentek:</p>
+                <h5 v-if="userData!=null">{{ this.userData.comments.length }}</h5>
             </div>
         </div>
     </div>
     <div class="col-sm-8">
         <h2>Bio:</h2>
-        <p v-if="userData != null" class="ps-5">
-        {{ userData.bio }}
-        </p>
+        <p v-if="userData != null" class="ps-5">{{ userData.bio }}</p>
     </div>
     </div>
 
     <div class="row text-center" v-if="isMyProfile">
         <div class="col-6">
-            <button class="btn btn-info"  @click="navigate">
+            <button class="btn btn-info"  @click="navigateToEditProfileView()">
                 Profilom szerkesztése
             </button>
         </div>
@@ -98,7 +79,7 @@
     
         <div class="row my-2 text-center">
             <div class="col-4">
-                <button class="btn btn-info" @click="editProfile()">Profil szerkesztése</button>
+                <button class="btn btn-info" @click="navigateToEditProfileView()">Profil szerkesztése</button>
             </div>
             <div class="col-4">
                 <button class="btn btn-danger" @click="banProfile()">Felhasználó tiltása</button>
@@ -117,27 +98,27 @@
     <p v-if="!hasQuestions">
         Nincsenek kérdéseim.
     </p>
-    <question-card v-else v-for="question in userData.questions" :question="question"/>
+    <question-card v-else v-for="question in userData.questions" :question="question" :key="question.id"/>
 
     <h2 class="mt-4 mb-2">Tananyagaim:</h2>
     <p v-if="!hasContents">
         Nincsenek tananyagaim.
     </p>
-    <content-card v-else v-for="content in userData.contents" :content="content"/>
+    <content-card v-else v-for="content in userData.contents" :content="content" :key="content.id"/>
 
     <h2 class="mt-4">Kommentjeim:</h2>
     <div>
         <p v-if="!hasComments">
             Nincsenek kommentjeim.
         </p>
-        <comment-card v-else v-for="comment in userData.comments" :key="comment.id" :comment="comment" />
+        <comment-card v-else v-for="comment in userData.comments" :comment="comment" :key="comment.id"/>
     </div>
     
     <h2 class="mt-4">Hibajegyeim:</h2>
     <p v-if="!hasTickets">
         Nincsenek Hibajegyeim.
     </p>
-    <ticket-card v-else v-for="ticket in userData.tickets" :ticket="ticket"/>
+    <ticket-card v-else v-for="ticket in userData.tickets" :ticket="ticket" :key="ticket.id"/>
     
 
 </div>
@@ -152,7 +133,7 @@ import { UserManager } from '../utils/UserManager';
 import TicketCard from '../components/TicketCard.vue';
 import ContentCard from '../components/ContentCard.vue';
 import QuestionCard from '../components/QuestionCard.vue';
-
+import LoadingSpinner from '../components/LoadingSpinner.vue';
 
 export default{
 data(){
@@ -169,7 +150,8 @@ components:{
     QuestionCard,
     CommentCard,
     User,
-    TicketCard
+    TicketCard,
+    LoadingSpinner
 },
 props:{
     id: {
@@ -200,16 +182,13 @@ methods:{
             });
         }
     },
-    editProfile(){
-        router.push({
-            name: 'EditProfile',
+    navigateToEditProfileView(){
+        this.$router.push({
+            name: 'editUserProfile',
             params: {
                 id:  this.userData.id
-            },
-            props:{
-                id: this.userData.id
             }
-        }) 
+        });
     },
     async deleteProfile(){
         if(window.confirm("Biztosan törölni akarja a felhasználót?")){
@@ -237,25 +216,14 @@ methods:{
             RequestHelper.deleteMe()
             .then(()=>{
                 UserManager.logout();
-                alert("Sikeres törlés!",router.push('/'));
+                alert("Sikeres törlés!", this.$router.push({name: ''}));
             })
         }
     },
-    navigate(){
-            this.$router.push({
-                name: 'EditProfile',
-                params: {
-                    id:  this.userData.id
-                },
-                props: {
-                    id: this.userData.id
-                }
-            })
-        },
-        SignOut(){
-            UserManager.logout();
-            router.push('/');
-        },
+    signOut(){
+        UserManager.logout();
+        this.$router.push({name: ''});
+    },
 },
 computed: { 
     hasQuestions(){
@@ -286,15 +254,15 @@ computed: {
 },
 
 async mounted(){
-    console.log(this.id);
-    
     if(this.id==null) //MyProfile
     {
         this.getMyData();
         this.isMyProfile = true;
     }else if(UserManager.isMine(this.id))
     {
-        this.$router.push('/myprofile',);
+        this.$router.push({
+            name: 'myUserProfile',
+        });
         this.getMyData();
         this.isMyProfile = true;
     }

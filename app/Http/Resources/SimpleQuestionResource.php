@@ -22,14 +22,15 @@ class SimpleQuestionResource extends JsonResource
             ->first();
         return [
             'id' => $this->id,
+            'creator' => new SimpleUserResource($this->creator),
             'recieved_votes' => $this->sumVoteScore(),
             'my_vote' => $requestUserVote ? $requestUserVote->direction : null,
             'title' => $this->title,
             'body' => $this->body,
             'subject' => new SimpleSubjectResource($this->subject),
             'topic' => new TopicResource($this->topic),
+            'comments_count' => $this->comments->count(),
             'created_at' => Carbon::parse($this->created_at)->format('Y.m.d H:i'),
-            'updated_at' => Carbon::parse($this->updated_at)->format('Y.m.d H:i'),
         ];
     }
 }

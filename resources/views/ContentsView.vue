@@ -25,12 +25,11 @@
         <h3 v-if="searchTerm != null && searchTerm != ''" class="text-center mb-4">Keresési találatok "{{ searchTerm }}" kifejezésre:</h3>
         <h3 v-else class="text-center mb-4">Kerési találatok:</h3>
 
-        <div class="row" v-if="isWaiting">
-            <div id="loading-spinner" class="spinner-border mx-auto" role="status">
-            </div>
-        </div>
+        <loading-spinner :show="isWaiting"/>
         
-        <content-card v-for="content in contents" :content="content"/>
+        <div id="content-card-container">
+            <content-card v-for="content in contents" :content="content" :key="content.id"/>
+        </div>
 
         <h3 id="no-result" v-if="contents.length == 0 && !isWaiting" class="text-center mb-4">Nincs találat</h3>
 
@@ -60,12 +59,15 @@ import ContentCard from '../components/ContentCard.vue';
 
 import { UserManager } from '../utils/UserManager';
 
+import LoadingSpinner from '../components/LoadingSpinner.vue';
+
 export default{
     components:{
         Paginator,
         SnackBar,
         TagSelector,
-        ContentCard
+        ContentCard,
+        LoadingSpinner,
     },
     data(){
         return{
@@ -92,6 +94,7 @@ export default{
                 topic: this.topicId,
             };
             var responseBody = (await RequestHelper.getAllContent(queires)).data;
+
             this.contents = responseBody.data;
             this.links = responseBody.links;
             this.meta = responseBody.meta;
@@ -103,11 +106,11 @@ export default{
             if(!UserManager.isLoggedIn())
             {
                 this.$refs.snackBar.showSnackbar('Tananyag létrehozásához, kérlek jelentkezz be!', 'Bejelentkezés', function () {
-                    router.push('/login')
+                    this.$router.push({name: 'login'});
                 });
             }
             else{
-                router.push('/contents/create')
+                this.$router.push({name: 'createContent'});
             }            
         },
 

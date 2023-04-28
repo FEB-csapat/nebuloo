@@ -25,9 +25,9 @@ class UserResource extends JsonResource
 
             'role' => $this->getRoleNames()->count() > 0 ? $this->getRoleNames()[0] : null,
             
-            'comments' => CommentResource::collection($this->comments),
+            'comments' => SimpleCommentResource::collection($this->comments),
             'contents' => SimpleContentResource::collection($this->contents),
-            'questions' => QuestionResource::collection($this->questions),
+            'questions' => SimpleQuestionResource::collection($this->questions),
             'tickets' => TicketResource::collection($this->tickets),
             'recieved_votes' => $this->sumVoteScore(),
             'rank'=>$this->getRank(),

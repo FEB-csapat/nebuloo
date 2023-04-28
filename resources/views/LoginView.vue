@@ -13,14 +13,15 @@
                 <div v-if="errorMessage" class="error-message bg-danger text-white bg-opacity-25 border border-danger p-2">{{errorMessage}}</div>
             </Form>
 
-            <div v-if="isWaiting" id="loading-spinner" class="spinner-border mx-auto" role="status"></div>
+            <loading-spinner :show="isWaiting"/>
 
             <div class="col-sm-12 my-3">
+                <hr>
                 <p>
                     Nincs még felhasználód? Regisztrálj egyet!
                 </p>
                 <button class="btn" id="button">
-                    <router-link class="nav-link active" aria-current="page" to="/registration">Regisztráció</router-link>
+                    <router-link class="nav-link active" aria-current="page" :to="{ name: 'registration'}">Regisztráció</router-link>
                 </button>
             </div>
             </div>
@@ -37,6 +38,7 @@ import { RequestHelper } from '../utils/RequestHelper';
 import router from '../router/index';
 
 import SnackBar from '../components/snackbars/SnackBar.vue';
+import LoadingSpinner from '../components/LoadingSpinner.vue';
 
 import { UserManager } from '../utils/UserManager';
 
@@ -48,7 +50,7 @@ export default{
         }
     },
     components: {
-        SnackBar,Field, Form
+        SnackBar,Field, Form, LoadingSpinner
     },
     methods:{
         async Login(values){
@@ -66,7 +68,7 @@ export default{
                 RequestHelper.initialize(response.data.token);
             })
             .then(response=>{
-                router.push('/contents');
+                this.$router.push({name: 'contents'});
             })
             .catch(error=>{
                 console.log(error);

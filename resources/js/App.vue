@@ -23,12 +23,10 @@ export default{
 
 
 <template>
-  <nav-bar v-if="isNotAtWelcomePage"/>
-  <RouterView/>
-  <!-- TODO fix footer at the bottom of the page-->
-  <Footer/>
+    <nav-bar v-if="isNotAtWelcomePage"/>  
+    <RouterView class="content"/>
+    <!-- TODO fix footer at the bottom of the page-->
+    <Footer class="page-footer" style="z-index:-1;"/>
 
-  <SnackBar ref="snackBar" :message="'Sikeres bejelentkezés'"/>
 
 </template>
-

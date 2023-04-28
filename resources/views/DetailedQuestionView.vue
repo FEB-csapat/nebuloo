@@ -3,43 +3,51 @@
         <h2 class="text-center mt-3 mb-2">Kérdés megtekintése</h2>
 
         <div class="row bg-light shadow rounded-3 p-2">
-            <div v-if="isWaiting" id="loading-spinner" class="spinner-border mx-auto" role="status"></div>
+            
+            <loading-spinner :show="isWaiting"/>
 
-            <div v-else class="row">
-                <div class="col-11">
-                    <user :user="question.creator"></user>   
-                    <div class="col">
-                        <p v-if="question != null">{{question?.created_at}}</p>
+            <div  v-if="!isWaiting">
+                <div class="row">
+                    <div class="col text-center ">
+                        <div class="d-flex justify-content-between">
+                            <div class="">
+                                <user v-if="question!=null" :user="question.creator"></user>  
+    
+                                <div v-if="question!=null" class="">
+                                    <p v-if="question != null">{{questionCreationDate}}</p>
+                                    <p v-if="question != null">{{questionCreationTime}}</p>
+                                </div>
+                            </div>
+                            <vote v-if="question!=null" :votableId="id" :voteCount="question.recieved_votes" :myVote="question.my_vote"></vote>
+                        </div>
                     </div>
                 </div>
-
-                <div class="col-1">
-                    <vote :votableId="id" :voteCount="question.recieved_votes"></vote>
+    
+                <tag-list v-if="question!=null" :subject="question.subject" :topic="question.topic"/>
+    
+    
+                <div>
+                    <h1>
+                        {{ question.title }}
+                    </h1>
+                    <p>{{question.body}}</p>
                 </div>
-
-            <tag-list v-if="question!=null" :subject="question.subject" :topic="question.topic"/>
-
-            <h1>
-                {{ question.title }}
-            </h1>
-
-            <p>{{question.body}}</p>
-
-
-        </div>
-
-        <div class="row" v-if="canEditAndDelete">
-                <div class="col-sm-6">
-                    <button class="btn btn-success" @click="navigate()">
-                        Kérdés szerkesztése
-                    </button>
-                </div>
-                <div class="col-sm-6 text-end">
-                    <button class="btn btn-danger" @click="deletePost()">
-                        Kérdés törlése
-                    </button> 
+    
+                <div class="row" v-if="canEditAndDelete">
+                    <div class="col-sm-6">
+                        <button class="btn btn-success" @click="navigateToEditView()">
+                            Kérdés szerkesztése
+                        </button>
+                    </div>
+                    <div class="col-sm-6 text-end">
+                        <button class="btn btn-danger" @click="deletePost()">
+                            Kérdés törlése
+                        </button> 
+                    </div>
                 </div>
             </div>
+
+            
     </div>
 
     <comment-section v-if="question!=null" :comments="question.comments" :commentable_id="question.id" :commentable_type="'questions'"/>
@@ -58,6 +66,8 @@ import router from '../router';
 
 import { UserManager } from '../utils/UserManager.js';
 
+import LoadingSpinner from '../components/LoadingSpinner.vue';
+
 export default{
     data() {
         return {
@@ -70,7 +80,8 @@ export default{
         CommentCard,
         Vote,
         User,
-        TagList
+        TagList,
+        LoadingSpinner
     },
     props:{
         id: {
@@ -80,9 +91,9 @@ export default{
         
     },
     methods:{
-        navigate(){
+        navigateToEditView(){
             this.$router.push({
-                name: 'EditQuestion',
+                name: 'editQuestion',
                 params: {
                     id: this.question.id,
                 }
@@ -97,7 +108,9 @@ export default{
                 RequestHelper.deleteQuestion(this.id)
                 .then(()=>{
                     alert("Sikeres törlés!");
-                    router.push('/myprofile');
+                    this.$router.push({
+                        name: 'myUserProfile'
+                    });
                 });
             }
         },
@@ -105,6 +118,12 @@ export default{
     computed:{
         canEditAndDelete(){
             return (UserManager.isMine(this.question?.creator.id) || UserManager.isAdmin() || UserManager.isModerator());
+        },
+        questionCreationDate: function(){
+            return this.question.created_at.split(' ')[0];
+        },
+        questionCreationTime: function(){
+            return this.question.created_at.split(' ')[1];
         },
     },
     mounted(){

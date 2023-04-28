@@ -1,12 +1,6 @@
-#nebuloo-title{
-    letter-spacing: 0.2em;
-    font-family: 'Caveat', cursive;
-    font-size: 46px;
-}
-
 #welcome-title{
     letter-spacing: 0.2em;
-    font-size: 74px;
+    font-size: 100px;
     font-family: 'Caveat', cursive;
 }
 
@@ -19,6 +13,14 @@
     letter-spacing: 0.2em;
     font-size: 25px;
 }
+
+#nebuloo-title{
+    letter-spacing: 0.2em;
+    font-family: 'Caveat', cursive;
+    font-size: 46px;
+}
+
+
 
 p{
     letter-spacing: 0.2em;

@@ -2,19 +2,20 @@
     <div class="container">
         <h2 class="text-center mt-3 mb-2">Tananyag megtekintése</h2>
         <div class="row bg-light shadow rounded-3 pt-2 pb-2" id="contentid">
-            <div v-if="isWaiting" id="loading-spinner" class="spinner-border mx-auto" role="status"></div>
+
+            <loading-spinner :show="isWaiting"/>
 
             <div class="row">
                 <div class="col text-center ">
                     <div class="d-flex justify-content-between">
-                    <div class="">
-                        <user v-if="content!=null" :user="content.creator"></user>  
+                        <div class="">
+                            <user v-if="content!=null" :user="content.creator"></user>  
 
-                        <div v-if="content!=null" class="">
-                            <p v-if="content != null">{{contentCreationDate}}</p>
-                            <p v-if="content != null">{{contentCreationTime}}</p>
+                            <div v-if="content!=null" class="">
+                                <p v-if="content != null">{{contentCreationDate}}</p>
+                                <p v-if="content != null">{{contentCreationTime}}</p>
+                            </div>
                         </div>
-                    </div>
                         <vote v-if="content!=null" :votableId="id" :voteCount="content.recieved_votes" :myVote="content.my_vote"></vote>
                     </div>
                 </div>
@@ -33,7 +34,7 @@
                     </button>
                 </div>
                 <div class="col-sm-4 text-center" v-if="canEditAndDelete">
-                    <button class=" btn btn-success m-1" @click="goToEdit()">
+                    <button class=" btn btn-success m-1" @click="navigateToEditView()">
                         Szerkesztés
                     </button>
                 </div>
@@ -42,7 +43,6 @@
                         Törlés
                     </button> 
                 </div>
-
             </div>
         </div>
         <comment-section v-if="content!=null" @commentAdded="commentAdded" :comments="content.comments" :commentable_id="content.id" :commentable_type="'contents'"></comment-section>
@@ -64,6 +64,8 @@ import router from '../router';
 import html2pdf from 'html2pdf.js';
 import SnackBar from '../components/snackbars/SnackBar.vue';
 
+import LoadingSpinner from '../components/LoadingSpinner.vue';
+
 
 import { UserManager } from '../utils/UserManager.js';
 
@@ -82,6 +84,7 @@ export default{
         User,
         TagList,
         SnackBar,
+        LoadingSpinner
 
     },
     data() {
@@ -101,12 +104,14 @@ export default{
                 RequestHelper.deleteContent(this.id)
                 .then(()=>{
                     alert("Sikeres törlés!");
-                    router.push('/myprofile');
+                    this.$router.push({
+                        name: 'myUserProfile',
+                    });
                 });
             }
         },
-        goToEdit(){
-            router.push({
+        navigateToEditView(){
+            this.$router.push({
                 name: 'editContent',
                 params:{id: this.id}
             })
@@ -151,14 +156,3 @@ export default{
     },
 };
 </script>
-
-<style>
-.easymde-container.CodeMirror {
-    border: none;
-    overflow: hidden;
-}
-.easymde-preview img {
-    max-width: 100%;
-    height: auto;
-}
-</style>

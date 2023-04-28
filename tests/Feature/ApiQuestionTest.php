@@ -21,9 +21,9 @@ class ApiQuestionTest extends TestCase
     {
         parent::setUp();
 
-        $adminRole = Role::findOrCreate('admin');
-        $moderatorRole = Role::findOrCreate('moderator');
-        $userRole = Role::findOrCreate('user');
+        Role::findOrCreate('admin');
+        Role::findOrCreate('moderator');
+        Role::findOrCreate('user');
 
         $this->user = User::factory()->create();
     }

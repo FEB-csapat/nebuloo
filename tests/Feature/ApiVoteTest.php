@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\Content;
-use App\Models\Subject;
 use App\Models\User;
 use App\Models\Vote;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -21,9 +20,9 @@ class ApiVoteTest extends TestCase
     {
         parent::setUp();
 
-        $adminRole = Role::findOrCreate('admin');
-        $moderatorRole = Role::findOrCreate('moderator');
-        $userRole = Role::findOrCreate('user');
+        Role::findOrCreate('admin');
+        Role::findOrCreate('moderator');
+        Role::findOrCreate('user');
 
         $this->user = User::factory()->create();
     }
@@ -65,15 +64,11 @@ class ApiVoteTest extends TestCase
     /** @test */
     public function test_user_can_update_their_vote()
     {
-        $reciever_user = User::factory()->create([
-            'creator_user_id' => $this->user->id,
-        ]);
+        $reciever_user = User::factory()->create();
 
-        $content = Content::factory()->create(
-            [
-                'creator_user_id' => $reciever_user->id,
-            ]
-        );
+        $content = Content::factory()->create([
+            'creator_user_id' => $reciever_user->id,
+        ]);
 
         // create vote with up direction
         $vote = Vote::factory()->create([
@@ -115,11 +110,11 @@ class ApiVoteTest extends TestCase
     /** @test */
     public function test_user_can_delete_a_vote()
     {
-        $reciever_user = User::factory()->create([
-            'creator_user_id' => $this->user->id,
-        ]);
+        $reciever_user = User::factory()->create();
 
-        $content = Content::factory()->create();
+        $content = Content::factory()->create([
+            'creator_user_id' => $reciever_user->id,
+        ]);
 
         $vote = Vote::factory()->create([
             'owner_user_id' => $this->user->id,

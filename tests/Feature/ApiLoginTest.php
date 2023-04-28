@@ -18,20 +18,17 @@ class ApiLoginTest extends TestCase
     {
         parent::setUp();
 
-        $adminRole = Role::findOrCreate('admin');
-        $moderatorRole = Role::findOrCreate('moderator');
-        $userRole = Role::findOrCreate('user');
+        Role::findOrCreate('admin');
+        Role::findOrCreate('moderator');
+        Role::findOrCreate('user');
 
         $this->user = User::factory()->create([
-         /*   'name' => 'TestingUser',
-            'display_name' => 'TestingUser',
-            'email' => 'Testing@tester.test',*/
             'password' => Hash::make('Test123@')
             
         ]);
 
         $this->data = [
-            'identifier' => $this->user->name,//'TestingUser',
+            'identifier' => $this->user->name,
             'password' => 'Test123@'
         ];
     }

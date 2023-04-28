@@ -2,7 +2,8 @@
 <div class="container my-3 ">
     <h1 class="text-center mb-4">Kérdés szerkesztése</h1>
     <div class="row bg-light shadow rounded-3 p-2">
-    <div v-if="isWaiting" id="loading-spinner" class="spinner-border mx-auto" role="status"></div>
+
+        <loading-spinner :show="isWaiting"/>
 
         <tag-selector v-if="!isWaiting" @subjectItemSelected="handleSubjectItemSelected" @topicItemSelected="handleTopicItemSelected"
                 :defaultSubjectId="subjectId" :defaultTopicId="topicId"
@@ -34,16 +35,17 @@ import { RequestHelper } from '../utils/RequestHelper';
 import SnackBar from '../components/snackbars/SnackBar.vue';
 import { UserManager } from '../utils/UserManager';
 import TagSelector from '../components/TagSelector.vue';
-
+import LoadingSpinner from '../components/LoadingSpinner.vue';
 
 export default{
     components:{
         SnackBar,
-        TagSelector
+        TagSelector,
+        LoadingSpinner
     },
     data(){
         return {
-            question: {},
+            question: null,
 
             title:'',
             body:'',
@@ -69,11 +71,9 @@ export default{
 
         },
         async updateQuestion(){
-
             var response = (await RequestHelper.updateQuestion(this.question.id, this.title, this.body, this.subjectId, this.topicId));
 
             if(response.status == 200){
-               // this.$router.push('/questions/'+id);
                 alert("Sikeres szerkesztés!");
                 this.navigateToDetailedView();
             }else{

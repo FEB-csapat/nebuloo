@@ -30,7 +30,9 @@ import router from '../router';
                 RequestHelper.createTicket(data)
                 .then(()=>{
                     alert("Sikeres küldés!");
-                    router.push('/myprofile');
+                    this.$router.push({
+                        name: 'myUserProfile'
+                    });
                 });
             }
         },

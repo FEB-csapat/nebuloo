@@ -6,6 +6,7 @@ use App\Helpers\PaginationHelper;
 use App\Http\Requests\StoreContentRequest;
 use App\Http\Requests\UpdateContentRequest;
 use App\Http\Resources\ContentResource;
+use App\Http\Resources\SimpleContentResource;
 use App\Models\Content;
 use Illuminate\Http\Request;
 
@@ -54,7 +55,7 @@ class ContentController extends Controller
             $contents = $contents->get()->sortBy('created_at');
         }
 
-        return PaginationHelper::paginate(ContentResource::collection($contents));
+        return PaginationHelper::paginate(SimpleContentResource::collection($contents));
     }
     
 
@@ -67,7 +68,7 @@ class ContentController extends Controller
     {
         $this->authorize('viewMe', Content::class);
         $contents = Content::where('creator_user_id', $request->user()->id)->get();
-        return ContentResource::collection($contents);
+        return SimpleContentResource::collection($contents);
     }
     
     /**

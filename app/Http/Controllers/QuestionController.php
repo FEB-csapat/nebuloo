@@ -6,6 +6,7 @@ use App\Helpers\PaginationHelper;
 use App\Http\Requests\StoreQuestionRequest;
 use App\Http\Requests\UpdateQuestionRequest;
 use App\Http\Resources\QuestionResource;
+use App\Http\Resources\SimpleQuestionResource;
 use App\Models\Question;
 use Illuminate\Http\Request;
 
@@ -51,7 +52,7 @@ class QuestionController extends Controller
         }else{
             $questions = $questions->get()->sortBy('created_at');
         }
-        return PaginationHelper::paginate(QuestionResource::collection($questions));
+        return PaginationHelper::paginate(SimpleQuestionResource::collection($questions));
     }
 
     /**

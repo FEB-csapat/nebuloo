@@ -24,15 +24,11 @@
         
         <h3 v-if="searchTerm != ''" class="text-center mb-4">Keresési találatok: {{ $route.query.search }}</h3>
 
-        <div class="row" v-if="isWaiting">
-            <div id="loading-spinner" class="spinner-border mx-auto" role="status">
-            </div>
-        </div>
+        <loading-spinner :show="isWaiting"/>
 
-        <div>
-            <question-card v-for="question in questions" :question="question"/>
-        </div>
-
+        <div id="question-card-container">
+            <question-card v-for="question in questions" :question="question" :key="question.id"/>
+        </div>        
         <h3 id="no-result" v-if="questions.length == 0 && !isWaiting" class="text-center mb-4">Nincs találat</h3>
 
         <paginator :links="links" :meta="meta" @paginate="handlePaginate" />
@@ -55,6 +51,7 @@ import SnackBar from '../components/snackbars/SnackBar.vue';
 import TagSelector from '../components/TagSelector.vue';
 
 import QuestionCard from '../components/QuestionCard.vue';
+import LoadingSpinner from '../components/LoadingSpinner.vue';
 
 import { UserManager } from '../utils/UserManager';
 
@@ -63,7 +60,8 @@ components:{
         Paginator,
         SnackBar,
         TagSelector,
-        QuestionCard
+        QuestionCard,
+        LoadingSpinner
     },
     data(){
         return{
@@ -99,11 +97,11 @@ components:{
             if(!UserManager.isLoggedIn())
             {
                 this.$refs.snackBar.showSnackbar('Kérdések létrehozásához, kérlek jelentkezz be!', 'Bejelentkezés', function () {
-                    router.push('/login')
+                    this.$router.push({name: 'login'});
                 });
             }
             else{
-                router.push('/questions/create')
+                this.$router.push({name: 'createQuestion'});
             }             
         },
         handlePaginate(url) {

@@ -27,12 +27,25 @@ const router = createRouter({
   mode: 'history',
   routes: [
     
+/*
+|==========================================================================
+| This is the default route, to welcome guests
+|--------------------------------------------------------------------------
+*/
     {
       path: '/',
-      name: '',
+      name: 'welcome',
       component: WelcomeView
     },
-
+/*
+|==========================================================================
+|
+|
+|
+|==========================================================================
+| Routes for authentication
+|--------------------------------------------------------------------------
+*/
     {
       path: '/login',
       name: 'login',
@@ -43,7 +56,15 @@ const router = createRouter({
       name: 'registration',
       component: RegistrationView
     },
+/*
+|==========================================================================
+*/
 
+/*
+|==========================================================================
+| Routes for content actions
+|--------------------------------------------------------------------------
+*/
     {
       path: '/contents',
       name: 'contents',
@@ -62,13 +83,18 @@ const router = createRouter({
       meta:{requiresAuth: true}
     },
     {
-      path: '/contents/edit/:id',
+      path: '/contents/:id/edit',
       name: 'editContent',
       component: EditContentView,
       props: true,
       meta:{requiresAuth: true}
-      
     },
+
+/*
+|==========================================================================
+| Routes for question actions
+|--------------------------------------------------------------------------
+*/
     {
       path: '/questions',
       name: 'questions',
@@ -82,39 +108,76 @@ const router = createRouter({
     },
     {
       path: '/questions/create',
-      name: 'CreateQuestion',
+      name: 'createQuestion',
       component: CreateQuestionView,
       meta:{requiresAuth: true}
     },
     {
-      path: '/questions/edit/:id',
-      name: 'EditQuestion',
+      path: '/questions/:id/edit',
+      name: 'editQuestion',
       component: EditQuestionView,
       props: true,
       meta:{requiresAuth: true}
     },
-    
+/*
+|==========================================================================
+*/
 
+/*
+|==========================================================================
+| Routes for user actions
+|--------------------------------------------------------------------------
+*/
     {
-      path: '/myprofile',
-      name: 'myprofile',
+      path: '/me',
+      name: 'myUserProfile',
       component: ProfileView,
       meta:{requiresAuth: true},
       props: true
     },
     {
-      path: '/profile/:id',
-      name: 'profile',
+      path: '/users/:id',
+      name: 'userProfile',
       component: ProfileView,
       props: true
     },
     {
-      path: '/profile/edit/:id',
-      name: 'EditProfile',
+      path: '/users/:id/edit',
+      name: 'editUserProfile',
       component: EditProfileView,
       meta:{requiresAuth: true},
       props: true
     },
+/*
+|==========================================================================
+*/
+
+
+/*
+|==========================================================================
+| Routes for ticket actions
+|--------------------------------------------------------------------------
+*/
+    {
+      path: '/tickets/create',
+      name: 'createTicket',
+      component: CreateTicketView,
+      meta:{requiresAuth: true}
+    },
+    {
+      path: '/tickets',
+      name: 'tickets',
+      component: TicketsView
+    },
+/*
+|==========================================================================
+*/
+
+/*
+|==========================================================================
+| Routes for other actions
+|--------------------------------------------------------------------------
+*/
     {
       path: '/about',
       name: 'about',
@@ -122,26 +185,17 @@ const router = createRouter({
     },
     {
       path: '/ASZF',
-      name: 'ASZF',
+      name: 'aszf',
       component: ASZF
     },
     {
-      path: '/tickets/create',
-      name: 'CreateTicket',
-      component: CreateTicketView,
-      meta:{requiresAuth: true}
-    },
-    {
-      path: '/tickets',
-      name: 'Tickets',
-      component: TicketsView
-    },
-    {
       path: '/documentation',
-      name: 'Documentation',
+      name: 'documentation',
       component: DocumentationView
     },
-    
+/*
+|==========================================================================
+*/
   ]
 })
 

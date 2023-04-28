@@ -9,7 +9,9 @@
             <h6 class="text-end">State:resolved</h6>
         </div>
     </div>
-<button id="newquestion" class="rounded-5 position-fixed bottom-0 end-0 mb-3 me-3"><router-link class="nav-link active" aria-current="page" to="/new/ticket">+</router-link></button>
+<button id="newquestion" class="rounded-5 position-fixed bottom-0 end-0 mb-3 me-3">
+    <router-link class="nav-link active" aria-current="page" :to="{ name: 'createTicket'}">+</router-link>
+</button>
 <footer>
     
 </footer>

@@ -1,8 +1,8 @@
 <template>
     <div class="d-flex justify-content-between bg-light shadow rounded-3 p-2 mt-2 commentcard" id="card">
         
-        <div class="align-items-center" style="max-width: 85px; min-width: 72px">
-            <user id="text-overflow" :user="comment.creator"></user>
+        <div class="align-items-center text-overflow text-center" style="max-width: 85px; min-width: 72px">
+            <user :user="comment.creator"></user>
         </div>
 
         <div class="flex-fill">
