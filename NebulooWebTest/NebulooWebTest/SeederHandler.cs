@@ -14,7 +14,7 @@ namespace NebulooWebTest
             Process process = new Process();
             process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
             process.StartInfo.FileName = "cmd.exe";
-            process.StartInfo.WorkingDirectory = Path.GetFullPath("../../../../../../nebuloo");
+            process.StartInfo.WorkingDirectory = Path.GetFullPath("../../../../../../../nebuloo");
             process.StartInfo.Arguments = "/C docker compose exec app php artisan db:seed --class=SeleniumRegistrationTestSeeder";
             process.Start();
             process.WaitForExit();
