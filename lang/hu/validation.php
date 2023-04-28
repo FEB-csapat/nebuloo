@@ -178,7 +178,8 @@ return [
 
     'attributes' => [
         'name' => 'felhasználónév',
-        'email' => 'e-mail cím'
+        'email' => 'e-mail cím',
+        'password' => 'jelszó'
     ],
 
 ];

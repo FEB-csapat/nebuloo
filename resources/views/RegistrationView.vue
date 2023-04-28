@@ -6,12 +6,12 @@
     <label for="name" class="form-label mt-2">Felhasználó név:</label>
     <Field rules="alpha_num" type="text" name="name" placeholder="Felhasználó név" class="form-control"/>
     <ErrorMessage name="name" class="bg-opacity-25 border border-danger p-2 d-flex" />
-    <span v-if="possibError.name" class="d-inline-flex border border-danger mt-2">{{possibError.name}}</span>
+    <span v-if="possibError.name" class="d-inline-flex mt-2 error-message bg-danger text-white bg-opacity-25 border border-danger p-2">{{possibError.name}}</span>
 
     <label for="email" class="form-label mt-2 d-flex">E-mail cím:</label>
     <Field rules="email" type="text" name="email" placeholder="E-mail cím" class="form-control"/>
     <ErrorMessage name="email" class="bg-opacity-25 border border-danger p-2 d-flex" />
-    <span v-if="possibError.email" class="d-inline-flex border border-danger mt-2">{{possibError.email}}</span>
+    <span v-if="possibError.email" class="d-inline-flex mt-2 error-message bg-danger text-white bg-opacity-25 border border-danger p-2">{{possibError.email}}</span>
 
     <label for="password" class="form-label mt-2 d-flex">Jelszó:</label>
     <Field :rules="{ regex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/ }" type="password" name="password" placeholder="Jelszó" ref="password" class="form-control"/>
