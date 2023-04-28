@@ -10,7 +10,7 @@ namespace NebulooWebTest
     {
         IWebDriver driver;
         SeederHandler seederhandler = new SeederHandler();
-        static string baseUrl = "http://192.168.1.8:8881/";
+        static string baseUrl = "http://localhost:8881/";
         WebDriverWait wait;
         [SetUp]
         public void Setup()

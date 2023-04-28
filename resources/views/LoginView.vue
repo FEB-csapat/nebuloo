@@ -55,7 +55,7 @@ export default{
             this.isWaiting = true;
 
             const login = axios.create({
-                baseURL: "http://192.168.1.8:8881/api/",
+                baseURL: "http://localhost:8881/api/",
                 headers: {'Content-Type': 'application/json'}
             });
 
