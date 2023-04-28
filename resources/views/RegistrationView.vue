@@ -24,7 +24,7 @@
 
     
     <div class="form-check mt-2">
-        <Field rules="required" class="form-check-input" type="checkbox" id="aszf" name="aszf"/>
+        <Field rules="required" class="form-check-input" type="checkbox" id="aszf" name="aszf" value="false"/>
         <label class="form-check-label ms-1" for="aszf">
             Elfogadom az ÁSZF-et
         </label>
