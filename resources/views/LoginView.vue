@@ -8,7 +8,7 @@
                 <label for="password" class="form-label mt-2">Jelszó:</label>
                 <Field id="password_field" type="password" name="password" placeholder="Jelszó" class="form-control"/>
 
-                <button type="submit" class="my-3 btn" id="button">Bejelentkezés</button>
+                <button type="submit" class="my-3 btn" id="button" name="login">Bejelentkezés</button>
 
                 <div v-if="errorMessage" class="error-message bg-danger text-white bg-opacity-25 border border-danger p-2">{{errorMessage}}</div>
             </Form>

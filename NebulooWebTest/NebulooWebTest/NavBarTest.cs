@@ -21,14 +21,14 @@ namespace NebulooWebTest
             wait = new WebDriverWait(driver, new TimeSpan(0, 0, 15));
 
             driver.Url = baseUrl;
-            var enterasguestButton = driver.FindElement(By.XPath("/html/body/div/div[3]/div/div/div[2]/a/button"));
+            var enterasguestButton = driver.FindElement(By.Name("enterasguest"));
             enterasguestButton.Click();
         }
         [Test]
         public void NavBarMainMenuTest()
         {
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents"));
-            var mainmenuButton = driver.FindElement(By.XPath("/html/body/div/nav/div/a/h1"));
+            var mainmenuButton = driver.FindElement(By.Id("nebuloo-title"));
             mainmenuButton.Click();
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/"));
             driver.Quit();
@@ -37,7 +37,7 @@ namespace NebulooWebTest
         public void NavBarQuestionsViewTest()
         {
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents"));
-            var questionsviewButton = driver.FindElement(By.XPath("/html/body/div/nav/div/div/div/button/a"));
+            var questionsviewButton = driver.FindElement(By.Name("navquestions"));
             questionsviewButton.Click();
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/questions"));
             driver.Quit();
@@ -46,7 +46,7 @@ namespace NebulooWebTest
         public void NavBarContentsViewTest()
         {
             driver.Url = baseUrl + "questions";
-            var contentsviewButton = driver.FindElement(By.XPath("/html/body/div/nav/div/div/div/button/a"));
+            var contentsviewButton = driver.FindElement(By.Name("navcontents"));
             contentsviewButton.Click();
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents"));
             driver.Quit();
@@ -64,10 +64,10 @@ namespace NebulooWebTest
             var passwordTextbox = driver.FindElement(By.Name("password"));
             passwordTextbox.SendKeys("Password@123");
 
-            var submitButton = driver.FindElement(By.XPath("/html/body/div/div[1]/div[1]/form/button"));
+            var submitButton = driver.FindElement(By.Name("login"));
             submitButton.Click();
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents"));
-            var myprofileButton = driver.FindElement(By.XPath("/html/body/div/nav/div/div/div[2]/div/a/div/img"));
+            var myprofileButton = driver.FindElement(By.Name("navprofile"));
             myprofileButton.Click();
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/myprofile"));
             driver.Quit();
@@ -77,7 +77,7 @@ namespace NebulooWebTest
         public void NavbarMyprofile_as_guestTest()
         {
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents"));
-            var loginButton = driver.FindElement(By.XPath("/html/body/div/nav/div/div/button/a"));
+            var loginButton = driver.FindElement(By.Name("navlogin"));
             loginButton.Click();
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/login"));
             driver.Quit();

@@ -32,7 +32,7 @@ namespace NebulooWebTest
             var passwordTextbox = driver.FindElement(By.Name("password"));
             passwordTextbox.SendKeys("Password@123");
 
-            var submitButton = driver.FindElement(By.XPath("/html/body/div/div[1]/div[1]/form/button"));
+            var submitButton = driver.FindElement(By.Name("login"));
             submitButton.Click();
 
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents"));
@@ -50,7 +50,7 @@ namespace NebulooWebTest
             var passwordTextbox = driver.FindElement(By.Name("password"));
             passwordTextbox.SendKeys("Password@123");
 
-            var submitButton = driver.FindElement(By.XPath("/html/body/div/div[1]/div[1]/form/button"));
+            var submitButton = driver.FindElement(By.Name("login"));
             submitButton.Click();
 
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
@@ -68,7 +68,7 @@ namespace NebulooWebTest
             var passwordTextbox = driver.FindElement(By.Name("password"));
             passwordTextbox.SendKeys("a");
 
-            var submitButton = driver.FindElement(By.XPath("/html/body/div/div[1]/div[1]/form/button"));
+            var submitButton = driver.FindElement(By.Name("login"));
             submitButton.Click();
 
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
@@ -86,7 +86,7 @@ namespace NebulooWebTest
             var passwordTextbox = driver.FindElement(By.Name("password"));
             passwordTextbox.SendKeys("a");
 
-            var submitButton = driver.FindElement(By.XPath("/html/body/div/div[1]/div[1]/form/button"));
+            var submitButton = driver.FindElement(By.Name("login"));
             submitButton.Click();
 
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());

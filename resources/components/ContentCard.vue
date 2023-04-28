@@ -7,7 +7,7 @@
 
         <div class="d-flex">
             <div class="flex-fill" aria-current="page"
-                @click="navigate">
+                @click="navigate" name="contentcard">
                 <div>
                     <div class="card_content_view_textarea">
                         <textarea ref="editor" name="leiras" id="leiras" class="form-control">{{content.body}}</textarea>

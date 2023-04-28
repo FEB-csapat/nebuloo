@@ -24,7 +24,7 @@ namespace NebulooWebTest
         public void FooterDocumentationTest()
         {
             driver.Url = baseUrl;
-            var documentationLink = driver.FindElement(By.XPath("/html/body/div/div[4]/footer/div[2]/div[1]/a"));
+            var documentationLink = driver.FindElement(By.Name("footerdocs"));
             documentationLink.SendKeys(Keys.Return);
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/documentation"));
             driver.Quit();
@@ -33,7 +33,7 @@ namespace NebulooWebTest
         public void FooterTicket_as_guestTest()
         {
             driver.Url = baseUrl;
-            var ticketLink = driver.FindElement(By.XPath("/html/body/div/div[4]/footer/div[2]/div[2]/a"));
+            var ticketLink = driver.FindElement(By.Name("footerticket"));
             ticketLink.SendKeys(Keys.Return);
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
             IAlert notloggedinAlert = driver.SwitchTo().Alert();
@@ -45,7 +45,7 @@ namespace NebulooWebTest
         public void FooterSourceTest()
         {
             driver.Url = baseUrl;
-            var sourceLink = driver.FindElement(By.XPath("/html/body/div/div[4]/footer/div[2]/div[3]/a"));
+            var sourceLink = driver.FindElement(By.Name("footersource"));
             sourceLink.SendKeys(Keys.Return);
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("https://github.com/FEB-csapat/nebuloo"));
             driver.Quit();
@@ -54,7 +54,7 @@ namespace NebulooWebTest
         public void FooterASZFTest()
         {
             driver.Url = baseUrl;
-            var aszfLink = driver.FindElement(By.XPath("/html/body/div/div[4]/footer/div[2]/div[4]/a"));
+            var aszfLink = driver.FindElement(By.Name("footeraszf"));
             aszfLink.SendKeys(Keys.Return);
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/ASZF"));
             driver.Quit();
@@ -70,10 +70,10 @@ namespace NebulooWebTest
             var passwordTextbox = driver.FindElement(By.Name("password"));
             passwordTextbox.SendKeys("Password@123");
 
-            var submitButton = driver.FindElement(By.XPath("/html/body/div/div[1]/div[1]/form/button"));
+            var submitButton = driver.FindElement(By.Name("login"));
             submitButton.Click();
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents"));
-            var ticketLink = driver.FindElement(By.XPath("/html/body/div/div[4]/footer/div[2]/div[2]/a"));
+            var ticketLink = driver.FindElement(By.Name("footerticket"));
             ticketLink.SendKeys(Keys.Return);
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/tickets/create"));
             driver.Quit();

@@ -7,9 +7,9 @@
 
 
         <div class="me-auto mb-2 ">
-          <button v-if="showContentsButton" style="width: 110px;" class="btn ms-2 mt-2" id="button"><router-link class="nav-link active" aria-current="page" to="/contents">Tananyagok</router-link></button>
+          <button v-if="showContentsButton" style="width: 110px;" class="btn ms-2 mt-2" id="button"><router-link class="nav-link active" aria-current="page" to="/contents" name="navcontents">Tananyagok</router-link></button>
         
-          <button v-if="showQuestionsButton" style="width: 110px;" class="btn ms-2  mt-2   " id="button"><router-link class="nav-link active" aria-current="page" to="/questions">Kérdések</router-link></button>
+          <button v-if="showQuestionsButton" style="width: 110px;" class="btn ms-2  mt-2   " id="button"><router-link class="nav-link active" aria-current="page" to="/questions" name="navquestions">Kérdések</router-link></button>
         </div>
 
         <form v-if="showSearchBar" class="d-flex pe-2" @submit.prevent="search">
@@ -22,14 +22,14 @@
 
         <div v-if="showProfile" class="row h-100">
           <div class="col text-center">
-              <router-link class="nav-link active" aria-current="page" to="/myprofile">
+              <router-link class="nav-link active" aria-current="page" to="/myprofile" name="navprofile">
                 <user :user="user" :clickable="false"/>
               </router-link>
           </div>
         </div>
 
         <button v-if="!showProfile && !isLoggedIn" style="width: 130px;" class="btn ms-2 text-center" id="button">
-          <router-link class="nav-link active" aria-current="page" to="/login">Bejelentkezés</router-link>
+          <router-link class="nav-link active" aria-current="page" to="/login" name="navlogin">Bejelentkezés</router-link>
         </button>
 
       </div>
