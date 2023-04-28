@@ -9,7 +9,7 @@ export default ({ mode }) => {
     return defineConfig({
         plugins: [
             laravel({
-                input: ['resources/js/app.js'],
+                input: ['resources/css/app.scss', 'resources/js/app.js', 'resources/js/app.vue.js'],
                 refresh: true,
             }),
             vue({
@@ -22,10 +22,11 @@ export default ({ mode }) => {
              }),
         ],
         server: {
-            host: '0.0.0.0',
-            hmr: {
-                host: 'localhost'
+            port:  process.env.VITE_PORT,
+            host:  process.env.VITE_HOST,
+            hmr:{
+                host:  process.env.VITE_HOST
             }
-        },
+        }
     });
 }

@@ -2,7 +2,10 @@
 
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
-
+header('Access-Control-Allow-Headers: *');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS, PATCH');
+header('Access-Control-Allow-Credentials: true');
 define('LARAVEL_START', microtime(true));
 
 /*

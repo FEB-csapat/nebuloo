@@ -7,8 +7,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
 
-        <script src="https://apis.google.com/js/api:client.js"></script>
-
         <title>Nebuloo</title>
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
