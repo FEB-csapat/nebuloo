@@ -1,11 +1,11 @@
 <template>
 <div class="container">
     <div class="row bg-light mt-3 mb-2 rounded-3 p-3 shadow">
-            <div class="col text-end mb-4" v-if="isMyProfile">
-                <button class="btn" id="button" @click="SignOut()">
-                        Kijelentkezés
-                </button>
-            </div>
+        <div class="col text-end mb-4" v-if="isMyProfile">
+            <button class="btn" id="button" @click="SignOut()">
+                Kijelentkezés
+            </button>
+        </div>
             
         <div class="row text-center mb-4">
             <div v-if="isWaiting" id="loading-spinner" class="spinner-border mx-auto" role="status"></div>
@@ -55,11 +55,11 @@
     </div>
     <div class="col-sm-8">
         <h2>Bio:</h2>
-    <p v-if="userData != null" class="ps-5">
+        <p v-if="userData != null" class="ps-5">
         {{ userData.bio }}
-    </p>
+        </p>
     </div>
-        </div>
+    </div>
 
     <div class="row text-center" v-if="isMyProfile">
         <div class="col-6">
@@ -74,32 +74,42 @@
         </div>
     </div>
 
-    <div class="row my-4" v-if="(isAdmin || isMod) && !isMyProfile">
-        <hr>
-        <h2>
+
+    <div v-if="(isAdmin && !userIsAdmin && !isMyProfile) || (isMod && !userIsAdmin && !userIsMod && !isMyProfile) ">
+        <h2 v-if="isAdmin">
             Admin panel:
         </h2>
-        <div class="col-sm-6" v-if="isAdmin">
-            <select v-model="pickedRole" class="form-select mb-2 col-12" name="roleselector">
-                <option value="moderator">Moderátor</option>
-                <option value="user">User</option>
-            </select>
+        <h2 v-if="isMod">
+            Moderátor panel:
+        </h2>
+        <hr>
+        <div class="row my-4" v-if="isAdmin">
+            
+            <div class="col-sm-6">
                 <label for="roleselector" class="form-label col-6">Jogosultság adása:</label>
+    
+                <select v-model="pickedRole" class="form-select mb-2 col-12" name="roleselector">
+                    <option value="moderator">Moderátor</option>
+                    <option value="user">User</option>
+                </select>
                 <button class="btn btn-success col-6" @click="changeProfileRole()">Mentés</button>                       
+            </div>
+        </div>
+    
+        <div class="row my-2 text-center">
+            <div class="col-4">
+                <button class="btn btn-info" @click="editProfile()">Profil szerkesztése</button>
+            </div>
+            <div class="col-4">
+                <button class="btn btn-danger" @click="banProfile()">Felhasználó tiltása</button>
+            </div>
+            <div class="col-4" v-if="isAdmin">
+                <button class="btn btn-danger" @click="deleteProfile()">Felhasználó törlése</button>
+            </div>
         </div>
     </div>
 
-    <div class="row my-2 text-center" v-if="isAdmin && !isMyProfile">
-        <div class="col-4">
-            <button class="btn btn-info" @click="editProfile()">Profil szerkesztése</button>
-        </div>
-        <div class="col-4">
-            <button class="btn btn-danger" @click="banProfile()">Felhasználó tiltása</button>
-        </div>
-        <div class="col-4" v-if="isAdmin">
-            <button class="btn btn-danger" @click="deleteProfile()">Felhasználó törlése</button>
-        </div>
-    </div>
+    
     </div>
     
 
@@ -164,10 +174,7 @@ props:{
 methods:{
     async changeProfileRole(){
         if(window.confirm("Biztosan megakarja változtatni a felhasználó jogosultságait?")){
-            var data={
-                role: this.pickedRole
-            };
-            RequestHelper.changeUserRole(this.id,data)
+            RequestHelper.changeUserRole(this.id, this.pickedRole)
             .then(()=>{
                 alert("Sikeresen megváltoztatva!");
             })
@@ -221,7 +228,7 @@ methods:{
     },
     async deleteMe(){
         if (window.confirm("Biztosan törölni szeretné fiókját?")) {
-            RequestHelper.deleteMyProfile()
+            RequestHelper.deleteMe()
             .then(()=>{
                 UserManager.logout();
                 alert("Sikeres törlés!",router.push('/'));
@@ -262,6 +269,13 @@ computed: {
     },
     isMod(){
         return UserManager.isModerator();
+    },
+
+    userIsAdmin(){
+        return this.userData?.role == "admin";
+    },
+    userIsMod(){
+        return this.userData?.role == "moderator";
     }
 },
 

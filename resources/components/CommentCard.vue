@@ -9,7 +9,7 @@
             <p style="margin-left: 5px;" v-if="!isEditing">{{comment.message}}</p>
             <textarea id="body" v-model="commentbody" v-if="isEditing" class="form-control" rows="3" cols="10"></textarea>
 
-            <div class="text-end" v-if="isMyComment==true">
+            <div class="text-end" v-if="canEditAndDelete">
                 <button class="btn btn-success  m-2" @click="editModeOff()" v-if="isEditing"> 
                     Mentés
                 </button>
@@ -81,8 +81,8 @@ export default{
         },
     },
     computed:{
-        isMyComment(){
-            return (UserManager.isMine(this.comment.creator.id) || UserManager.isAdmin());
+        canEditAndDelete(){
+            return (UserManager.isMine(this.comment?.creator.id) || UserManager.isAdmin() || UserManager.isModerator());
         },
         commentData(){
             return{

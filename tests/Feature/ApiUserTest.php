@@ -17,6 +17,7 @@ class ApiUserTest extends TestCase
         parent::setUp();
 
         $this->user = User::factory()->create();
+        $this->user->assignRole('user');
     }
 
     public function test_update_profile()
@@ -362,7 +363,7 @@ class ApiUserTest extends TestCase
     }
 
 
-    public function test_grant_role_as_admin()
+    public function test_grant_admin_role_as_admin()
     {
         $admin = User::factory()->create();
         $admin->assignRole('admin');
@@ -376,10 +377,50 @@ class ApiUserTest extends TestCase
 
 
         $response->assertStatus(200);
-        $this->assertTrue($this->user->getRoleNames()->count() > 0);
+        $this->assertTrue($this->user->getRoleNames()->count() == 1);
         $this->assertEquals('admin', $this->user->getRoleNames()[0]);
     }
 
+    public function test_grant_moderator_role_as_admin()
+    {
+        $admin = User::factory()->create();
+        $admin->assignRole('admin');
+
+        $response = $this->actingAs($admin, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->put('/api/users/'.$this->user->id.'/role', [
+            'role' => 'moderator'
+        ]);
+
+        $response->assertStatus(200)
+        ->assertJson([
+            'id' => $this->user->id,
+            'role' => 'moderator',
+        ]);
+        $this->assertTrue($this->user->getRoleNames()->count() == 1);
+        $this->assertEquals('moderator', $this->user->getRoleNames()[0]);
+    }
+
+    public function test_grant_user_role_to_moderator_as_admin()
+    {
+        $admin = User::factory()->create();
+        $admin->assignRole('admin');
+
+        $this->user->assignRole('moderator'); 
+
+        $response = $this->actingAs($admin, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->put('/api/users/'.$this->user->id.'/role', [
+            'role' => 'user'
+        ]);
+
+
+        $response->assertStatus(200);
+        $this->assertTrue($this->user->getRoleNames()->count() == 1);
+        $this->assertEquals('user', $this->user->getRoleNames()[0]);
+    }
 
     public function test_grant_role_as_moderator()
     {
@@ -393,9 +434,9 @@ class ApiUserTest extends TestCase
             'role' => 'admin'
         ]);
 
-        $response->assertStatus(200);
-        $this->assertTrue($this->user->getRoleNames()->count() > 0);
-        $this->assertEquals('admin', $this->user->getRoleNames()[0]);
+        $response->assertStatus(403);
+        $this->assertTrue($this->user->getRoleNames()->count() == 1);
+        $this->assertEquals('user', $this->user->getRoleNames()[0]);
     }
 
 

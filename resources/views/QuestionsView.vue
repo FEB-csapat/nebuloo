@@ -30,10 +30,10 @@
         </div>
 
         <div>
-            <cards :Questions="Questions"/>
+            <cards :questions="questions"/>
         </div>
 
-        <h3 id="no-result" v-if="Questions.length == 0 && !isWaiting" class="text-center mb-4">Nincs találat</h3>
+        <h3 id="no-result" v-if="questions.length == 0 && !isWaiting" class="text-center mb-4">Nincs találat</h3>
 
         <paginator :links="links" :meta="meta" @paginate="handlePaginate" />
 
@@ -66,7 +66,7 @@ components:{
     },
     data(){
         return{
-            Questions: [],
+            questions: [],
             isWaiting: true,
             searchTerm: '',
             currentPage: 1,
@@ -81,7 +81,6 @@ components:{
     methods:{
         async getAllQuestions(){
             this.isWaiting = true;
-            this.Questions = [];
             var queires = {
                 search: this.searchTerm,
                 page: this.currentPage,
@@ -90,7 +89,7 @@ components:{
                 topic: this.topicId,
             }
             var responseBody = (await RequestHelper.getAllQuestions(queires)).data;
-            this.Questions = responseBody.data;
+            this.questions = responseBody.data;
             this.links = responseBody.links;
             this.meta = responseBody.meta;
             this.isWaiting = false;

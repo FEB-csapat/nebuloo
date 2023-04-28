@@ -28,18 +28,18 @@
 
             <div class="d-flex flex-row">
                 <div class="col-sm-4">
-                    <button class="btn" id="button" @click="downloadContent()">
+                    <button class="btn m-1" id="button" @click="downloadContent()">
                         Letöltés
                     </button>
                 </div>
-                <div class="col-sm-4 text-center" v-if="isMyContent">
-                    <button class=" btn btn-success" @click="goToEdit()">
+                <div class="col-sm-4 text-center" v-if="canEditAndDelete">
+                    <button class=" btn btn-success m-1" @click="goToEdit()">
                         Szerkesztés
                     </button>
                 </div>
-                <div class="col-sm-4 text-end" v-if="isMyContent">
-                    <button class="btn btn-danger" @click="deletePost()">
-                        Tananyag törlése
+                <div class="col-sm-4 text-end" v-if="canEditAndDelete">
+                    <button class="btn btn-danger m-1" @click="deletePost()">
+                        Törlés
                     </button> 
                 </div>
 
@@ -87,22 +87,18 @@ export default{
     data() {
         return {
             content: null,
-            creator: Object,
             isWaiting: true
         };
     },
     methods:{
         async getDetailedContent(){
-            var responseBody = (await RequestHelper.getDetailedContent(this.id)).data;
-            this.content = responseBody;
-            this.creator = this.content.creator;
+            this.content = (await RequestHelper.getDetailedContent(this.id)).data;
             this.editor.value(this.content.body);
             this.isWaiting = false;
         },
         async deletePost(){
-            if (window.confirm("Biztosan törölni szeretné posztját?")) {
-        
-                RequestHelper.deleteMyPost(this.$route.path)
+            if (window.confirm("Biztosan törölni szeretnéd a tananyagot?")) {
+                RequestHelper.deleteContent(this.id)
                 .then(()=>{
                     alert("Sikeres törlés!");
                     router.push('/myprofile');
@@ -140,8 +136,8 @@ export default{
     },
     
     computed:{
-        isMyContent(){
-            return (UserManager.isMine(this.creator.id) || UserManager.isAdmin());
+        canEditAndDelete(){
+            return (UserManager.isMine(this.content?.creator.id) || UserManager.isAdmin() || UserManager.isModerator());
         },
         contentCreationDate: function(){
             return this.content.created_at.split(' ')[0];

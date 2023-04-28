@@ -60,14 +60,14 @@ export default{
             }
         },
         async editMyData(values){
-            RequestHelper.editMyDatas(values)
+            RequestHelper.editMyProfile(values)
             .then(()=>{
                 alert("Sikeres változtatás");
                 router.push('/myprofile')
             });
         },
         async editProfileData(values){
-            RequestHelper.editUserData(values,this.id)
+            RequestHelper.editUserData(this.id, values)
             .then(()=>{
                 alert("Sikeres felülírás.");
                 router.push('/profile/'+this.id)

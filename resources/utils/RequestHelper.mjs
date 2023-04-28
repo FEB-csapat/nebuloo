@@ -18,31 +18,29 @@ export class RequestHelper {
     };
 
     static getFeed(queries){
-        const response = RequestHelper.http.get("feed", {params: queries});
-        return response;
+        return RequestHelper.http.get("feed", {params: queries});
     }
 
     static getAllQuestions(queries){
-        const response = RequestHelper.http.get("questions", {params: queries});
-        return response;
+        return RequestHelper.http.get("questions", {params: queries});
     };
     static getAllContent(queries){
-        const response = RequestHelper.http.get("contents", {params: queries});
-        return response;
+        return RequestHelper.http.get("contents", {params: queries});
     };
 
     static getDetailedContent(id){
-        const response = RequestHelper.http.get("contents/" + id);
-        return response;
+        return RequestHelper.http.get("contents/" + id);
     };
     static async getDetailedQuestion(id){
-        const response = RequestHelper.http.get("questions/" + id);
-        return response;
+        return RequestHelper.http.get("questions/" + id);
     };
 
-    static async deleteMyPost(path){
-        const response = RequestHelper.http.delete(path)
-        return response;
+    static async deleteContent(id){
+        return RequestHelper.http.delete('contents/'+id);
+    };
+
+    static async deleteQuestion(id){
+        return RequestHelper.http.delete('questions/'+id);
     };
 
     static async createQuestion(title, body, subjectId, topicId){
@@ -53,8 +51,7 @@ export class RequestHelper {
             topic_id: topicId,
         };
 
-        const response = RequestHelper.http.post('questions',data)
-        return response;
+        return RequestHelper.http.post('questions', data)
     };
     static async updateQuestion(editedQuestionId, title, body, subjectId, topicId){
         var data = {
@@ -64,19 +61,16 @@ export class RequestHelper {
             topic_id: topicId,
         };
 
-        const response = RequestHelper.http.put('questions/'+editedQuestionId, data)
-        return response;
+        return RequestHelper.http.put('questions/'+editedQuestionId, data)
     }
     static async createContent(body, subjectId, topicId){
-
         var data = {
             body: body,
             subject_id: subjectId,
             topic_id: topicId,
         };
 
-        const response = RequestHelper.http.post('contents', data);
-        return response;
+        return RequestHelper.http.post('contents', data);
     };
     static async updateContent(editedContentId, body, subjectId, topicId){
         var data = {
@@ -84,44 +78,46 @@ export class RequestHelper {
             subject_id: subjectId,
             topic_id: topicId,
         };
-        const response = RequestHelper.http.put('contents/'+editedContentId, data);
-        return response;
+        return RequestHelper.http.put('contents/'+editedContentId, data);
+        
     };
     static async getMyDatas(){
-        const response = RequestHelper.http.get("me");
-        return response;
+        return RequestHelper.http.get("me");
+        
     };
-    static async deleteMyProfile(){
-        const response = RequestHelper.http.delete("me")
-        return response;
+    static async deleteMe(){
+        return RequestHelper.http.delete("me")
+        
     };
-    static async editMyDatas(data){
-        const response = RequestHelper.http.put('me',data)
-        return response;
+    static async editMyProfile(data){
+        return RequestHelper.http.put('me',data)
+        
     };
-    static async editUserData(data,id){
-        const response = RequestHelper.http.put('users/'+id,data)
-        return response;
+    static async editUserData(id, data){
+        return RequestHelper.http.put('users/'+id,data)
+        
     };
     static async createTicket(data){
-        const response = RequestHelper.http.post('tickets',data)
-        return response;
+        return RequestHelper.http.post('tickets',data)
     };
     static async getUserData(id){
-        const response = RequestHelper.http.get('users/'+id)
-        return response;
+        return RequestHelper.http.get('users/'+id)
+        
     };
-    static async changeUserRole(id,data){
-        const response = RequestHelper.http.put('users/'+id+'/role',data)
-        return response;
+    static async changeUserRole(id, pickedRole){
+        var data={
+            role: pickedRole
+        };
+        return RequestHelper.http.put('users/'+id+'/role',data)
+        
     };
     static async banUser(id){
-        const response = RequestHelper.http.put('users/'+id+'/ban')
-        return response;
+        return RequestHelper.http.put('users/'+id+'/ban')
+        
     };
     static async deleteUser(id){
-        const response = RequestHelper.http.delete('users/'+id)
-        return response;
+        return RequestHelper.http.delete('users/'+id)
+        
     }
  
     static synchronizeVote(votableId, votableType, voteState){
@@ -133,21 +129,21 @@ export class RequestHelper {
             return RequestHelper.http.delete(votableType + '/' + votableId + '/votes');
         }
     };
-    static async createComment(message, commentableType, commentableId)
-    {
+
+    static async createComment(message, commentableType, commentableId){
         var data = {
             message: message,
         };
-        const response = RequestHelper.http.post(commentableType+ '/' + commentableId+ '/comments', data)
-        return response;
+        return RequestHelper.http.post(commentableType+ '/' + commentableId+ '/comments', data)
+        
     };
     static async editComment(data,id){
-        const response = RequestHelper.http.put('comments/'+id, data)
-        return response;
+        return RequestHelper.http.put('comments/'+id, data)
+        
     };
     static async deleteMyComment(id){
-        const response = RequestHelper.http.delete('comments/'+id)
-        return response;
+        return RequestHelper.http.delete('comments/'+id)
+        
     };
 
     static uploadImage(file)
@@ -162,12 +158,11 @@ export class RequestHelper {
         var formData = new FormData();
         formData.append("image", file);
 
-        const response = http.post('images', formData);
-        return response;
+        return http.post('images', formData);
+        
     };
 
     static async getSubjects(){
-        const response = RequestHelper.http.get('subjects')
-        return response;
+        return RequestHelper.http.get('subjects')
     };
 }

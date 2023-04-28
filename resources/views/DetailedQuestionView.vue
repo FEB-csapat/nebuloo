@@ -7,9 +7,7 @@
 
             <div v-else class="row">
                 <div class="col-11">
-
                     <user :user="question.creator"></user>   
-
                     <div class="col">
                         <p v-if="question != null">{{question?.created_at}}</p>
                     </div>
@@ -30,7 +28,7 @@
 
         </div>
 
-        <div class="row" v-if="isMyQuestion==true">
+        <div class="row" v-if="canEditAndDelete">
                 <div class="col-sm-6">
                     <button class="btn btn-success" @click="navigate()">
                         Kérdés szerkesztése
@@ -91,13 +89,12 @@ export default{
             })
         },
         async getDetailedQuestion(){
-            var responseBody = (await RequestHelper.getDetailedQuestion(this.id)).data;
-            this.question = responseBody;
+            this.question = (await RequestHelper.getDetailedQuestion(this.id)).data;
             this.isWaiting=false;
         },
         deletePost(){
             if (window.confirm("Biztosan törölni szeretné kérdését?")) {
-                RequestHelper.deleteMyPost(this.$route.path)
+                RequestHelper.deleteQuestion(this.id)
                 .then(()=>{
                     alert("Sikeres törlés!");
                     router.push('/myprofile');
@@ -106,8 +103,8 @@ export default{
         },
     },
     computed:{
-        isMyQuestion(){
-            return (UserManager.getUser()?.id == this.question?.creator?.id || UserManager.isAdmin());
+        canEditAndDelete(){
+            return (UserManager.isMine(this.question?.creator.id) || UserManager.isAdmin() || UserManager.isModerator());
         },
     },
     mounted(){

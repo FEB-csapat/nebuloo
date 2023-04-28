@@ -13,6 +13,7 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\VoteController;
 use App\Http\Controllers\ImageController;
 
+use App\Http\Middleware\IsNotBanned;
 use Illuminate\Support\Facades\Route;
 
 
@@ -98,7 +99,7 @@ Route::get('/ranks/{id}', [RankController::class, "show"])
 | API routes accessible only to: users, moderators, admins
 |--------------------------------------------------------------------------
 */
-Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware(['auth:sanctum', IsNotBanned::class])->group(function () {
     Route::get('/me', [UserController::class, "showMe"])
         ->name("me.show");
     Route::put('/me', [UserController::class, "updateMe"])
@@ -196,7 +197,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 | API routes accessible only to: moderators, admins
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => ['role:admin|moderator']], function () {
+Route::group(['middleware' => ['role:admin|moderator', IsNotBanned::class]], function () {
     Route::put('users/{id}', [UserController::class, "update"])
         ->name("users.update");
 
@@ -231,7 +232,7 @@ Route::group(['middleware' => ['role:admin|moderator']], function () {
 | API routes accessible only to: admins
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => ['role:admin']], function () {
+Route::group(['middleware' => ['role:admin', IsNotBanned::class]], function () {
 
     Route::put('users/{id}/role', [UserController::class, "updateRole"])
         ->name("users.role.update");

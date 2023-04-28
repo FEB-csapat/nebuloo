@@ -31,10 +31,10 @@
         </div>
         
         <div>
-            <cards :Contents="Contents"/>
+            <cards :contents="contents"/>
         </div>
         
-        <h3 id="no-result" v-if="Contents.length == 0 && !isWaiting" class="text-center mb-4">Nincs találat</h3>
+        <h3 id="no-result" v-if="contents.length == 0 && !isWaiting" class="text-center mb-4">Nincs találat</h3>
 
         <paginator :links="links" :meta="meta" @paginate="handlePaginate" />
         
@@ -71,7 +71,7 @@ export default{
     },
     data(){
         return{
-            Contents: [],
+            contents: [],
             isWaiting: true,
             searchTerm: '',
             currentPage: 1,
@@ -86,7 +86,6 @@ export default{
     methods:{
         async getAllContent(){
             this.isWaiting = true;
-            this.Contents = [];
             var queires = {
                 search: this.searchTerm,
                 page: this.currentPage,
@@ -95,7 +94,7 @@ export default{
                 topic: this.topicId,
             };
             var responseBody = (await RequestHelper.getAllContent(queires)).data;
-            this.Contents = responseBody.data;
+            this.contents = responseBody.data;
             this.links = responseBody.links;
             this.meta = responseBody.meta;
 
