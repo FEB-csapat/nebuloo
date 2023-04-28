@@ -19,13 +19,16 @@ class ContentFactory extends Factory
      */
     public function definition()
     {
-        $subject = Subject::inRandomOrder()->first();
-        $topic = Topic::where('subject_id', $subject->id)->inRandomOrder()->first();
+        $subject = Subject::inRandomOrder()?->first() ?? Subject::factory()->create();
+        $topic = Topic::where('subject_id', $subject->id)?->inRandomOrder()?->first()
+            ?? Topic::factory()->create([
+                'subject_id' => $subject->id
+            ]);
         return [
             'body' => $this->faker->paragraph,
             'creator_user_id' => User::inRandomOrder()->first()->id,
             'subject_id' => $subject->id,
-            'topic_id' => $topic != null ? $topic->id : null,
+            'topic_id' => $topic->id,
             'created_at' => $this->faker->dateTimeBetween('-10 year', 'now'),
         ];
     }

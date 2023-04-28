@@ -23,11 +23,11 @@ class VoteFactory extends Factory
         $votableType = $this->faker->randomElement(['App\Models\Content', 'App\Models\Question', 'App\Models\Comment']);
         $votable = null;
         if ($votableType === 'App\Models\Content') {
-            $votable = Content::inRandomOrder()->first();
+            $votable = (Content::inRandomOrder()?->first() ?? Content::factory()->create());
         } elseif ($votableType === 'App\Models\Question') {
-            $votable = Question::inRandomOrder()->first();
+            $votable = (Question::inRandomOrder()?->first() ?? Question::factory()->create());
         } else {
-            $votable = Comment::inRandomOrder()->first();
+            $votable = (Comment::inRandomOrder()?->first() ?? Comment::factory()->create());
         }
 
         $randomizedUsers = User::inRandomOrder()->get();

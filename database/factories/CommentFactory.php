@@ -19,18 +19,18 @@ class CommentFactory extends Factory
      */
     public function definition()
     {
-            $commentableType = $this->faker->randomElement(['App\Models\Content', 'App\Models\Question']);
-            $commentable = $commentableType === 'App\Models\Content'
-                ? Content::inRandomOrder()->first()
-                : Question::inRandomOrder()->first();
 
-            return [
-                'creator_user_id' => User::inRandomOrder()->first()->id,
-                'commentable_id' => $commentable->id,
-                'commentable_type' => $commentableType,
-                'parent_comment_id' => null,
-                'message' => $this->faker->paragraph
-            ];
-        
+        $commentableType = $this->faker->randomElement(['App\Models\Content', 'App\Models\Question']);
+        $commentable = $commentableType === 'App\Models\Content'
+            ? (Content::inRandomOrder()?->first() ?? Content::factory()->create())
+            : (Question::inRandomOrder()?->first() ?? Question::factory()->create());
+
+        return [
+            'creator_user_id' => (User::inRandomOrder()?->first() ?? User::factory()->create())->id,
+            'commentable_id' => $commentable->id,
+            'commentable_type' => $commentableType,
+            'parent_comment_id' => null,
+            'message' => $this->faker->paragraph
+        ];
     }
 }

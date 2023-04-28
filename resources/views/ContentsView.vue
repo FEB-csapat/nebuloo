@@ -30,10 +30,8 @@
             </div>
         </div>
         
-        <div>
-            <cards :contents="contents"/>
-        </div>
-        
+        <content-card v-for="content in contents" :content="content"/>
+
         <h3 id="no-result" v-if="contents.length == 0 && !isWaiting" class="text-center mb-4">Nincs találat</h3>
 
         <paginator :links="links" :meta="meta" @paginate="handlePaginate" />
@@ -51,7 +49,6 @@
 </template>
 
 <script>
-import Cards from '../components/Cards.vue'
 import Paginator from '../components/Paginator.vue';
 import router from '../router';
 
@@ -59,15 +56,16 @@ import { RequestHelper } from '../utils/RequestHelper';
 
 import SnackBar from '../components/snackbars/SnackBar.vue';
 import TagSelector from '../components/TagSelector.vue';
+import ContentCard from '../components/ContentCard.vue';
 
 import { UserManager } from '../utils/UserManager';
 
 export default{
     components:{
-        Cards,
         Paginator,
         SnackBar,
         TagSelector,
+        ContentCard
     },
     data(){
         return{

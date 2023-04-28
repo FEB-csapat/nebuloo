@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 use App\Models\Ticket;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 use App\Models\User;
@@ -18,6 +19,10 @@ class ApiTicketTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        $adminRole = Role::findOrCreate('admin');
+        $moderatorRole = Role::findOrCreate('moderator');
+        $userRole = Role::findOrCreate('user');
 
         $this->user = User::factory()->create();
     }

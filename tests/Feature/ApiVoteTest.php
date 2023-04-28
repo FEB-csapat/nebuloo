@@ -3,9 +3,11 @@
 namespace Tests\Feature;
 
 use App\Models\Content;
+use App\Models\Subject;
 use App\Models\User;
 use App\Models\Vote;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class ApiVoteTest extends TestCase
@@ -19,13 +21,19 @@ class ApiVoteTest extends TestCase
     {
         parent::setUp();
 
+        $adminRole = Role::findOrCreate('admin');
+        $moderatorRole = Role::findOrCreate('moderator');
+        $userRole = Role::findOrCreate('user');
+
         $this->user = User::factory()->create();
     }
 
     /** @test */
     public function test_user_can_vote_on_a_content()
     {
-        $content = Content::factory()->create();
+        $content = Content::factory()->create([
+            'creator_user_id' => $this->user->id,
+        ]);
 
         $response = $this->actingAs($this->user, 'sanctum')
         ->withHeaders([
@@ -57,7 +65,9 @@ class ApiVoteTest extends TestCase
     /** @test */
     public function test_user_can_update_their_vote()
     {
-        $reciever_user = User::factory()->create();
+        $reciever_user = User::factory()->create([
+            'creator_user_id' => $this->user->id,
+        ]);
 
         $content = Content::factory()->create(
             [
@@ -105,7 +115,9 @@ class ApiVoteTest extends TestCase
     /** @test */
     public function test_user_can_delete_a_vote()
     {
-        $reciever_user = User::factory()->create();
+        $reciever_user = User::factory()->create([
+            'creator_user_id' => $this->user->id,
+        ]);
 
         $content = Content::factory()->create();
 
@@ -131,7 +143,9 @@ class ApiVoteTest extends TestCase
 
     public function test_user_can_vote_only_once()
     {
-        $content = Content::factory()->create();
+        $content = Content::factory()->create([
+            'creator_user_id' => $this->user->id,
+        ]);
 
         $vote = Vote::factory()->create([
             'owner_user_id' => $this->user->id,

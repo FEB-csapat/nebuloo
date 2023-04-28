@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -15,6 +16,10 @@ class ApiUserTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        $adminRole = Role::findOrCreate('admin');
+        $moderatorRole = Role::findOrCreate('moderator');
+        $userRole = Role::findOrCreate('user');
 
         $this->user = User::factory()->create();
         $this->user->assignRole('user');

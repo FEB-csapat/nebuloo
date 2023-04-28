@@ -117,13 +117,13 @@
     <p v-if="!hasQuestions">
         Nincsenek kérdéseim.
     </p>
-    <cards :Questions="userData.questions" v-else/>
+    <question-card v-else v-for="question in userData.questions" :question="question"/>
 
     <h2 class="mt-4 mb-2">Tananyagaim:</h2>
     <p v-if="!hasContents">
         Nincsenek tananyagaim.
     </p>
-    <cards :Contents="userData.contents" v-else/>
+    <content-card v-else v-for="content in userData.contents" :content="content"/>
 
     <h2 class="mt-4">Kommentjeim:</h2>
     <div>
@@ -137,17 +137,21 @@
     <p v-if="!hasTickets">
         Nincsenek Hibajegyeim.
     </p>
-    <cards :Tickets="userData.tickets" v-else/>
+    <ticket-card v-else v-for="ticket in userData.tickets" :ticket="ticket"/>
+    
 
 </div>
 </template>
 <script>
-import Cards from '../components/Cards.vue'
 import { RequestHelper } from '../utils/RequestHelper';
 import CommentCard from '../components/CommentCard.vue';
 import router from '../router';
 import User from '../components/User.vue';
 import { UserManager } from '../utils/UserManager';
+
+import TicketCard from '../components/TicketCard.vue';
+import ContentCard from '../components/ContentCard.vue';
+import QuestionCard from '../components/QuestionCard.vue';
 
 
 export default{
@@ -161,9 +165,11 @@ data(){
     }   
 },
 components:{
-    Cards,
+    ContentCard,
+    QuestionCard,
     CommentCard,
-    User
+    User,
+    TicketCard
 },
 props:{
     id: {

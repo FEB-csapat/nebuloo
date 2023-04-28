@@ -30,7 +30,7 @@
         </div>
 
         <div>
-            <cards :questions="questions"/>
+            <question-card v-for="question in questions" :question="question"/>
         </div>
 
         <h3 id="no-result" v-if="questions.length == 0 && !isWaiting" class="text-center mb-4">Nincs találat</h3>
@@ -48,21 +48,22 @@
 </template>
 
 <script>
-import Cards from '../components/Cards.vue'
 import Paginator from '../components/Paginator.vue';
 import router from '../router';
 import { RequestHelper } from '../utils/RequestHelper';
 import SnackBar from '../components/snackbars/SnackBar.vue';
 import TagSelector from '../components/TagSelector.vue';
 
+import QuestionCard from '../components/QuestionCard.vue';
+
 import { UserManager } from '../utils/UserManager';
 
 export default{
 components:{
-        Cards,
         Paginator,
         SnackBar,
         TagSelector,
+        QuestionCard
     },
     data(){
         return{

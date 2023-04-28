@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Content;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 use App\Models\User;
@@ -17,6 +18,10 @@ class ApiContentTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        $adminRole = Role::findOrCreate('admin');
+        $moderatorRole = Role::findOrCreate('moderator');
+        $userRole = Role::findOrCreate('user');
 
         $this->user = User::factory()->create();
     }
