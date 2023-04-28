@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <h2 class="text-center mt-3 mb-2">Új tananyag létrehozása</h2>
+        <h2 class="text-center mt-3 mb-2">Új tananyag létrehozás</h2>
 
         <div class="row bg-light shadow rounded-3 p-2">
                 <div>
@@ -12,7 +12,7 @@
                 </div>
     
             <div class="text-end p-3">
-                <button class="btn" id="button" @click="createContent()">
+                <button class="btn" id="button" name="createcontent" @click="createContent()">
                     Létrehozás
                 </button>
             </div>

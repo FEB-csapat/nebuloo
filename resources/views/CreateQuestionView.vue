@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-    <h2 id="text-center mt-3 mb-2">Új kérdés feltétele</h2>
+    <h2 class="text-center mt-3 mb-2">Új kérdés létrehozás</h2>
 
     <div class="row bg-light shadow rounded-3 p-2">
         <div>

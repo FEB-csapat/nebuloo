@@ -11,7 +11,7 @@
                 </div>
                 <div class="ms-1">
                     <label for="search" class="form-label">Rendezés:</label>
-                    <select class="form-select" style="width:160px" v-model="orderBy" @change="handleOrderBy">
+                    <select class="form-select" style="width:160px" v-model="orderBy" @change="handleOrderBy" name="sort">
                         <option value="newest">Legújabbak</option>
                         <option value="oldest">Legrégebbiek</option>
                         <option value="popular">Legnépszerűbbek</option>

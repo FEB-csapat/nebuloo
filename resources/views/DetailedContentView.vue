@@ -21,7 +21,7 @@
                 </div>
             </div>
 
-            <tag-list v-if="content!=null" :subject="content.subject" :topic="content.topic"/>
+            <tag-list v-if="content!=null" :subject="content.subject" :topic="content.topic" name="detailedcontenttags"/>
 
             <div class="detailed_content_view_textarea">
                 <textarea ref="editor" name="leiras" id="leiras" class="form-control">Betöltés...</textarea>
@@ -29,17 +29,17 @@
 
             <div class="d-flex flex-row">
                 <div class="col-sm-4">
-                    <button class="btn m-1" id="button" @click="downloadContent()">
+                    <button class="btn m-1" id="button" @click="downloadContent()" name="contentdownload">
                         Letöltés
                     </button>
                 </div>
                 <div class="col-sm-4 text-center" v-if="canEditAndDelete">
-                    <button class=" btn btn-success m-1" @click="navigateToEditView()">
+                    <button class=" btn btn-success m-1" name="contentupdate" @click="navigateToEditView()">
                         Szerkesztés
                     </button>
                 </div>
                 <div class="col-sm-4 text-end" v-if="canEditAndDelete">
-                    <button class="btn btn-danger m-1" @click="deletePost()">
+                    <button class="btn btn-danger m-1" name="contentdelete" @click="deletePost()">
                         Törlés
                     </button> 
                 </div>

@@ -10,22 +10,21 @@
       </div>
         <div class="row">
           <div class="col-sm-3 text-center">
-            <router-link class="nav-link text-muted px-2 mt-1 " aria-current="page" :to="{ name: 'documentation'}">Dokumentációk</router-link>
+            <router-link class="nav-link text-muted px-2 mt-1 " aria-current="page" :to="{ name: 'documentation'}" name="footerdocs">Dokumentációk</router-link>
           </div>
           <div class="col-sm-3 text-center">
-            <router-link class="nav-link text-muted px-2 mt-1 " aria-current="page" :to="{ name: 'createTicket'}">Jelentés küldése</router-link>
+            <router-link class="nav-link text-muted px-2 mt-1 " aria-current="page" :to="{ name: 'createTicket'}" name="footerticket">Jelentés küldése</router-link>
           </div>
           <div class="col-sm-3 text-center">
-            <a href="https://github.com/FEB-csapat/nebuloo" class="nav-link px-2 text-muted mt-1">Forrás kód</a>
+            <a href="https://github.com/FEB-csapat/nebuloo" class="nav-link px-2 text-muted mt-1" name="footersource">Forrás kód</a>
           </div>
           <div class="col-sm-3 text-center">
-            <router-link class="nav-link text-muted px-2 mt-1 " aria-current="page" :to="{ name: 'aszf'}">ÁSZF</router-link>
+            <router-link class="nav-link text-muted px-2 mt-1 " aria-current="page" :to="{ name: 'aszf'}" name="footeraszf">ÁSZF</router-link>
           </div>
-          
         </div>      
     </footer>
   </div>
-  </template>
+</template>
   
 <script>
 import { RouterLink } from 'vue-router';

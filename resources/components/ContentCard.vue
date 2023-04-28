@@ -6,7 +6,7 @@
         </div>
 
         <div class="d-flex ps-3 pe-1">
-            <div class="flex-fill justify-content-between flex-column" aria-current="page" @click="navigateToDetailedView">
+            <div class="flex-fill justify-content-between flex-column" aria-current="page" @click="navigateToDetailedView" name="contentcard">
                 <div>
                     <div class="card_content_view_textarea">
                         <textarea ref="editor" name="leiras" id="leiras" class="form-control">{{content.body}}</textarea>

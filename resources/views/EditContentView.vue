@@ -7,13 +7,13 @@
                 <div>
                     <tag-selector v-if="!isWaiting" @subjectItemSelected="handleSubjectItemSelected" @topicItemSelected="handleTopicItemSelected"
                     :defaultSubjectId="subjectId" :defaultTopicId="topicId"
-                    ref="tagSelector"/>
+                    ref="tagSelector" name="contentupdatetagselector"/>
 
                     <textarea ref="editor" name="leiras" id="leiras" class="form-control"></textarea>
                 </div>
 
             <div class="text-end p-3">
-                <button class="btn" id="button" @click="editContent()">
+                <button class="btn" id="button" @click="editContent()" name="contentupdatesave">
                     Változtatások mentése
                 </button>
             </div>

@@ -15,7 +15,6 @@
         <div class="row justify-content-evenly align-items-end" >
             <div class="col-4 col-md-2">
                 <div class="d-flex justify-content-center mb-2 flex-column" style="letter-spacing: 4px">
-                    
                     <p class="text-secondary"><br>alap</p>
                     <user :user="zoldfulu" :clickable="false" :showDetailed="true"/>
                 </div>
@@ -65,6 +64,7 @@
                 </div>
             </div>
         </div>
+
         <div v-else class="container bg-light rounded-3 p-1 shadow">
             <h4 class="text-center" >Már be vagy jelentkezve:</h4>
 
