@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export class RequestHelper {
-    static baseUrl = "http://localhost:8881/api/";
+    static baseUrl = "http://192.168.1.8:8881/api/";
 
     static http;
     static token;

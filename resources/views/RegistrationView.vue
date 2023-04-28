@@ -84,7 +84,7 @@ export default{
             this.isWaiting = true;
 
             const regist = axios.create({
-                baseURL: "http://localhost:8881/api/",
+                baseURL: "http://192.168.1.8:8881/api/",
                 headers: {'Content-Type': 'application/json'}
             });
 
