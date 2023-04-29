@@ -1,5 +1,7 @@
 <template>
-    <div class="row bg-primary bg-opacity-75 py-5 text-center text-light">
+    <div class="row bg-primary bg-opacity-75 pt-4 pb-4 text-center text-light">
+        <img class="mx-auto border border-5 rounded-circle border-dark" style="width: 200px; padding:0;" v-bind:src="logo" alt="logo"/>
+
         <h1 id="welcome-title" class="pb-2">Nebuloo</h1>
         <h2 id="welcome-subtitle" class="py-3">Tananyag megosztó fórum</h2>
         <h5 id="welcome-motto" class="pt-3 fs-4">Mert a tudás mindenkit megillet</h5>
@@ -14,7 +16,7 @@
         
         <div class="row justify-content-evenly align-items-end" >
             <div class="col-4 col-md-2">
-                <div class="d-flex justify-content-center mb-2 flex-column" style="letter-spacing: 4px">
+                <div class="d-flex justify-content-center mb-2 flex-column" style="letter-spacing: 4px">        
                     <p class="text-secondary"><br>alap</p>
                     <user :user="zoldfulu" :clickable="false" :showDetailed="true"/>
                 </div>
@@ -81,6 +83,7 @@
 
 <script>
 import User from '../components/User.vue';
+import logo from '../assets/images/logo.png';
 
 import { UserManager } from '../utils/UserManager';
 export default {
@@ -118,6 +121,9 @@ export default {
     computed: {
         user(){
             return UserManager.getUser();
+        },
+        logo: function(){
+            return logo;
         }
     }
 }

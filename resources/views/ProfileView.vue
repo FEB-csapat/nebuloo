@@ -2,7 +2,6 @@
 <div class="container">
     <loading-spinner :show="isWaiting"/>
 
-
     <div v-if="!isWaiting" >
         <div class="row bg-light mt-3 mb-2 rounded-3 p-3 shadow">
             <div class="col text-end" v-if="isMyProfile">
@@ -58,7 +57,6 @@
                 </button>
             </div>
         </div>
-    
     
         <div v-if="(isAdmin && !userIsAdmin && !isMyProfile) || (isMod && !userIsAdmin && !userIsMod && !isMyProfile) ">
             <h2 v-if="isAdmin">
@@ -139,6 +137,8 @@ import TicketCard from '../components/TicketCard.vue';
 import ContentCard from '../components/ContentCard.vue';
 import QuestionCard from '../components/QuestionCard.vue';
 import LoadingSpinner from '../components/LoadingSpinner.vue';
+
+
 
 export default{
 data(){

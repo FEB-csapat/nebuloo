@@ -1,11 +1,11 @@
 <template>
-  <nav class="navbar navbar-expand-lg bg-primary bg-opacity-75 rounded-bottom">
+  <nav class="navbar navbar-expand-sm bg-primary bg-opacity-75 rounded-bottom">
     <div class="container-fluid ">
       <router-link class="navbar-brand text-light" id="nebuloo-title" :to="{ name: 'welcome'}">
         <h1>Nebuloo</h1>
       </router-link>
       
-      <div class=" show navbar-collapse" id="navbarSupportedContent">
+      <div class="collapse show navbar-collapse" id="navbarSupportedContent">
 
 
         <div class="me-auto mb-2 ">
@@ -26,10 +26,9 @@
           </button>
         </form>
 
-        <div v-if="showProfile" class="row h-100">
+        <div v-if="showProfile" class="row">
           <div class="col text-center">
               <router-link class="nav-link active" aria-current="page" :to="{ name: 'myUserProfile'}" name="navprofile">
-
                 <user :user="user" :clickable="false"/>
               </router-link>
           </div>

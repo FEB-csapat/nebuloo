@@ -1,6 +1,6 @@
 # Nebuloo - Tananyag megosztó fórum
 
-## A tudás mindenkit megillet
+![face](/resources/assets/images/face.png)
 
 
 
