@@ -26,7 +26,7 @@ namespace NebulooWebTest
             driver.Url = baseUrl;
             var documentationLink = driver.FindElement(By.Name("footerdocs"));
             documentationLink.SendKeys(Keys.Return);
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/documentation"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "documentation"));
             driver.Quit();
         }
         [Test]
@@ -38,7 +38,7 @@ namespace NebulooWebTest
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
             IAlert notloggedinAlert = driver.SwitchTo().Alert();
             notloggedinAlert.Accept();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/login"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "login"));
             driver.Quit();
         }
         [Test]
@@ -56,7 +56,7 @@ namespace NebulooWebTest
             driver.Url = baseUrl;
             var aszfLink = driver.FindElement(By.Name("footeraszf"));
             aszfLink.SendKeys(Keys.Return);
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/ASZF"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "ASZF"));
             driver.Quit();
         }
         [Test]
@@ -72,10 +72,10 @@ namespace NebulooWebTest
 
             var submitButton = driver.FindElement(By.Name("login"));
             submitButton.Click();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents"));
             var ticketLink = driver.FindElement(By.Name("footerticket"));
             ticketLink.SendKeys(Keys.Return);
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/tickets/create"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "tickets/create"));
             driver.Quit();
             seederhandler.LoginSeederTearDown();
         }

@@ -33,26 +33,26 @@ namespace NebulooWebTest
         [Test]
         public void ContentCreationTest()
         {
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents"));
             var contentcreationButton = driver.FindElement(By.ClassName("fab-button"));
             contentcreationButton.Click();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents/create"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents/create"));
             var contentbodyTextArea = driver.FindElement(By.XPath("/html/body/div/div[1]/div/div[1]/div[2]/div[2]/div[1]/textarea"));
             contentbodyTextArea.SendKeys("Test content");
 
             var submitButtonContent = driver.FindElement(By.Name("createcontent"));
             submitButtonContent.Click();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents/"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents/"));
             driver.Quit();
 
         }
         [Test]
         public void ContentCreationWithoutBodyTest()
         {
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents"));
             var contentcreationButton = driver.FindElement(By.ClassName("fab-button"));
             contentcreationButton.Click();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents/create"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents/create"));
 
             var submitButtonContent = driver.FindElement(By.Name("createcontent"));
             submitButtonContent.Click();
@@ -65,7 +65,7 @@ namespace NebulooWebTest
         [Test]
         public void ContentUpdateTest()
         {
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents"));
             driver.Url = baseUrl + "contents/1";
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("contentupdate")));
             var contentupdateButton = driver.FindElement(By.Name("contentupdate"));
@@ -78,14 +78,14 @@ namespace NebulooWebTest
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
             IAlert successfulupdateAlert = driver.SwitchTo().Alert();
             successfulupdateAlert.Accept();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents/1"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents/1"));
             driver.Quit();
         }
 
         [Test]
         public void ContentUpdateWithoutBodyTest()
         {
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents"));
             driver.Url = baseUrl + "contents/1";
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("detailedcontenttags")));
             var contentupdateButton = driver.FindElement(By.Name("contentupdate"));
@@ -115,7 +115,7 @@ namespace NebulooWebTest
         [Test]
         public void ContentDeletionTest()
         {
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents"));
             driver.Url = baseUrl + "contents/1";
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("contentdelete")));
 
@@ -127,16 +127,16 @@ namespace NebulooWebTest
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
             IAlert successfuldeletionAlert = driver.SwitchTo().Alert();
             successfuldeletionAlert.Accept();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/myprofile"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "myprofile"));
         }
         [Test]
         public void ContentShowTest()
         {
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents"));
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("contentcard")));
             var contentCard = driver.FindElement(By.Name("contentcard"));
             contentCard.Click();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents/1"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents/1"));
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("contentdownload")));
         }
 

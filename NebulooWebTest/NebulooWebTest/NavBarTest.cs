@@ -27,19 +27,19 @@ namespace NebulooWebTest
         [Test]
         public void NavBarMainMenuTest()
         {
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents"));
             var mainmenuButton = driver.FindElement(By.Id("nebuloo-title"));
             mainmenuButton.Click();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl));
             driver.Quit();
         }
         [Test]
         public void NavBarQuestionsViewTest()
         {
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents"));
             var questionsviewButton = driver.FindElement(By.Name("navquestions"));
             questionsviewButton.Click();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/questions"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "questions"));
             driver.Quit();
         }
         [Test]
@@ -48,7 +48,7 @@ namespace NebulooWebTest
             driver.Url = baseUrl + "questions";
             var contentsviewButton = driver.FindElement(By.Name("navcontents"));
             contentsviewButton.Click();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents"));
             driver.Quit();
         }
         [Test]
@@ -66,20 +66,20 @@ namespace NebulooWebTest
 
             var submitButton = driver.FindElement(By.Name("login"));
             submitButton.Click();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents"));
             var myprofileButton = driver.FindElement(By.Name("navprofile"));
             myprofileButton.Click();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/myprofile"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "myprofile"));
             driver.Quit();
             seederhandler.LoginSeederTearDown();
         }
         [Test]
         public void NavbarMyprofile_as_guestTest()
         {
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents"));
             var loginButton = driver.FindElement(By.Name("navlogin"));
             loginButton.Click();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/login"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "login"));
             driver.Quit();
             seederhandler.LoginSeederTearDown();
         }
