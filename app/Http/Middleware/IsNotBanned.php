@@ -17,7 +17,7 @@ class IsNotBanned
     public function handle(Request $request, Closure $next)
     {
         if($request->user()->banned){
-            abort(403, 'Banned user is not permitted for this action!');
+            abort(403, __('messages.user_banned'));
         }
         return $next($request);
     }

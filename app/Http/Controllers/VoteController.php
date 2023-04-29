@@ -57,7 +57,7 @@ class VoteController extends Controller
                 break;
             
             default:
-                abort(500, 'Votable type not found');
+                abort(404, __('messages.votable_type_not_found'));
                 break;
         }
         $data['votable_id'] = $votableId;
@@ -99,7 +99,7 @@ class VoteController extends Controller
         if($vote->update($data)){
             return new SimpleVoteResource($vote);
         }
-        abort(500, 'Vote update failed.');
+        abort(500, __('messages.error_updating_vote'));
     }
 
     /**
@@ -112,10 +112,12 @@ class VoteController extends Controller
     {
         $vote = Vote::findOrFail($id);
         $this->authorize('delete', $vote);
-        $vote->delete();
-        return response()->json([
-            'message' => 'Successfully deleted vote!',
-        ], 200);
+        if($vote->delete()){
+            return response()->json([
+                'message' => __('messages.successful_vote_deletion'),
+            ], 200);
+        }
+        abort(500, __('messages.error_deleting_vote'));
     }
 
     /**
@@ -148,18 +150,19 @@ class VoteController extends Controller
                         ->first();
                     break;
                 default:
-                    abort(500, 'Votable type not found');
+                    abort(404, __('messages.votable_type_not_found'));
                     break;
             }
         }else{
-            abort(404, 'Votable type not found');
+            abort(404, __('messages.vote_not_found'));
         }
 
         $this->authorize('delete', $vote);
-        $vote->delete();
-        
-        return response()->json([
-            'message' => 'Successfully deleted vote!',
-        ], 200);
+        if($vote->delete()){
+            return response()->json([
+                'message' => __('messages.successful_vote_deletion'),
+            ], 200);
+        }
+        abort(500,_('messages.error_deleting_vote'));
     }
 }

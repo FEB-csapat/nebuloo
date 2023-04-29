@@ -80,9 +80,9 @@ class ApiQuestionTest extends TestCase
         $response
             ->assertStatus(422)
             ->assertJson([
-                'message' => 'The title field is required.',
+                'message' => 'A(z) cím mező kitöltése kötelező.',
                 'errors' => [
-                    'title' => ['The title field is required.']
+                    'title' => ['A(z) cím mező kitöltése kötelező.']
                 ]
         ]);
     }
@@ -116,10 +116,10 @@ class ApiQuestionTest extends TestCase
         $response
             ->assertStatus(422)
             ->assertJson([
-                'message' => 'The title field is required.',
+                'message' => 'A(z) cím mező kitöltése kötelező.',
                 'errors' => [
                     'title' => [
-                        'The title field is required.'
+                        'A(z) cím mező kitöltése kötelező.'
                     ]
                 ]
         ]);

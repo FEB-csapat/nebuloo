@@ -58,9 +58,9 @@ class ApiRegisterTest extends TestCase
         $response
         ->assertStatus(422)
         ->assertJson([
-            'message' => 'The password confirmation does not match.',
+            'message' => 'jelszó megerősítése nem egyezik meg.',
             'errors' => [
-                'password' => ['The password confirmation does not match.']
+                'password' => ['jelszó megerősítése nem egyezik meg.']
             ]
     ]);
     }
@@ -80,9 +80,9 @@ class ApiRegisterTest extends TestCase
         $response
             ->assertStatus(422)
             ->assertJson([
-                'message' => 'The password format is invalid.',
+                'message' => 'A(z) jelszó formátuma érvénytelen.',
                 'errors' => [
-                    'password' => ['The password format is invalid.']
+                    'password' => ['A(z) jelszó formátuma érvénytelen.']
                 ]
         ]);
     }
@@ -102,12 +102,12 @@ class ApiRegisterTest extends TestCase
         $response
         ->assertStatus(422)
         ->assertJson([
-            'message' => 'The password must be at least 8 characters. (and 1 more error)',
+            'message' => 'A(z) jelszó hossza legalább 8 karakter kell legyen. (and 1 more error)',
             'errors' => [
                 'password' => 
                 [
-                    'The password must be at least 8 characters.',
-                    'The password format is invalid.'
+                    'A(z) jelszó hossza legalább 8 karakter kell legyen.',
+                    'A(z) jelszó formátuma érvénytelen.'
                 ]
             ]
     ]);
@@ -127,11 +127,11 @@ class ApiRegisterTest extends TestCase
         $response
         ->assertStatus(422)
         ->assertJson([
-            'message' => 'The password format is invalid.',
+            'message' => 'A(z) jelszó formátuma érvénytelen.',
             'errors' => [
                 'password' => 
                 [
-                    'The password format is invalid.'
+                    'A(z) jelszó formátuma érvénytelen.'
                 ]
             ]
         ]);
@@ -152,11 +152,11 @@ class ApiRegisterTest extends TestCase
         $response
         ->assertStatus(422)
         ->assertJson([
-            'message' => 'The password format is invalid.',
+            'message' => 'A(z) jelszó formátuma érvénytelen.',
             'errors' => [
                 'password' => 
                 [
-                    'The password format is invalid.'
+                    'A(z) jelszó formátuma érvénytelen.'
                 ]
             ]
     ]);
@@ -176,11 +176,11 @@ class ApiRegisterTest extends TestCase
         $response
         ->assertStatus(422)
         ->assertJson([
-            'message' => 'The password format is invalid.',
+            'message' => 'A(z) jelszó formátuma érvénytelen.',
             'errors' => [
                 'password' => 
                 [
-                    'The password format is invalid.'
+                    'A(z) jelszó formátuma érvénytelen.'
                 ]
             ]
         ]);
@@ -199,11 +199,11 @@ class ApiRegisterTest extends TestCase
         $response
         ->assertStatus(422)
         ->assertJson([
-            'message' => 'The password confirmation does not match.',
+            'message' => 'jelszó megerősítése nem egyezik meg.',
             'errors' => [
                 'password' => 
                 [
-                    'The password confirmation does not match.'
+                    'jelszó megerősítése nem egyezik meg.'
                 ]
             ]
     ]);
@@ -222,11 +222,11 @@ class ApiRegisterTest extends TestCase
         $response
         ->assertStatus(422)
         ->assertJson([
-            'message' => 'The email field is required.',
+            'message' => 'A(z) e-mail cím mező kitöltése kötelező.',
             'errors' => [
                 'email' => 
                 [
-                    'The email field is required.'
+                    'A(z) e-mail cím mező kitöltése kötelező.'
                 ]
             ]
     ]);
@@ -245,11 +245,11 @@ class ApiRegisterTest extends TestCase
         $response
         ->assertStatus(422)
         ->assertJson([
-            'message' => 'The name field is required.',
+            'message' => 'A(z) felhasználónév mező kitöltése kötelező.',
             'errors' => [
                 'name' => 
                 [
-                    'The name field is required.'
+                    'A(z) felhasználónév mező kitöltése kötelező.'
                 ]
             ]
     ]);
@@ -268,11 +268,11 @@ class ApiRegisterTest extends TestCase
         $response
         ->assertStatus(422)
         ->assertJson([
-            'message' => 'The email must be a valid email address.',
+            'message' => 'e-mail cím érvényes email cím kell legyen.',
             'errors' => [
                 'email' => 
                 [
-                    'The email must be a valid email address.'
+                    'e-mail cím érvényes email cím kell legyen.'
                 ]
             ]
     ]);
@@ -291,11 +291,11 @@ class ApiRegisterTest extends TestCase
         $response
         ->assertStatus(422)
         ->assertJson([
-            'message' => 'The name must be at least 4 characters.',
+            'message' => 'A(z) felhasználónév hossza legalább 4 karakter kell legyen.',
             'errors' => [
                 'name' => 
                 [
-                    'The name must be at least 4 characters.'
+                    'A(z) felhasználónév hossza legalább 4 karakter kell legyen.'
                 ]
             ]
     ]);
@@ -314,11 +314,11 @@ class ApiRegisterTest extends TestCase
         $response
         ->assertStatus(422)
         ->assertJson([
-            'message' => 'The name must not be greater than 25 characters.',
+            'message' => 'A(z) felhasználónév hossza nem lehet nagyobb, mint 25 karakter.',
             'errors' => [
                 'name' => 
                 [
-                    'The name must not be greater than 25 characters.'
+                    'A(z) felhasználónév hossza nem lehet nagyobb, mint 25 karakter.'
                 ]
             ]
     ]);
@@ -337,14 +337,14 @@ class ApiRegisterTest extends TestCase
         $response
         ->assertStatus(422)
         ->assertJson([
-            'message' => 'The password field is required.',
+            'message' => 'A(z) jelszó mező kitöltése kötelező.',
             'errors' => [
                 'password' => 
                 [
-                    'The password field is required.'
+                    'A(z) jelszó mező kitöltése kötelező.'
                 ]
             ]
-    ]);
+        ]);
     }
     public function test_create_a_user_that_already_exists_with_name()
     {
@@ -363,10 +363,10 @@ class ApiRegisterTest extends TestCase
         $response
         ->assertStatus(422)
         ->assertJson([
-            'message' => 'The name has already been taken.',
+            'message' => 'A(z) felhasználónév már foglalt.',
             'errors' => [
                 'name'=> [
-                    'The name has already been taken.'
+                    'A(z) felhasználónév már foglalt.'
                 ]
             ]
         ]);
@@ -389,10 +389,10 @@ class ApiRegisterTest extends TestCase
         $response
         ->assertStatus(422)
         ->assertJson([
-            'message' => 'The email has already been taken.',
+            'message' => 'A(z) e-mail cím már foglalt.',
             'errors' => [
                 'email'=> [
-                    'The email has already been taken.'
+                    'A(z) e-mail cím már foglalt.'
                 ]
             ]
         ]);
@@ -412,10 +412,10 @@ class ApiRegisterTest extends TestCase
         $response
         ->assertStatus(422)
         ->assertJson([
-            'message' => 'The name must only contain letters and numbers.',
+            'message' => 'felhasználónév csak betűket és számokat tartalmazhat.',
             'errors' => [
                 'name'=> [
-                    'The name must only contain letters and numbers.'
+                    'felhasználónév csak betűket és számokat tartalmazhat.'
                 ]
             ]
         ]);

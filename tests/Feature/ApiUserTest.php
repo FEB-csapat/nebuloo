@@ -22,7 +22,7 @@ class ApiUserTest extends TestCase
         Role::findOrCreate('user');
 
         $this->user = User::factory()->create();
-        $this->user->assignRole('user');
+        $this->user->syncRoles(['user']);
     }
 
     public function test_update_profile()
@@ -309,18 +309,25 @@ class ApiUserTest extends TestCase
         $admin = User::factory()->create();
         $admin->assignRole('admin');
 
-        $this->user->assignRole('admin');
+        $this->assertEquals('admin', $admin->getRoleNames()[0]);
+    
+
+
+
+        $otherUser = User::factory()->create();
+        $otherUser->assignRole('admin');
+
+     //   $this->user->syncRoles(['admin']);
 
         $response = $this->actingAs($admin, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
-        ])->put('/api/users/'.$this->user->id.'/ban');
+        ])->put('/api/users/'.$otherUser->id.'/ban');
 
 
         $response->assertStatus(403);
-        
         $this->assertDatabaseHas('users', [
-            'id' => $this->user->id,
+            'id' => $otherUser->id,
             'banned' => false
         ]);
     }

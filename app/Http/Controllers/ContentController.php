@@ -114,7 +114,7 @@ class ContentController extends Controller
         if($content->update($data)){
             return new ContentResource($content);
         }
-        abort(500, 'Could not update content.');
+        abort(500, __('messages.error_updating_content'));
     }
 
     /**
@@ -127,9 +127,12 @@ class ContentController extends Controller
     {
         $content = Content::findOrFail($id);
         $this->authorize('delete', $content);
-        $content->delete();
-        return response()->json([
-            'message' => 'Successfully deleted content!',
-        ], 200);
+        if($content->delete()){
+            return response()->json([
+                'message' => __('messages.successful_content_deletion'),
+            ], 200);
+        }
+        abort(500, __('messages.error_deleting_content'));
+        
     }
 }

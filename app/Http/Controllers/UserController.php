@@ -78,7 +78,7 @@ class UserController extends Controller
         if($user->update($data)){
             return new UserResource($user);
         }
-        abort(500, 'Could not update user.');
+        abort(500, __('messages.error_updating_user'));
     }
 
 
@@ -98,7 +98,7 @@ class UserController extends Controller
         if($user->update($data)){
             return new UserResource($user);
         }
-        abort(500, 'Could not update user.');
+        abort(500, __('messages.error_updating_user'));
     }
 
     /**
@@ -129,10 +129,13 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $this->authorize('delete', $user);
-        $user->delete();
-        return response()->json([
-            'message' => 'Successfully deleted user!',
-        ], 200);
+        if($user->delete()){
+            return response()->json([
+                'message' => __('messages.successful_user_deletion'),
+            ], 200);
+        }
+        abort(500, __('messages.error_deleting_user'));
+        
     }
 
     /**
@@ -145,10 +148,12 @@ class UserController extends Controller
     {
         $user = auth()->user();
         $this->authorize('delete', $user);
-        $user->delete();
-        return response()->json([
-            'message' => 'Successfully deleted user!',
-        ], 200);
+        if($user->delete()){
+            return response()->json([
+                'message' =>  __('messages.successful_user_deletion'),
+            ], 200);
+        }
+        abort(500, __('messages.error_deleting_user'));
     }
 
 
@@ -164,7 +169,7 @@ class UserController extends Controller
         $this->authorize('ban', $user);
         $user->update(['banned'=>true]);
         return response()->json([
-            'message' => 'Successfully banned user!',
+            'message' => __('messages.successful_user_ban'),
         ], 200);
     }
 
@@ -180,7 +185,7 @@ class UserController extends Controller
         $this->authorize('unban', $user);
         $user->update(['banned'=>false]);
         return response()->json([
-            'message' => 'Successfully unbanned user!',
+            'message' => __('messages.successful_user_unban'),
         ], 200);
     }
 
@@ -195,9 +200,8 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $this->authorize('grantRole', User::class);
-        // TODO implement grantRole
         return response()->json([
-            'message' => 'Successfully banned user!',
+            'message' => __('messages.successful_user_grant_role'),
         ], 200);
     }
 }
