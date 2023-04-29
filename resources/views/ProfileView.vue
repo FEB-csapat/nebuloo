@@ -1,126 +1,131 @@
 <template>
 <div class="container">
-    <div class="row bg-light mt-3 mb-2 rounded-3 p-3 shadow">
-        <div class="col text-end" v-if="isMyProfile">
-            <button class="btn" id="button" @click="signOut()">
-                Kijelentkezés
-            </button>
+    <loading-spinner :show="isWaiting"/>
+
+
+    <div v-if="!isWaiting" >
+        <div class="row bg-light mt-3 mb-2 rounded-3 p-3 shadow">
+            <div class="col text-end" v-if="isMyProfile">
+                <button class="btn" id="button" @click="signOut()">
+                    Kijelentkezés
+                </button>
+            </div>
+                
+            <div class="row text-center mb-4">
+                
+                <user v-if="userData!=null" :user="userData" v-bind:showDetailed="true" :clickable="false"></user> 
+            </div>
+    
+            <h5 v-if="userData!=null">Felhasználónév: {{userData.name}}</h5>
+    
+            <div class="row mb-2">
+                <div class="col-sm-4">
+                <h2>Statisztika:</h2>
+                    <div class="row">
+                <div class="col-6 mb-2 text-center">
+                    <p>Szavazások:</p>
+                    <h5 v-if="userData!=null">{{this.userData.recieved_votes}}</h5>
+                </div>
+                <div class="col-6 mb-2 text-center">
+                    <p>Kérdések:</p>
+                    <h5 v-if="userData!=null">{{ this.userData.questions.length }}</h5>
+                </div>
+                <div class="col-6 mb-2 text-center">
+                    <p>Tananyagok:</p>
+                    <h5 v-if="userData!=null">{{ this.userData.contents.length }}</h5>
+                </div>
+                <div class="col-6 mb-2 text-center">
+                    <p>Kommentek:</p>
+                    <h5 v-if="userData!=null">{{ this.userData.comments.length }}</h5>
+                </div>
+            </div>
         </div>
+        <div class="col-sm-8">
+            <h2>Bio:</h2>
+            <p v-if="userData != null" class="ps-5">{{ userData.bio }}</p>
+        </div>
+        </div>
+    
+        <div class="row text-center" v-if="isMyProfile">
+            <div class="col-6">
+                <button class="btn btn-info"  @click="navigateToEditProfileView()">
+                    Profilom szerkesztése
+                </button>
+            </div>
+            <div class="col-6">
+                <button class="btn btn-danger" @click="deleteMe()">
+                    Fiókom törlése
+                </button>
+            </div>
+        </div>
+    
+    
+        <div v-if="(isAdmin && !userIsAdmin && !isMyProfile) || (isMod && !userIsAdmin && !userIsMod && !isMyProfile) ">
+            <h2 v-if="isAdmin">
+                Admin panel:
+            </h2>
+            <h2 v-if="isMod">
+                Moderátor panel:
+            </h2>
+            <hr>
+            <div class="row my-4" v-if="isAdmin">
+                
+                <div class="col-sm-6">
+                    <label for="roleselector" class="form-label col-6">Jogosultság adása:</label>
+        
+                    <select v-model="pickedRole" class="form-select mb-2 col-12" name="roleselector">
+                        <option value="moderator">Moderátor</option>
+                        <option value="user">User</option>
+                    </select>
+                    <button class="btn btn-success col-6" @click="changeProfileRole()">Mentés</button>                       
+                </div>
+            </div>
+        
+            <div class="row my-2 text-center">
+                <div class="col-4">
+                    <button class="btn btn-info" @click="navigateToEditProfileView()">Profil szerkesztése</button>
+                </div>
+                <div class="col-4">
+                    <button v-if="!userData.banned" class="btn btn-danger" @click="banUser()">Felhasználó bannolása</button>
+                    <button v-else class="btn btn-danger" @click="unbanUser()">Felhasználó bannolás feloldása</button>
+                </div>
+                <div class="col-4" v-if="isAdmin">
+                    <button class="btn btn-danger" @click="deleteUser()">Felhasználó törlése</button>
+                </div>
+            </div>
+        </div>
+        </div>
+        
+        <div>
+            <h2 class="mt-5 mb-2">Kérdéseim:</h2>
+            <p v-if="!hasQuestions">
+                Nincsenek kérdéseim.
+            </p>
+            <question-card v-else v-for="question in userData.questions" :question="question" :key="question.id"/>
+        
+            <h2 class="mt-4 mb-2">Tananyagaim:</h2>
+            <p v-if="!hasContents">
+                Nincsenek tananyagaim.
+            </p>
+            <content-card v-else v-for="content in userData.contents" :content="content" :key="content.id"/>
+        
+            <h2 class="mt-4">Kommentjeim:</h2>
+            <div>
+                <p v-if="!hasComments">
+                    Nincsenek kommentjeim.
+                </p>
+                <comment-card v-else v-for="comment in userData.comments" :comment="comment" :key="comment.id"/>
+            </div>
             
-        <div class="row text-center mb-4">
-            <loading-spinner :show="isWaiting"/>
-            <user v-if="userData!=null" :user="userData" v-bind:showDetailed="true" :clickable="false"></user> 
-        </div>
-
-        <h5 v-if="userData!=null">Felhasználónév: {{userData.name}}</h5>
-
-        <div class="row mb-2">
-            <div class="col-sm-4">
-            <h2>Statisztika:</h2>
-                <div class="row">
-            <div class="col-6 mb-2 text-center">
-                <p>Szavazások:</p>
-                <h5 v-if="userData!=null">{{this.userData.recieved_votes}}</h5>
-            </div>
-            <div class="col-6 mb-2 text-center">
-                <p>Kérdések:</p>
-                <h5 v-if="userData!=null">{{ this.userData.questions.length }}</h5>
-            </div>
-            <div class="col-6 mb-2 text-center">
-                <p>Tananyagok:</p>
-                <h5 v-if="userData!=null">{{ this.userData.contents.length }}</h5>
-            </div>
-            <div class="col-6 mb-2 text-center">
-                <p>Kommentek:</p>
-                <h5 v-if="userData!=null">{{ this.userData.comments.length }}</h5>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-8">
-        <h2>Bio:</h2>
-        <p v-if="userData != null" class="ps-5">{{ userData.bio }}</p>
-    </div>
-    </div>
-
-    <div class="row text-center" v-if="isMyProfile">
-        <div class="col-6">
-            <button class="btn btn-info"  @click="navigateToEditProfileView()">
-                Profilom szerkesztése
-            </button>
-        </div>
-        <div class="col-6">
-            <button class="btn btn-danger" @click="deleteMe()">
-                Fiókom törlése
-            </button>
-        </div>
-    </div>
-
-
-    <div v-if="(isAdmin && !userIsAdmin && !isMyProfile) || (isMod && !userIsAdmin && !userIsMod && !isMyProfile) ">
-        <h2 v-if="isAdmin">
-            Admin panel:
-        </h2>
-        <h2 v-if="isMod">
-            Moderátor panel:
-        </h2>
-        <hr>
-        <div class="row my-4" v-if="isAdmin">
-            
-            <div class="col-sm-6">
-                <label for="roleselector" class="form-label col-6">Jogosultság adása:</label>
-    
-                <select v-model="pickedRole" class="form-select mb-2 col-12" name="roleselector">
-                    <option value="moderator">Moderátor</option>
-                    <option value="user">User</option>
-                </select>
-                <button class="btn btn-success col-6" @click="changeProfileRole()">Mentés</button>                       
-            </div>
-        </div>
-    
-        <div class="row my-2 text-center">
-            <div class="col-4">
-                <button class="btn btn-info" @click="navigateToEditProfileView()">Profil szerkesztése</button>
-            </div>
-            <div class="col-4">
-                <button class="btn btn-danger" @click="banProfile()">Felhasználó tiltása</button>
-            </div>
-            <div class="col-4" v-if="isAdmin">
-                <button class="btn btn-danger" @click="deleteProfile()">Felhasználó törlése</button>
-            </div>
+            <h2 class="mt-4">Hibajegyeim:</h2>
+            <p v-if="!hasTickets">
+                Nincsenek Hibajegyeim.
+            </p>
+            <ticket-card v-else v-for="ticket in userData.tickets" :ticket="ticket" :key="ticket.id"/>
         </div>
     </div>
 
     
-    </div>
-    
-
-    <h2 class="mt-5 mb-2">Kérdéseim:</h2>
-    <p v-if="!hasQuestions">
-        Nincsenek kérdéseim.
-    </p>
-    <question-card v-else v-for="question in userData.questions" :question="question" :key="question.id"/>
-
-    <h2 class="mt-4 mb-2">Tananyagaim:</h2>
-    <p v-if="!hasContents">
-        Nincsenek tananyagaim.
-    </p>
-    <content-card v-else v-for="content in userData.contents" :content="content" :key="content.id"/>
-
-    <h2 class="mt-4">Kommentjeim:</h2>
-    <div>
-        <p v-if="!hasComments">
-            Nincsenek kommentjeim.
-        </p>
-        <comment-card v-else v-for="comment in userData.comments" :comment="comment" :key="comment.id"/>
-    </div>
-    
-    <h2 class="mt-4">Hibajegyeim:</h2>
-    <p v-if="!hasTickets">
-        Nincsenek Hibajegyeim.
-    </p>
-    <ticket-card v-else v-for="ticket in userData.tickets" :ticket="ticket" :key="ticket.id"/>
-    
-
 </div>
 </template>
 <script>
@@ -167,15 +172,28 @@ methods:{
                 alert("Sikeresen megváltoztatva!");
             })
             .catch(error=>{
-                console.log(error) //TODO: Handle error
+                console.log(error)
             });
         }
     },
-    async banProfile(){
-        if(window.confirm("Biztosan tiltani akarja a felhasználót?")){
+    async banUser(){
+        if(window.confirm("Biztosan bannolni akarja a felhasználót?")){
             RequestHelper.banUser(this.id)
             .then(()=>{
-                alert("A felhasználó sikeresen kitiltva!")
+                alert("A felhasználó sikeresen kitiltva!");
+                this.fetchUserData();
+            })
+            .catch(error=>{
+                console.log(error)
+            });
+        }
+    },
+    async unbanUser(){
+        if(window.confirm("Biztosan fel akarja oldani a bannolást a felhasználóról?")){
+            RequestHelper.unbanUser(this.id)
+            .then(()=>{
+                alert("Bannolás visszavonva!");
+                this.fetchUserData();
             })
             .catch(error=>{
                 console.log(error)
@@ -190,11 +208,14 @@ methods:{
             }
         });
     },
-    async deleteProfile(){
+    async deleteUser(){
         if(window.confirm("Biztosan törölni akarja a felhasználót?")){
             RequestHelper.deleteUser(this.id)
             .then(()=>{
-                alert("A felhasználó sikeresen kitiltva!")
+                alert("A felhasználó sikeresen kitiltva!");
+                this.$router.push({
+                    name: 'contents'
+                });
             })
             .catch(error=>{
                 console.log(error)
@@ -203,14 +224,30 @@ methods:{
     },
     
     async getMyData(){
+        this.isWaiting=true;
         this.responseBody = (await RequestHelper.getMyDatas()).data;
         this.userData = this.responseBody;
         this.isWaiting=false;
     },
     async getProfileData(){
+        this.isWaiting=true;
         this.userData = (await RequestHelper.getUserData(this.id)).data;
         this.isWaiting=false;
     },
+
+    async fetchUserData(){
+        if(this.id == null){
+            this.isMyProfile = true;
+            this.getMyData();
+        }
+        else{
+            this.isMyProfile = false;
+            this.getProfileData();
+            
+        }
+    },
+
+
     async deleteMe(){
         if (window.confirm("Biztosan törölni szeretné fiókját?")) {
             RequestHelper.deleteMe()

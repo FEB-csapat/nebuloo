@@ -18,18 +18,12 @@ class SimpleUserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'email' => $this->email,
             'name' => $this->name,
             'display_name' => $this->display_name,
-            'bio' => $this->bio,
-
             'role' => $this->role,
             'rank'=>$this->getRank(),
-
-            'recieved_votes' => $this->sumVoteScore(),
-
+            'banned' => $this->banned,
             'created_at' => Carbon::parse($this->created_at)->format('Y.m.d H:i'),
-            'updated_at' => Carbon::parse($this->updated_at)->format('Y.m.d H:i'),
         ];
     }
 }

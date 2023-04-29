@@ -115,6 +115,11 @@ export class RequestHelper {
         return RequestHelper.http.put('users/'+id+'/ban')
         
     };
+    static async unbanUser(id){
+        return RequestHelper.http.put('users/'+id+'/unban')
+        
+    };
+
     static async deleteUser(id){
         return RequestHelper.http.delete('users/'+id)
         
