@@ -35,7 +35,7 @@ namespace NebulooWebTest
             var submitButton = driver.FindElement(By.Name("login"));
             submitButton.Click();
 
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("http://localhost:8881/contents"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents"));
 
             driver.Quit();
         }

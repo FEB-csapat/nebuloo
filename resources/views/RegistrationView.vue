@@ -5,24 +5,24 @@
                 
     <label for="name" class="form-label mt-2">Felhasználó név:</label>
     <Field rules="alpha_num" type="text" name="name" placeholder="Felhasználó név" class="form-control"/>
-    <ErrorMessage name="name" class="bg-opacity-25 border border-danger p-2 d-flex" />
+    <ErrorMessage name="name" class="bg-opacity-25 border border-danger p-2 d-flex mt-1" />
     <span v-if="possibError.name" class="d-inline-flex mt-2 error-message bg-danger text-white bg-opacity-25 border border-danger p-2">{{possibError.name}}</span>
 
     <label for="email" class="form-label mt-2 d-flex">E-mail cím:</label>
     <Field rules="email" type="text" name="email" placeholder="E-mail cím" class="form-control"/>
-    <ErrorMessage name="email" class="bg-opacity-25 border border-danger p-2 d-flex" />
+    <ErrorMessage name="email" class="bg-opacity-25 border border-danger p-2 d-flex mt-1" />
     <span v-if="possibError.email" class="d-inline-flex mt-2 error-message bg-danger text-white bg-opacity-25 border border-danger p-2">{{possibError.email}}</span>
 
     <label for="password" class="form-label mt-2 d-flex">Jelszó:</label>
     <Field :rules="{ regex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/ }" type="password" name="password" placeholder="Jelszó" ref="password" class="form-control"/>
-    <ErrorMessage name="password" class="bg-opacity-25 border border-danger p-2 d-flex" />
+    <ErrorMessage name="password" class="bg-opacity-25 border border-danger p-2 d-flex mt-1" />
     <p class="text-muted ms-1">
         A jelszónak <b>legalább 8 karakter</b> hosszúnak kell lennie, és <b>tartalmaznia kell</b> az alábbiakat: Legalább 1 <b>Nagybetű</b>, <b>Kisbetű</b>, <b>Szám</b>, és <b>Speciális karakter</b>.
     </p>
 
     <label for="password_confirmation" class="form-label mt-2">Jelszó újra:</label>
     <Field rules="confirmed:@password" type="password" name="password_confirmation" placeholder="Jelszó újra" class="form-control"/>
-    <ErrorMessage name="password_confirmation" class="bg-opacity-25 border border-danger p-2 d-flex" />
+    <ErrorMessage name="password_confirmation" class="bg-opacity-25 border border-danger p-2 d-flex mt-1" />
 
     
     <div class="form-check mt-2">

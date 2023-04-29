@@ -10,7 +10,7 @@
 
                 <button type="submit" class="my-3 btn" id="button" name="login">Bejelentkezés</button>
 
-                <div v-if="errorMessage" class="error-message bg-danger text-white bg-opacity-25 border border-danger p-2 d-flex">{{errorMessage}}</div>
+                <div v-if="errorMessage" class="error-message bg-opacity-25 border border-danger p-2 d-flex">{{errorMessage}}</div>
             </Form>
 
             <loading-spinner :show="isWaiting"/>
