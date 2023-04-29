@@ -22,7 +22,7 @@ namespace NebulooWebTest
 
             driver.Url = baseUrl;
             var enterasguestButton = driver.FindElement(By.Name("enterasguest"));
-            enterasguestButton.Click();
+            enterasguestButton.SendKeys(Keys.Return);
         }
         [Test]
         public void NavBarMainMenuTest()
@@ -31,7 +31,6 @@ namespace NebulooWebTest
             var mainmenuButton = driver.FindElement(By.Id("nebuloo-title"));
             mainmenuButton.Click();
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl));
-            driver.Quit();
         }
         [Test]
         public void NavBarQuestionsViewTest()
@@ -40,7 +39,6 @@ namespace NebulooWebTest
             var questionsviewButton = driver.FindElement(By.Name("navquestions"));
             questionsviewButton.Click();
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "questions"));
-            driver.Quit();
         }
         [Test]
         public void NavBarContentsViewTest()
@@ -49,7 +47,6 @@ namespace NebulooWebTest
             var contentsviewButton = driver.FindElement(By.Name("navcontents"));
             contentsviewButton.Click();
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents"));
-            driver.Quit();
         }
         [Test]
         public void NavbarMyprofile_as_userTest()
@@ -69,8 +66,7 @@ namespace NebulooWebTest
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents"));
             var myprofileButton = driver.FindElement(By.Name("navprofile"));
             myprofileButton.Click();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "myprofile"));
-            driver.Quit();
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "me"));
             seederhandler.LoginSeederTearDown();
         }
         [Test]
@@ -80,9 +76,12 @@ namespace NebulooWebTest
             var loginButton = driver.FindElement(By.Name("navlogin"));
             loginButton.Click();
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "login"));
-            driver.Quit();
-            seederhandler.LoginSeederTearDown();
         }
         //TODO:searchbar
+        [TearDown]
+        public void TearDown()
+        {
+            driver.Quit();
+        }
     }
 }

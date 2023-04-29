@@ -47,7 +47,6 @@ namespace NebulooWebTest
             submitButton.Click();
 
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
-            driver.Quit();
         }
 
         [Test]
@@ -79,7 +78,6 @@ namespace NebulooWebTest
             {
                 Assert.Fail();
             }
-            driver.Quit();
         }
 
         [Test]
@@ -111,7 +109,6 @@ namespace NebulooWebTest
             {
                 Assert.Fail();
             }
-            driver.Quit();
         }
 
         [Test]
@@ -143,7 +140,6 @@ namespace NebulooWebTest
             {
                 Assert.Fail();
             }
-            driver.Quit();
         }
 
         [Test]
@@ -175,7 +171,6 @@ namespace NebulooWebTest
             {
                 Assert.Fail();
             }
-            driver.Quit();
         }
 
         [Test]
@@ -216,12 +211,12 @@ namespace NebulooWebTest
             {
                 Assert.Fail();
             }
-            driver.Quit();
         }
         [TearDown]
         public void TearDown()
         {
             seederhandler.RegistrationSeederSetUp();
+            driver.Quit();
         }
     }
 }

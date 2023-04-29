@@ -43,7 +43,6 @@ namespace NebulooWebTest
             var submitButtonContent = driver.FindElement(By.Name("createcontent"));
             submitButtonContent.Click();
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents/"));
-            driver.Quit();
 
         }
         [Test]
@@ -60,7 +59,6 @@ namespace NebulooWebTest
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
             IAlert nobodyAlert = driver.SwitchTo().Alert();
             nobodyAlert.Accept();
-            driver.Quit();
         }
         [Test]
         public void ContentUpdateTest()
@@ -79,7 +77,6 @@ namespace NebulooWebTest
             IAlert successfulupdateAlert = driver.SwitchTo().Alert();
             successfulupdateAlert.Accept();
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents/1"));
-            driver.Quit();
         }
 
         [Test]
@@ -104,12 +101,10 @@ namespace NebulooWebTest
             {
                 Assert.Pass();
                 nobodyupdateAlert.Accept();
-                driver.Quit();
             }
             else
             {
                 Assert.Fail();
-                driver.Quit();
             }
         }
         [Test]
@@ -144,6 +139,7 @@ namespace NebulooWebTest
         public void TearDown()
         {
             seederhandler.ContentSeederTearDown();
+            driver.Quit();
         }
     }
 }
