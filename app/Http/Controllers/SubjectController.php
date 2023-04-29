@@ -68,7 +68,7 @@ class SubjectController extends Controller
         if($subject->update($data)){
             return new SubjectResource($subject);
         }
-        abort(500, __('messages.error_updating_subject'));
+        abort(500, __('messages.error_updating'));
     }
 
     /**
@@ -83,7 +83,7 @@ class SubjectController extends Controller
         $this->authorize('delete', $subject);
         $subject->delete();
         return response()->json([
-            'message' => __('messages.successful_subject_deletion'),
+            'message' => __('messages.successful_deletion'),
         ], 200);
     }
 }

@@ -99,7 +99,7 @@ class CommentController extends Controller
         if($comment->update($data)){
             return new CommentResource($comment);
         }
-        abort(500, __('messages.error_updating_comment'));
+        abort(500, __('messages.error_updating'));
     }
 
     /**
@@ -116,7 +116,7 @@ class CommentController extends Controller
 
         $comment->delete();
         return response()->json([
-            'message' => __('messages.successful_comment_deletion'),
+            'message' => __('messages.successful_deletion'),
         ], 200);
     }
 

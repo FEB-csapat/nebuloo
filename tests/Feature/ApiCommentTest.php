@@ -6,7 +6,6 @@ use App\Models\Comment;
 use App\Models\Content;
 use App\Models\Question;
 use App\Models\User;
-use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -20,10 +19,6 @@ class ApiCommentTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        Role::findOrCreate('admin');
-        Role::findOrCreate('moderator');
-        Role::findOrCreate('user');
 
         $this->user = User::factory()->create();
     }
@@ -116,7 +111,7 @@ class ApiCommentTest extends TestCase
         $content = Content::factory()->create();
 
         $admin = User::factory()->create();
-        $admin->assignRole('admin');
+        $admin->setRoleToAdmin();
 
         $data = [
             'message' => 'This is a comment on content'
@@ -141,7 +136,7 @@ class ApiCommentTest extends TestCase
         $content = Content::factory()->create();
 
         $moderator = User::factory()->create();
-        $moderator->assignRole('moderator');
+        $moderator->setRoleToModerator();
 
         $data = [
             'message' => 'This is a comment on content'
@@ -208,7 +203,7 @@ class ApiCommentTest extends TestCase
         $question = Question::factory()->create();
 
         $admin = User::factory()->create();
-        $admin->assignRole('admin');
+        $admin->setRoleToAdmin();
 
         $data = [
             'message' => 'This is a comment on question'
@@ -233,7 +228,7 @@ class ApiCommentTest extends TestCase
         $question = Question::factory()->create();
 
         $moderator = User::factory()->create();
-        $moderator->assignRole('moderator');
+        $moderator->setRoleToModerator();
 
         $data = [
             'message' => 'This is a comment on question'
@@ -295,7 +290,7 @@ class ApiCommentTest extends TestCase
         $comment = Comment::factory()->create();
 
         $admin = User::factory()->create();
-        $admin->assignRole('admin');
+        $admin->setRoleToAdmin();
 
         $response = $this->actingAs($admin, 'sanctum')
         ->withHeaders([
@@ -314,7 +309,7 @@ class ApiCommentTest extends TestCase
         $comment = Comment::factory()->create();
 
         $moderator = User::factory()->create();
-        $moderator->assignRole('moderator');
+        $moderator->setRoleToModerator();
 
         $response = $this->actingAs($moderator, 'sanctum')
         ->withHeaders([
@@ -394,9 +389,8 @@ public function test_show_a_comment_as_guest()
         $otherUser = User::factory()->create();
         $comment = Comment::factory()->create(['creator_user_id' => $otherUser->id]);
 
-        $moderator = User::factory()->create();
-        $moderator->assignRole('moderator');
-
+        $moderator = User::factory()->create(['role' => 'moderator']);
+        
         $data = [
             'message' => 'Updated comment body'
         ];
@@ -420,7 +414,7 @@ public function test_show_a_comment_as_guest()
         $comment = Comment::factory()->create(['creator_user_id' => $otherUser->id]);
 
         $admin = User::factory()->create();
-        $admin->assignRole('admin');
+        $admin->setRoleToAdmin();
 
         $data = [
             'message' => 'Updated comment body'
@@ -501,7 +495,7 @@ public function test_show_a_comment_as_guest()
         $comment = Comment::factory()->create(['creator_user_id' => $otherUser->id]);
 
         $moderator = User::factory()->create();
-        $moderator->assignRole('moderator');
+        $moderator->setRoleToModerator();
 
         $response = $this->actingAs($moderator, 'sanctum')
         ->withHeaders([
@@ -520,7 +514,7 @@ public function test_show_a_comment_as_guest()
         $comment = Comment::factory()->create(['creator_user_id' => $otherUser->id]);
 
         $admin = User::factory()->create();
-        $admin->assignRole('admin');
+        $admin->setRoleToAdmin();
 
         $response = $this->actingAs($admin, 'sanctum')
         ->withHeaders([
@@ -551,7 +545,7 @@ public function test_show_a_comment_as_guest()
     public function test_delete_my_comment_as_admin()
     {
         $admin = User::factory()->create();
-        $admin->assignRole('admin');
+        $admin->setRoleToAdmin();
 
         $comment = Comment::factory()->create(['creator_user_id' => $admin->id]);
 
@@ -569,7 +563,7 @@ public function test_show_a_comment_as_guest()
     public function test_delete_my_comment_as_moderator()
     {
         $moderator = User::factory()->create();
-        $moderator->assignRole('moderator');
+        $moderator->setRoleToModerator();
 
         $comment = Comment::factory()->create(['creator_user_id' => $moderator->id]);
 

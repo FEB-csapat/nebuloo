@@ -20,9 +20,7 @@ class ContentPolicy
      */
     public function viewAny(?User $user): Response
     {
-        if($user?->banned==true){
-            return Response::deny();
-        }
+        
 
         return Response::allow();
     }
@@ -36,9 +34,7 @@ class ContentPolicy
      */
     public function view(?User $user, Content $content): Response
     {
-        if($user?->banned==true){
-            return Response::deny();
-        }
+        
 
         return Response::allow();
     }
@@ -51,12 +47,8 @@ class ContentPolicy
      */
     public function viewMe(?User $user): Response
     {
-        if($user?->banned==true){
-            return Response::deny();
-        }
-
         if ($user === null) {
-            return Response::deny('User must be logged in to create content.');
+            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
         }
         return Response::allow();
     }
@@ -70,13 +62,9 @@ class ContentPolicy
      */
     public function create(?User $user): Response
     {
-        if($user?->banned==true){
-            return Response::deny();
-        }
-        
         // visitors cannot create content
         if ($user === null) {
-            return Response::deny('User must be logged in to create content.');
+            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
         }
 
         if($user->hasAnyRole(['admin', 'moderator']) ){
@@ -95,13 +83,9 @@ class ContentPolicy
      */
     public function update(?User $user, Content $content): Response
     {
-        if($user?->banned==true){
-            return Response::deny();
-        }
-
         // visitors cannot update content
         if ($user === null) {
-            return Response::deny('User must be logged in to edit content.');
+            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
         }
 
         if($user->hasAnyRole(['admin', 'moderator']) ){
@@ -111,8 +95,7 @@ class ContentPolicy
         if($user->id == $content->creator_user_id){
             return Response::allow();
         }
-        
-        return Response::deny('User is not permitted for this action.');
+        return Response::deny(__('messages.user_not_permitted_for_action'));
     }
 
     /**
@@ -124,13 +107,9 @@ class ContentPolicy
      */
     public function delete(?User $user, Content $content): Response
     {
-        if($user?->banned==true){
-            return Response::deny();
-        }
-        
         // visitors cannot delete content
         if ($user === null) {
-            return Response::deny('User must be logged in to delete content.');
+            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
         }
 
         if($user->hasAnyRole(['admin', 'moderator'])){
@@ -141,6 +120,5 @@ class ContentPolicy
         if($user->id == $content->creator_user_id){
             return Response::allow();
         }
-        return Response::deny('User is not permitted for this action');
-    }
+        return Response::deny(__('messages.user_not_permitted_for_action'));    }
 }

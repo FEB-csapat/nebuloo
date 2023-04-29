@@ -2,8 +2,6 @@
 
 namespace Tests\Feature;
 use App\Models\Question;
-use Illuminate\Testing\Fluent\AssertableJson;
-use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 use App\Models\User;
@@ -20,10 +18,6 @@ class ApiQuestionTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        Role::findOrCreate('admin');
-        Role::findOrCreate('moderator');
-        Role::findOrCreate('user');
 
         $this->user = User::factory()->create();
     }
@@ -189,7 +183,7 @@ class ApiQuestionTest extends TestCase
         $response
             ->assertStatus(403)
             ->assertJson([
-                'message' => 'User is not permitted for this action.'
+                'message' => __('messages.user_not_permitted_for_action')
         ]);
     }
 
@@ -230,7 +224,7 @@ class ApiQuestionTest extends TestCase
         $question = Question::factory()->create(['creator_user_id' => $this->user->id]);
 
         $admin = User::factory()->create();
-        $admin->assignRole('admin');
+        $admin->setRoleToAdmin();
 
 
         $response = $this->actingAs($admin, 'sanctum')
@@ -254,7 +248,7 @@ class ApiQuestionTest extends TestCase
         $question = Question::factory()->create(['creator_user_id' => $this->user->id]);
 
         $moderator = User::factory()->create();
-        $moderator->assignRole('moderator');
+        $moderator->setRoleToModerator();
 
 
         $response = $this->actingAs($moderator, 'sanctum')
@@ -315,7 +309,7 @@ class ApiQuestionTest extends TestCase
         $response
             ->assertStatus(403)
             ->assertJson([
-                'message' => 'User is not permitted for this action'
+                'message' => __('messages.user_not_permitted_for_action')
         ]);
     }
 
@@ -324,7 +318,7 @@ class ApiQuestionTest extends TestCase
         $question = Question::factory()->create(['creator_user_id' => $this->user->id]);
 
         $admin = User::factory()->create();
-        $admin->assignRole('admin');
+        $admin->setRoleToAdmin();
 
         $response = $this->actingAs($admin, 'sanctum')
         ->withHeaders([
@@ -339,7 +333,7 @@ class ApiQuestionTest extends TestCase
         $question = Question::factory()->create(['creator_user_id' => $this->user->id]);
 
         $moderator = User::factory()->create();
-        $moderator->assignRole('moderator');
+        $moderator->setRoleToModerator();
 
 
         $response = $this->actingAs($moderator, 'sanctum')

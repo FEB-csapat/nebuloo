@@ -99,7 +99,7 @@ class VoteController extends Controller
         if($vote->update($data)){
             return new SimpleVoteResource($vote);
         }
-        abort(500, __('messages.error_updating_vote'));
+        abort(500, __('messages.error_updating'));
     }
 
     /**
@@ -114,10 +114,10 @@ class VoteController extends Controller
         $this->authorize('delete', $vote);
         if($vote->delete()){
             return response()->json([
-                'message' => __('messages.successful_vote_deletion'),
+                'message' => __('messages.successful_deletion'),
             ], 200);
         }
-        abort(500, __('messages.error_deleting_vote'));
+        abort(500, __('messages.error_deleting'));
     }
 
     /**
@@ -160,9 +160,9 @@ class VoteController extends Controller
         $this->authorize('delete', $vote);
         if($vote->delete()){
             return response()->json([
-                'message' => __('messages.successful_vote_deletion'),
+                'message' => __('messages.successful_deletion'),
             ], 200);
         }
-        abort(500,_('messages.error_deleting_vote'));
+        abort(500,_('messages.error_deleting'));
     }
 }

@@ -6,12 +6,11 @@ use App\Mail\ContentCommentMailNotify;
 use App\Mail\QuestionCommentMailNotify;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Spatie\Permission\Traits\HasRoles;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Mail;
 class User extends Authenticatable
 {
-    use HasFactory, HasApiTokens, HasRoles;
+    use HasFactory, HasApiTokens;
     
     protected $table = 'users';
     protected $primaryKey = 'id';
@@ -24,8 +23,54 @@ class User extends Authenticatable
     ];
 
     protected $fillable = [
-        'email', 'email_verified_at', 'name', 'display_name', 'bio', 'password','banned'
+        'email', 'email_verified_at', 'name', 'display_name', 'bio', 'password','banned', 'role'
     ];
+
+    public function isAdmin()
+    {
+        return $this->role == 'admin';
+    }
+
+    public function isModerator()
+    {
+        return $this->role == 'moderator';
+    }
+
+    public function isUser()
+    {
+        return $this->role == 'user';
+    }
+
+    public function setRoleToAdmin()
+    {
+        $this->role = 'admin';
+        $this->save();
+    }
+
+    public function setRoleToModerator()
+    {
+        $this->role = 'moderator';
+        $this->save();
+    }
+
+    public function setRoleToUser()
+    {
+        $this->role = 'user';
+        $this->save();
+    }
+
+    public function setRole(string $role)
+    {
+        $this->role = $role;
+        $this->save();
+    }
+
+    public function hasAnyRole(array $roles)
+    {
+        return in_array($this->role, $roles);
+    }
+
+    
 
     public function ownedVotes()
     {

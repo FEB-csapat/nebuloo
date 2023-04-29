@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 use App\Models\User;
-use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -17,12 +16,9 @@ class ApiUserTest extends TestCase
     {
         parent::setUp();
 
-        Role::findOrCreate('admin');
-        Role::findOrCreate('moderator');
-        Role::findOrCreate('user');
-
-        $this->user = User::factory()->create();
-        $this->user->syncRoles(['user']);
+        $this->user = User::factory()->create([
+            'role' => 'user'
+        ]);
     }
 
     public function test_update_profile()
@@ -74,7 +70,7 @@ class ApiUserTest extends TestCase
     public function test_update_profile_of_other_as_moderator()
     {
         $moderator = User::factory()->create();
-        $moderator->assignRole('moderator');
+        $moderator->setRoleToModerator();
 
         $data = [
             'display_name' => 'Updated name',
@@ -98,7 +94,7 @@ class ApiUserTest extends TestCase
     public function test_update_profile_of_other_as_admin()
     {
         $admin = User::factory()->create();
-        $admin->assignRole('admin');
+        $admin->setRoleToAdmin();
 
         $data = [
             'display_name' => 'Updated name',
@@ -154,7 +150,7 @@ class ApiUserTest extends TestCase
     public function test_delete_user_as_moderator()
     {
         $moderator = User::factory()->create();
-        $moderator->assignRole('moderator');
+        $moderator->setRoleToModerator();
 
         $response = $this->actingAs($moderator, 'sanctum')
         ->withHeaders([
@@ -171,7 +167,7 @@ class ApiUserTest extends TestCase
     public function test_delete_user_as_admin()
     {
         $admin = User::factory()->create();
-        $admin->assignRole('admin');
+        $admin->setRoleToAdmin();
 
         $response = $this->actingAs($admin, 'sanctum')
         ->withHeaders([
@@ -188,7 +184,7 @@ class ApiUserTest extends TestCase
     public function test_delete_self_as_admin()
     {
         $admin = User::factory()->create();
-        $admin->assignRole('admin');
+        $admin->setRoleToAdmin();
 
         $response = $this->actingAs($admin, 'sanctum')
         ->withHeaders([
@@ -208,7 +204,7 @@ class ApiUserTest extends TestCase
     public function test_delete_self_as_moderator()
     {
         $moderator = User::factory()->create();
-        $moderator->assignRole('moderator');
+        $moderator->setRoleToModerator();
 
         $response = $this->actingAs($moderator, 'sanctum')
         ->withHeaders([
@@ -226,9 +222,9 @@ class ApiUserTest extends TestCase
     public function test_delete_other_admin_as_admin()
     {
         $admin = User::factory()->create();
-        $admin->assignRole('admin');
+        $admin->setRoleToAdmin();
 
-        $this->user->assignRole('admin');
+        $this->user->setRoleToAdmin();
 
         $response = $this->actingAs($admin, 'sanctum')
         ->withHeaders([
@@ -268,18 +264,22 @@ class ApiUserTest extends TestCase
     public function test_ban_user_as_admin()
     {
         $admin = User::factory()->create();
-        $admin->assignRole('admin');
+        $admin->setRoleToAdmin();
+
+        $otherUser = User::factory()->create();
+
+        $this->assertNotEquals($admin->id, $otherUser->id);
 
         $response = $this->actingAs($admin, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
-        ])->put('/api/users/'.$this->user->id.'/ban');
+        ])->put('/api/users/'.$otherUser->id.'/ban');
 
 
         $response->assertOk();
         
         $this->assertDatabaseHas('users', [
-            'id' => $this->user->id,
+            'id' => $otherUser->id,
             'banned' => true
         ]);
     }
@@ -287,7 +287,7 @@ class ApiUserTest extends TestCase
     public function test_ban_user_as_moderator()
     {
         $moderator = User::factory()->create();
-        $moderator->assignRole('moderator');
+        $moderator->setRoleToModerator();
 
         $response = $this->actingAs($moderator, 'sanctum')
         ->withHeaders([
@@ -307,17 +307,13 @@ class ApiUserTest extends TestCase
     public function test_ban_admin_as_admin()
     {
         $admin = User::factory()->create();
-        $admin->assignRole('admin');
+        $admin->setRoleToAdmin();
 
-        $this->assertEquals('admin', $admin->getRoleNames()[0]);
-    
-
+        $this->assertEquals('admin', $admin->role);
 
 
         $otherUser = User::factory()->create();
-        $otherUser->assignRole('admin');
-
-     //   $this->user->syncRoles(['admin']);
+        $otherUser->setRoleToAdmin();
 
         $response = $this->actingAs($admin, 'sanctum')
         ->withHeaders([
@@ -335,9 +331,9 @@ class ApiUserTest extends TestCase
     public function test_ban_admin_as_moderator()
     {
         $admin = User::factory()->create();
-        $admin->assignRole('admin');
+        $admin->setRoleToAdmin();
 
-        $this->user->assignRole('moderator');
+        $this->user->setRoleToModerator();
 
         $response = $this->actingAs($this->user, 'sanctum')
         ->withHeaders([
@@ -356,9 +352,9 @@ class ApiUserTest extends TestCase
     public function test_ban_moderator_as_moderator()
     {
         $moderator = User::factory()->create();
-        $moderator->assignRole('moderator');
+        $moderator->setRoleToModerator();
 
-        $this->user->assignRole('moderator');
+        $this->user->setRoleToModerator();
 
         $response = $this->actingAs($moderator, 'sanctum')
         ->withHeaders([
@@ -378,7 +374,7 @@ class ApiUserTest extends TestCase
     public function test_grant_admin_role_as_admin()
     {
         $admin = User::factory()->create();
-        $admin->assignRole('admin');
+        $admin->setRoleToAdmin();
 
         $response = $this->actingAs($admin, 'sanctum')
         ->withHeaders([
@@ -388,15 +384,21 @@ class ApiUserTest extends TestCase
         ]);
 
 
-        $response->assertStatus(200);
-        $this->assertTrue($this->user->getRoleNames()->count() == 1);
-        $this->assertEquals('admin', $this->user->getRoleNames()[0]);
+        $response->assertStatus(200)
+        ->assertJson([
+            'id' => $this->user->id,
+            'role' => 'admin'
+        ]);
+        $this->assertDatabaseHas('users', [
+            'id' => $this->user->id,
+            'role' => 'admin'
+        ]);
     }
 
     public function test_grant_moderator_role_as_admin()
     {
         $admin = User::factory()->create();
-        $admin->assignRole('admin');
+        $admin->setRoleToAdmin();
 
         $response = $this->actingAs($admin, 'sanctum')
         ->withHeaders([
@@ -410,16 +412,18 @@ class ApiUserTest extends TestCase
             'id' => $this->user->id,
             'role' => 'moderator',
         ]);
-        $this->assertTrue($this->user->getRoleNames()->count() == 1);
-        $this->assertEquals('moderator', $this->user->getRoleNames()[0]);
+        $this->assertDatabaseHas('users', [
+            'id' => $this->user->id,
+            'role' => 'moderator'
+        ]);
     }
 
     public function test_grant_user_role_to_moderator_as_admin()
     {
         $admin = User::factory()->create();
-        $admin->assignRole('admin');
+        $admin->setRoleToAdmin();
 
-        $this->user->assignRole('moderator'); 
+        $this->user->setRoleToModerator(); 
 
         $response = $this->actingAs($admin, 'sanctum')
         ->withHeaders([
@@ -429,15 +433,22 @@ class ApiUserTest extends TestCase
         ]);
 
 
-        $response->assertStatus(200);
-        $this->assertTrue($this->user->getRoleNames()->count() == 1);
-        $this->assertEquals('user', $this->user->getRoleNames()[0]);
+        $response->assertStatus(200)
+        ->assertJson([
+            'id' => $this->user->id,
+            'role' => 'user',
+        ]);
+        $this->assertDatabaseHas('users', [
+            'id' => $this->user->id,
+            'role' => 'user'
+        ]);
     }
 
     public function test_grant_role_as_moderator()
     {
-        $moderator = User::factory()->create();
-        $moderator->assignRole('moderator');
+        $moderator = User::factory()->create([
+            'role' => 'moderator'
+        ]);
 
         $response = $this->actingAs($moderator, 'sanctum')
         ->withHeaders([
@@ -447,12 +458,14 @@ class ApiUserTest extends TestCase
         ]);
 
         $response->assertStatus(403);
-        $this->assertTrue($this->user->getRoleNames()->count() == 1);
-        $this->assertEquals('user', $this->user->getRoleNames()[0]);
+
+        $this->assertDatabaseHas('users', [
+            'id' => $this->user->id,
+            'role' => 'user'
+        ]);
     }
 
 
-    // tearDown
     protected function tearDown(): void
     {
         $this->user->delete();

@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\User;
-use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -17,10 +16,6 @@ class ApiRegisterTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        Role::findOrCreate('admin');
-        Role::findOrCreate('moderator');
-        Role::findOrCreate('user');
 
         $this->data = [
             'name' => 'TestUser',

@@ -19,10 +19,6 @@ class CommentPolicy
      */
     public function viewAny(?User $user)
     {
-        if($user?->banned==true){
-            return Response::deny();
-        }
-
         return Response::allow();
     }
 
@@ -34,12 +30,8 @@ class CommentPolicy
      */
     public function viewMe(?User $user)
     {
-        if($user?->banned==true){
-            return Response::deny();
-        }
-
         if ($user === null) {
-            return Response::deny('User must be logged in to view their comments.');
+            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
         }
         return Response::allow();
     }
@@ -53,10 +45,6 @@ class CommentPolicy
      */
     public function view(?User $user, Comment $comment)
     {
-        if($user?->banned==true){
-            return Response::deny();
-        }
-
         return Response::allow();
     }
 
@@ -68,13 +56,9 @@ class CommentPolicy
      */
     public function create(?User $user)
     {
-        if($user?->banned==true){
-            return Response::deny();
-        }
-
         // visitors cannot create comments
         if ($user === null) {
-            return Response::deny('User must be logged in to create comments.');
+            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
         }
         return Response::allow();
     }
@@ -88,22 +72,17 @@ class CommentPolicy
      */
     public function update(?User $user, Comment $comment)
     {
-        if($user?->banned==true){
-            return Response::deny();
-        }
-
         // visitors cannot update comments
         if ($user === null) {
-            return Response::deny('User must be logged in to update comments.');
+            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
         }
         if($user->hasAnyRole(['admin', 'moderator'])){
             return Response::allow();
         }
-        if($user->id != $comment->creator_user_id){
-            return Response::deny('User can only edit their comments');
+        if($user->id == $comment->creator_user_id){
+            return Response::allow();
         }
-
-        return Response::allow();
+        return Response::deny(__('messages.user_not_permitted_for_action'));
     }
 
     /**
@@ -115,23 +94,18 @@ class CommentPolicy
      */
     public function delete(?User $user, Comment $comment)
     {
-        if($user?->banned==true){
-            return Response::deny();
-        }
-        
         // visitors cannot delete comments
         if ($user === null) {
-            return Response::deny('User must be logged in to update comments.');
+            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
         }
 
         if($user->hasAnyRole(['admin', 'moderator'])){
             return Response::allow();
         }
 
-        if($user->id != $comment->creator_user_id){
-            return Response::deny('User can only edit their comments');
+        if($user->id == $comment->creator_user_id){
+            return Response::allow();
         }
-
-        return Response::allow();
+        return Response::deny(__('messages.user_not_permitted_for_action'));
     }
 }

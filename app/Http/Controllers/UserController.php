@@ -78,7 +78,7 @@ class UserController extends Controller
         if($user->update($data)){
             return new UserResource($user);
         }
-        abort(500, __('messages.error_updating_user'));
+        abort(500, __('messages.error_updating'));
     }
 
 
@@ -98,7 +98,7 @@ class UserController extends Controller
         if($user->update($data)){
             return new UserResource($user);
         }
-        abort(500, __('messages.error_updating_user'));
+        abort(500, __('messages.error_updating'));
     }
 
     /**
@@ -113,8 +113,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $this->authorize('updateRole', $user);
         $data = $request->validated();
-        $user->syncRoles($data['role']);
-        $user->save();
+        $user->setRole($data['role']);
         
         return new UserResource($user);
     }
@@ -131,10 +130,10 @@ class UserController extends Controller
         $this->authorize('delete', $user);
         if($user->delete()){
             return response()->json([
-                'message' => __('messages.successful_user_deletion'),
+                'message' => __('messages.successful_deletion'),
             ], 200);
         }
-        abort(500, __('messages.error_deleting_user'));
+        abort(500, __('messages.error_deleting'));
         
     }
 
@@ -150,10 +149,10 @@ class UserController extends Controller
         $this->authorize('delete', $user);
         if($user->delete()){
             return response()->json([
-                'message' =>  __('messages.successful_user_deletion'),
+                'message' =>  __('messages.successful_deletion'),
             ], 200);
         }
-        abort(500, __('messages.error_deleting_user'));
+        abort(500, __('messages.error_deleting'));
     }
 
 
@@ -189,19 +188,4 @@ class UserController extends Controller
         ], 200);
     }
 
-
-    /**
-     * Grant role to the specified user from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function grantRole(Request $request, $id)
-    {
-        $user = User::findOrFail($id);
-        $this->authorize('grantRole', User::class);
-        return response()->json([
-            'message' => __('messages.successful_user_grant_role'),
-        ], 200);
-    }
 }

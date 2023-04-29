@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
-use Spatie\Permission\PermissionRegistrar;
 use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
@@ -17,26 +15,15 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        // Reset cached roles and permissions
-        app()[PermissionRegistrar::class]->forgetCachedPermissions();
-
-        
-        $adminRole = Role::findOrCreate('admin');
-
-        $moderatorRole = Role::findOrCreate('moderator');
-
-        $userRole = Role::findOrCreate('user');
-        
-
         $userAdmin = User::factory()->create([
             'email' => 'admin@adminmail.com',
             'email_verified_at' => Carbon::now(),
             'name' => 'Admin',
             'display_name' => 'Admin',
             'bio' => 'My hobbies are reading and programming',      
-            'password' => Hash::make('admin123')  
+            'password' => Hash::make('admin123'),
+            'role' => 'admin'
         ]);
-        $userAdmin->assignRole('admin');
 
 
         $userErik = User::factory()->create([
@@ -45,9 +32,9 @@ class UserSeeder extends Seeder
             'name' => 'Erik',
             'display_name' => 'Erik',
             'bio' => 'My hobbies are reading and programming',      
-            'password' => Hash::make('Jelszo123')  
+            'password' => Hash::make('Jelszo123'),
+            'role' => 'moderator'
         ]);
-        $userErik->assignRole('moderator');
 
 
         $userFeco = User::factory()->create([
@@ -56,8 +43,8 @@ class UserSeeder extends Seeder
             'bio' => 'I play with guns',
             'email' => 'feco@fakemail.com',
             'email_verified_at' => Carbon::now(),
+            'role' => 'moderator'
         ]);
-        $userFeco->assignRole('moderator');
 
 
         $userBence = User::factory()->create([
@@ -66,11 +53,10 @@ class UserSeeder extends Seeder
             'name' => 'Bencus',
             'display_name' => 'Bencus',
             'bio' => 'I\'m here for the money',
+            'role' => 'moderator'
         ]);
-        $userBence->assignRole('moderator');
+        $userBence->setRoleToModerator();
         
-        User::factory()->count(15)->create()->each(function ($user) {
-            $user->assignRole('user');
-        });
+        User::factory()->count(15)->create();
     }
 }

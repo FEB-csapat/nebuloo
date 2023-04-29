@@ -78,7 +78,7 @@ class TicketController extends Controller
         if($ticket->update($data)){
             return new TicketResource($ticket);
         }
-        abort(500, __('messages.error_updating_ticket'));
+        abort(500, __('messages.error_updating'));
     }
 
     /**
@@ -93,7 +93,7 @@ class TicketController extends Controller
         $this->authorize('delete', $ticket);
         $ticket->delete();
         return response()->json([
-            'message' => __('messages.successful_ticket_deletion'),
+            'message' => __('messages.successful_deletion'),
         ], 200);
     }
 }

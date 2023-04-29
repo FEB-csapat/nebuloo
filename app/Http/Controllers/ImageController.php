@@ -40,7 +40,7 @@ class ImageController extends Controller
     {
         $image = Image::findOrFail($id);
         if (!$image) {
-            abort(404, __('messages.image_not_found'));
+            abort(404, __('messages.not_found'));
         }
         $path = $image->path;
         return response()->file(Storage::path($path));
@@ -58,10 +58,10 @@ class ImageController extends Controller
         $this->authorize('delete', $content);
         if($content->delete()){
             return response()->json([
-                'message' => __('messages.successful_image_deletion'),
+                'message' => __('messages.successful_deletion'),
             ], 200);
         }
-        abort(500, __('messages.error_deleting_image'));
+        abort(500, __('messages.error_deleting'));
         
     }
 }

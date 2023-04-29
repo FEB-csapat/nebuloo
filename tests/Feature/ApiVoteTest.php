@@ -6,7 +6,6 @@ use App\Models\Content;
 use App\Models\User;
 use App\Models\Vote;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class ApiVoteTest extends TestCase
@@ -19,10 +18,6 @@ class ApiVoteTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        Role::findOrCreate('admin');
-        Role::findOrCreate('moderator');
-        Role::findOrCreate('user');
 
         $this->user = User::factory()->create();
     }

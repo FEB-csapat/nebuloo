@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 use App\Models\Ticket;
-use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 use App\Models\User;
 
@@ -17,10 +16,6 @@ class ApiTicketTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        Role::findOrCreate('admin');
-        Role::findOrCreate('moderator');
-        Role::findOrCreate('user');
 
         $this->user = User::factory()->create();
     }
@@ -55,7 +50,7 @@ class ApiTicketTest extends TestCase
     public function test_ticket_creation_as_moderator()
     {
         $moderator = User::factory()->create();
-        $moderator->assignRole('moderator');
+        $moderator->setRoleToModerator();
 
         $response = $this->actingAs($moderator, 'sanctum')
         ->withHeaders([
@@ -74,7 +69,7 @@ class ApiTicketTest extends TestCase
     public function test_ticket_creation_as_admin()
     {
         $admin = User::factory()->create();
-        $admin->assignRole('admin');
+        $admin->setRoleToAdmin();
 
         $response = $this->actingAs($admin, 'sanctum')
         ->withHeaders([
@@ -122,7 +117,7 @@ class ApiTicketTest extends TestCase
     public function test_show_only_user_ticket_as_moderator()
     {
         $moderator = User::factory()->create();
-        $moderator->assignRole('moderator');
+        $moderator->setRoleToModerator();
         $otherUser = User::factory()->create();
         Ticket::factory()->count(3)->create(['creator_user_id' => $otherUser->id]);
         Ticket::factory()->count(2)->create(['creator_user_id' => $moderator->id]);
@@ -139,7 +134,7 @@ class ApiTicketTest extends TestCase
     public function test_show_only_user_ticket_as_admin()
     {
         $admin = User::factory()->create();
-        $admin->assignRole('admin');
+        $admin->setRoleToAdmin();
         $otherUser = User::factory()->create();
         Ticket::factory()->count(3)->create(['creator_user_id' => $otherUser->id]);
         Ticket::factory()->count(2)->create(['creator_user_id' => $admin->id]);
@@ -200,7 +195,7 @@ class ApiTicketTest extends TestCase
         $ticket = Ticket::factory()->create(['creator_user_id' => $otherUser->id]);
 
         $moderator = User::factory()->create();
-        $moderator->assignRole('moderator');
+        $moderator->setRoleToModerator();
 
         $response = $this->actingAs($moderator, 'sanctum')
         ->withHeaders([
@@ -224,7 +219,7 @@ class ApiTicketTest extends TestCase
         $ticket = Ticket::factory()->create(['creator_user_id' => $otherUser->id]);
 
         $admin = User::factory()->create();
-        $admin->assignRole('admin');
+        $admin->setRoleToAdmin();
 
         $response = $this->actingAs($admin, 'sanctum')
         ->withHeaders([
@@ -245,7 +240,7 @@ class ApiTicketTest extends TestCase
     public function test_update_my_ticket_as_admin()
     {
         $admin = User::factory()->create();
-        $admin->assignRole('admin');
+        $admin->setRoleToAdmin();
         
         $ticket = Ticket::factory()->create(['creator_user_id' => $admin->id]);
 
@@ -268,7 +263,7 @@ class ApiTicketTest extends TestCase
     public function test_update_my_ticket_as_moderator()
     {
         $moderator = User::factory()->create();
-        $moderator->assignRole('moderator');
+        $moderator->setRoleToModerator();
     
         $ticket = Ticket::factory()->create(['creator_user_id' => $moderator->id]);
 
@@ -368,7 +363,7 @@ class ApiTicketTest extends TestCase
         $ticket = Ticket::factory()->create(['creator_user_id' => $otherUser->id]);
 
         $moderator = User::factory()->create();
-        $moderator->assignRole('moderator');
+        $moderator->setRoleToModerator();
 
         $response = $this->actingAs($moderator, 'sanctum')
         ->withHeaders([
@@ -387,7 +382,7 @@ class ApiTicketTest extends TestCase
         $ticket = Ticket::factory()->create(['creator_user_id' => $otherUser->id]);
 
         $admin = User::factory()->create();
-        $admin->assignRole('admin');
+        $admin->setRoleToAdmin();
 
         $response = $this->actingAs($admin, 'sanctum')
         ->withHeaders([
@@ -403,7 +398,7 @@ class ApiTicketTest extends TestCase
     public function test_delete_my_ticket_as_admin()
     {
         $admin = User::factory()->create();
-        $admin->assignRole('admin');
+        $admin->setRoleToAdmin();
 
         $ticket = Ticket::factory()->create(['creator_user_id' => $admin->id]);
 
@@ -421,7 +416,7 @@ class ApiTicketTest extends TestCase
     public function test_delete_my_ticket_as_moderator()
     {
         $moderator = User::factory()->create();
-        $moderator->assignRole('moderator');
+        $moderator->setRoleToModerator();
 
         $ticket = Ticket::factory()->create(['creator_user_id' => $moderator->id]);
 

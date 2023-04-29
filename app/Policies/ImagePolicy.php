@@ -12,20 +12,6 @@ class ImagePolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view any models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function viewAny(?User $user)
-    {
-        if($user?->banned==true){
-            return Response::deny();
-        }
-        //
-    }
-
-    /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
@@ -34,10 +20,7 @@ class ImagePolicy
      */
     public function view(?User $user, Comment $comment)
     {
-        if($user?->banned==true){
-            return Response::deny();
-        }
-        return true;
+        return Response::allow();
     }
 
     /**
@@ -48,15 +31,10 @@ class ImagePolicy
      */
     public function create(?User $user)
     {
-        if($user?->banned==true){
-            return Response::deny();
-        }
-
         // visitors cannot upload images
         if ($user === null) {
-            return Response::deny('User must be logged in to create comments.');
+            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
         }
-        
         return Response::allow();
     }
 
@@ -69,47 +47,18 @@ class ImagePolicy
      */
     public function delete(?User $user, Comment $comment)
     {
-        if($user?->banned==true){
-            return Response::deny();
-        }
-        
         // visitors cannot delete comments
         if ($user === null) {
-            return Response::deny('User must be logged in to update comments.');
+            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
         }
 
         if($user->hasAnyRole(['admin', 'moderator'])){
             return Response::allow();
         }
 
-        if($user->id != $comment->creator_user_id){
-            return Response::deny('User can only edit their comments');
+        if($user->id == $comment->creator_user_id){
+            return Response::allow();
         }
-
-        return Response::allow();
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function restore(?User $user, Comment $comment)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function forceDelete(?User $user, Comment $comment)
-    {
-        //
+        return Response::deny(__('messages.user_not_permitted_for_action'));
     }
 }

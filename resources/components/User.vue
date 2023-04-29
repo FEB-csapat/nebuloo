@@ -1,7 +1,7 @@
 <template>
     <div class="col text-center" @click="navigateToUserProfileView()">
         <h6 v-if="user != null && user.role!=null && showDetailed
-            && (user.role == 'admin' || user.role == 'moderator')"
+            && (user.role == 'admin' || user.role == 'moderator'"
             class="text-danger">{{user.role}}</h6>
 
         <img v-if="user != null" class="mx-auto border border-2 border-dark rounded shadow" :style="{ width: showDetailed ? '120px' : '60px' }" v-bind:src="profileImage" :alt="user.rank.name" :title="user.rank.name" id="profpicture"/>

@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\Content;
-use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 use App\Models\User;
@@ -18,10 +17,6 @@ class ApiContentTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        Role::findOrCreate('admin');
-        Role::findOrCreate('moderator');
-        Role::findOrCreate('user');
 
         $this->user = User::factory()->create();
     }
@@ -142,7 +137,7 @@ class ApiContentTest extends TestCase
         $response
             ->assertStatus(403)
             ->assertJson([
-                'message' => 'User is not permitted for this action.'
+                'message' => __('messages.user_not_permitted_for_action')
         ]);
     }
 
@@ -169,7 +164,7 @@ class ApiContentTest extends TestCase
         $content = Content::factory()->create(['creator_user_id' => $this->user->id]);
 
         $admin = User::factory()->create();
-        $admin->assignRole('admin');
+        $admin->setRoleToAdmin();
 
 
         $response = $this->actingAs($admin, 'sanctum')
@@ -191,7 +186,7 @@ class ApiContentTest extends TestCase
         $content = Content::factory()->create(['creator_user_id' => $this->user->id]);
 
         $moderator = User::factory()->create();
-        $moderator->assignRole('moderator');
+        $moderator->setRoleToModerator();
 
 
         $response = $this->actingAs($moderator, 'sanctum')
@@ -251,7 +246,7 @@ class ApiContentTest extends TestCase
         $response
             ->assertStatus(403)
             ->assertJson([
-                'message' => 'User is not permitted for this action'
+                'message' => __('messages.user_not_permitted_for_action')
         ]);
     }
     
@@ -260,7 +255,7 @@ class ApiContentTest extends TestCase
         $content = Content::factory()->create(['creator_user_id' => $this->user->id]);
 
         $admin = User::factory()->create();
-        $admin->assignRole('admin');
+        $admin->setRoleToAdmin();
 
         $response = $this->actingAs($admin, 'sanctum')
         ->withHeaders([
@@ -275,7 +270,7 @@ class ApiContentTest extends TestCase
         $content = Content::factory()->create(['creator_user_id' => $this->user->id]);
 
         $moderator = User::factory()->create();
-        $moderator->assignRole('moderator');
+        $moderator->setRoleToModerator();
 
 
         $response = $this->actingAs($moderator, 'sanctum')

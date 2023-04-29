@@ -19,13 +19,8 @@ class VotePolicy
      */
     public function viewAny(?User $user): Response
     {
-        if($user?->banned==true){
-            return Response::deny();
-        }
-
-        if($user === null){
-            //TODO fix error messages...
-            return Response::deny("Only logged in user...");
+        if ($user === null) {
+            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
         }
         return Response::allow();
     }
@@ -39,12 +34,9 @@ class VotePolicy
      */
     public function create(?User $user)
     {
-        if($user?->banned==true){
-            return Response::deny();
-        }
         // visitors cannot create votes
         if ($user === null) {
-            return Response::deny("Only logged in user...");
+            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
         }
         return Response::allow();
     }
@@ -58,19 +50,15 @@ class VotePolicy
      */
     public function update(?User $user, Vote $vote)
     {
-        if($user?->banned==true){
-            return Response::deny();
-        }
-        
         // visitors cannot update vote
         if ($user === null) {
-            return Response::deny("Only logged in user...");
+            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
         }
-        if($user->id != $vote->owner_user_id){
-            return Response::deny("Not yours");
+        if($user->id == $vote->owner_user_id){
+            return Response::allow();
         }
 
-        return Response::allow();
+        return Response::deny(__('messages.user_not_permitted_for_action'));
     }
 
     /**
@@ -82,19 +70,16 @@ class VotePolicy
      */
     public function delete(?User $user, Vote $vote)
     {
-        if($user?->banned==true){
-            return Response::deny();
-        }
-
         // visitors cannot delete votes
         if ($user === null) {
-            return Response::deny("Only logged in user...");
+            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
         }
 
-        if($user->id != $vote->owner_user_id){
-            return Response::deny("Not yours");
+        // Only creator can delete votes
+        if($user->id == $vote->owner_user_id){
+            return Response::allow();
         }
 
-        return Response::allow();
+        return Response::deny(__('messages.user_not_permitted_for_action'));
     }
 }

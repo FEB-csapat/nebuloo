@@ -110,7 +110,7 @@ class QuestionController extends Controller
         if($question->update($data)){
             return new QuestionResource($question);
         }
-        abort(500, __('messages.error_updating_question'));
+        abort(500, __('messages.error_updating'));
     }
 
     /**
@@ -125,9 +125,9 @@ class QuestionController extends Controller
         $this->authorize('delete', $question);
         if($question->delete()){
             return response()->json([
-                'message' => __('messages.successful_question_deletion'),
+                'message' => __('messages.successful_deletion'),
             ], 200);
         }
-        abort(500, __('messages.error_deleting_question'));
+        abort(500, __('messages.error_deleting'));
     }
 }

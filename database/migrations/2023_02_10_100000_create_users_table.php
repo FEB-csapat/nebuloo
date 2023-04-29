@@ -24,6 +24,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->string('bio')->nullable();
             $table->boolean('notify_by_email')->default(true);
+            $table->enum('role', ['user', 'moderator', 'admin'])->default('user');
             $table->boolean('banned')->default(false);
             $table->timestamps();
         });

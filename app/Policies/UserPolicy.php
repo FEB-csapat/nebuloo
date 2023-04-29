@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-
 use Illuminate\Auth\Access\Response;
 
 class UserPolicy
@@ -19,9 +18,6 @@ class UserPolicy
      */
     public function viewAny(?User $userRequester)
     {
-        if($userRequester?->banned==true){
-            return Response::deny();
-        }
         return Response::allow();
     }
 
@@ -34,9 +30,6 @@ class UserPolicy
      */
     public function view(?User $userRequester, User $userRequested)
     {
-        if($userRequester?->banned==true){
-            return Response::deny();
-        }
         return Response::allow();
     }
 
@@ -48,12 +41,8 @@ class UserPolicy
      */
     public function viewMe(?User $user)
     {
-        if($user?->banned==true){
-            return Response::deny();
-        }
-
-        if($user === null){
-            return Response::deny('Log in to view information.');
+        if ($user === null) {
+            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
         }
         return Response::allow();
     }
@@ -66,8 +55,8 @@ class UserPolicy
      */
     public function create(?User $userRequester)
     {
-        // only admin can create users
-        return $userRequester->hasAnyRole(['admin']);
+        // Only admin can create users
+        return $userRequester->isAdmin();
     }
 
     /**
@@ -79,19 +68,18 @@ class UserPolicy
      */
     public function update(?User $userRequester, User $userRequested)
     {
-        if($userRequester?->banned==true){
-            return Response::deny();
-        }
-
+        // User update themself
         if($userRequester->id == $userRequested->id){
             return Response::allow();
         }
-        // only admin can update users
-        return $userRequester->hasAnyRole(['admin', 'moderator']);
+        // Only admin and moderator can update other users
+
+        if($userRequester->hasAnyRole(['admin', 'moderator'])){
+            return Response::allow();
+        }
+        return Response::deny(__('messages.user_not_permitted_for_action'));
     }
 
-
-    // TODO: fix this
     /**
      * Determine whether the user can update the user's role.
      *
@@ -101,21 +89,15 @@ class UserPolicy
      */
     public function updateRole(?User $userRequester, User $userRequested)
     {
-        if($userRequester?->banned==true){
-            return Response::deny();
-        }
-        
-        if($userRequester->hasAnyRole(['admin'])){
-            if($userRequested->hasAnyRole(['admin'])){
-                return Response::deny('Admin\'s role cannot be updated!');
-            }
-            if($userRequester->id == $userRequested->id){
-                return Response::deny('Admin cannot update role for themself!');
+        // Only admin can update role of moderators and users
+        if($userRequester->isAdmin()){
+            // Admin's role cannot be updated
+            if($userRequested->isAdmin()){
+                return Response::deny(__('messages.admins_role_cannot_be_updated'));
             }
             return Response::allow();
         }
-
-        return Response::deny();
+        return Response::deny(__('messages.user_not_permitted_for_action'));
     }
 
     /**
@@ -127,59 +109,53 @@ class UserPolicy
      */
     public function delete(?User $userRequester, User $userRequested)
     {
-        if($userRequester?->banned==true){
-            return Response::deny();
-        }
-        // admin can delete anybody, except themself
-        if($userRequester->hasAnyRole(['admin'])){
-            if($userRequested->hasAnyRole(['admin'])){
+        // Admin can delete anybody, except admins
+        if($userRequester->isAdmin()){
+            if($userRequested->isAdmin()){
                 return Response::deny('Admin cannot be deleted!');
-            }
-            if($userRequester->id == $userRequested->id){
-                return Response::deny('Admin cannot delete themself!');
             }
             return Response::allow();
         }
-        // 
+
+        // user can delete themself
         if($userRequester->id == $userRequested->id){
             return Response::allow();
         }
 
-        return Response::deny();
+        return Response::deny(__('messages.user_not_permitted_for_action'));
     }
 
     /**
      * Determine whether the user can ban other user.
      *
-     * @param  \App\Models\User  $userRequester
+     * @param  \App\Models\User  $user
      * @param  \App\Models\User  $userRequested
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function ban(?User $userRequester, User $userRequested)
+    public function ban(?User $userRequester, User $userRequested /*?User $user, User $userRequested */)
     {
-        if($userRequester?->banned==true){
-            return Response::deny();
-        }
-        // Only admin and moderator can ban
-        if($userRequester->hasAnyRole(['admin'])){
-            // Admin cannot be banned
-            if($userRequested->hasAnyRole(['admin'])){
-                Response::deny('Admin cannot be banned.');
+        // Admin can ban moderators and users
+        if($userRequester->isAdmin()){
+            // Admin cannot ban admins
+            if($userRequested->isAdmin()){
+                return Response::deny(__('messages.admin_cannot_be_banned'));
             }
-            if($userRequester->id == $userRequested->id){
-                return Response::deny('Admin cannot be banned.');
-            }
-            return Response::deny();
+            return Response::allow();
         }
 
-        if($userRequester->hasAnyRole(['moderator'])){
-            if($userRequested->hasAnyRole(['admin'])
-            || $userRequested->hasAnyRole(['moderator'])){
-                Response::deny('Admin cannot be banned.');
+        // Moderator can ban only users
+        if($userRequester->isModerator()){
+            // Moderator cannot ban admins
+            if($userRequested->isAdmin()){
+                return Response::deny(__('messages.admin_cannot_be_banned'));
             }
-            return Response::deny();
+            // Moderator cannot ban moderators
+            if($userRequested->isModerator()){
+                return Response::deny(__('messages.moderator_cannot_be_banned_as_moderator'));
+            }
+            return Response::allow();
         }
-        return Response::deny('User is not permitted for this action.');
+        return Response::deny(__('messages.user_not_permitted_for_action'));
     }
 
     /**
@@ -191,14 +167,10 @@ class UserPolicy
      */
     public function unban(User $userRequester, User $userRequested)
     {
-        if($userRequester?->banned==true){
-            return Response::deny();
-        }
         // Only admin and moderator can unban
         if($userRequester->hasAnyRole(['admin', 'moderator'])){
-
             return Response::allow();
         }
-        return Response::deny('User is not permitted for this action.');
+        return Response::deny(__('messages.user_not_permitted_for_action'));
     }
 }

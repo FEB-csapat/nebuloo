@@ -78,7 +78,7 @@ class TopicController extends Controller
         if($topic->update($data)){
             return new TopicResource($topic);
         }
-        abort(500, __('messages.error_updating_topic'));
+        abort(500, __('messages.error_updating'));
     }
 
     /**
@@ -93,9 +93,9 @@ class TopicController extends Controller
         $this->authorize('delete', $topic);
         if($topic->delete()){
             return response()->json([
-                'message' => __('messages.successful_topic_deletion'),
+                'message' => __('messages.successful_deletion'),
             ], 200);
         }
-        abort(500, __('messages.error_deleting_topic'));
+        abort(500, __('messages.error_deleting'));
     }
 }

@@ -19,59 +19,43 @@ class TicketPolicy
      */
     public function view(?User $user): Response
     {
-        if($user?->banned==true){
-            return Response::deny();
-        }
-
         if ($user === null) {
-            return Response::deny('User must be logged in to view ticket.');
+            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
         }
 
         if($user->hasAnyRole(['admin', 'moderator']) ){
             return Response::allow();
         }
-        return Response::deny('User is not permitted for this action.');
+        return Response::deny('Felhasználónak nincs jogosultsága ehhez a művelethez!');
     }
 
     public function viewMe(?User $user): Response
     {
-        if($user?->banned==true){
-            return Response::deny();
-        }
-
         if ($user === null) {
-            return Response::deny('User must be logged in to view ticket.');
+            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
         }
         return Response::allow();
     }
 
     public function update(?User $user, Ticket $ticket): Response
     {
-        if($user?->banned==true){
-            return Response::deny();
-        }
-
         // visitors cannot update question
         if ($user === null) {
-            return Response::deny('User must be logged in to edit ticket.');
+            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
         }
 
         if($user->hasAnyRole(['admin', 'moderator']) ){
             return Response::allow();
         }
 
-        return Response::deny('User is not permitted for this action.');
+        return Response::deny(__('messages.user_not_permitted_for_action'));
     }
 
     public function delete(?User $user, Ticket $ticket): Response
     {
-        if($user?->banned==true){
-            return Response::deny();
-        }
-
         // visitors cannot delete ticket
         if ($user === null) {
-            return Response::deny('User must be logged in to delete ticket.');
+            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
         }
 
         if($user->hasAnyRole(['admin', 'moderator'])){
@@ -82,19 +66,15 @@ class TicketPolicy
         if($user->id == $ticket->creator_user_id){
             return Response::allow();
         }
-        return Response::deny('User is not permitted for this action');
+        return Response::deny(__('messages.user_not_permitted_for_action'));
     }
 
     public function create(?User $user): Response
     {
-        if($user?->banned==true){
-            return Response::deny();
-        }
-
         //visitors cannot create ticket
-         if ($user === null) {
-             return Response::deny('User must be logged in to create ticket.');
-         }
+        if ($user === null) {
+            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
+        }
 
         if($user->hasAnyRole(['admin', 'moderator']) ){
             return Response::allow();

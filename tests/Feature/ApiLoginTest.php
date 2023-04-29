@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\User;
-use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -17,10 +16,6 @@ class ApiLoginTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        Role::findOrCreate('admin');
-        Role::findOrCreate('moderator');
-        Role::findOrCreate('user');
 
         $this->user = User::factory()->create([
             'password' => Hash::make('Test123@')
@@ -87,7 +82,7 @@ class ApiLoginTest extends TestCase
         $response
         ->assertStatus(404)
         ->assertJson([
-            'message' => 'Nem található felhasználó ilyen névvel, vagy e-maillel!',
+            'message' => __('messages.identifier_not_found'),
         ]);
     }
 
@@ -105,7 +100,7 @@ class ApiLoginTest extends TestCase
         $response
         ->assertStatus(404)
         ->assertJson([
-            'message' => 'Nem található felhasználó ilyen névvel, vagy e-maillel!',
+            'message' => __('messages.identifier_not_found'),
     ]);
     }
 
@@ -123,7 +118,7 @@ class ApiLoginTest extends TestCase
         $response
         ->assertStatus(401)
         ->assertJson([
-            'message' => 'Hibás jelszó!',
+            'message' => __('messages.wrong_password'),
     ]);
     }
 
@@ -142,7 +137,7 @@ class ApiLoginTest extends TestCase
         $response
         ->assertStatus(404)
         ->assertJson([
-            'message' => 'Nem található felhasználó ilyen névvel, vagy e-maillel!',
+            'message' => __('messages.identifier_not_found'),
         ]);
     }
 
@@ -161,7 +156,7 @@ class ApiLoginTest extends TestCase
         $response
         ->assertStatus(404)
         ->assertJson([
-            'message' => 'Nem található felhasználó ilyen névvel, vagy e-maillel!',
+            'message' => __('messages.identifier_not_found'),
         ]);
     }
 
@@ -243,7 +238,7 @@ class ApiLoginTest extends TestCase
         $response
         ->assertStatus(403)
         ->assertJson([
-            'message' => 'A felhasználó ki van tiltva!',
+            'message' => __('messages.user_banned'),
         ]);
     }
 
