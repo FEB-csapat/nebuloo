@@ -222,7 +222,7 @@ methods:{
     },
     signOut(){
         UserManager.logout();
-        this.$router.push({name: ''});
+        this.$router.push({name: 'welcome'});
     },
 },
 computed: { 
