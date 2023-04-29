@@ -52,7 +52,7 @@ class CommentController extends Controller
         }else if($commentableType == 'questions'){
             $data['commentable_type'] = 'App\Models\Question';
         }else{
-            abort(404, 'Commentable type not found');
+            abort(404, __('messages.commentable_type_not_found'));
         }
 
         $data['commentable_id'] = $commentableId;
@@ -99,7 +99,7 @@ class CommentController extends Controller
         if($comment->update($data)){
             return new CommentResource($comment);
         }
-        abort(500, 'Could not update comment.');
+        abort(500, __('messages.error_updating_comment'));
     }
 
     /**
@@ -116,7 +116,7 @@ class CommentController extends Controller
 
         $comment->delete();
         return response()->json([
-            'message' => 'Successfully deleted comment!',
+            'message' => __('messages.successful_comment_deletion'),
         ], 200);
     }
 

@@ -101,9 +101,9 @@ class ApiContentTest extends TestCase
         $response
             ->assertStatus(422)
             ->assertJson([
-                'message' => 'The body field is required.',
+                'message' => 'A(z) leírás mező kitöltése kötelező.',
                 'errors' => [
-                    'body' => ['The body field is required.']
+                    'body' => ['A(z) leírás mező kitöltése kötelező.']
                 ]
         ]);
     }

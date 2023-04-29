@@ -33,7 +33,7 @@ class CommentResource extends JsonResource
                 }else if($this->commentable_type == 'App\Models\Question'){
                     return new SimpleQuestionResource($this->commentable);
                 }else{
-                    abort(500, 'Commentable type not found');
+                    abort(404, __('messages.commentable_type_not_found'));
                 }
             }),
         ];

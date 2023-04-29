@@ -163,18 +163,21 @@ class UserPolicy
         // Only admin and moderator can ban
         if($userRequester->hasAnyRole(['admin'])){
             // Admin cannot be banned
-            if($userRequested->hasAnyRole('admin')){
+            if($userRequested->hasAnyRole(['admin'])){
                 Response::deny('Admin cannot be banned.');
             }
-            return Response::allow();
+            if($userRequester->id == $userRequested->id){
+                return Response::deny('Admin cannot be banned.');
+            }
+            return Response::deny();
         }
 
         if($userRequester->hasAnyRole(['moderator'])){
-            if($userRequested->hasAnyRole('admin')
-            || $userRequested->hasAnyRole('moderator')){
+            if($userRequested->hasAnyRole(['admin'])
+            || $userRequested->hasAnyRole(['moderator'])){
                 Response::deny('Admin cannot be banned.');
             }
-            return Response::allow();
+            return Response::deny();
         }
         return Response::deny('User is not permitted for this action.');
     }

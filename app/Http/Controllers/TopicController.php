@@ -78,7 +78,7 @@ class TopicController extends Controller
         if($topic->update($data)){
             return new TopicResource($topic);
         }
-        abort(500, 'Could not update topic.');
+        abort(500, __('messages.error_updating_topic'));
     }
 
     /**
@@ -91,9 +91,11 @@ class TopicController extends Controller
     {
         $topic = Topic::findOrFail($id);
         $this->authorize('delete', $topic);
-        $topic->delete();
-        return response()->json([
-            'message' => 'Successfully deleted topic!',
-        ], 200);
+        if($topic->delete()){
+            return response()->json([
+                'message' => __('messages.successful_topic_deletion'),
+            ], 200);
+        }
+        abort(500, __('messages.error_deleting_topic'));
     }
 }

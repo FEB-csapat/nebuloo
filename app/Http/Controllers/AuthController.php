@@ -30,7 +30,7 @@ class AuthController extends Controller
         $user->assignRole('user');
         
         return response()->json([
-            'message' => 'Successfully created user!',
+            'message' => __('messages.successful_registration'),
         ], 201);
     }
 
@@ -52,11 +52,11 @@ class AuthController extends Controller
         }
 
         if(!$user){
-            abort(404, 'Nem található felhasználó ilyen névvel, vagy e-maillel!');
+            abort(404, __('messages.identifier_not_found'));
         }
 
         if($user->banned){
-            abort(403, 'A felhasználói fiók tiltva van!');
+            abort(403, __('messages.user_banned'));
             
         }
 
@@ -67,7 +67,7 @@ class AuthController extends Controller
                 'user' => new UserResource($user),
             ], 200);
         } else {
-            abort(401, 'Hibás jelszó!');
+            abort(401, __('messages.wrong_password'));
         }
     }
 }

@@ -122,7 +122,7 @@ return [
     'prohibited_unless' => 'A(z) :attribute mező tilos, hacsak a(z) :other értéke a következők között nincs: :values.',
     'prohibits' => 'A(z) :attribute mező megakadályozza a(z) :other jelenlétét.',
     'regex' => 'A(z) :attribute formátuma érvénytelen.',
-    'required' => 'A(z) :attribute mező kötelező.',
+    'required' => 'A(z) :attribute mező kitöltése kötelező.',
 
 
     'required_array_keys' => ':attribute mezőnek tartalmaznia kell az alábbi bejegyzéseket: :values.',
@@ -161,8 +161,12 @@ return [
 
     'custom' => [
         'attribute-name' => [
-            'rule-name' => 'custom-message',
+            'rule-name' => 'Nem található felhasználó ilyen névvel, vagy e-maillel!',
         ],
+        'identifier' => [
+            'not_found' => 'Nem található felhasználó ilyen névvel, vagy e-maillel!',
+        ],
+
     ],
 
     /*
@@ -179,7 +183,10 @@ return [
     'attributes' => [
         'name' => 'felhasználónév',
         'email' => 'e-mail cím',
-        'password' => 'jelszó'
+        'password' => 'jelszó',
+        'identifier' => 'azonosító',
+        'title' => 'cím',
+        'body' => 'leírás',
     ],
 
 ];

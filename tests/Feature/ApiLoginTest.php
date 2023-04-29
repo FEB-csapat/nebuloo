@@ -105,7 +105,7 @@ class ApiLoginTest extends TestCase
         $response
         ->assertStatus(404)
         ->assertJson([
-            'message' => 'Nem található felhasználó ilyen névvel, vagy e-maillel',
+            'message' => 'Nem található felhasználó ilyen névvel, vagy e-maillel!',
     ]);
     }
 
@@ -142,7 +142,7 @@ class ApiLoginTest extends TestCase
         $response
         ->assertStatus(404)
         ->assertJson([
-            'message' => 'Nem található felhasználó ilyen névvel, vagy e-maillel',
+            'message' => 'Nem található felhasználó ilyen névvel, vagy e-maillel!',
         ]);
     }
 
@@ -161,7 +161,7 @@ class ApiLoginTest extends TestCase
         $response
         ->assertStatus(404)
         ->assertJson([
-            'message' => 'Nem található felhasználó ilyen névvel, vagy e-maillel',
+            'message' => 'Nem található felhasználó ilyen névvel, vagy e-maillel!',
         ]);
     }
 
@@ -179,9 +179,9 @@ class ApiLoginTest extends TestCase
         $response
         ->assertStatus(422)
         ->assertJson([
-            'message' => 'The identifier field is required.',
+            'message' => 'A(z) azonosító mező kitöltése kötelező.',
             'errors' => [
-                'identifier' => ['The identifier field is required.']
+                'identifier' => ['A(z) azonosító mező kitöltése kötelező.']
             ]
         ]);
     }
@@ -200,9 +200,9 @@ class ApiLoginTest extends TestCase
         $response
         ->assertStatus(422)
         ->assertJson([
-            'message' => 'The password field is required.',
+            'message' => 'A(z) jelszó mező kitöltése kötelező.',
             'errors' => [
-                'password' => ['The password field is required.']
+                'password' => ['A(z) jelszó mező kitöltése kötelező.']
             ]
         ]);
     }
@@ -222,10 +222,10 @@ class ApiLoginTest extends TestCase
         $response
         ->assertStatus(422)
         ->assertJson([
-            'message' => 'The identifier field is required. (and 1 more error)',
+            'message' => 'A(z) azonosító mező kitöltése kötelező. (and 1 more error)',
             'errors' => [
-                'password' => ['The password field is required.'],
-                'identifier' => ['The identifier field is required.']
+                'password' => ['A(z) jelszó mező kitöltése kötelező.'],
+                'identifier' => ['A(z) azonosító mező kitöltése kötelező.']
             ]
         ]);
     }
@@ -243,7 +243,7 @@ class ApiLoginTest extends TestCase
         $response
         ->assertStatus(403)
         ->assertJson([
-            'message' => 'A felhasználói fiók tiltva van!',
+            'message' => 'A felhasználó ki van tiltva!',
         ]);
     }
 
