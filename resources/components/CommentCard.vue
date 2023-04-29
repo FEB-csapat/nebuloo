@@ -6,17 +6,17 @@
         </div>
 
         <div class="flex-fill">
-            <p style="margin-left: 5px;" v-if="!isEditing">{{comment.message}}</p>
-            <textarea id="body" v-model="commentbody" v-if="isEditing" class="form-control" rows="3" cols="10"></textarea>
+            <p style="margin-left: 5px;" v-if="!isEditing" name="commentbody">{{comment.message}} </p>
+            <textarea id="body" v-model="commentbody" v-if="isEditing" class="form-control" rows="3" cols="10" name="editcommentbody"></textarea>
 
             <div class="text-end" v-if="canEditAndDelete">
-                <button class="btn btn-success  m-2" @click="editModeOff()" v-if="isEditing"> 
+                <button class="btn btn-success  m-2" @click="editModeOff()" v-if="isEditing" name="savecomment"> 
                     Mentés
                 </button>
-                <button class="btn btn-outline-info btn-sm mx-1" @click="editModeOn()" v-if="!isEditing">
+                <button class="btn btn-outline-info btn-sm mx-1" @click="editModeOn()" v-if="!isEditing" name="editcomment">
                     Szerkesztés
                 </button>
-                <button class="btn btn-outline-danger btn-sm mx-1" @click="deleteComment()" v-if="!isEditing"> 
+                <button class="btn btn-outline-danger btn-sm mx-1" @click="deleteComment()" v-if="!isEditing" name="deletecomment"> 
                     Törlés
                 </button>
             </div>
@@ -76,8 +76,9 @@ export default{
         },
         async editComment(){
             const data = JSON.stringify(this.commentData);
+            
+            this.comment.message = this.commentbody;
             var response = (await RequestHelper.editComment(data,this.comment.id));
-            window.location.reload();
         },
     },
     computed:{

@@ -51,7 +51,7 @@
     </div>
 
     <comment-section v-if="question!=null" :comments="question.comments" :commentable_id="question.id" :commentable_type="'questions'"/>
-
+    <SnackBar ref="snackBar"/>
 </div>
 </template>
 
@@ -63,7 +63,7 @@ import User from '../components/User.vue';
 import TagList from '../components/TagList.vue';
 import { RequestHelper } from '../utils/RequestHelper';
 import router from '../router';
-
+import SnackBar from '../components/snackbars/SnackBar.vue';
 import { UserManager } from '../utils/UserManager.js';
 
 import LoadingSpinner from '../components/LoadingSpinner.vue';
@@ -81,6 +81,7 @@ export default{
         Vote,
         User,
         TagList,
+        SnackBar,
         LoadingSpinner
     },
     props:{
@@ -114,6 +115,10 @@ export default{
                 });
             }
         },
+        commentAdded(){
+            this.$refs.snackBar.showSnackbar('Sikeres komment hozzáadás!');
+            this.getDetailedQuestion();
+        }
     },
     computed:{
         canEditAndDelete(){

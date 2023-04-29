@@ -27,7 +27,6 @@ namespace NebulooWebTest
             var documentationLink = driver.FindElement(By.Name("footerdocs"));
             documentationLink.SendKeys(Keys.Return);
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "documentation"));
-            driver.Quit();
         }
         [Test]
         public void FooterTicket_as_guestTest()
@@ -39,7 +38,6 @@ namespace NebulooWebTest
             IAlert notloggedinAlert = driver.SwitchTo().Alert();
             notloggedinAlert.Accept();
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "login"));
-            driver.Quit();
         }
         [Test]
         public void FooterSourceTest()
@@ -48,7 +46,6 @@ namespace NebulooWebTest
             var sourceLink = driver.FindElement(By.Name("footersource"));
             sourceLink.SendKeys(Keys.Return);
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("https://github.com/FEB-csapat/nebuloo"));
-            driver.Quit();
         }
         [Test]
         public void FooterASZFTest()
@@ -57,7 +54,6 @@ namespace NebulooWebTest
             var aszfLink = driver.FindElement(By.Name("footeraszf"));
             aszfLink.SendKeys(Keys.Return);
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "ASZF"));
-            driver.Quit();
         }
         [Test]
         public void FooterTicket_as_userTest()
@@ -76,8 +72,12 @@ namespace NebulooWebTest
             var ticketLink = driver.FindElement(By.Name("footerticket"));
             ticketLink.SendKeys(Keys.Return);
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "tickets/create"));
-            driver.Quit();
             seederhandler.LoginSeederTearDown();
+        }
+        [TearDown]
+        public void TearDown()
+        {
+            driver.Quit();
         }
     }
 }
