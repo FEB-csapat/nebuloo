@@ -27,6 +27,9 @@ export class RequestHelper {
     static getAllContent(queries){
         return RequestHelper.http.get("contents", {params: queries});
     };
+    static getAllTickets(){
+        return RequestHelper.http.get("tickets");
+    };
 
     static getDetailedContent(id){
         return RequestHelper.http.get("contents/" + id);
