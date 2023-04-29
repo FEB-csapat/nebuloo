@@ -5,10 +5,10 @@
         <div v-if="isLoggedIn" id="comment_writer_container" class="bg-light shadow rounded-3 mt-2 p-2">
             <label for="cim" class="form-label pt-2">Írj kommentet:</label>
 
-            <textarea id="body" v-model="message" class="form-control" rows="3" cols="10"></textarea>
+            <textarea id="body" v-model="message" class="form-control" rows="3" cols="10" name="commentinput"></textarea>
 
             <div class="col mt-2">
-                <button type="button" class="btn" id="button" @click="AddComment()" >Küldés</button>
+                <button type="button" class="btn" id="button" @click="AddComment()" name="sendcomment">Küldés</button>
             </div>
         </div>
 
@@ -62,7 +62,7 @@ export default{
                 window.alert("Túl hosszú a hozzászólása!");
             }
             else{
-                RequestHelper.createComment(trimmedMessage, commentable_type, commentable_id)
+                RequestHelper.createComment(trimmedMessage, this.commentable_type, this.commentable_id)
                 .then(()=>{
                     this.$emit('commentAdded');
                     this.message = "";

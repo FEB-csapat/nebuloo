@@ -62,5 +62,25 @@ namespace NebulooWebTest
             process.Start();
             process.WaitForExit();
         }
+        public void PostsWithCommentsCreationSetUp()
+        {
+            Process process = new Process();
+            process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
+            process.StartInfo.FileName = "cmd.exe";
+            process.StartInfo.WorkingDirectory = Path.GetFullPath("../../../../../../nebuloo");
+            process.StartInfo.Arguments = "/C docker compose exec app php artisan db:seed --class=SeleniumPostActionsTestSeeder";
+            process.Start();
+            process.WaitForExit();
+        }
+        public void PostsWithCommentsTeardown()
+        {
+            Process process = new Process();
+            process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
+            process.StartInfo.FileName = "cmd.exe";
+            process.StartInfo.WorkingDirectory = Path.GetFullPath("../../../../../../nebuloo");
+            process.StartInfo.Arguments = "/C docker compose exec app php artisan db:seed --class=SeleniumPostActionsTestTearDownSeeder";
+            process.Start();
+            process.WaitForExit();
+        }
     }
 }
