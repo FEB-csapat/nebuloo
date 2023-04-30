@@ -157,7 +157,9 @@ body{
     .commentcard{
         flex-direction: column;
     }
-    .contentcard{
+    .ticketcard{
+        flex-direction: column;
+        align-items: center;
     }
 }
 

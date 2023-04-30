@@ -16,6 +16,12 @@
           <button v-if="showQuestionsButton" style="width: 110px;" class="btn ms-2  mt-2   " id="button">
             <router-link class="nav-link active" aria-current="page" :to="{ name: 'questions'}" name="navquestions">Kérdések</router-link>
           </button>
+
+          <button v-if="showTicketsButton && IsNotModeratorNorAdmin && isLoggedIn" style="width: 110px;" class="btn ms-2  mt-2   " id="button">
+            <router-link class="nav-link active" aria-current="page" :to="{ name: 'tickets'}" name="navtickets">Hibajegyek</router-link>
+          </button>
+
+
         </div>
 
         <form v-if="showSearchBar" class="d-flex pe-2" @submit.prevent="search">
@@ -61,6 +67,13 @@ export default{
       showQuestionsButton() {
         return !(this.$route.path == '/questions'
         || this.$route.path == '/login' || this.$route.path == '/registration');
+      },
+      showTicketsButton() {
+        return !(this.$route.path == '/tickets'
+        || this.$route.path == '/login' || this.$route.path == '/registration');
+      },
+      IsNotModeratorNorAdmin() {
+        return ( UserManager.isAdmin() || UserManager.isModerator());
       },
       showSearchBar() {
         return this.$route.path == '/questions' || this.$route.path == '/contents';
