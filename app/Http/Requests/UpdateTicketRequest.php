@@ -24,7 +24,7 @@ class UpdateTicketRequest extends FormRequest
     public function rules()
     {
         return [
-            "body"=>"required"
+            "state"=>"required|boolean"
         ];
     }
 }

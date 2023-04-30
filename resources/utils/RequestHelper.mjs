@@ -30,7 +30,15 @@ export class RequestHelper {
     static getAllTickets(){
         return RequestHelper.http.get("tickets");
     };
-
+    static async createTicket(data){
+        return RequestHelper.http.post('tickets',data)
+    };
+    static async editTicket(data,id){
+        return RequestHelper.http.put('tickets/'+id,data)
+    };
+    static async deleteTicket(id){
+        return RequestHelper.http.delete('tickets/'+id);
+    };
     static getDetailedContent(id){
         return RequestHelper.http.get("contents/" + id);
     };
@@ -99,9 +107,6 @@ export class RequestHelper {
     static async editUserData(id, data){
         return RequestHelper.http.put('users/'+id,data)
         
-    };
-    static async createTicket(data){
-        return RequestHelper.http.post('tickets',data)
     };
     static async getUserData(id){
         return RequestHelper.http.get('users/'+id)

@@ -37,7 +37,7 @@ export default{
                     this.$router.push({name: 'login'});
                 });
             }
-            else if(!UserManager.isAdmin() || !UserManager.isModerator()){
+            else if(!UserManager.isAdmin() && !UserManager.isModerator()){
                 this.$refs.snackBar.showSnackbar('Jelentések megtekintéséhez, megfelelő jogosultsággal kell rendelkeznie!', 'Bejelentkezés', function () {
                     this.$router.push({name: 'login'});
                 });
@@ -45,9 +45,9 @@ export default{
             else{
                 var responseBody = (await RequestHelper.getAllTickets()).data;
                 this.tickets = responseBody.data;
-                this.isWaiting = false;
             }
-        },
+            this.isWaiting = false;
+        }
     },
     mounted(){
         this.getAllTickets();
