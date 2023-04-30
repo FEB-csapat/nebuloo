@@ -23,7 +23,7 @@
                     </div>
                 </div>
     
-                <tag-list v-if="question!=null" :subject="question.subject" :topic="question.topic"/>
+                <tag-list v-if="question!=null" :subject="question.subject" :topic="question.topic" name="detailedquestiontags"/>
     
     
                 <div>
@@ -35,12 +35,12 @@
     
                 <div class="row" v-if="canEditAndDelete">
                     <div class="col-sm-6">
-                        <button class="btn btn-success" @click="navigateToEditView()">
+                        <button class="btn btn-success" name="questionupdate" @click="navigateToEditView()">
                             Kérdés szerkesztése
                         </button>
                     </div>
                     <div class="col-sm-6 text-end">
-                        <button class="btn btn-danger" @click="deletePost()">
+                        <button class="btn btn-danger" name="questiondelete" @click="deletePost()">
                             Kérdés törlése
                         </button> 
                     </div>

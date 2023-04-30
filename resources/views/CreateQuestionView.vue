@@ -9,14 +9,14 @@
                 ref="tagSelector"/>
 
             <label for="cim" class="form-label pt-2">Cím*</label>
-            <input type="text" id="cim" v-model="title" class="form-control">
+            <input type="text" id="cim" v-model="title" class="form-control" name="cim">
 
             <label for="leiras" class="form-label pt-2">Leírás</label>
             <textarea name="leiras" id="leiras" v-model="body" rows="5" class="form-control"></textarea>
 
         </div>
         <div class="text-end p-2">
-            <button class="btn" id="button" @click="createQuestion()">
+            <button class="btn" id="button" name="createquestion" @click="createQuestion()">
                 Létrehozás
             </button>
         </div>
@@ -42,13 +42,18 @@ export default{
     },
     methods:{
         async createQuestion(){
+            if(this.body==""){
+                alert("A leírás nem lehet üres!");
+                return;
+            }
             RequestHelper.createQuestion(this.title, this.body, this.subjectId, this.topicId)
             .then(()=>{
+                console.log(this.body);
                 alert("Sikeres létrehozás!");
                 this.$router.push({
                     name: 'myUserProfile',
                 });
-            });
+            });            
         },
         handleSubjectItemSelected(subjectId) {
             this.subjectId = subjectId;

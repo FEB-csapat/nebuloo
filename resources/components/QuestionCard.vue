@@ -8,7 +8,7 @@
         </div>
 
         <div class="d-flex ps-3 pe-1">
-            <div class="flex-fill justify-content-between flex-column" aria-current="page"
+            <div class="flex-fill justify-content-between flex-column" aria-current="page" name="questioncard"
                 @click="navigateToDetailedView">
                 <div>
                     <h2>

@@ -118,7 +118,7 @@ namespace NebulooWebTest
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
             IAlert successfuldeletionAlert = driver.SwitchTo().Alert();
             successfuldeletionAlert.Accept();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "myprofile"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "me"));
         }
         [Test]
         public void ContentShowTest()

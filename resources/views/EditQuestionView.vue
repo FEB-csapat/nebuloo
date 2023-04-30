@@ -7,7 +7,7 @@
 
         <tag-selector v-if="!isWaiting" @subjectItemSelected="handleSubjectItemSelected" @topicItemSelected="handleTopicItemSelected"
                 :defaultSubjectId="subjectId" :defaultTopicId="topicId"
-                ref="tagSelector"/>
+                ref="tagSelector" name="questionupdatetagselector"/>
 
         <label for="cim" class="form-label pt-2">Cím*</label>
         <input type="text" id="cim" v-model="title" class="form-control">
@@ -22,7 +22,7 @@
                 </button>
             </div>
             <div class="col-sm-6 text-end">
-                <button type="submit" class="my-3 btn" id="button" @click="updateQuestion()">Változtatás elfogadása</button>
+                <button type="submit" class="my-3 btn" id="button" name="questionupdatesave" @click="updateQuestion()">Változtatás elfogadása</button>
             </div>
         </div>
     </div>
@@ -47,8 +47,8 @@ export default{
         return {
             question: null,
 
-            title:'',
-            body:'',
+            title:"",
+            body:"",
             subjectId: null,
             topicId: null,
             isWaiting: true
@@ -71,6 +71,12 @@ export default{
 
         },
         async updateQuestion(){
+            console.log(this.body);
+            if(this.body==""){
+                alert("A poszt nem lehet üres!");
+                return;
+            }
+
             var response = (await RequestHelper.updateQuestion(this.question.id, this.title, this.body, this.subjectId, this.topicId));
 
             if(response.status == 200){
