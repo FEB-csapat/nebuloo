@@ -20,7 +20,7 @@
             <div class="text-center align-items-center pb-2" style="max-width: 85px; min-width: 72px">
                 <user v-if="content.creator" :user="content.creator"/>
     
-                <vote :votableId="content.id" :voteCount="content.recieved_votes" :myVote="content.my_vote"/>
+                <vote :votableId="content.id" :voteCount="content.recieved_votes" :votableType="this.voteType" :myVote="content.my_vote"/>
             </div>
         </div>
     </div>
@@ -37,7 +37,8 @@ import DetailedContentView from '../views/DetailedContentView.vue';
 export default{
     data(){
         return{
-            splittedDate:[]
+            splittedDate:[],
+            voteType:"contents"
         }
     },
     props:{
