@@ -49,10 +49,28 @@ namespace NebulooWebTest
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents"));
         }
         [Test]
+        public void NavBarTicketsViewTest()
+        {
+            driver.Url = baseUrl + "login";
+            seederhandler.LoginSeederSetUp();
+            var usernameTextbox = driver.FindElement(By.Name("identifier"));
+            usernameTextbox.SendKeys("Admin");
+
+            var passwordTextbox = driver.FindElement(By.Name("password"));
+            passwordTextbox.SendKeys("Admin@123");
+
+            var submitButton = driver.FindElement(By.Name("login"));
+            submitButton.Click();
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents"));
+
+            var ticketsviewButton = driver.FindElement(By.Name("navtickets"));
+            ticketsviewButton.Click();
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "tickets"));
+            seederhandler.LoginSeederTearDown();
+        }
+        [Test]
         public void NavbarMyprofile_as_userTest()
         {
-            //doesnt work because after login on navbar there is a login button instead of myprofile
-            //TODO: fix refresh of navbar after login
             driver.Url = baseUrl + "login";
             seederhandler.LoginSeederSetUp();
             var usernameTextbox = driver.FindElement(By.Name("identifier"));

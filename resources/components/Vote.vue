@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { string } from 'yup';
 import { RequestHelper } from '../utils/RequestHelper';
 
 import { UserManager } from '../utils/UserManager';
@@ -21,6 +22,7 @@ import { UserManager } from '../utils/UserManager';
 export default{
     props:{
         votableId: Number, 
+        votableType:String,
         myVote: String,
         voteCount: {
             type: Number,
@@ -54,7 +56,7 @@ export default{
             this.synchronizeVote();
         },
         synchronizeVote(){
-            RequestHelper.synchronizeVote(this.votableId, 'contents', this.voteState);
+            RequestHelper.synchronizeVote(this.votableId, this.votableType, this.voteState);
         }
     },
     computed: {

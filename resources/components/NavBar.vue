@@ -17,7 +17,7 @@
             <router-link class="nav-link active" aria-current="page" :to="{ name: 'questions'}" name="navquestions">Kérdések</router-link>
           </button>
 
-          <button v-if="showTicketsButton && IsNotModeratorNorAdmin && isLoggedIn" style="width: 110px;" class="btn ms-2  mt-2   " id="button">
+          <button v-if="showTicketsButton && IsModeratorOrAdmin && isLoggedIn" style="width: 110px;" class="btn ms-2  mt-2   " id="button">
             <router-link class="nav-link active" aria-current="page" :to="{ name: 'tickets'}" name="navtickets">Hibajegyek</router-link>
           </button>
 
@@ -72,7 +72,7 @@ export default{
         return !(this.$route.path == '/tickets'
         || this.$route.path == '/login' || this.$route.path == '/registration');
       },
-      IsNotModeratorNorAdmin() {
+      IsModeratorOrAdmin() {
         return ( UserManager.isAdmin() || UserManager.isModerator());
       },
       showSearchBar() {

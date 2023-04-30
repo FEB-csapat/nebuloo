@@ -119,5 +119,25 @@ namespace NebulooWebTest
             process.Start();
             process.WaitForExit();
         }
+        public void TicketSeederSetUp()
+        {
+            Process process = new Process();
+            process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
+            process.StartInfo.FileName = "cmd.exe";
+            process.StartInfo.WorkingDirectory = Path.GetFullPath("../../../../../../nebuloo");
+            process.StartInfo.Arguments = "/C docker compose exec app php artisan db:seed --class=SeleniumTicketTestSeeder";
+            process.Start();
+            process.WaitForExit();
+        }
+        public void TicketSeederTeardown()
+        {
+            Process process = new Process();
+            process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
+            process.StartInfo.FileName = "cmd.exe";
+            process.StartInfo.WorkingDirectory = Path.GetFullPath("../../../../../../nebuloo");
+            process.StartInfo.Arguments = "/C docker compose exec app php artisan db:seed --class=SeleniumTicketTestTearDownSeeder";
+            process.Start();
+            process.WaitForExit();
+        }
     }
 }

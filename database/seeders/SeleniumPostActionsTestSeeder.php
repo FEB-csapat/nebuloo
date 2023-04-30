@@ -34,7 +34,6 @@ class SeleniumPostActionsTestSeeder extends Seeder
             'bio' => 'My hobbies are reading and programming',
             'password' => Hash::make('Password@123')
         ]);
-        $user->assignRole('user');
         Content::factory()->create([
             'creator_user_id' => $user->id,
             'body' => "Example content",

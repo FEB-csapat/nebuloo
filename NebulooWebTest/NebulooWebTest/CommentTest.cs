@@ -16,10 +16,10 @@ namespace NebulooWebTest
         [SetUp]
         public void Setup()
         {
+            seederhandler.PostsWithCommentsCreationSetUp();
             new DriverManager().SetUpDriver(new ChromeConfig());
             driver = new ChromeDriver();
             wait = new WebDriverWait(driver, new TimeSpan(0, 0, 15));
-            seederhandler.PostsWithCommentsCreationSetUp();
             driver.Url = baseUrl + "login";
             var usernameTextboxLogin = driver.FindElement(By.Name("identifier"));
             usernameTextboxLogin.SendKeys("TestUser");
