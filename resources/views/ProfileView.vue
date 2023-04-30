@@ -5,7 +5,7 @@
     <div v-if="!isWaiting" >
         <div class="row bg-light mt-3 mb-2 rounded-3 p-3 shadow">
             <div class="col text-end" v-if="isMyProfile">
-                <button class="btn" id="button" @click="signOut()">
+                <button class="btn" id="button" name="logout" @click="signOut()">
                     Kijelentkezés
                 </button>
             </div>
@@ -47,12 +47,12 @@
     
         <div class="row text-center" v-if="isMyProfile">
             <div class="col-6">
-                <button class="btn btn-info"  @click="navigateToEditProfileView()">
+                <button class="btn btn-info" name="editprofile"  @click="navigateToEditProfileView()">
                     Profilom szerkesztése
                 </button>
             </div>
             <div class="col-6">
-                <button class="btn btn-danger" @click="deleteMe()">
+                <button class="btn btn-danger" name="deleteprofile" @click="deleteMe()">
                     Fiókom törlése
                 </button>
             </div>
@@ -253,7 +253,7 @@ methods:{
             RequestHelper.deleteMe()
             .then(()=>{
                 UserManager.logout();
-                alert("Sikeres törlés!", this.$router.push({name: ''}));
+                alert("Sikeres törlés!", this.$router.push({name: 'welcome'}));
             })
         }
     },

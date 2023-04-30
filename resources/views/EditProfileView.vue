@@ -18,7 +18,7 @@
                     <h3 class="text-start"><label for="bio" class="form-label mt-2">Bio:</label></h3>
                     <Field type="text" class="form-control my-3" name="bio" id="bio"/>
 
-                    <button class="btn btn-success" type="submit" v-if="isChanged">Elmentés</button>
+                    <button class="btn btn-success" name="savechange" type="submit" v-if="isChanged">Elmentés</button>
                 </Form>
             </div>
         </div>

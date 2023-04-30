@@ -15,7 +15,7 @@ namespace NebulooWebTest
         [SetUp]
         public void Setup()
         {
-            seederhandler.QuestionSeederSetUp();
+            seederhandler.MyProfileSeederSetUp();
             new DriverManager().SetUpDriver(new ChromeConfig());
             driver = new ChromeDriver();
             driver.Url = baseUrl + "login";
@@ -31,83 +31,51 @@ namespace NebulooWebTest
             submitButtonLogin.Click();
 
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents"));
-            driver.Url = baseUrl + "questions";
+            driver.Url = baseUrl + "me";
         }
         [Test]
-        public void QuestionCreationTest()
+        public void EditProfileTest()
         {
-            var questioncreationButton = driver.FindElement(By.ClassName("fab-button"));
-            questioncreationButton.Click();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "questions/create"));
-            var questiontitleTextArea = driver.FindElement(By.Name("cim"));
-            questiontitleTextArea.SendKeys("Test title");
+            var editmyprofileButton = driver.FindElement(By.Name("editprofile"));
+            editmyprofileButton.Click();
 
-            var questionbodyTextArea = driver.FindElement(By.Name("leiras"));
-            questionbodyTextArea.SendKeys("Test question");
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "users/1/edit"));
+            var displaynameField = driver.FindElement(By.Name("display_name"));
+            displaynameField.SendKeys("NewTestUser");
 
-            var submitButtonQuestion = driver.FindElement(By.Name("createquestion"));
-            submitButtonQuestion.Click();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "questions/"));
+            var bioField = driver.FindElement(By.Name("bio"));
+            bioField.SendKeys("I'm the test user");
 
-        }
-        [Test]
-        public void QuestionCreationWithoutBodyTest()
-        {
-            var questioncreationButton = driver.FindElement(By.ClassName("fab-button"));
-            questioncreationButton.Click();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "questions/create"));
-
-            var submitButtonQuestion = driver.FindElement(By.Name("createquestion"));
-            submitButtonQuestion.Click();
+            var submitchangeButton = driver.FindElement(By.Name("savechange"));
+            submitchangeButton.Click();
 
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
-            IAlert nobodyAlert = driver.SwitchTo().Alert();
-            nobodyAlert.Accept();
-        }
-        [Test]
-        public void QuestionUpdateTest()
-        {
-            driver.Url = baseUrl + "questions/1";
-
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("questionupdate")));
-            var questiontupdateButton = driver.FindElement(By.Name("questionupdate"));
-            questiontupdateButton.Click();
-
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("questionupdatetagselector")));
-            var questionbodyTextArea = driver.FindElement(By.Name("leiras"));
-            questionbodyTextArea.SendKeys("Test question");
-            var savequestionupdateButton = driver.FindElement(By.Name("questionupdatesave"));
-            savequestionupdateButton.Click();
-
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
-            IAlert successfulupdateAlert = driver.SwitchTo().Alert();
-            successfulupdateAlert.Accept();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "questions/1"));
-        }
-        [Test]
-        public void QuestionUpdateWithoutBodyTest()
-        {
-            driver.Url = baseUrl + "questions/1";
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("detailedquestiontags")));
-            var questionupdateButton = driver.FindElement(By.Name("questionupdate"));
-            questionupdateButton.Click();
-
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("questionupdatetagselector")));
-            var questionbodyTextArea = driver.FindElement(By.Name("leiras"));
-            for (int i = 0; i < 255; i++)
+            IAlert successfullAlert = driver.SwitchTo().Alert();
+            if (successfullAlert.Text.ToString() == "Sikeres változtatás")
             {
-                questionbodyTextArea.SendKeys(Keys.Backspace);
-            }
-
-            var savequestionupdateButton = driver.FindElement(By.Name("questionupdatesave"));
-            savequestionupdateButton.Click();
-
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
-            IAlert nobodyupdateAlert = driver.SwitchTo().Alert();
-            if (nobodyupdateAlert.Text.ToString() == "A poszt nem lehet üres!")
-            {
+                successfullAlert.Accept();
+                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "me"));
                 Assert.Pass();
-                nobodyupdateAlert.Accept();
+            }
+            else
+            {
+                Assert.Fail();
+            }              
+
+        }
+        [Test]
+        public void DeleteMyProfileTest()
+        {
+            var deletemyprofileButton = driver.FindElement(By.Name("deleteprofile"));
+            deletemyprofileButton.Click();
+
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
+            IAlert confirmationlAlert = driver.SwitchTo().Alert();
+            if (confirmationlAlert.Text.ToString() == "Biztosan törölni szeretné fiókját?")
+            {
+                confirmationlAlert.Accept();
+                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl));
+                Assert.Pass();
             }
             else
             {
@@ -115,36 +83,16 @@ namespace NebulooWebTest
             }
         }
         [Test]
-        public void QuestionDeletionTest()
+        public void LogOutFromProfileTest()
         {
-            driver.Url = baseUrl + "questions/1";
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("questiondelete")));
-
-            var questiondeleteButton = driver.FindElement(By.Name("questiondelete"));
-            questiondeleteButton.Click();
-
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
-            IAlert deleteconfirmationAlert = driver.SwitchTo().Alert();
-            deleteconfirmationAlert.Accept();
-
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
-            IAlert successfuldeletionAlert = driver.SwitchTo().Alert();
-            successfuldeletionAlert.Accept();
-
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "me"));
-        }
-        [Test]
-        public void QuestionShowTest()
-        {
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("questioncard")));
-            var questionCard = driver.FindElement(By.Name("questioncard"));
-            questionCard.Click();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "questions/1"));
+            var logoutmyprofileButton = driver.FindElement(By.Name("logout"));
+            logoutmyprofileButton.Click();
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl));
         }
         [TearDown]
         public void TearDown()
         {
-            seederhandler.QuestionSeederTearDown();
+            seederhandler.MyProfileSeederTearDown();
             driver.Quit();
         }
     }
