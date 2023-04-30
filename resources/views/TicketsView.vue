@@ -3,6 +3,9 @@
         Felhasználói jelentések:
     </h1>
     <loading-spinner :show="isWaiting"/>
+    <h4 v-if="!IsModeratorOrAdmin" name="ticketunauthentry" class="text-center"> 
+        Csak megfelelő jogosultsággal rendelkező személy láthatja a hibajegyeket!
+    </h4>
     <div class="container mt-4">
         <ticket-card v-for="ticket in tickets" :ticket="ticket" :key="ticket.id"/>
     </div>
@@ -48,6 +51,11 @@ export default{
             }
             this.isWaiting = false;
         }
+    },
+    computed:{
+        IsModeratorOrAdmin() {
+        return ( UserManager.isAdmin() || UserManager.isModerator());
+      },
     },
     mounted(){
         this.getAllTickets();

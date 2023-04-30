@@ -2,13 +2,14 @@
 
 namespace Database\Seeders;
 
-use App\Models\Content;
+use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
-class SeleniumLoginTestSeeder extends Seeder
+class SeleniumTicketTestSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,13 +18,17 @@ class SeleniumLoginTestSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('users')->delete();
+        DB::table('tickets')->delete();
+
         $user = User::factory()->create([
+            'id'=>1,
             'name' => "TestUser",
             'display_name' => "TestUser",
-            'email' => "test.user@fakemail.com", 
-            'email_verified_at' => Carbon::now(),     
+            'email' => "test.user@fakemail.com",
+            'email_verified_at' => Carbon::now(),
             'bio' => 'My hobbies are reading and programming',
-            'password' => Hash::make('Password@123')  
+            'password' => Hash::make('Password@123')
         ]);
         $admin = User::factory()->create([
             'name' => "Admin",
@@ -33,6 +38,18 @@ class SeleniumLoginTestSeeder extends Seeder
             'bio' => 'My hobbies are reading and programming',
             'password' => Hash::make('Admin@123'),
             'role' => 'admin'
+        ]);
+        Ticket::factory()->create([
+            'creator_user_id'=> 1,
+            'body' => 'Open bug',
+            'state'=>false,
+            'id'=>1
+        ]);
+        Ticket::factory()->create([
+            'creator_user_id'=> 1,
+            'body' => 'Closed bug',
+            'state'=>true,
+            'id'=>2
         ]);
     }
 }
