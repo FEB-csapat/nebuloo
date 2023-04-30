@@ -157,7 +157,8 @@ namespace NebulooWebTest
         [TearDown]
         public void TearDown()
         {
-            
+            seederhandler.TicketSeederTeardown();
+            driver.Quit();
         }
     }
 }

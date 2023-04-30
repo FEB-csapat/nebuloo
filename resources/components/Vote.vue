@@ -1,14 +1,14 @@
 <template>
     <div id="vote_container" class="row text-center">
         <div v-if="isLoggedIn" class="col">
-            <i id="upvote" @click="toggleUpvote" :class="['fas', 'fa-up-long', 'fa-lg', {'upvoted': voteState === 1}]"/>
+            <i id="upvote" @click="toggleUpvote" :class="['fas', 'fa-up-long', 'fa-lg', {'upvoted': voteState === 1}]" name="upvote_arrow"/>
             <p id="votecount" class="pt-3 text-center" style="margin-left: 3px;">{{voteCounted + voteState}}</p>
-            <i id="downvote" @click="toggleDownvote" :class="['fas', 'fa-down-long', 'fa-lg', {'downvoted': voteState === -1}]"/>
+            <i id="downvote" @click="toggleDownvote" :class="['fas', 'fa-down-long', 'fa-lg', {'downvoted': voteState === -1}]" name="downvote_arrow"/>
         </div>
         <div v-else class="col">
-            <i :class="['fas', 'fa-up-long', 'fa-lg', 'is-guest']"/>
+            <i :class="['fas', 'fa-up-long', 'fa-lg', 'is-guest']" @click="NotLoggedInVote()" name="unauthupvote_arrow"/>
             <p class="pt-3 text-center" style="margin-left: 3px;">{{voteCounted + voteState}}</p>
-            <i :class="['fas', 'fa-down-long', 'fa-lg', 'is-guest']"/>
+            <i :class="['fas', 'fa-down-long', 'fa-lg', 'is-guest']" @click="NotLoggedInVote()" name="unauthdownvote_arrow"/>
         </div>
     </div>
 </template>
@@ -16,7 +16,6 @@
 <script>
 import { string } from 'yup';
 import { RequestHelper } from '../utils/RequestHelper';
-
 import { UserManager } from '../utils/UserManager';
 
 export default{
@@ -57,7 +56,12 @@ export default{
         },
         synchronizeVote(){
             RequestHelper.synchronizeVote(this.votableId, this.votableType, this.voteState);
-        }
+        },
+        NotLoggedInVote(){
+            if(!UserManager.isLoggedIn()){
+                window.alert("Szavazáshoz kérlek jelentkezz be!");
+            }
+        },
     },
     computed: {
         isLoggedIn(){

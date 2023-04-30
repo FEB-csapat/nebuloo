@@ -23,7 +23,7 @@
                     <div class="row">
                 <div class="col-6 mb-2 text-center">
                     <p>Szavazások:</p>
-                    <h5 v-if="userData!=null">{{this.userData.recieved_votes}}</h5>
+                    <h5 v-if="userData!=null" name="votescore">{{this.userData.recieved_votes}}</h5>
                 </div>
                 <div class="col-6 mb-2 text-center">
                     <p>Kérdések:</p>
