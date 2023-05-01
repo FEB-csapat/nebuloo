@@ -43,7 +43,7 @@
         </div>
     </div>
 
-    <comment-section v-if="question!=null" :comments="question.comments" :commentable_id="question.id" :commentable_type="'questions'"/>
+    <comment-section v-if="question!=null" @commentAdded="commentAdded" :comments="question.comments" :commentable_id="question.id" :commentable_type="'questions'"/>
     <SnackBar ref="snackBar"/>
 </div>
 </template>
@@ -55,7 +55,6 @@ import Vote from '../components/Vote.vue';
 import User from '../components/User.vue';
 import TagList from '../components/TagList.vue';
 import { RequestHelper } from '../utils/RequestHelper';
-import router from '../router';
 import SnackBar from '../components/snackbars/SnackBar.vue';
 import { UserManager } from '../utils/UserManager.js';
 
@@ -82,7 +81,6 @@ export default{
             type: Number,
             required: true
         }
-        
     },
     methods:{
         navigateToEditView(){
@@ -116,12 +114,6 @@ export default{
     computed:{
         canEditAndDelete(){
             return (UserManager.isMine(this.question?.creator.id) || UserManager.isAdmin() || UserManager.isModerator());
-        },
-        questionCreationDate: function(){
-            return this.question.created_at.split(' ')[0];
-        },
-        questionCreationTime: function(){
-            return this.question.created_at.split(' ')[1];
         },
     },
     mounted(){

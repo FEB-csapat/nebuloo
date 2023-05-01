@@ -60,7 +60,6 @@ import User from '../components/User.vue';
 import TagList from '../components/TagList.vue';
 
 import CommentSection from '../components/CommentSection.vue';
-import router from '../router';
 import html2pdf from 'html2pdf.js';
 import SnackBar from '../components/snackbars/SnackBar.vue';
 
@@ -85,7 +84,6 @@ export default{
         TagList,
         SnackBar,
         LoadingSpinner
-
     },
     data() {
         return {
@@ -143,12 +141,6 @@ export default{
     computed:{
         canEditAndDelete(){
             return (UserManager.isMine(this.content?.creator.id) || UserManager.isAdmin() || UserManager.isModerator());
-        },
-        contentCreationDate: function(){
-            return this.content.created_at.split(' ')[0];
-        },
-        contentCreationTime: function(){
-            return this.content.created_at.split(' ')[1];
         },
         isLoggedIn(){
             return UserManager.isLoggedIn();

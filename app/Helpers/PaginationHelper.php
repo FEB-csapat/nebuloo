@@ -17,8 +17,7 @@ class PaginationHelper
         $currentPage = $pageNumber;
         $perPage = $showPerPage ?? config('app.pagination.per_page');
 
-        $items = $results->forPage($pageNumber, $showPerPage);
-
+        $items = $results->forPage($pageNumber, $showPerPage)->values();
 
         $paginator = new LengthAwarePaginator(
             $items,
@@ -58,7 +57,7 @@ class PaginationHelper
         }
 
         return [
-            'data' => $items->toArray(),
+            'data' => $items,//$paginator->items(),// $items->toArray(),
             'links' => [
                 'first' => $paginator->url(1),
                 'last' => $paginator->url($paginator->lastPage()),
@@ -76,7 +75,5 @@ class PaginationHelper
                 'total' => $total,
             ],
         ];
-
-        return self::createPaginator($data, $total, $showPerPage, $pageNumber);
     }
 }
