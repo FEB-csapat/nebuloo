@@ -250,6 +250,29 @@ class ApiTicketTest extends TestCase
         ]);
     }
 
+    public function test_update_my_ticket_as_admin()
+    {
+        $admin = User::factory()->create();
+        $admin->setRoleToAdmin();
+        
+        $ticket = Ticket::factory()->create(['creator_user_id' => $admin->id]);
+
+        $response = $this->actingAs($admin, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->put("/api/tickets/{$ticket->id}",[
+            'body'=>'updated ticket'
+        ]);
+
+
+        $response->assertOK();
+
+        $this->assertDatabaseHas('tickets', [
+            'id' => $ticket->id,
+            'body' => 'updated ticket'
+        ]);
+    }
+    
     public function test_update_my_ticket_as_moderator()
     {
         $moderator = User::factory()->create();
