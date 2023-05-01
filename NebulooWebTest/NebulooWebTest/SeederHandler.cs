@@ -7,137 +7,25 @@ using System.Threading.Tasks;
 
 namespace NebulooWebTest
 {
-    public  class SeederHandler
+    public static class SeederHandler
     {
-        public void RegistrationSeederSetUp()
+        public static void TestSeederSetUp(string filename)
         {
             Process process = new Process();
             process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
             process.StartInfo.FileName = "cmd.exe";
             process.StartInfo.WorkingDirectory = Path.GetFullPath("../../../../../../nebuloo");
-            process.StartInfo.Arguments = "/C docker compose exec app php artisan db:seed --class=SeleniumRegistrationTestSeeder";
+            process.StartInfo.Arguments = "/C docker compose exec app php artisan db:seed --class="+filename;
             process.Start();
             process.WaitForExit();
         }
-        public void ContentSeederSetUp()
+        public static void TestSeederTearDown(string filename)
         {
             Process process = new Process();
             process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
             process.StartInfo.FileName = "cmd.exe";
             process.StartInfo.WorkingDirectory = Path.GetFullPath("../../../../../../nebuloo");
-            process.StartInfo.Arguments = "/C docker compose exec app php artisan db:seed --class=SeleniumContentTest_1_Seeder";
-            process.Start();
-            process.WaitForExit();
-        }
-
-        public void ContentSeederTearDown()
-        {
-            Process process = new Process();
-            process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
-            process.StartInfo.FileName = "cmd.exe";
-            process.StartInfo.WorkingDirectory = Path.GetFullPath("../../../../../../nebuloo");
-            process.StartInfo.Arguments = "/C docker compose exec app php artisan db:seed --class=ReverseSeleniumContentTest_1_Seeder";
-            process.Start();
-            process.WaitForExit();
-        }
-        public void QuestionSeederSetUp()
-        {
-            Process process = new Process();
-            process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
-            process.StartInfo.FileName = "cmd.exe";
-            process.StartInfo.WorkingDirectory = Path.GetFullPath("../../../../../../nebuloo");
-            process.StartInfo.Arguments = "/C docker compose exec app php artisan db:seed --class=SeleniumQuestionTestSeeder";
-            process.Start();
-            process.WaitForExit();
-        }
-        public void QuestionSeederTearDown()
-        {
-            Process process = new Process();
-            process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
-            process.StartInfo.FileName = "cmd.exe";
-            process.StartInfo.WorkingDirectory = Path.GetFullPath("../../../../../../nebuloo");
-            process.StartInfo.Arguments = "/C docker compose exec app php artisan db:seed --class=SeleniumQuestionTestTearDownSeeder";
-            process.Start();
-            process.WaitForExit();
-        }
-        public void MyProfileSeederSetUp()
-        {
-            Process process = new Process();
-            process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
-            process.StartInfo.FileName = "cmd.exe";
-            process.StartInfo.WorkingDirectory = Path.GetFullPath("../../../../../../nebuloo");
-            process.StartInfo.Arguments = "/C docker compose exec app php artisan db:seed --class=SeleniumMyProfileTestSeeder";
-            process.Start();
-            process.WaitForExit();
-        }
-        public void MyProfileSeederTearDown()
-        {
-            Process process = new Process();
-            process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
-            process.StartInfo.FileName = "cmd.exe";
-            process.StartInfo.WorkingDirectory = Path.GetFullPath("../../../../../../nebuloo");
-            process.StartInfo.Arguments = "/C docker compose exec app php artisan db:seed --class=SeleniumMyProfileTestTearDownSeeder";
-            process.Start();
-            process.WaitForExit();
-        }
-        public void LoginSeederSetUp()
-        {
-            Process process = new Process();
-            process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
-            process.StartInfo.FileName = "cmd.exe";
-            process.StartInfo.WorkingDirectory = Path.GetFullPath("../../../../../../nebuloo");
-            process.StartInfo.Arguments = "/C docker compose exec app php artisan db:seed --class=SeleniumLoginTestSeeder";
-            process.Start();
-            process.WaitForExit();
-        }
-
-        public void LoginSeederTearDown()
-        {
-            Process process = new Process();
-            process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
-            process.StartInfo.FileName = "cmd.exe";
-            process.StartInfo.WorkingDirectory = Path.GetFullPath("../../../../../../nebuloo");
-            process.StartInfo.Arguments = "/C docker compose exec app php artisan db:seed --class=SeleniumLoginTestTearDownSeeder";
-            process.Start();
-            process.WaitForExit();
-        }
-        public void PostsWithCommentsCreationSetUp()
-        {
-            Process process = new Process();
-            process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
-            process.StartInfo.FileName = "cmd.exe";
-            process.StartInfo.WorkingDirectory = Path.GetFullPath("../../../../../../nebuloo");
-            process.StartInfo.Arguments = "/C docker compose exec app php artisan db:seed --class=SeleniumPostActionsTestSeeder";
-            process.Start();
-            process.WaitForExit();
-        }
-        public void PostsWithCommentsTeardown()
-        {
-            Process process = new Process();
-            process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
-            process.StartInfo.FileName = "cmd.exe";
-            process.StartInfo.WorkingDirectory = Path.GetFullPath("../../../../../../nebuloo");
-            process.StartInfo.Arguments = "/C docker compose exec app php artisan db:seed --class=SeleniumPostActionsTestTearDownSeeder";
-            process.Start();
-            process.WaitForExit();
-        }
-        public void TicketSeederSetUp()
-        {
-            Process process = new Process();
-            process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
-            process.StartInfo.FileName = "cmd.exe";
-            process.StartInfo.WorkingDirectory = Path.GetFullPath("../../../../../../nebuloo");
-            process.StartInfo.Arguments = "/C docker compose exec app php artisan db:seed --class=SeleniumTicketTestSeeder";
-            process.Start();
-            process.WaitForExit();
-        }
-        public void TicketSeederTeardown()
-        {
-            Process process = new Process();
-            process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
-            process.StartInfo.FileName = "cmd.exe";
-            process.StartInfo.WorkingDirectory = Path.GetFullPath("../../../../../../nebuloo");
-            process.StartInfo.Arguments = "/C docker compose exec app php artisan db:seed --class=SeleniumTicketTestTearDownSeeder";
+            process.StartInfo.Arguments = "/C docker compose exec app php artisan db:seed --class=" + filename;
             process.Start();
             process.WaitForExit();
         }

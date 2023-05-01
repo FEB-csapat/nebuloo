@@ -8,7 +8,6 @@ namespace NebulooWebTest
 {
     public class NavBarTest
     {
-        SeederHandler seederhandler = new SeederHandler();
         IWebDriver driver;
         static string baseUrl = "http://localhost:8881/";
         WebDriverWait wait;
@@ -52,7 +51,7 @@ namespace NebulooWebTest
         public void NavBarTicketsViewTest()
         {
             driver.Url = baseUrl + "login";
-            seederhandler.LoginSeederSetUp();
+            SeederHandler.TestSeederSetUp("SeleniumLoginTestSeeder");
             var usernameTextbox = driver.FindElement(By.Name("identifier"));
             usernameTextbox.SendKeys("Admin");
 
@@ -66,13 +65,13 @@ namespace NebulooWebTest
             var ticketsviewButton = driver.FindElement(By.Name("navtickets"));
             ticketsviewButton.Click();
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "tickets"));
-            seederhandler.LoginSeederTearDown();
+            SeederHandler.TestSeederTearDown("SeleniumLoginTestTearDownSeeder");
         }
         [Test]
         public void NavbarMyprofile_as_userTest()
         {
             driver.Url = baseUrl + "login";
-            seederhandler.LoginSeederSetUp();
+            SeederHandler.TestSeederSetUp("SeleniumLoginTestSeeder");
             var usernameTextbox = driver.FindElement(By.Name("identifier"));
             usernameTextbox.SendKeys("TestUser");
 
@@ -85,7 +84,7 @@ namespace NebulooWebTest
             var myprofileButton = driver.FindElement(By.Name("navprofile"));
             myprofileButton.Click();
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "me"));
-            seederhandler.LoginSeederTearDown();
+            SeederHandler.TestSeederTearDown("SeleniumLoginTestTearDownSeeder");
         }
         [Test]
         public void NavbarMyprofile_as_guestTest()

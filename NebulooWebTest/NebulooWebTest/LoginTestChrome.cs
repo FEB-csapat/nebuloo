@@ -8,7 +8,6 @@ namespace NebulooWebTest
 {
     public class LoginTestChrome
     {
-        SeederHandler seederhandler = new SeederHandler();
         IWebDriver driver;
         static string baseUrl = "http://localhost:8881/";
         WebDriverWait wait;
@@ -18,7 +17,7 @@ namespace NebulooWebTest
         {
             new DriverManager().SetUpDriver(new ChromeConfig());
             driver = new ChromeDriver();
-            seederhandler.LoginSeederSetUp();
+            SeederHandler.TestSeederSetUp("SeleniumLoginTestSeeder");
             wait = new WebDriverWait(driver, new TimeSpan(0, 0, 15));
         }
 
@@ -51,7 +50,7 @@ namespace NebulooWebTest
             var submitButton = driver.FindElement(By.Name("login"));
             submitButton.Click();
 
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("errormessage")));
         }
 
         [Test]
@@ -67,7 +66,7 @@ namespace NebulooWebTest
             var submitButton = driver.FindElement(By.Name("login"));
             submitButton.Click();
 
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("errormessage")));
         }
 
         [Test]
@@ -83,12 +82,12 @@ namespace NebulooWebTest
             var submitButton = driver.FindElement(By.Name("login"));
             submitButton.Click();
 
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("errormessage")));
         }
         [TearDown]
         public void TearDown()
         {
-            seederhandler.LoginSeederTearDown();
+            SeederHandler.TestSeederTearDown("SeleniumLoginTestTearDownSeeder");
             driver.Quit();
         }
     }

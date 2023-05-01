@@ -8,7 +8,6 @@ namespace NebulooWebTest
 {
     public class RegistrationTest
     {
-        SeederHandler seederhandler = new SeederHandler();
         IWebDriver driver;
 
         static string baseUrl = "http://localhost:8881/";
@@ -25,7 +24,7 @@ namespace NebulooWebTest
         [Test]
         public void SuccessfulRegistrationTest()
         {
-            seederhandler.RegistrationSeederSetUp();
+            SeederHandler.TestSeederSetUp("SeleniumRegistrationTestSeeder");
             driver.Url = baseUrl + "registration";
 
             var usernameTextbox = driver.FindElement(By.Name("name"));
@@ -215,7 +214,7 @@ namespace NebulooWebTest
         [TearDown]
         public void TearDown()
         {
-            seederhandler.RegistrationSeederSetUp();
+            SeederHandler.TestSeederTearDown("SeleniumRegistrationTestSeeder");
             driver.Quit();
         }
     }

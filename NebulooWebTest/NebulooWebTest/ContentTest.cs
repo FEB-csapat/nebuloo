@@ -9,7 +9,6 @@ namespace NebulooWebTest
     public class ContentTest
     {
         IWebDriver driver;
-        SeederHandler seederhandler = new SeederHandler();
         static string baseUrl = "http://localhost:8881/";
         WebDriverWait wait;
         [SetUp]
@@ -18,7 +17,7 @@ namespace NebulooWebTest
             new DriverManager().SetUpDriver(new ChromeConfig());
             driver = new ChromeDriver();
             driver.Url = baseUrl + "login";
-            seederhandler.ContentSeederSetUp();
+            SeederHandler.TestSeederSetUp("SeleniumContentTest_1_Seeder");
             wait = new WebDriverWait(driver, new TimeSpan(0, 0, 15));
             var usernameTextboxLogin = driver.FindElement(By.Name("identifier"));
             usernameTextboxLogin.SendKeys("TestUser");
@@ -149,7 +148,7 @@ namespace NebulooWebTest
         [TearDown]
         public void TearDown()
         {
-            seederhandler.ContentSeederTearDown();
+            SeederHandler.TestSeederTearDown("ReverseSeleniumContentTest_1_Seeder");
             driver.Quit();
         }
     }
