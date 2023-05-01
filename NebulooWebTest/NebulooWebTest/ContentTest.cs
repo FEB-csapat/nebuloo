@@ -45,6 +45,22 @@ namespace NebulooWebTest
 
         }
         [Test]
+        public void ContentCreationWithTagsTest()
+        {
+            var contentcreationButton = driver.FindElement(By.ClassName("fab-button"));
+            contentcreationButton.Click();
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents/create"));
+            var contentbodyTextArea = driver.FindElement(By.XPath("/html/body/div/div[1]/div/div[1]/div[2]/div[2]/div[1]/textarea"));
+            contentbodyTextArea.SendKeys("Test content");
+
+
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contentdfgs/"));
+            var submitButtonContent = driver.FindElement(By.Name("createcontent"));
+            submitButtonContent.Click();
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents/"));
+
+        }
+        [Test]
         public void ContentCreationWithoutBodyTest()
         {
             var contentcreationButton = driver.FindElement(By.ClassName("fab-button"));
