@@ -8,7 +8,7 @@
 
             </div>
             <div class="text-end p-2">
-                <button class="btn" id="button" @click="NewTicket()" name="createticket">
+                <button class="btn nebuloobutton" @click="NewTicket()" name="createticket">
                     Létrehozás
                 </button>
             </div>

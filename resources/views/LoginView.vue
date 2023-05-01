@@ -8,7 +8,7 @@
                 <label for="password" class="form-label mt-2">Jelszó:</label>
                 <Field id="password_field" type="password" name="password" placeholder="Jelszó" class="form-control"/>
 
-                <button type="submit" class="my-3 btn" id="button" name="login">Bejelentkezés</button>
+                <button type="submit" class="my-3 btn nebuloobutton" name="login">Bejelentkezés</button>
 
                 <div v-if="errorMessage" name="errormessage" class="error-message bg-opacity-25 border border-danger p-2 d-flex">{{errorMessage}}</div>
             </Form>
@@ -20,7 +20,7 @@
                 <p>
                     Nincs még felhasználód? Regisztrálj egyet!
                 </p>
-                <button class="btn" id="button">
+                <button class="btn nebuloobutton">
                     <router-link class="nav-link active" aria-current="page" :to="{ name: 'registration'}">Regisztráció</router-link>
                 </button>
             </div>

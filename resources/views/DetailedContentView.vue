@@ -29,7 +29,7 @@
 
         <div v-if="!isWaiting" class="d-flex flex-row">
             <div class="col-sm-4">
-                <button class="btn m-1" id="button" @click="downloadContent()" name="contentdownload">
+                <button class="btn m-1 nebuloobutton" @click="downloadContent()" name="contentdownload">
                     Letöltés
                 </button>
             </div>

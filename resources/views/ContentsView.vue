@@ -23,7 +23,7 @@
         </div>
 
         <h3 v-if="searchTerm != null && searchTerm != ''" class="text-center mb-4">Keresési találatok "{{ searchTerm }}" kifejezésre:</h3>
-        <h3 v-else class="text-center mb-4">Kerési találatok:</h3>
+        <h3 v-else class="text-center mb-4">Keresési találatok:</h3>
 
         <loading-spinner v-if="isWaiting"/>
         

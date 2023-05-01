@@ -5,7 +5,7 @@
     <div v-if="!isWaiting" >
         <div class="row bg-light mt-3 mb-2 rounded-3 p-3 shadow">
             <div class="col text-end" v-if="isMyProfile">
-                <button class="btn" id="button" name="logout" @click="signOut()">
+                <button class="btn nebuloobutton" name="logout" @click="signOut()">
                     Kijelentkezés
                 </button>
             </div>
