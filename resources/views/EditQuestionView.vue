@@ -3,7 +3,7 @@
     <h1 class="text-center mb-4">Kérdés szerkesztése</h1>
     <div class="row bg-light shadow rounded-3 p-2">
 
-        <loading-spinner :show="isWaiting"/>
+        <loading-spinner v-if="isWaiting"/>
 
         <tag-selector v-if="!isWaiting" @subjectItemSelected="handleSubjectItemSelected" @topicItemSelected="handleTopicItemSelected"
                 :defaultSubjectId="subjectId" :defaultTopicId="topicId"

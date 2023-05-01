@@ -64,7 +64,10 @@ export default{
     mounted(){
         this.editor = new EasyMDE({
             element: this.$refs.editor,
-            
+            insertTexts: {
+                image: ["![](", ")"],
+                
+            },
             toolbar: [
                 'bold',
                 'italic',

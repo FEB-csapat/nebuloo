@@ -51,7 +51,7 @@ class ApiRegisterTest extends TestCase
         ])->post("/api/register", $this->data);
 
         $response
-        ->assertStatus(422)
+        ->assertUnprocessable()
         ->assertJson([
             'message' => 'jelszó megerősítése nem egyezik meg.',
             'errors' => [
@@ -73,7 +73,7 @@ class ApiRegisterTest extends TestCase
         ])->post("/api/register", $this->data);
     
         $response
-            ->assertStatus(422)
+            ->assertUnprocessable()
             ->assertJson([
                 'message' => 'A(z) jelszó formátuma érvénytelen.',
                 'errors' => [
@@ -95,7 +95,7 @@ class ApiRegisterTest extends TestCase
         ])->post("/api/register", $this->data);
 
         $response
-        ->assertStatus(422)
+        ->assertUnprocessable()
         ->assertJson([
             'message' => 'A(z) jelszó hossza legalább 8 karakter kell legyen. (and 1 more error)',
             'errors' => [
@@ -120,7 +120,7 @@ class ApiRegisterTest extends TestCase
         ])->post("/api/register", $this->data);
 
         $response
-        ->assertStatus(422)
+        ->assertUnprocessable()
         ->assertJson([
             'message' => 'A(z) jelszó formátuma érvénytelen.',
             'errors' => [
@@ -145,7 +145,7 @@ class ApiRegisterTest extends TestCase
         ])->post("/api/register", $this->data);
 
         $response
-        ->assertStatus(422)
+        ->assertUnprocessable()
         ->assertJson([
             'message' => 'A(z) jelszó formátuma érvénytelen.',
             'errors' => [
@@ -169,7 +169,7 @@ class ApiRegisterTest extends TestCase
         ])->post("/api/register", $this->data);
 
         $response
-        ->assertStatus(422)
+        ->assertUnprocessable()
         ->assertJson([
             'message' => 'A(z) jelszó formátuma érvénytelen.',
             'errors' => [
@@ -192,7 +192,7 @@ class ApiRegisterTest extends TestCase
         ])->post("/api/register", $this->data);
 
         $response
-        ->assertStatus(422)
+        ->assertUnprocessable()
         ->assertJson([
             'message' => 'jelszó megerősítése nem egyezik meg.',
             'errors' => [
@@ -215,7 +215,7 @@ class ApiRegisterTest extends TestCase
         ])->post("/api/register", $this->data);
 
         $response
-        ->assertStatus(422)
+        ->assertUnprocessable()
         ->assertJson([
             'message' => 'A(z) e-mail cím mező kitöltése kötelező.',
             'errors' => [
@@ -238,7 +238,7 @@ class ApiRegisterTest extends TestCase
         ])->post("/api/register", $this->data);
 
         $response
-        ->assertStatus(422)
+        ->assertUnprocessable()
         ->assertJson([
             'message' => 'A(z) felhasználónév mező kitöltése kötelező.',
             'errors' => [
@@ -261,7 +261,7 @@ class ApiRegisterTest extends TestCase
         ])->post("/api/register", $this->data);
 
         $response
-        ->assertStatus(422)
+        ->assertUnprocessable()
         ->assertJson([
             'message' => 'e-mail cím érvényes email cím kell legyen.',
             'errors' => [
@@ -284,7 +284,7 @@ class ApiRegisterTest extends TestCase
         ])->post("/api/register", $this->data);
 
         $response
-        ->assertStatus(422)
+        ->assertUnprocessable()
         ->assertJson([
             'message' => 'A(z) felhasználónév hossza legalább 4 karakter kell legyen.',
             'errors' => [
@@ -307,7 +307,7 @@ class ApiRegisterTest extends TestCase
         ])->post("/api/register", $this->data);
 
         $response
-        ->assertStatus(422)
+        ->assertUnprocessable()
         ->assertJson([
             'message' => 'A(z) felhasználónév hossza nem lehet nagyobb, mint 25 karakter.',
             'errors' => [
@@ -330,7 +330,7 @@ class ApiRegisterTest extends TestCase
         ])->post("/api/register", $this->data);
 
         $response
-        ->assertStatus(422)
+        ->assertUnprocessable()
         ->assertJson([
             'message' => 'A(z) jelszó mező kitöltése kötelező.',
             'errors' => [
@@ -356,7 +356,7 @@ class ApiRegisterTest extends TestCase
         ])->post("/api/register", $this->data);
 
         $response
-        ->assertStatus(422)
+        ->assertUnprocessable()
         ->assertJson([
             'message' => 'A(z) felhasználónév már foglalt.',
             'errors' => [
@@ -382,7 +382,7 @@ class ApiRegisterTest extends TestCase
         ])->post("/api/register", $this->data);
 
         $response
-        ->assertStatus(422)
+        ->assertUnprocessable()
         ->assertJson([
             'message' => 'A(z) e-mail cím már foglalt.',
             'errors' => [
@@ -405,7 +405,7 @@ class ApiRegisterTest extends TestCase
         ])->post("/api/register", $this->data);
 
         $response
-        ->assertStatus(422)
+        ->assertUnprocessable()
         ->assertJson([
             'message' => 'felhasználónév csak betűket és számokat tartalmazhat.',
             'errors' => [

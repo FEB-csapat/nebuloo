@@ -1,7 +1,6 @@
 <template>
     <div class="container my-3 ">
         <div class="row bg-light shadow rounded-3 p-2">
-            
             <h1>Tananyag szerkesztése</h1>
             <div v-if="isWaiting" id="loading-spinner" class="spinner-border mx-auto" role="status"></div>
                 <div>
@@ -11,7 +10,6 @@
 
                     <textarea ref="editor" name="leiras" id="leiras" class="form-control"></textarea>
                 </div>
-
             <div class="text-end p-3">
                 <button class="btn" id="button" @click="editContent()" name="contentupdatesave">
                     Változtatások mentése
@@ -134,7 +132,7 @@ export default{
             this.subjectId = response.data.subject?.id;
             this.topicId = response.data.topic?.id;
             this.editor.value(response.data.body);
-            // set the focus to the end 
+            // set the focus to the end of text
             this.editor.codemirror.setCursor(this.editor.codemirror.lineCount(), 0);
         } else {
             // TODO: error handling: Something went wrong

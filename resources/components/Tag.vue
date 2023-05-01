@@ -1,6 +1,5 @@
 <template>
-    
-    <span :class="['badge', 'm-1', 'p-2', {'bg-green': subject, 'bg-yellow': topic}]">{{ text }}</span>
+    <span :class="['badge', 'm-1', 'p-2', 'fs-6', {'bg-green': subject, 'bg-blue': topic}]">{{ text }}</span>
 </template>
 
 <script>
@@ -41,7 +40,7 @@ export default{
     background-color: green;
 }
 
-.bg-yellow {
+.bg-blue {
     color: black;
     background-color: steelblue;
 }

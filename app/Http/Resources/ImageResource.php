@@ -17,7 +17,7 @@ class ImageResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'url' => url('/api/images/' . $this->id),//Storage::path($this->path),
+            'url' => url('/api/images/' . $this->id) . '.' . pathinfo($this->path, PATHINFO_EXTENSION),
             'creator_user_id' => $this->creator_user_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

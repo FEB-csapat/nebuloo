@@ -80,7 +80,7 @@ class ApiLoginTest extends TestCase
         ])->post("/api/login", $this->data);
 
         $response
-        ->assertStatus(404)
+        ->assertNotFound()
         ->assertJson([
             'message' => __('messages.identifier_not_found'),
         ]);
@@ -98,7 +98,7 @@ class ApiLoginTest extends TestCase
         ])->post("/api/login", $this->data);
 
         $response
-        ->assertStatus(404)
+        ->assertNotFound()
         ->assertJson([
             'message' => __('messages.identifier_not_found'),
     ]);
@@ -116,7 +116,7 @@ class ApiLoginTest extends TestCase
         ])->post("/api/login", $this->data);
 
         $response
-        ->assertStatus(401)
+        ->assertUnauthorized()
         ->assertJson([
             'message' => __('messages.wrong_password'),
     ]);
@@ -135,7 +135,7 @@ class ApiLoginTest extends TestCase
         ])->post("/api/login", $this->data);
 
         $response
-        ->assertStatus(404)
+        ->assertNotFound()
         ->assertJson([
             'message' => __('messages.identifier_not_found'),
         ]);
@@ -154,7 +154,7 @@ class ApiLoginTest extends TestCase
         ])->post("/api/login", $this->data);
 
         $response
-        ->assertStatus(404)
+        ->assertNotFound()
         ->assertJson([
             'message' => __('messages.identifier_not_found'),
         ]);
@@ -172,7 +172,7 @@ class ApiLoginTest extends TestCase
         ])->post("/api/login", $this->data);
 
         $response
-        ->assertStatus(422)
+        ->assertUnprocessable()
         ->assertJson([
             'message' => 'A(z) azonosító mező kitöltése kötelező.',
             'errors' => [
@@ -193,7 +193,7 @@ class ApiLoginTest extends TestCase
         ])->post("/api/login", $this->data);
 
         $response
-        ->assertStatus(422)
+        ->assertUnprocessable()
         ->assertJson([
             'message' => 'A(z) jelszó mező kitöltése kötelező.',
             'errors' => [
@@ -215,7 +215,7 @@ class ApiLoginTest extends TestCase
         ])->post("/api/login", $this->data);
 
         $response
-        ->assertStatus(422)
+        ->assertUnprocessable()
         ->assertJson([
             'message' => 'A(z) azonosító mező kitöltése kötelező. (and 1 more error)',
             'errors' => [
@@ -236,7 +236,7 @@ class ApiLoginTest extends TestCase
         ])->post("/api/login", $this->data);
 
         $response
-        ->assertStatus(403)
+        ->assertForbidden()
         ->assertJson([
             'message' => __('messages.user_banned'),
         ]);

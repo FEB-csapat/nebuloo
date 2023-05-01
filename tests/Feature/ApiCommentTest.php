@@ -77,7 +77,7 @@ class ApiCommentTest extends TestCase
         ])->get('api/comments/me');
 
         $response
-            ->assertStatus(401)
+            ->assertUnauthorized()
             ->assertJson([
                 'message' => 'Unauthenticated.'
         ]);
@@ -169,8 +169,7 @@ class ApiCommentTest extends TestCase
             'Accept' => 'application/json',
         ])->post("/api/contents/{$content->id}/comments", $data);
 
-        $response
-        ->assertStatus(401)
+        $response->assertUnauthorized()
         ->assertJson([
             'message' => 'Unauthenticated.'
         ]);
@@ -262,7 +261,7 @@ class ApiCommentTest extends TestCase
         ])->post("/api/questions/{$question->id}/comments", $data);
 
         $response
-        ->assertStatus(401)
+        ->assertUnauthorized()
         ->assertJson([
             'message' => 'Unauthenticated.'
         ]);
@@ -354,7 +353,7 @@ public function test_show_a_comment_as_guest()
         ])->put("/api/comments/{$comment->id}", $data);
 
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
 
         $this->assertDatabaseMissing('comments', [
             'id' => $comment->id,
@@ -378,7 +377,7 @@ public function test_show_a_comment_as_guest()
 
 
         $response
-        ->assertStatus(401)
+        ->assertUnauthorized()
         ->assertJson([
             'message' => 'Unauthenticated.'
         ]);
@@ -466,7 +465,7 @@ public function test_show_a_comment_as_guest()
             'Accept' => 'application/json',
         ])->delete("/api/comments/{$comment->id}");
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
         $this->assertDatabaseHas('comments', [
             'id' => $comment->id
         ]);
@@ -483,7 +482,7 @@ public function test_show_a_comment_as_guest()
         ])->delete("/api/comments/{$comment->id}");
 
         $response
-            ->assertStatus(401)
+            ->assertUnauthorized()
             ->assertJson([
                 'message' => 'Unauthenticated.'
         ]);

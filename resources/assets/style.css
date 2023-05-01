@@ -149,10 +149,19 @@ body{
     display: none;
 }
 
+.card_content_view_textarea .editor-statusbar .cursor {
+    display: none;
+}
+
+.detailed_content_view_textarea .editor-statusbar .cursor {
+    display: none;
+}
+
 .EasyMDEContainer img{
     max-width: 100%;
     height: auto;
 }
+
 @media only screen and (max-width: 800px) {
     .commentcard{
         flex-direction: column;
@@ -173,4 +182,17 @@ body{
     overflow: hidden;
 }
 
+.editor-statusbar span {
+    min-width: 2em;
+}
 
+.editor-statusbar .lines:before {
+    content: 'sor: ';
+}
+.editor-statusbar .words:before {
+    content: 'szó: ';
+}
+
+.editor-statusbar .cursor:before {
+    content: 'kurzor: ';
+}

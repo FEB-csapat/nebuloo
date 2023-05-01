@@ -25,7 +25,7 @@
         <h3 v-if="searchTerm != null && searchTerm != ''" class="text-center mb-4">Keresési találatok "{{ searchTerm }}" kifejezésre:</h3>
         <h3 v-else class="text-center mb-4">Kerési találatok:</h3>
 
-        <loading-spinner :show="isWaiting"/>
+        <loading-spinner v-if="isWaiting"/>
         
         <div id="content-card-container">
             <content-card v-for="content in contents" :content="content" :key="content.id"/>

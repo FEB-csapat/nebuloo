@@ -52,7 +52,7 @@
     
     </Form>
         
-    <loading-spinner :show="isWaiting"/>
+    <loading-spinner v-if="isWaiting"/>
     <router-link class="nav-link active btn btn-success my-3 p-2" aria-current="page" :to="{ name: 'login'}">Bejelentkezés</router-link>
 
         </div>

@@ -2,7 +2,7 @@
     <div id="vote_container" class="row text-center">
         <div v-if="isLoggedIn" class="col">
             <i id="upvote" @click="toggleUpvote" :class="['fas', 'fa-up-long', 'fa-lg', {'upvoted': voteState === 1}]" name="upvote_arrow"/>
-            <p id="votecount" class="pt-3 text-center" style="margin-left: 3px;">{{voteCounted + voteState}}</p>
+            <p id="votecount" class="pt-3 text-center">{{voteCounted + voteState}}</p>
             <i id="downvote" @click="toggleDownvote" :class="['fas', 'fa-down-long', 'fa-lg', {'downvoted': voteState === -1}]" name="downvote_arrow"/>
         </div>
         <div v-else class="col">

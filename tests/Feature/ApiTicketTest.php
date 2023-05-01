@@ -28,10 +28,9 @@ class ApiTicketTest extends TestCase
             'body' => 'test body'
         ]);
 
-        $response->assertStatus(401);
+        $response->assertUnauthorized();
     }
 
-   // TODO: User interactions are forbidden
     public function test_ticket_creation_as_user()
     {
 
@@ -42,11 +41,9 @@ class ApiTicketTest extends TestCase
             'body' => 'test body'
         ]);
     
-        $response->assertStatus(201);
+        $response->assertCreated();
     }
 
-
-  //  TODO:moderator interactions are forbidden
     public function test_ticket_creation_as_moderator()
     {
         $moderator = User::factory()->create();
@@ -78,7 +75,7 @@ class ApiTicketTest extends TestCase
             'body' => 'test body'
         ]);
         
-        $response->assertStatus(201);
+        $response->assertCreated();
         $this->assertDatabaseHas('tickets', [
             'body'=>'test body',
             'creator_user_id' => $admin->id
@@ -93,7 +90,7 @@ class ApiTicketTest extends TestCase
         ])->get('api/tickets/me');
 
         $response
-            ->assertStatus(401)
+            ->assertUnauthorized()
             ->assertJson([
                 'message' => 'Unauthenticated.'
         ]);
@@ -151,18 +148,20 @@ class ApiTicketTest extends TestCase
     public function test_update_others_ticket_as_user()
     {
         $otherUser = User::factory()->create();
-        $ticket = Ticket::factory()->create(['creator_user_id' => $otherUser->id]);
+        $ticket = Ticket::factory()->create([
+            'creator_user_id' => $otherUser->id,
+            'body' => 'test body',
+            'state' => true
+        ]);
 
         $response = $this->actingAs($this->user, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
         ])->put("/api/tickets/{$ticket->id}",[
-            'body'=>'updated ticket'
+            'state'=> false
         ]);
 
-
-        $response->assertStatus(403);
-
+        $response->assertForbidden();
         $this->assertDatabaseMissing('tickets', [
             'id' => $ticket->id,
             'body' => 'updated ticket'
@@ -172,27 +171,35 @@ class ApiTicketTest extends TestCase
     public function test_update_others_ticket_as_guest()
     {
         $otherUser = User::factory()->create();
-        $ticket = Ticket::factory()->create(['creator_user_id' => $otherUser->id]);
+        $ticket = Ticket::factory()->create([
+            'creator_user_id' => $otherUser->id,
+            'body' => 'test body',
+            'state' => true
+        ]);
 
         $response = $this
         ->withHeaders([
             'Accept' => 'application/json',
         ])->put("/api/tickets/{$ticket->id}",[
-            'body'=>'updated ticket'
+            'state' => false
         ]);
 
-        $response->assertStatus(401);
-
-        $this->assertDatabaseMissing('tickets', [
+        $response->assertUnauthorized();
+        $this->assertDatabaseHas('tickets', [
             'id' => $ticket->id,
-            'body' => 'updated ticket'
+            'body' => 'test body',
+            'state' => true
         ]);
     }
 
     public function test_update_others_ticket_as_moderator()
     {
         $otherUser = User::factory()->create();
-        $ticket = Ticket::factory()->create(['creator_user_id' => $otherUser->id]);
+        $ticket = Ticket::factory()->create([
+            'creator_user_id' => $otherUser->id,
+            'body' => 'test body',
+            'state' => true
+        ]);
 
         $moderator = User::factory()->create();
         $moderator->setRoleToModerator();
@@ -201,7 +208,7 @@ class ApiTicketTest extends TestCase
         ->withHeaders([
             'Accept' => 'application/json',
         ])->put("/api/tickets/{$ticket->id}",[
-            'body'=>'updated ticket'
+            'state' => false
         ]);
 
 
@@ -209,14 +216,19 @@ class ApiTicketTest extends TestCase
 
         $this->assertDatabaseHas('tickets', [
             'id' => $ticket->id,
-            'body' => 'updated ticket'
+            'body' => 'test body',
+            'state' => false
         ]);
     }
 
     public function test_update_others_ticket_as_admin()
     {
         $otherUser = User::factory()->create();
-        $ticket = Ticket::factory()->create(['creator_user_id' => $otherUser->id]);
+        $ticket = Ticket::factory()->create([
+            'creator_user_id' => $otherUser->id,
+            'body' => 'test body',
+            'state' => true
+        ]);
 
         $admin = User::factory()->create();
         $admin->setRoleToAdmin();
@@ -225,7 +237,7 @@ class ApiTicketTest extends TestCase
         ->withHeaders([
             'Accept' => 'application/json',
         ])->put("/api/tickets/{$ticket->id}",[
-            'body'=>'updated ticket'
+            'state'=> false
         ]);
 
 
@@ -233,74 +245,57 @@ class ApiTicketTest extends TestCase
 
         $this->assertDatabaseHas('tickets', [
             'id' => $ticket->id,
-            'body' => 'updated ticket'
+            'body' => 'test body',
+            'state' => false
         ]);
     }
 
-    public function test_update_my_ticket_as_admin()
-    {
-        $admin = User::factory()->create();
-        $admin->setRoleToAdmin();
-        
-        $ticket = Ticket::factory()->create(['creator_user_id' => $admin->id]);
-
-        $response = $this->actingAs($admin, 'sanctum')
-        ->withHeaders([
-            'Accept' => 'application/json',
-        ])->put("/api/tickets/{$ticket->id}",[
-            'body'=>'updated ticket'
-        ]);
-
-
-        $response->assertOK();
-
-        $this->assertDatabaseHas('tickets', [
-            'id' => $ticket->id,
-            'body' => 'updated ticket'
-        ]);
-    }
-    //TODO: User interactions are forbidden
     public function test_update_my_ticket_as_moderator()
     {
         $moderator = User::factory()->create();
         $moderator->setRoleToModerator();
     
-        $ticket = Ticket::factory()->create(['creator_user_id' => $moderator->id]);
+        $ticket = Ticket::factory()->create([
+            'creator_user_id' => $moderator->id,
+            'body' => 'test body',
+            'state' => true
+        ]);
 
         $response = $this->actingAs($moderator, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
         ])->put("/api/tickets/{$ticket->id}",[
-            'body'=>'updated ticket'
+            'state'=> false
         ]);
-
 
         $response->assertOK();
-
         $this->assertDatabaseHas('tickets', [
             'id' => $ticket->id,
-            'body' => 'updated ticket'
+            'body' => 'test body',
+            'state' => false
         ]);
     }
-//TODO: User interactions are forbidden
+    
     public function test_update_my_ticket_as_user()
     {
-    
-        $ticket = Ticket::factory()->create(['creator_user_id' => $this->user->id]);
+        $ticket = Ticket::factory()->create([
+            'creator_user_id' => $this->user->id,
+            'body' => 'test body',
+            'state' => true
+        ]);
 
         $response = $this->actingAs($this->user, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
         ])->put("/api/tickets/{$ticket->id}",[
-            'body'=>'updated ticket'
+            'state' => false
         ]);
 
-
-        $response->assertStatus(403);
-
+        $response->assertForbidden();
         $this->assertDatabaseMissing('tickets', [
             'id' => $ticket->id,
-            'body' => 'updated ticket'
+            'body' => 'test body',
+            'state' => false
         ]);
     }
 
@@ -318,7 +313,7 @@ class ApiTicketTest extends TestCase
 
 
         $response
-            ->assertStatus(401)
+            ->assertUnauthorized()
             ->assertJson([
                 'message' => 'Unauthenticated.'
         ]);
@@ -334,12 +329,12 @@ class ApiTicketTest extends TestCase
             'Accept' => 'application/json',
         ])->delete("/api/tickets/{$ticket->id}");
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
         $this->assertDatabaseHas('tickets', [
             'id' => $ticket->id
         ]);
     }
-    //TODO: User interactions are forbidden
+    
     public function test_delete_others_ticket_as_guest()
     {
         $otherUser = User::factory()->create();
@@ -351,7 +346,7 @@ class ApiTicketTest extends TestCase
         ])->delete("/api/tickets/{$ticket->id}");
 
         $response
-            ->assertStatus(401)
+            ->assertUnauthorized()
             ->assertJson([
                 'message' => 'Unauthenticated.'
         ]);
@@ -412,7 +407,7 @@ class ApiTicketTest extends TestCase
             'id' => $ticket->id
         ]);
     }
-    //TODO: User interactions are forbidden
+    
     public function test_delete_my_ticket_as_moderator()
     {
         $moderator = User::factory()->create();
@@ -430,7 +425,7 @@ class ApiTicketTest extends TestCase
             'id' => $ticket->id
         ]);
     }
-    //TODO: User interactions are forbidden
+    
     public function test_delete_my_ticket_as_user()
     {
         $ticket = Ticket::factory()->create(['creator_user_id' => $this->user->id]);

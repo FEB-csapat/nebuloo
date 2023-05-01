@@ -1,53 +1,46 @@
 <template>
-    <div class="container">
-        <h2 class="text-center mt-3 mb-2">Kérdés megtekintése</h2>
+<div class="container">
+    <h2 class="text-center mt-3 mb-2">Kérdés megtekintése</h2>
 
-        <div class="row bg-light shadow rounded-3 p-2">
-            
-            <loading-spinner :show="isWaiting"/>
+    <div class="row bg-light shadow rounded-3 p-2">
+        
+        <loading-spinner v-if="isWaiting"/>
 
-            <div  v-if="!isWaiting">
-                <div class="row">
-                    <div class="col text-center ">
-                        <div class="d-flex justify-content-between">
-                            <div class="">
-                                <user v-if="question!=null" :user="question.creator"></user>  
-    
-                                <div v-if="question!=null" class="">
-                                    <p v-if="question != null">{{questionCreationDate}}</p>
-                                    <p v-if="question != null">{{questionCreationTime}}</p>
-                                </div>
-                            </div>
-                            <vote v-if="question!=null" :votableId="id" :voteCount="question.recieved_votes" :myVote="question.my_vote"></vote>
+        <div v-else>
+            <div class="row">
+                <div class="col text-center ">
+                    <div class="d-flex justify-content-between">
+                        <div class="">
+                            <user :user="question.creator"></user>  
                         </div>
-                    </div>
-                </div>
-    
-                <tag-list v-if="question!=null" :subject="question.subject" :topic="question.topic" name="detailedquestiontags"/>
-    
-    
-                <div>
-                    <h1>
-                        {{ question.title }}
-                    </h1>
-                    <p>{{question.body}}</p>
-                </div>
-    
-                <div class="row" v-if="canEditAndDelete">
-                    <div class="col-sm-6">
-                        <button class="btn btn-success" name="questionupdate" @click="navigateToEditView()">
-                            Kérdés szerkesztése
-                        </button>
-                    </div>
-                    <div class="col-sm-6 text-end">
-                        <button class="btn btn-danger" name="questiondelete" @click="deletePost()">
-                            Kérdés törlése
-                        </button> 
+                        <vote :votableId="id" :voteCount="question.recieved_votes" :myVote="question.my_vote"></vote>
                     </div>
                 </div>
             </div>
-
             
+            <div class="d-flex justify-content-between align-items-end">
+                <tag-list :subject="question.subject" :topic="question.topic" name="detailedquestiontags"/>
+                <p class="text-end">{{question.created_at}}</p>
+            </div>
+            
+            <div>
+                <h1>{{ question.title }}</h1>
+                <p>{{question.body}}</p>
+            </div>
+            
+            <div class="row" v-if="canEditAndDelete">
+                <div class="col-sm-6">
+                    <button class="btn btn-success" name="questionupdate" @click="navigateToEditView()">
+                        Kérdés szerkesztése
+                    </button>
+                </div>
+                <div class="col-sm-6 text-end">
+                    <button class="btn btn-danger" name="questiondelete" @click="deletePost()">
+                        Kérdés törlése
+                    </button> 
+                </div>
+            </div>
+        </div>
     </div>
 
     <comment-section v-if="question!=null" :comments="question.comments" :commentable_id="question.id" :commentable_type="'questions'"/>

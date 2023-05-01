@@ -7,7 +7,7 @@ COMPOSE="docker compose"
 #fi
 
 if [ -f ".env" ]; then
-    echo ".env fájl már létezik!"
+    echo ".env already exists!"
 else 
     cp .env.example .env
 fi

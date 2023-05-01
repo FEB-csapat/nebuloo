@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-    <loading-spinner :show="isWaiting"/>
+    <loading-spinner v-if="isWaiting"/>
 
     <div v-if="!isWaiting" >
         <div class="row bg-light mt-3 mb-2 rounded-3 p-3 shadow">

@@ -24,7 +24,7 @@
         
         <h3 v-if="searchTerm != ''" class="text-center mb-4">Keresési találatok: {{ $route.query.search }}</h3>
 
-        <loading-spinner :show="isWaiting"/>
+        <loading-spinner v-if="isWaiting"/>
 
         <div id="question-card-container">
             <question-card v-for="question in questions" :question="question" :key="question.id"/>

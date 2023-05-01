@@ -34,7 +34,7 @@ class ApiContentTest extends TestCase
             'Accept' => 'application/json',
         ])->get('api/contents/me');
 
-        $response->assertStatus(200);
+        $response->assertOk();
         $response->assertJsonCount(4);
 
         $contents = $response->json();
@@ -53,7 +53,7 @@ class ApiContentTest extends TestCase
         ])->get('api/contents/me');
 
         $response
-            ->assertStatus(401)
+            ->assertUnauthorized()
             ->assertJson([
                 'message' => 'Unauthenticated.'
         ]);
@@ -68,7 +68,7 @@ class ApiContentTest extends TestCase
             'body' => 'test body'
         ]);
 
-        $response->assertStatus(401);
+        $response->assertUnauthorized();
     }
 
     
@@ -81,7 +81,7 @@ class ApiContentTest extends TestCase
             'body' => 'test body'
         ]);
         
-        $response->assertStatus(201);
+        $response->assertCreated();
     }
 
     public function test_content_creation_without_body()
@@ -94,7 +94,7 @@ class ApiContentTest extends TestCase
         ]);
         
         $response
-            ->assertStatus(422)
+            ->assertUnprocessable()
             ->assertJson([
                 'message' => 'A(z) leírás mező kitöltése kötelező.',
                 'errors' => [
@@ -114,7 +114,7 @@ class ApiContentTest extends TestCase
         ]);
         
         $response
-            ->assertStatus(401)
+            ->assertUnauthorized()
             ->assertJson([
                 'message' => 'Unauthenticated.'
         ]);
@@ -135,7 +135,7 @@ class ApiContentTest extends TestCase
         ]);
         
         $response
-            ->assertStatus(403)
+            ->assertForbidden()
             ->assertJson([
                 'message' => __('messages.user_not_permitted_for_action')
         ]);
@@ -153,7 +153,7 @@ class ApiContentTest extends TestCase
         ]);
         
         $response
-            ->assertStatus(200)
+            ->assertOk()
             ->assertJson([
                 'body' => 'test body updated'
         ]);
@@ -175,7 +175,7 @@ class ApiContentTest extends TestCase
         ]);
         
         $response
-            ->assertStatus(200)
+            ->assertOk()
             ->assertJson([
                 'body' => 'test body updated'
         ]);
@@ -197,7 +197,7 @@ class ApiContentTest extends TestCase
         ]);
         
         $response
-            ->assertStatus(200)
+            ->assertOk()
             ->assertJson([
                 'body' => 'test body updated'
         ]);
@@ -213,7 +213,7 @@ class ApiContentTest extends TestCase
         ])->delete('api/contents/'.$content->id);
         
         $response
-            ->assertStatus(401)
+            ->assertUnauthorized()
             ->assertJson([
                 'message' => 'Unauthenticated.'
         ]);
@@ -228,7 +228,7 @@ class ApiContentTest extends TestCase
             'Accept' => 'application/json',
         ])->delete('api/contents/'.$content->id);
         
-        $response->assertStatus(200);
+        $response->assertOk();
     }
 
     public function test_content_delete_as_not_creator()
@@ -244,7 +244,7 @@ class ApiContentTest extends TestCase
         ])->delete('api/contents/'.$content->id);
         
         $response
-            ->assertStatus(403)
+            ->assertForbidden()
             ->assertJson([
                 'message' => __('messages.user_not_permitted_for_action')
         ]);
@@ -262,7 +262,7 @@ class ApiContentTest extends TestCase
             'Accept' => 'application/json',
         ])->delete('api/contents/'.$content->id);
         
-        $response->assertStatus(200);
+        $response->assertOk();
     }
 
     public function test_content_delete_as_moderator()
@@ -278,6 +278,6 @@ class ApiContentTest extends TestCase
             'Accept' => 'application/json',
         ])->delete('api/contents/'.$content->id);
         
-        $response->assertStatus(200);
+        $response->assertOk();
     }
 }

@@ -2,7 +2,7 @@
     <h1 class="text-center mt-4">
         Felhasználói jelentések:
     </h1>
-    <loading-spinner :show="isWaiting"/>
+    <loading-spinner v-if="isWaiting"/>
     <h4 v-if="!IsModeratorOrAdmin" name="ticketunauthentry" class="text-center"> 
         Csak megfelelő jogosultsággal rendelkező személy láthatja a hibajegyeket!
     </h4>

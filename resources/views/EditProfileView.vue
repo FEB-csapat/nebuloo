@@ -4,7 +4,7 @@
             <div class="col text-center">
                 
 
-                <loading-spinner :show="isWaiting"/>
+                <loading-spinner v-if="isWaiting"/>
                 
                 <user v-if="userData!=null" :user="userData" v-bind:showDetailed="true"></user> 
                 

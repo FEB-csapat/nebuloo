@@ -1,6 +1,6 @@
 <template>
-    <loading-spinner :show="user == null"/>
-    <div v-if="user != null" class="col text-center" @click="navigateToUserProfileView()">
+    <loading-spinner v-if="user == null"/>
+    <div v-else class="col text-center" @click="navigateToUserProfileView()">
 
         <h3  v-if="showDetailed && user.banned" class="text-danger">BANNOLVA</h3>
         <p v-if="!showDetailed && user.banned" class="text-danger text-center">BANNOLVA</p>

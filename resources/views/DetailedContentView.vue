@@ -1,53 +1,53 @@
 <template>
-    <div class="container">
-        <h2 class="text-center mt-3 mb-2">Tananyag megtekintése</h2>
-        <div class="row bg-light shadow rounded-3 pt-2 pb-2" id="contentid">
+<div class="container">
+    <h2 class="text-center mt-3 mb-2">Tananyag megtekintése</h2>
+    <div class="row bg-light shadow rounded-3 pt-2 pb-2" id="contentid">
 
-            <loading-spinner :show="isWaiting"/>
+        <loading-spinner v-if="isWaiting"/>
 
+        <div v-if="!isWaiting">
             <div class="row">
                 <div class="col text-center ">
                     <div class="d-flex justify-content-between">
-                        <div class="">
-                            <user v-if="content!=null" :user="content.creator"></user>  
-
-                            <div v-if="content!=null" class="">
-                                <p v-if="content != null">{{contentCreationDate}}</p>
-                                <p v-if="content != null">{{contentCreationTime}}</p>
-                            </div>
+                        <div>
+                            <user :user="content.creator"/>
                         </div>
-                        <vote v-if="content!=null" :votableId="id" :voteCount="content.recieved_votes" :myVote="content.my_vote"></vote>
+                        <vote :votableId="id" :voteCount="content.recieved_votes" :myVote="content.my_vote"/>
                     </div>
                 </div>
             </div>
 
-            <tag-list v-if="content!=null" :subject="content.subject" :topic="content.topic" name="detailedcontenttags"/>
-
-            <div class="detailed_content_view_textarea">
-                <textarea ref="editor" name="leiras" id="leiras" class="form-control">Betöltés...</textarea>
-            </div>
-
-            <div class="d-flex flex-row">
-                <div class="col-sm-4">
-                    <button class="btn m-1" id="button" @click="downloadContent()" name="contentdownload">
-                        Letöltés
-                    </button>
-                </div>
-                <div class="col-sm-4 text-center" v-if="canEditAndDelete">
-                    <button class=" btn btn-success m-1" name="contentupdate" @click="navigateToEditView()">
-                        Szerkesztés
-                    </button>
-                </div>
-                <div class="col-sm-4 text-end" v-if="canEditAndDelete">
-                    <button class="btn btn-danger m-1" name="contentdelete" @click="deletePost()">
-                        Törlés
-                    </button> 
-                </div>
+            <div class="d-flex justify-content-between align-items-end">
+                <tag-list :subject="content.subject" :topic="content.topic" name="detailedcontenttags"/>
+                <p class="text-end">{{content.created_at}}</p>
             </div>
         </div>
-        <comment-section v-if="content!=null" @commentAdded="commentAdded" :comments="content.comments" :commentable_id="content.id" :commentable_type="'contents'"></comment-section>
-        <SnackBar ref="snackBar"/>
+        
+        <div class="detailed_content_view_textarea">
+            <textarea ref="editor" name="leiras" id="leiras" class="form-control">Betöltés...</textarea>
+        </div>
+
+        <div v-if="!isWaiting" class="d-flex flex-row">
+            <div class="col-sm-4">
+                <button class="btn m-1" id="button" @click="downloadContent()" name="contentdownload">
+                    Letöltés
+                </button>
+            </div>
+            <div class="col-sm-4 text-center" v-if="canEditAndDelete">
+                <button class=" btn btn-success m-1" name="contentupdate" @click="navigateToEditView()">
+                    Szerkesztés
+                </button>
+            </div>
+            <div class="col-sm-4 text-end" v-if="canEditAndDelete">
+                <button class="btn btn-danger m-1" name="contentdelete" @click="deletePost()">
+                    Törlés
+                </button> 
+            </div>
+        </div>
     </div>
+    <comment-section v-if="content!=null" @commentAdded="commentAdded" :comments="content.comments" :commentable_id="content.id" :commentable_type="'contents'"></comment-section>
+    <SnackBar ref="snackBar"/>
+</div>
 </template>
 
 <script>

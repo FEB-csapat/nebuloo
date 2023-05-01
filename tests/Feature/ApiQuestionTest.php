@@ -34,7 +34,7 @@ class ApiQuestionTest extends TestCase
             'body' => 'test body'
         ]);
 
-        $response->assertStatus(401);
+        $response->assertUnauthorized();
     }
 
     /**
@@ -51,7 +51,7 @@ class ApiQuestionTest extends TestCase
             'body' => 'test body'
         ]);
         
-        $response->assertStatus(201);
+        $response->assertCreated();
         
         $this->assertDatabaseHas('questions', [
             'title'=>'test title',
@@ -72,7 +72,7 @@ class ApiQuestionTest extends TestCase
         ]);
         
         $response
-            ->assertStatus(422)
+            ->assertUnprocessable()
             ->assertJson([
                 'message' => 'A(z) cím mező kitöltése kötelező.',
                 'errors' => [
@@ -90,7 +90,7 @@ class ApiQuestionTest extends TestCase
             'title' => 'test title'
         ]);
         
-        $response->assertStatus(201);
+        $response->assertCreated();
         $this->assertDatabaseHas('questions', [
             'title'=>'test title',
             'body'=>null,
@@ -108,7 +108,7 @@ class ApiQuestionTest extends TestCase
         ]);
         
         $response
-            ->assertStatus(422)
+            ->assertUnprocessable()
             ->assertJson([
                 'message' => 'A(z) cím mező kitöltése kötelező.',
                 'errors' => [
@@ -127,7 +127,7 @@ class ApiQuestionTest extends TestCase
         ])->get('api/questions/me');
 
         $response
-            ->assertStatus(401)
+            ->assertUnauthorized()
             ->assertJson([
                 'message' => 'Unauthenticated.'
         ]);
@@ -146,7 +146,7 @@ class ApiQuestionTest extends TestCase
             'Accept' => 'application/json',
         ])->get('api/questions/me');
 
-        $response->assertStatus(200);
+        $response->assertOk();
         $response->assertJsonCount(4);
 
         $questions = $response->json();
@@ -168,7 +168,7 @@ class ApiQuestionTest extends TestCase
             'body' => 'test body'
         ]);
         
-        $response->assertStatus(201);
+        $response->assertCreated();
         
         $id = $response->json('id');
 
@@ -181,7 +181,7 @@ class ApiQuestionTest extends TestCase
         ]);
         
         $response
-            ->assertStatus(403)
+            ->assertForbidden()
             ->assertJson([
                 'message' => __('messages.user_not_permitted_for_action')
         ]);
@@ -198,7 +198,7 @@ class ApiQuestionTest extends TestCase
             'body' => 'test body'
         ]);
         
-        $response->assertStatus(201);
+        $response->assertCreated();
         
         $id = $response->json('id');
 
@@ -212,7 +212,7 @@ class ApiQuestionTest extends TestCase
         ]);
         
         $response
-            ->assertStatus(200)
+            ->assertOk()
             ->assertJson([
                 'title' => 'test title updated',
                 'body' => 'test body updated'
@@ -236,7 +236,7 @@ class ApiQuestionTest extends TestCase
         ]);
         
         $response
-            ->assertStatus(200)
+            ->assertOk()
             ->assertJson([
                 'title' => 'test title updated',
                 'body' => 'test body updated'
@@ -260,7 +260,7 @@ class ApiQuestionTest extends TestCase
         ]);
         
         $response
-            ->assertStatus(200)
+            ->assertOk()
             ->assertJson([
                 'title' => 'test title updated',
                 'body' => 'test body updated'
@@ -276,7 +276,7 @@ class ApiQuestionTest extends TestCase
         ])->delete('api/questions/'.$question->id);
         
         $response
-            ->assertStatus(401)
+            ->assertUnauthorized()
             ->assertJson([
                 'message' => 'Unauthenticated.'
         ]);
@@ -291,7 +291,7 @@ class ApiQuestionTest extends TestCase
             'Accept' => 'application/json',
         ])->delete('api/questions/'.$question->id);
         
-        $response->assertStatus(200);
+        $response->assertOk();
     }
 
     public function test_question_delete_as_not_creator()
@@ -307,7 +307,7 @@ class ApiQuestionTest extends TestCase
         ])->delete('api/questions/'.$question->id);
         
         $response
-            ->assertStatus(403)
+            ->assertForbidden()
             ->assertJson([
                 'message' => __('messages.user_not_permitted_for_action')
         ]);
@@ -325,7 +325,7 @@ class ApiQuestionTest extends TestCase
             'Accept' => 'application/json',
         ])->delete('api/questions/'.$question->id);
         
-        $response->assertStatus(200);
+        $response->assertOk();
     }
 
     public function test_question_delete_as_moderator()
@@ -341,6 +341,6 @@ class ApiQuestionTest extends TestCase
             'Accept' => 'application/json',
         ])->delete('api/questions/'.$question->id);
         
-        $response->assertStatus(200);
+        $response->assertOk();
     }
 }

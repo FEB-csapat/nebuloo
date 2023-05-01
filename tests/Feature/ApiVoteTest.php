@@ -37,7 +37,7 @@ class ApiVoteTest extends TestCase
         ]);
 
         $response
-            ->assertStatus(201)
+            ->assertCreated()
             ->assertJson([
                 'votable_type' => 'App\Models\Content',
                 'votable_id' => $content->id,
@@ -83,7 +83,7 @@ class ApiVoteTest extends TestCase
         ]);
 
         $response
-            ->assertStatus(200)
+            ->assertOk()
             ->assertJson([
                 'id' => $vote->id,
                 'votable_type' => 'App\Models\Content',
@@ -124,7 +124,7 @@ class ApiVoteTest extends TestCase
             'Accept' => 'application/json',
         ])->delete("/api/contents/{$content->id}/votes");
         
-        $response->assertStatus(200);
+        $response->assertOk();
     
         $this->assertDatabaseMissing('votes', [
             'id' => $vote->id,
@@ -153,7 +153,7 @@ class ApiVoteTest extends TestCase
         ]);
 
         $response
-            ->assertStatus(200)
+            ->assertOk()
             ->assertJson([
                 'votable_type' => 'App\Models\Content',
                 'votable_id' => $content->id,

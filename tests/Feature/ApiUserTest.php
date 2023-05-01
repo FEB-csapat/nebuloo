@@ -58,7 +58,7 @@ class ApiUserTest extends TestCase
         ])->put('/api/users/' . $otherUser->id, $data);
 
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
 
         $this->assertDatabaseMissing('users', [
             'id' => $this->user->id,
@@ -141,7 +141,7 @@ class ApiUserTest extends TestCase
         ])->delete('/api/users/'.$otherUser->id);
 
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
         $this->assertDatabaseHas('users', [
             'id' => $otherUser->id
         ]);
@@ -158,7 +158,7 @@ class ApiUserTest extends TestCase
         ])->delete('/api/users/'.$this->user->id);
 
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
         $this->assertDatabaseHas('users', [
             'id' => $this->user->id
         ]);
@@ -180,7 +180,6 @@ class ApiUserTest extends TestCase
         ]);
     }
 
-    // TODO fix this
     public function test_delete_self_as_admin()
     {
         $admin = User::factory()->create();
@@ -192,7 +191,7 @@ class ApiUserTest extends TestCase
         ])->delete('/api/users/'.$admin->id);
 
 
-        $response->assertStatus(403)
+        $response->assertForbidden()
         ->assertJson([
             'message' => 'Admin cannot be deleted!'
         ]);
@@ -212,7 +211,7 @@ class ApiUserTest extends TestCase
         ])->delete('/api/me');
 
 
-        $response->assertStatus(200);
+        $response->assertOk();
         $this->assertDatabaseMissing('users', [
             'id' => $moderator->id
         ]);
@@ -232,7 +231,7 @@ class ApiUserTest extends TestCase
         ])->delete('/api/users/'.$this->user->id);
 
 
-        $response->assertStatus(403)
+        $response->assertForbidden()
         ->assertJson([
             'message' => 'Admin cannot be deleted!'
         ]);
@@ -252,7 +251,7 @@ class ApiUserTest extends TestCase
         ])->put('/api/users/'.$otherUser->id.'/ban');
 
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
         
         $this->assertDatabaseHas('users', [
             'id' => $this->user->id,
@@ -321,7 +320,7 @@ class ApiUserTest extends TestCase
         ])->put('/api/users/'.$otherUser->id.'/ban');
 
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
         $this->assertDatabaseHas('users', [
             'id' => $otherUser->id,
             'banned' => false
@@ -341,7 +340,7 @@ class ApiUserTest extends TestCase
         ])->put('/api/users/'.$admin->id.'/ban');
 
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
         
         $this->assertDatabaseHas('users', [
             'id' => $this->user->id,
@@ -362,7 +361,7 @@ class ApiUserTest extends TestCase
         ])->put('/api/users/'.$this->user->id.'/ban');
 
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
         
         $this->assertDatabaseHas('users', [
             'id' => $this->user->id,
@@ -384,7 +383,7 @@ class ApiUserTest extends TestCase
         ]);
 
 
-        $response->assertStatus(200)
+        $response->assertOk()
         ->assertJson([
             'id' => $this->user->id,
             'role' => 'admin'
@@ -407,7 +406,7 @@ class ApiUserTest extends TestCase
             'role' => 'moderator'
         ]);
 
-        $response->assertStatus(200)
+        $response->assertOk()
         ->assertJson([
             'id' => $this->user->id,
             'role' => 'moderator',
@@ -433,7 +432,7 @@ class ApiUserTest extends TestCase
         ]);
 
 
-        $response->assertStatus(200)
+        $response->assertOk()
         ->assertJson([
             'id' => $this->user->id,
             'role' => 'user',
@@ -457,7 +456,7 @@ class ApiUserTest extends TestCase
             'role' => 'admin'
         ]);
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
 
         $this->assertDatabaseHas('users', [
             'id' => $this->user->id,
