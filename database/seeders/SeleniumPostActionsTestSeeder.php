@@ -27,10 +27,9 @@ class SeleniumPostActionsTestSeeder extends Seeder
 
         $user = User::factory()->create([
             'id'=>1,
-            'name' => "TestUser",
+            'username' => "TestUser",
             'display_name' => "TestUser",
             'email' => "test.user@fakemail.com",
-            'email_verified_at' => Carbon::now(),
             'bio' => 'My hobbies are reading and programming',
             'password' => Hash::make('Password@123')
         ]);

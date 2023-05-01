@@ -18,7 +18,7 @@ class ApiRegisterTest extends TestCase
         parent::setUp();
 
         $this->data = [
-            'name' => 'TestUser',
+            'username' => 'TestUser',
             'email' => 'Testing@test.test',
             'password' => 'Test123@',
             'password_confirmation' => 'Test123@'
@@ -34,7 +34,7 @@ class ApiRegisterTest extends TestCase
         ])->post("/api/register", $this->data);
         $response->assertCreated();
             $this->assertDatabaseHas('users', [
-                'name' => 'TestUser',
+                'username' => 'TestUser',
                 'email' => 'Testing@test.test'
             ]);
     }
@@ -229,7 +229,7 @@ class ApiRegisterTest extends TestCase
     public function test_create_a_user_without_name()
     {
         $this->data = array_merge($this->data, [
-            'name' => null
+            'username' => null
         ]);
 
         $response = $this
@@ -242,7 +242,7 @@ class ApiRegisterTest extends TestCase
         ->assertJson([
             'message' => 'A(z) felhasználónév mező kitöltése kötelező.',
             'errors' => [
-                'name' => 
+                'username' => 
                 [
                     'A(z) felhasználónév mező kitöltése kötelező.'
                 ]
@@ -275,7 +275,7 @@ class ApiRegisterTest extends TestCase
     public function test_create_a_user_with_short_name()
     {
         $this->data = array_merge($this->data, [
-            'name' => 'Te',
+            'username' => 'Te',
         ]);
 
         $response = $this
@@ -288,7 +288,7 @@ class ApiRegisterTest extends TestCase
         ->assertJson([
             'message' => 'A(z) felhasználónév hossza legalább 4 karakter kell legyen.',
             'errors' => [
-                'name' => 
+                'username' => 
                 [
                     'A(z) felhasználónév hossza legalább 4 karakter kell legyen.'
                 ]
@@ -298,7 +298,7 @@ class ApiRegisterTest extends TestCase
     public function test_create_a_user_with_long_name()
     {
         $this->data = array_merge($this->data, [
-            'name' => 'TestTestTestTestTestTestTest',
+            'username' => 'TestTestTestTestTestTestTest',
         ]);
 
         $response = $this
@@ -311,7 +311,7 @@ class ApiRegisterTest extends TestCase
         ->assertJson([
             'message' => 'A(z) felhasználónév hossza nem lehet nagyobb, mint 25 karakter.',
             'errors' => [
-                'name' => 
+                'username' => 
                 [
                     'A(z) felhasználónév hossza nem lehet nagyobb, mint 25 karakter.'
                 ]
@@ -344,10 +344,10 @@ class ApiRegisterTest extends TestCase
     public function test_create_a_user_that_already_exists_with_name()
     {
         $otherUser = User::factory()->create([
-            'name'=>'otherUserName'
+            'username'=>'otherUserName'
         ]);
         $this->data = array_merge($this->data, [
-            'name' => $otherUser->name,
+            'username' => $otherUser->username,
         ]);
         
         $response = $this
@@ -360,7 +360,7 @@ class ApiRegisterTest extends TestCase
         ->assertJson([
             'message' => 'A(z) felhasználónév már foglalt.',
             'errors' => [
-                'name'=> [
+                'username'=> [
                     'A(z) felhasználónév már foglalt.'
                 ]
             ]
@@ -396,7 +396,7 @@ class ApiRegisterTest extends TestCase
     public function test_create_a_user_with_special_character_in_name()
     {
         $this->data = array_merge($this->data, [
-            'name' => 'Test@',
+            'username' => 'Test@',
         ]);
 
         $response = $this
@@ -409,7 +409,7 @@ class ApiRegisterTest extends TestCase
         ->assertJson([
             'message' => 'felhasználónév csak betűket és számokat tartalmazhat.',
             'errors' => [
-                'name'=> [
+                'username'=> [
                     'felhasználónév csak betűket és számokat tartalmazhat.'
                 ]
             ]

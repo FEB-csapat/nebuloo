@@ -48,7 +48,7 @@ class QuestionCommentMailNotify extends Mailable
         return new Content(
             view: "mail.new-question-comment-email",
             with: [
-                'commenterName' => $this->comment->creator->name,
+                'commenterName' => $this->comment->creator->username,
                 'commentMessage' => $this->comment->message,
                 'commentUrl' => $this->comment->url(),
             ],

@@ -12,8 +12,8 @@
 
         <p class="text-secondary" v-if="user.rank!=null && showDetailed">{{user.rank.name}}</p>
 
-        <h5 v-if="showDetailed" class="mt-1">{{user.display_name ?? user.name}}</h5>
-        <h6 v-else-if="!showDetailed" class="mt-1">{{user.display_name ?? user.name}}</h6>
+        <h5 v-if="showDetailed" class="mt-1">{{user.display_name ?? user.username}}</h5>
+        <h6 v-else-if="!showDetailed" class="mt-1">{{user.display_name ?? user.username}}</h6>
     </div>
 </template>
 

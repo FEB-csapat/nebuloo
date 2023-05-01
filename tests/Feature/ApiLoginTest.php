@@ -23,7 +23,7 @@ class ApiLoginTest extends TestCase
         ]);
 
         $this->data = [
-            'identifier' => $this->user->name,
+            'identifier' => $this->user->username,
             'password' => 'Test123@'
         ];
     }

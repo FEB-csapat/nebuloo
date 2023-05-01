@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Content;
+use App\Models\Subject;
+use App\Models\Topic;
 use Illuminate\Database\Seeder;
 
 class ContentSeeder extends Seeder
@@ -16,7 +18,33 @@ class ContentSeeder extends Seeder
     {
         Content::factory()->create([
             'creator_user_id' => 1,
-            'body' => "Example content",
+            'subject_id' => Subject::where('name', 'Biológia')->first()->id,
+            'topic_id' => Topic::where('name', 'Sejtek')->first()->id,
+            'body' => "# A Vérsejtek
+
+A vérsejtek a vérben található sejtek, amelyek fontos szerepet játszanak a testünkben, többek között az oxigén és a tápanyagok szállításában, valamint az immunrendszer működésében. A vérsejteknek három fő típusa van: vörösvérsejtek, fehérvérsejtek és vérlemezkék.
+
+-----
+
+### Vörösvérsejtek (eritrociták)
+
+A vörösvérsejtek, más néven eritrociták, a leggyakoribb vérsejtek a vérben. Fő feladatuk az **oxigén szállítása a test szöveteihez**. A vörösvérsejtek a hemoglobin nevű fehérjét tartalmazzák, amelyhez az oxigén kötődik és a tüdőből a test többi részébe szállítják. Az eritrociták kialakulása a csontvelőben történik.
+
+-----
+
+### Fehérvérsejtek (leukociták)
+
+A fehérvérsejtek, más néven leukociták, az immunrendszer részét képezik. Fő feladatuk a **fertőzések és betegségek elleni védelem**, az idegen anyagok (például baktériumok és vírusok) felismerése és eltávolítása a szervezetből. A fehérvérsejtek száma és típusa változó, és számos különböző típusuk van, amelyek különböző funkciókat látnak el.
+
+-----
+
+### Vérlemezkék (trombociták)
+
+A vérlemezkék, más néven trombociták, fontos szerepet játszanak a véralvadásban. A vérlemezkék száma növekszik, amikor a test sérült, és azok felismerik a sérülést, majd összetapadnak és képeznek egy vérrögöt, amely segít megállítani a vérzést. A vérlemezkék a csontvelőben képződnek.
+
+-----
+
+Összefoglalva, a vérsejtek kulcsfontosságú szerepet játszanak a testünk normális működésében. A vörösvérsejtek az oxigén szállításában játszanak fontos szerepet, míg a fehérvérsejtek az immunrendszerünk fontos részét képezik és védik a testünket a fertőzésektől és betegségektől. A vérlemezkék a véralvadásban játszanak szerepet. A megfelelő mennyiségű és típusú vérsejtek megléte fontos a test egészségének fenntartásához. Az eltérő mennyiség vagy típusú vérsejtek számos betegség és állapot tünete lehet, például a vashiányos vérszegénység, leukémia vagy véralvadási rendellenességek.",
         ]);
 
         Content::factory()->create([
@@ -66,7 +94,9 @@ dantem me conamina, ad.",
 
         Content::factory()->create([
             'creator_user_id' => 1,
-            'body' => '# Az Orosz Realizmus
+            'subject_id' => Subject::where('name', 'Irodalom')->first()->id,
+            'topic_id' => Topic::where('name', 'Realizmus')->first()->id,
+            'body' => '# Az Orosz realizmus
 
 Az orosz realizmus a 19. századi orosz irodalom egyik legjelentősebb irányzata volt. Az orosz realizmus különösen fontos volt az orosz irodalom fejlődésében, és számos jelentős íróval rendelkezett, mint például Puskin, Gogol, Tolsztoj és Dosztojevszkij. Az orosz realizmus az orosz társadalom, kultúra és történelem ábrázolására összpontosított, és számos fontos témát érintett, mint például a paraszti élet, a korrupció, az élet értelme, az egyén szerepe a társadalomban és az orosz történelem fontos eseményei.
             
@@ -90,12 +120,6 @@ Dosztojevszkij műveiben gyakran az ártatlanok szenvedése és a bűnösök meg
 
 Dosztojevszkij munkássága az orosz irodalom történetében egyedülálló, és még ma is inspiráló hatással van az olvasókra és a követő írókra. Dosztojevszkij nagy jelentőséggel bír az orosz realizmusban, mivel művei általában az emberi szenvedélyeket és a lelki problémákat elemzik, és a társadalom problémáit is kritikusan vizsgálják.',
         ]);
-
-        Content::factory()->create([
-            'creator_user_id' => 2,
-            'body' => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        ]);
-
         
         Content::factory()->count(20)->create();
     }

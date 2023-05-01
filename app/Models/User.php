@@ -18,12 +18,11 @@ class User extends Authenticatable
     protected $hidden = [
         'remember_token',
         'password',
-        'email_verified_at',
         'notify_by_email'
     ];
 
     protected $fillable = [
-        'email', 'email_verified_at', 'name', 'display_name', 'bio', 'password','banned', 'role'
+        'email', 'username', 'display_name', 'bio', 'password','banned', 'role'
     ];
 
     public function isAdmin()

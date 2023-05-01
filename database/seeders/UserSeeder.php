@@ -15,48 +15,78 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $userAdmin = User::factory()->create([
-            'email' => 'admin@adminmail.com',
-            'email_verified_at' => Carbon::now(),
-            'name' => 'Admin',
-            'display_name' => 'Admin',
-            'bio' => 'My hobbies are reading and programming',      
+        User::factory()->create([
+            'email' => 'admin@fakemail.com',
+            'username' => 'lacika33',
+            'display_name' => 'Lajos',
+            'bio' => 'Bélyegeket gyüjtök',
             'password' => Hash::make('admin123'),
             'role' => 'admin'
         ]);
 
 
-        $userErik = User::factory()->create([
+        User::factory()->create([
             'email' => 'erik@fakemail.com',
-            'email_verified_at' => Carbon::now(),
-            'name' => 'Erik',
+            'username' => 'erikov123',
             'display_name' => 'Erik',
-            'bio' => 'My hobbies are reading and programming',      
+            'bio' => 'Szeretek olvasni meg ilyesmi...',      
             'password' => Hash::make('Jelszo123'),
             'role' => 'moderator'
         ]);
 
 
-        $userFeco = User::factory()->create([
-            'name' => 'Fecó',
+        User::factory()->create([
+            'username' => 'fecko123',
             'display_name' => 'Fecó',
-            'bio' => 'I play with guns',
+            'bio' => 'Puskával játszok',
             'email' => 'feco@fakemail.com',
-            'email_verified_at' => Carbon::now(),
             'role' => 'moderator'
         ]);
 
 
-        $userBence = User::factory()->create([
+        User::factory()->create([
             'email' => 'bence@fakemail.com',
-            'email_verified_at' => Carbon::now(),
-            'name' => 'Bencus',
+            'username' => 'bencus',
             'display_name' => 'Bencus',
-            'bio' => 'I\'m here for the money',
+            'bio' => 'Bence vagyok',
             'role' => 'moderator'
         ]);
-        $userBence->setRoleToModerator();
+
+
+        User::factory()->create([
+            'email' => 'anna@fakemail.com',
+            'username' => 'annakiss',
+            'display_name' => 'Anna',
+            'bio' => 'Szeretek sportolni és utazni',
+            'password' => Hash::make('jelszo123'),
+            'role' => 'user'
+        ]);
         
-        User::factory()->count(15)->create();
+        User::factory()->create([
+            'email' => 'peter@fakemail.com',
+            'username' => 'peterkozma',
+            'display_name' => 'Péter',
+            'bio' => 'IT szakember vagyok',
+            'password' => Hash::make('jelszo123'),
+            'role' => 'user'
+        ]);
+    
+        User::factory()->create([
+            'email' => 'dora@fakemail.com',
+            'username' => 'dorika',
+            'display_name' => 'Dóra',
+            'bio' => 'Kertész vagyok és imádom a növényeket',
+            'password' => Hash::make('jelszo123'),
+            'role' => 'user'
+        ]);
+    
+        User::factory()->create([
+            'email' => 'julcsi@fakemail.com',
+            'username' => 'julcsika',
+            'display_name' => 'Júlia',
+            'bio' => 'Szeretek főzni és a gasztronómiával foglalkozni',
+            'password' => Hash::make('jelszo123'),
+            'role' => 'user'
+        ]);
     }
 }

@@ -22,8 +22,8 @@ class AuthController extends Controller
         $request->validated();
     
         $user = User::create([
-            'name' => $request->name,
-            'display_name' => $request->name,
+            'username' => $request->username,
+            'display_name' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
@@ -47,7 +47,7 @@ class AuthController extends Controller
         if(strpos($data['identifier'], '@') ){
             $user = User::where('email', $data['identifier'])->first();
         } else {
-            $user = User::where('name', $data['identifier'])->first();
+            $user = User::where('username', $data['identifier'])->first();
         }
 
         if(!$user){

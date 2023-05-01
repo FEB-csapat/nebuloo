@@ -181,7 +181,7 @@ return [
     */
 
     'attributes' => [
-        'name' => 'felhasználónév',
+        'username' => 'felhasználónév',
         'email' => 'e-mail cím',
         'password' => 'jelszó',
         'identifier' => 'azonosító',

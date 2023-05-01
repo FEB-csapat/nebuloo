@@ -28,7 +28,7 @@ namespace NebulooWebTest
             seederhandler.RegistrationSeederSetUp();
             driver.Url = baseUrl + "registration";
 
-            var usernameTextbox = driver.FindElement(By.Name("name"));
+            var usernameTextbox = driver.FindElement(By.Name("username"));
             usernameTextbox.SendKeys("NewUser12222");
 
             var emailTextbox = driver.FindElement(By.Name("email"));
@@ -54,7 +54,7 @@ namespace NebulooWebTest
         {
             driver.Url = baseUrl + "registration";
 
-            var usernameTextbox = driver.FindElement(By.Name("name"));
+            var usernameTextbox = driver.FindElement(By.Name("username"));
             usernameTextbox.SendKeys("Test@");
 
             var emailTextbox = driver.FindElement(By.Name("email"));
@@ -85,7 +85,7 @@ namespace NebulooWebTest
         {
             driver.Url = baseUrl + "registration";
 
-            var usernameTextbox = driver.FindElement(By.Name("name"));
+            var usernameTextbox = driver.FindElement(By.Name("username"));
             usernameTextbox.SendKeys("Test1");
 
             var emailTextbox = driver.FindElement(By.Name("email"));
@@ -116,7 +116,7 @@ namespace NebulooWebTest
         {
             driver.Url = baseUrl + "registration";
 
-            var usernameTextbox = driver.FindElement(By.Name("name"));
+            var usernameTextbox = driver.FindElement(By.Name("username"));
             usernameTextbox.SendKeys("TestUser");
 
             var emailTextbox = driver.FindElement(By.Name("email"));
@@ -147,7 +147,7 @@ namespace NebulooWebTest
         {
             driver.Url = baseUrl + "registration";
 
-            var usernameTextbox = driver.FindElement(By.Name("name"));
+            var usernameTextbox = driver.FindElement(By.Name("username"));
             usernameTextbox.SendKeys("TestUser");
 
             var emailTextbox = driver.FindElement(By.Name("email"));
@@ -178,7 +178,7 @@ namespace NebulooWebTest
         {
             driver.Url = baseUrl + "registration";
 
-            var usernameTextbox = driver.FindElement(By.Name("name"));
+            var usernameTextbox = driver.FindElement(By.Name("username"));
             usernameTextbox.SendKeys("TestUser@");
 
             var emailTextbox = driver.FindElement(By.Name("email"));

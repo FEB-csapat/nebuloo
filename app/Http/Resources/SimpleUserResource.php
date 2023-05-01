@@ -18,7 +18,7 @@ class SimpleUserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'username' => $this->username,
             'display_name' => $this->display_name,
             'role' => $this->role,
             'rank'=>$this->getRank(),

@@ -15,7 +15,7 @@
                 <user v-if="userData!=null" :user="userData" v-bind:showDetailed="true" :clickable="false"></user> 
             </div>
     
-            <h5 v-if="userData!=null">Felhasználónév: {{userData.name}}</h5>
+            <h5 v-if="userData!=null">Felhasználónév: {{userData.username}}</h5>
     
             <div class="row mb-2">
                 <div class="col-sm-4">
@@ -129,7 +129,6 @@
 <script>
 import { RequestHelper } from '../utils/RequestHelper';
 import CommentCard from '../components/CommentCard.vue';
-import router from '../router';
 import User from '../components/User.vue';
 import { UserManager } from '../utils/UserManager';
 
@@ -170,6 +169,7 @@ methods:{
             RequestHelper.changeUserRole(this.id, this.pickedRole)
             .then(()=>{
                 alert("Sikeresen megváltoztatva!");
+                this.fetchUserData();
             })
             .catch(error=>{
                 console.log(error)

@@ -19,7 +19,6 @@ export default{
         handleClick(){
           this.onClick();
         },
-        
         showSnackbar(message, buttonText, onClick) {
             var snackbar = document.getElementById("snackbar");
 

@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Content;
+use App\Models\Subject;
+use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -24,10 +26,9 @@ class SeleniumSortTestSeeder extends Seeder
         $subject = Subject::where('name','Történelem')->first();
         $topic = Topic::where('subject_id', $subject->id)->where('name','1. világháború');
         $user = User::factory()->create([
-            'name' => "TestUser",
+            'username' => "TestUser",
             'display_name' => "TestUser",
             'email' => "test.user@fakemail.com", 
-            'email_verified_at' => Carbon::now(),     
             'bio' => 'My hobbies are reading and programming',
             'password' => Hash::make('Password@123')  
         ]);

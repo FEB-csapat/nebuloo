@@ -13,7 +13,7 @@ export class UserManager{
         sessionStorage.setItem('userRole', user.role);
         sessionStorage.setItem('userRankId', user.rank.id);
         sessionStorage.setItem('userRankName', user.rank.name);
-        sessionStorage.setItem('userName', user.name);
+        sessionStorage.setItem('userName', user.username);
         sessionStorage.setItem('userDisplayName', user.display_name);
     }
 
