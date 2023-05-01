@@ -22,6 +22,7 @@ class SeleniumQuestionTestSeeder extends Seeder
         DB::table('questions')->delete();
 
         $user = User::factory()->create([
+            'id' => 1,
             'name' => "TestUser",
             'display_name' => "TestUser",
             'email' => "test.user@fakemail.com",
