@@ -48,6 +48,7 @@ namespace NebulooWebTest
             process.StartInfo.WorkingDirectory = Path.GetFullPath("../../../../../../nebuloo");
             process.StartInfo.Arguments = "/C docker compose exec app php artisan db:seed --class=SeleniumQuestionTestSeeder";
             process.Start();
+            process.WaitForExit();
         }
         public void QuestionSeederTearDown()
         {
@@ -67,6 +68,7 @@ namespace NebulooWebTest
             process.StartInfo.WorkingDirectory = Path.GetFullPath("../../../../../../nebuloo");
             process.StartInfo.Arguments = "/C docker compose exec app php artisan db:seed --class=SeleniumMyProfileTestSeeder";
             process.Start();
+            process.WaitForExit();
         }
         public void MyProfileSeederTearDown()
         {

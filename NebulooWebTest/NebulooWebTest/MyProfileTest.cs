@@ -19,6 +19,7 @@ namespace NebulooWebTest
             new DriverManager().SetUpDriver(new ChromeConfig());
             driver = new ChromeDriver();
             driver.Url = baseUrl + "login";
+            
 
             wait = new WebDriverWait(driver, new TimeSpan(0, 0, 15));
             var usernameTextboxLogin = driver.FindElement(By.Name("identifier"));
@@ -31,15 +32,19 @@ namespace NebulooWebTest
             submitButtonLogin.Click();
 
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents"));
-            driver.Url = baseUrl + "me";
+
         }
         [Test]
         public void EditProfileTest()
         {
+            driver.Url = baseUrl + "me";
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("editprofile")));
+
             var editmyprofileButton = driver.FindElement(By.Name("editprofile"));
             editmyprofileButton.Click();
 
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "users/1/edit"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("display_name")));
+
             var displaynameField = driver.FindElement(By.Name("display_name"));
             displaynameField.SendKeys("NewTestUser");
 
@@ -66,6 +71,9 @@ namespace NebulooWebTest
         [Test]
         public void DeleteMyProfileTest()
         {
+            driver.Url = baseUrl + "me";
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("deleteprofile")));
+
             var deletemyprofileButton = driver.FindElement(By.Name("deleteprofile"));
             deletemyprofileButton.Click();
 
@@ -85,10 +93,35 @@ namespace NebulooWebTest
         [Test]
         public void LogOutFromProfileTest()
         {
+            driver.Url = baseUrl + "me";
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("logout")));
+
             var logoutmyprofileButton = driver.FindElement(By.Name("logout"));
             logoutmyprofileButton.Click();
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl));
         }
+        [Test]
+        //public void ShowMyContentMyProfileTest()
+        //{
+        //    driver.Url = baseUrl + "me";
+        //    wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("editprofile")));
+
+        //    var mycontentcardButton = driver.FindElement(By.Name("contentcard"));
+        //    mycontentcardButton.Click();
+
+        //    wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("detailedcontenttags")));
+
+        //    var mycontent = driver.FindElement(By.Name("contentupdate"));
+        //    if (mycontent.Text == "Szerkesztés")
+        //    {
+        //        Assert.Pass();
+        //    }
+        //    else
+        //    {
+        //        Assert.Fail();
+        //    }
+        //}
+
         [TearDown]
         public void TearDown()
         {

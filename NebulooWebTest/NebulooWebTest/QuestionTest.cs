@@ -20,6 +20,7 @@ namespace NebulooWebTest
             driver = new ChromeDriver();
             driver.Url = baseUrl + "login";
             
+
             wait = new WebDriverWait(driver, new TimeSpan(0, 0, 15));
             var usernameTextboxLogin = driver.FindElement(By.Name("identifier"));
             usernameTextboxLogin.SendKeys("TestUser");
