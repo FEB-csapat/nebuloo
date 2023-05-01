@@ -23,7 +23,7 @@
 
         </div>
         <div class="" style="width=20px">
-            <vote :votableId="comment.id" :voteCount="comment.recieved_votes" :votableType="this.voteType" :myVote="comment.my_vote"></vote>
+            <vote :votableId="comment.id" :voteCount="comment.recieved_votes" :votableType="'comments'" :myVote="comment.my_vote"></vote>
         </div>
     </div>
 </template>
@@ -40,7 +40,6 @@ export default{
         return{
             isEditing:false,
             commentbody:"",
-            voteType:"comments"
         };
     },
     components:{

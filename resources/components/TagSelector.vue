@@ -1,33 +1,35 @@
 <template>
-    <div class="d-flex mb-2 align-items-end">
-        <div>
-            <label for="search" class="form-label">Tantárgy:</label>
-            <select id="subject-selector" class="form-select" v-model="subject" @change="subjectItemSelected()">
-                <option v-for="subj in subjects" :key="subj.id" :value="subj">{{ subj.name }}</option>
-            </select>
-        </div>
+<loading-spinner v-if="isWaiting" />
+<div v-else class="d-flex mb-2 align-items-end">
+    <div>
+        <label for="search" class="form-label">Tantárgy:</label>
+        <select id="subject-selector" class="form-select" v-model="subject" @change="subjectItemSelected()">
+            <option v-for="subj in subjects" :key="subj.id" :value="subj">{{ subj.name }}</option>
+        </select>
+    </div>
 
 
-        <div v-if="subject != null" class="m-2" >
-            <i style="color:gray; " :class="['fas', 'fa-right-long', 'fa-lg',]"/>
-        </div>
+    <div v-if="subject != null" class="m-2" >
+        <i style="color:gray; " :class="['fas', 'fa-right-long', 'fa-lg',]"/>
+    </div>
 
-        <div v-if="subject != null" >
-            <div class="row align-items-start">
-                <div>
-                    <label for="" class="form-label">Témakör:</label>
-                    <select id="topic-selector" class="form-select" v-model="topic" @change="topicItemSelected()">
-                        <option v-for="top in topics" :key="top.id" :value="top">{{ top.name }}</option>
-                    </select>
-                </div>
+    <div v-if="subject != null" >
+        <div class="row align-items-start">
+            <div>
+                <label for="" class="form-label">Témakör:</label>
+                <select id="topic-selector" class="form-select" v-model="topic" @change="topicItemSelected()">
+                    <option v-for="top in topics" :key="top.id" :value="top">{{ top.name }}</option>
+                </select>
             </div>
         </div>
     </div>
+</div>
 </template>
 
 <script>
 import Tag from './Tag.vue';
 import { RequestHelper } from '../utils/RequestHelper';
+import LoadingSpinner from './LoadingSpinner.vue';
 
 export default{
     components:{
@@ -40,6 +42,8 @@ export default{
 
             topic: null,
             topics: [],
+
+            isWaiting: true
         }
     },
     props:{
@@ -56,13 +60,9 @@ export default{
     },
     methods:{
         async getSubjectsAndTopics(){
-
-            this.isWaiting = true;
             this.subjects = [];
             
             this.subjects = (await RequestHelper.getSubjects()).data;
-
-            this.isWaiting = false;
 
             if(this.defaultSubjectId != null){
                 this.subject = this.subjects.find(subj => subj.id == this.defaultSubjectId);
@@ -71,8 +71,7 @@ export default{
             if(this.defaultTopicId != null){
                 this.topic = this.topics.find(top => top.id == this.defaultTopicId);
             }
-
-            
+            this.isWaiting = false;
         },
         subjectItemSelected(){
             this.topics = this.subject.topics;

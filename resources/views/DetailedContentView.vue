@@ -12,7 +12,7 @@
                         <div>
                             <user :user="content.creator"/>
                         </div>
-                        <vote :votableId="id" :voteCount="content.recieved_votes" :myVote="content.my_vote"/>
+                        <vote :votableId="id" :voteCount="content.recieved_votes" :votableType="'contents'" :myVote="content.my_vote" />
                     </div>
                 </div>
             </div>
