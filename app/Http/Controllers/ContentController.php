@@ -54,7 +54,6 @@ class ContentController extends Controller
         }else{
             $contents = $contents->get()->sortBy('created_at');
         }
-
         return PaginationHelper::paginate(SimpleContentResource::collection($contents));
     }
     
@@ -133,6 +132,5 @@ class ContentController extends Controller
             ], 200);
         }
         abort(500, __('messages.error_deleting'));
-        
     }
 }
