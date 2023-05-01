@@ -31,7 +31,6 @@ class ApiTicketTest extends TestCase
         $response->assertStatus(401);
     }
 
-   // TODO: User interactions are forbidden
     public function test_ticket_creation_as_user()
     {
 
@@ -46,7 +45,6 @@ class ApiTicketTest extends TestCase
     }
 
 
-  //  TODO:moderator interactions are forbidden
     public function test_ticket_creation_as_moderator()
     {
         $moderator = User::factory()->create();
@@ -259,7 +257,6 @@ class ApiTicketTest extends TestCase
             'body' => 'updated ticket'
         ]);
     }
-    //TODO: User interactions are forbidden
     public function test_update_my_ticket_as_moderator()
     {
         $moderator = User::factory()->create();
@@ -282,7 +279,6 @@ class ApiTicketTest extends TestCase
             'body' => 'updated ticket'
         ]);
     }
-//TODO: User interactions are forbidden
     public function test_update_my_ticket_as_user()
     {
     
@@ -339,7 +335,6 @@ class ApiTicketTest extends TestCase
             'id' => $ticket->id
         ]);
     }
-    //TODO: User interactions are forbidden
     public function test_delete_others_ticket_as_guest()
     {
         $otherUser = User::factory()->create();
@@ -412,7 +407,6 @@ class ApiTicketTest extends TestCase
             'id' => $ticket->id
         ]);
     }
-    //TODO: User interactions are forbidden
     public function test_delete_my_ticket_as_moderator()
     {
         $moderator = User::factory()->create();
@@ -430,7 +424,6 @@ class ApiTicketTest extends TestCase
             'id' => $ticket->id
         ]);
     }
-    //TODO: User interactions are forbidden
     public function test_delete_my_ticket_as_user()
     {
         $ticket = Ticket::factory()->create(['creator_user_id' => $this->user->id]);
