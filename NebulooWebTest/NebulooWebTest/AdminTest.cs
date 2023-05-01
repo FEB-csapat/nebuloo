@@ -167,7 +167,7 @@ namespace NebulooWebTest
             IAlert successfuldeletionAlert = driver.SwitchTo().Alert();
             successfuldeletionAlert.Accept();
 
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "me"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "users/1"));
         }
         [Test]
         public void QuestionUpdateTest()
@@ -207,7 +207,7 @@ namespace NebulooWebTest
             IAlert successfuldeletionAlert = driver.SwitchTo().Alert();
             successfuldeletionAlert.Accept();
 
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "me"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "users/1"));
         }
         [Test]
         public void CommentEditOnContentTest()

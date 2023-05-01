@@ -103,7 +103,10 @@ export default{
                 .then(()=>{
                     alert("Sikeres törlés!");
                     this.$router.push({
-                        name: 'myUserProfile',
+                        name: 'userProfile',
+                        params: {
+                            id: this.content.creator.id   
+                        },
                     });
                 });
             }
