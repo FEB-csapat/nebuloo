@@ -13,7 +13,7 @@
                         <div class="">
                             <user :user="question.creator"></user>  
                         </div>
-                        <vote :votableId="id" :voteCount="question.recieved_votes" :myVote="question.my_vote"></vote>
+                        <vote :votableId="id" :voteCount="question.recieved_votes" :votableType="'questions'" :myVote="question.my_vote"></vote>
                     </div>
                 </div>
             </div>

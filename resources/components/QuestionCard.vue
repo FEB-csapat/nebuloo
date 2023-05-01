@@ -24,7 +24,7 @@
             <div class="text-center align-items-center pb-2" style="max-width: 85px; min-width: 72px">
                 <user v-if="question.creator" :user="question.creator"></user> 
     
-                <vote :votableId="question.id" :voteCount="question.recieved_votes" :votableType="this.voteType" :myVote="question.my_vote"></vote>
+                <vote :votableId="question.id" :voteCount="question.recieved_votes" :votableType="'questions'" :myVote="question.my_vote"></vote>
             </div>
         </div>
 
@@ -37,11 +37,6 @@ import Vote from './Vote.vue';
 import User from './User.vue';
 import DetailedQuestionView from '../views/DetailedQuestionView.vue';
 export default{
-    data(){
-        return{
-            voteType:"questions"
-        }
-    },
     props:{
         question: {
             type: Object,

@@ -33,7 +33,7 @@
         <div v-if="showProfile" class="row">
           <div class="col text-center">
               <router-link class="nav-link active" aria-current="page" :to="{ name: 'myUserProfile'}" name="navprofile" :key="$route.fullPath" >
-                <user :user="user" />
+                <user :user="user"/>
               </router-link>
           </div>
         </div>
