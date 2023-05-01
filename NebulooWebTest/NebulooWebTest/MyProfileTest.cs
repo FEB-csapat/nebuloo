@@ -9,13 +9,12 @@ namespace NebulooWebTest
     public class MyProfileTest
     {
         IWebDriver driver;
-        SeederHandler seederhandler = new SeederHandler();
         static string baseUrl = "http://localhost:8881/";
         WebDriverWait wait;
         [SetUp]
         public void Setup()
         {
-            seederhandler.MyProfileSeederSetUp();
+            SeederHandler.TestSeederSetUp("SeleniumMyProfileTestSeeder");
             new DriverManager().SetUpDriver(new ChromeConfig());
             driver = new ChromeDriver();
             driver.Url = baseUrl + "login";
@@ -100,14 +99,14 @@ namespace NebulooWebTest
             logoutmyprofileButton.Click();
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl));
         }
-        [Test]
+        //[Test]
         //public void ShowMyContentMyProfileTest()
         //{
         //    driver.Url = baseUrl + "me";
-        //    wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("editprofile")));
+        //    wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("contentcard")));
 
         //    var mycontentcardButton = driver.FindElement(By.Name("contentcard"));
-        //    mycontentcardButton.Click();
+        //    mycontentcardButton.SendKeys(Keys.Return);
 
         //    wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("detailedcontenttags")));
 
@@ -125,7 +124,7 @@ namespace NebulooWebTest
         [TearDown]
         public void TearDown()
         {
-            seederhandler.MyProfileSeederTearDown();
+            SeederHandler.TestSeederTearDown("SeleniumMyProfileTestTearDownSeeder");
             driver.Quit();
         }
     }

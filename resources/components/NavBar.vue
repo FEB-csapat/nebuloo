@@ -9,15 +9,15 @@
 
 
         <div class="me-auto mb-2 ">
-          <button v-if="showContentsButton" style="width: 110px;" class="btn ms-2 mt-2" id="button">
+          <button v-if="showContentsButton" style="width: 110px;" class="btn ms-2 mt-2 nebuloobutton">
             <router-link class="nav-link active" aria-current="page" :to="{ name: 'contents'}" name="navcontents">Tananyagok</router-link>
           </button>
         
-          <button v-if="showQuestionsButton" style="width: 110px;" class="btn ms-2  mt-2   " id="button">
+          <button v-if="showQuestionsButton" style="width: 110px;" class="btn ms-2  mt-2 nebuloobutton">
             <router-link class="nav-link active" aria-current="page" :to="{ name: 'questions'}" name="navquestions">Kérdések</router-link>
           </button>
 
-          <button v-if="showTicketsButton && IsModeratorOrAdmin && isLoggedIn" style="width: 110px;" class="btn ms-2  mt-2   " id="button">
+          <button v-if="showTicketsButton && IsModeratorOrAdmin && isLoggedIn" style="width: 110px;" class="btn ms-2  mt-2 nebuloobutton">
             <router-link class="nav-link active" aria-current="page" :to="{ name: 'tickets'}" name="navtickets">Hibajegyek</router-link>
           </button>
         </div>
@@ -38,7 +38,7 @@
           </div>
         </div>
 
-        <button v-if="!showProfile && !isLoggedIn" style="width: 130px;" class="btn ms-2 text-center" id="button">
+        <button v-if="!showProfile && !isLoggedIn" style="width: 130px;" class="btn ms-2 text-center nebuloobutton">
           <router-link class="nav-link active" aria-current="page" :to="{ name: 'login'}" name="navlogin">Bejelentkezés</router-link>
         </button>
 

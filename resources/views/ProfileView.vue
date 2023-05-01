@@ -5,7 +5,7 @@
     <div v-if="!isWaiting" >
         <div class="row bg-light mt-3 mb-2 rounded-3 p-3 shadow">
             <div class="col text-end" v-if="isMyProfile">
-                <button class="btn" id="button" name="logout" @click="signOut()">
+                <button class="btn nebuloobutton" name="logout" @click="signOut()">
                     Kijelentkezés
                 </button>
             </div>
@@ -81,14 +81,14 @@
         
             <div class="row my-2 text-center">
                 <div class="col-4">
-                    <button class="btn btn-info" @click="navigateToEditProfileView()">Profil szerkesztése</button>
+                    <button class="btn btn-info" name="edituserprofile" @click="navigateToEditProfileView()">Profil szerkesztése</button>
                 </div>
                 <div class="col-4">
-                    <button v-if="!userData.banned" class="btn btn-danger" @click="banUser()">Felhasználó bannolása</button>
+                    <button v-if="!userData.banned" name="banuserprofile" class="btn btn-danger" @click="banUser()">Felhasználó bannolása</button>
                     <button v-else class="btn btn-danger" @click="unbanUser()">Felhasználó bannolás feloldása</button>
                 </div>
                 <div class="col-4" v-if="isAdmin">
-                    <button class="btn btn-danger" @click="deleteUser()">Felhasználó törlése</button>
+                    <button class="btn btn-danger" name="deleteuserprofile" @click="deleteUser()">Felhasználó törlése</button>
                 </div>
             </div>
         </div>

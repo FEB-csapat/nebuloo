@@ -8,7 +8,6 @@ namespace NebulooWebTest
 {
     public class VoteTest
     {
-        SeederHandler seederhandler = new SeederHandler();
         IWebDriver driver;
         static string baseUrl = "http://localhost:8881/";
         WebDriverWait wait;
@@ -16,7 +15,7 @@ namespace NebulooWebTest
         [SetUp]
         public void Setup()
         {
-            seederhandler.PostsWithCommentsCreationSetUp();
+            SeederHandler.TestSeederSetUp("SeleniumPostActionsTestSeeder");
             new DriverManager().SetUpDriver(new ChromeConfig());
             driver = new ChromeDriver();
             wait = new WebDriverWait(driver, new TimeSpan(0, 0, 15));
@@ -232,7 +231,7 @@ namespace NebulooWebTest
         public void TearDown()
         {
             driver.Quit();
-            seederhandler.PostsWithCommentsTeardown();
+            SeederHandler.TestSeederTearDown("SeleniumPostActionsTestTearDownSeeder");
         }
     }
 }

@@ -16,7 +16,7 @@
 
         </div>
         <div class="text-end p-2">
-            <button class="btn" id="button" name="createquestion" @click="createQuestion()">
+            <button class="btn nebuloobutton" name="createquestion" @click="createQuestion()">
                 Létrehozás
             </button>
         </div>

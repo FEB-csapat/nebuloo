@@ -17,12 +17,12 @@
 
         <div class="row">
             <div class="col-sm-6">
-                <button class="my-3 btn" id="button" @click="navigateToDetailedView()">
+                <button class="my-3 btn nebuloobutton" @click="navigateToDetailedView()">
                     Vissza
                 </button>
             </div>
             <div class="col-sm-6 text-end">
-                <button type="submit" class="my-3 btn" id="button" name="questionupdatesave" @click="updateQuestion()">Változtatás elfogadása</button>
+                <button type="submit" class="my-3 btn nebuloobutton" name="questionupdatesave" @click="updateQuestion()">Változtatás elfogadása</button>
             </div>
         </div>
     </div>

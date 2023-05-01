@@ -9,7 +9,6 @@ namespace NebulooWebTest
     public class ContentTest
     {
         IWebDriver driver;
-        SeederHandler seederhandler = new SeederHandler();
         static string baseUrl = "http://localhost:8881/";
         WebDriverWait wait;
         [SetUp]
@@ -18,7 +17,7 @@ namespace NebulooWebTest
             new DriverManager().SetUpDriver(new ChromeConfig());
             driver = new ChromeDriver();
             driver.Url = baseUrl + "login";
-            seederhandler.ContentSeederSetUp();
+            SeederHandler.TestSeederSetUp("SeleniumContentTest_1_Seeder");
             wait = new WebDriverWait(driver, new TimeSpan(0, 0, 15));
             var usernameTextboxLogin = driver.FindElement(By.Name("identifier"));
             usernameTextboxLogin.SendKeys("TestUser");
@@ -40,6 +39,22 @@ namespace NebulooWebTest
             var contentbodyTextArea = driver.FindElement(By.XPath("/html/body/div/div[1]/div/div[1]/div[2]/div[2]/div[1]/textarea"));
             contentbodyTextArea.SendKeys("Test content");
 
+            var submitButtonContent = driver.FindElement(By.Name("createcontent"));
+            submitButtonContent.Click();
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents/"));
+
+        }
+        [Test]
+        public void ContentCreationWithTagsTest()
+        {
+            var contentcreationButton = driver.FindElement(By.ClassName("fab-button"));
+            contentcreationButton.Click();
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents/create"));
+            var contentbodyTextArea = driver.FindElement(By.XPath("/html/body/div/div[1]/div/div[1]/div[2]/div[2]/div[1]/textarea"));
+            contentbodyTextArea.SendKeys("Test content");
+
+
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contentdfgs/"));
             var submitButtonContent = driver.FindElement(By.Name("createcontent"));
             submitButtonContent.Click();
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents/"));
@@ -133,7 +148,7 @@ namespace NebulooWebTest
         [TearDown]
         public void TearDown()
         {
-            seederhandler.ContentSeederTearDown();
+            SeederHandler.TestSeederTearDown("ReverseSeleniumContentTest_1_Seeder");
             driver.Quit();
         }
     }

@@ -12,7 +12,7 @@
                 </div>
     
             <div class="text-end p-3">
-                <button class="btn" id="button" name="createcontent" @click="createContent()">
+                <button class="btn nebuloobutton" name="createcontent" @click="createContent()">
                     Létrehozás
                 </button>
             </div>

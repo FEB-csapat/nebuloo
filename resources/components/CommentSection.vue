@@ -8,7 +8,7 @@
             <textarea id="body" v-model="message" class="form-control" rows="3" cols="10" name="commentinput"></textarea>
 
             <div class="col mt-2">
-                <button type="button" class="btn" id="button" @click="AddComment()" name="sendcomment">Küldés</button>
+                <button type="button" class="btn nebuloobutton" @click="AddComment()" name="sendcomment">Küldés</button>
             </div>
         </div>
 

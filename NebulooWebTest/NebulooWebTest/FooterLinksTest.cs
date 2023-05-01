@@ -8,7 +8,6 @@ namespace NebulooWebTest
 {
     public class FooterLinksTest
     {
-        SeederHandler seederhandler = new SeederHandler();
         IWebDriver driver;
         static string baseUrl = "http://localhost:8881/";
         WebDriverWait wait;
@@ -59,7 +58,7 @@ namespace NebulooWebTest
         public void FooterTicket_as_userTest()
         {
             driver.Url = baseUrl+"login";
-            seederhandler.LoginSeederSetUp();
+            SeederHandler.TestSeederSetUp("SeleniumLoginTestSeeder");
             var usernameTextbox = driver.FindElement(By.Name("identifier"));
             usernameTextbox.SendKeys("TestUser");
 
@@ -72,7 +71,7 @@ namespace NebulooWebTest
             var ticketLink = driver.FindElement(By.Name("footerticket"));
             ticketLink.SendKeys(Keys.Return);
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "tickets/create"));
-            seederhandler.LoginSeederTearDown();
+            SeederHandler.TestSeederTearDown("SeleniumLoginTestTearDownSeeder");
         }
         [TearDown]
         public void TearDown()

@@ -11,7 +11,7 @@
                     <textarea ref="editor" name="leiras" id="leiras" class="form-control"></textarea>
                 </div>
             <div class="text-end p-3">
-                <button class="btn" id="button" @click="editContent()" name="contentupdatesave">
+                <button class="btn nebuloobutton" @click="editContent()" name="contentupdatesave">
                     Változtatások mentése
                 </button>
             </div>
