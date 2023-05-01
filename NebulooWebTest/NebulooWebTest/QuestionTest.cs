@@ -9,13 +9,12 @@ namespace NebulooWebTest
     public class QuestionTest
     {
         IWebDriver driver;
-        SeederHandler seederhandler = new SeederHandler();
         static string baseUrl = "http://localhost:8881/";
         WebDriverWait wait;
         [SetUp]
         public void Setup()
         {
-            seederhandler.QuestionSeederSetUp();
+            SeederHandler.TestSeederSetUp("SeleniumQuestionTestSeeder");
             new DriverManager().SetUpDriver(new ChromeConfig());
             driver = new ChromeDriver();
             driver.Url = baseUrl + "login";
@@ -145,7 +144,7 @@ namespace NebulooWebTest
         [TearDown]
         public void TearDown()
         {
-            seederhandler.QuestionSeederTearDown();
+            SeederHandler.TestSeederTearDown("SeleniumQuestionTestTearDownSeeder");
             driver.Quit();
         }
     }

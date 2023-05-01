@@ -8,7 +8,6 @@ namespace NebulooWebTest
 {
     public class TicketTest
     {
-        SeederHandler seederhandler = new SeederHandler();
         IWebDriver driver;
         static string baseUrl = "http://localhost:8881/";
         WebDriverWait wait;
@@ -19,7 +18,7 @@ namespace NebulooWebTest
             new DriverManager().SetUpDriver(new ChromeConfig());
             driver = new ChromeDriver();
             wait = new WebDriverWait(driver, new TimeSpan(0, 0, 15));
-            seederhandler.TicketSeederSetUp();
+            SeederHandler.TestSeederSetUp("SeleniumTicketTestSeeder");
         }
         [Test]
         public void TicketCreationTest()
@@ -157,7 +156,7 @@ namespace NebulooWebTest
         [TearDown]
         public void TearDown()
         {
-            seederhandler.TicketSeederTeardown();
+            SeederHandler.TestSeederTearDown("SeleniumTicketTestTearDownSeeder");
             driver.Quit();
         }
     }
