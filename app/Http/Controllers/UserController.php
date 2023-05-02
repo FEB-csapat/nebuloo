@@ -24,21 +24,6 @@ class UserController extends Controller
         return SimpleUserResource::collection($users);
     }
 
-
-    /**
-     * Store a newly created user.
-     *
-     * @param  \App\Http\Requests\StoreUserRequest  $request
-     * @return \App\Http\Resources\UserResource
-     */
-    public function store(StoreUserRequest $request)
-    {
-        $this->authorize('create', User::class);
-        $data = $request->validated();
-        $newUser = User::create($data);
-        return new UserResource($newUser);
-    }
-
     /**
      * Display the specified user.
      *

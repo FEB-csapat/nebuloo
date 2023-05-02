@@ -17,14 +17,14 @@ class SeleniumLoginTestSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::factory()->create([
+        User::factory()->create([
             'username' => "TestUser",
             'display_name' => "TestUser",
             'email' => "test.user@fakemail.com",   
             'bio' => 'My hobbies are reading and programming',
             'password' => Hash::make('Password@123')  
         ]);
-        $admin = User::factory()->create([
+        User::factory()->create([
             'username' => "Admin",
             'display_name' => "Admin",
             'email' => "test.admin@fakemail.com",

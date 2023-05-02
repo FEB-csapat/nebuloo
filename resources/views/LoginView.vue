@@ -24,7 +24,7 @@
                     <router-link class="nav-link active" aria-current="page" :to="{ name: 'registration'}">Regisztráció</router-link>
                 </button>
             </div>
-            </div>
+        </div>
 
             <SnackBar ref="snackBar" :message="'Sikeres bejelentkezés'"/>
         </div>

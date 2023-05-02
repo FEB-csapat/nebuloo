@@ -23,7 +23,6 @@ class DatabaseSeederDevelopment extends Seeder
             CommentSeeder::class,
             VoteSeeder::class,
             TicketSeeder::class,
-            
         ]);
     }
 }
