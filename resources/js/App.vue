@@ -24,8 +24,6 @@ export default{
 
 <template>
     <nav-bar v-if="isNotAtWelcomePage" :key="$route.fullPath"/>  
-    <RouterView class="content"/>
-    <Footer class="page-footer" style="z-index:-1;"/>
-
-
+    <RouterView/>
+    <Footer/>
 </template>

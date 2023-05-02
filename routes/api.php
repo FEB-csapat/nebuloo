@@ -188,7 +188,7 @@ Route::middleware(['auth:sanctum', IsNotBanned::class])->group(function () {
     Route::get('comments/me', [CommentController::class, "meIndex"])
         ->name("comments.index");
     Route::post('{commentable}/{id}/comments', [CommentController::class, "store"])
-        ->name("commentable.comments.store");
+        ->name("comments.store");
     Route::put('comments/{id}', [CommentController::class, "update"])
         ->name("comments.update");
     Route::delete('comments/{id}', [CommentController::class, "destroy"])

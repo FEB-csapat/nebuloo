@@ -52,7 +52,7 @@ class ContentController extends Controller
                 });
             }
         }else{
-            $contents = $contents->get()->sortBy('created_at');
+            $contents = $contents->get()->sortByDesc('created_at');
         }
         return PaginationHelper::paginate(SimpleContentResource::collection($contents));
     }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\RegisterUserRequest;
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -14,10 +14,10 @@ class AuthController extends Controller
     /**
      * Store a newly registered user in storage.
      *
-     * @param  \App\Http\Requests\StoreUserRequest $request
+     * @param  \App\Http\Requests\RegisterUserRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function register(StoreUserRequest $request)
+    public function register(RegisterUserRequest $request)
     {
         $request->validated();
     

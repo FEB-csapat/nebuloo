@@ -1,12 +1,36 @@
 # Nebuloo developer documentation
 
+### Backend is written in the Laravel framework
 
+* API controllers: app/Http/Controllers folder
+* API requests: app/Http/Requests folder
+* API resources: app/Http/Resources folder
+* Models: app/Models folder
+* Policies: app/Policies folder
+* Models: app/Models folder
+* Migrations: database/migrations folder
+* Seeders: database/seeders folder
+* Factories: database/factories folder
+* Localization: lang folder
+* Selenium tests: NebulooWebTest folder
+* API tests: tests folder
+* API Routing: routes/api.php file
+
+### Frontend is written in the Vue.js framework
+All the files used by the frontend are located in the resources folder.
+
+* Images and style: resources/assets
+* Vue components: resources/components
+* Vue pages: resources/views
+* Javascript: resources/js
+* Web routing: resources/router/index.js
+* Helpers: resources/utils
 
 
 ## Database
 
 
-#### users table
+### users table
 
 | Key     | Name             | Data Type        | Description                                     | Restrictions  |
 |---------|------------------|------------------|-------------------------------------------------|---------------|
@@ -42,7 +66,29 @@ Schema::create('users', function (Blueprint $table) {
 
 
 
-#### topics table
+
+### subjects table
+
+| Key     | Name              | Data Type       | Description                     | Restrictions |
+|---------|-------------------|-----------------|---------------------------------|--------------|
+| primary | id                | Unsigned Bigint | Unique Key                      | Unique       |
+|         | creator_user_id   | Unsigned Bigint | Foreign key of the creator  | Nullable     |
+|         | name              | String          | Name of the subject             |              |
+|         | created_at        | Timestamp       | Timestamp for creation |        |
+|         | updated_at        | Timestamp       | Timestamp for last update  |  |
+
+migration code:
+```php
+Schema::create('subjects', function (Blueprint $table) {
+    $table->id();
+    $table->foreignId('creator_user_id')->nullable()
+        ->references('id')->on('users')->cascadeOnDelete();
+    $table->string('name');
+    $table->timestamps();
+});
+```
+
+### topics table
 
 | Key     | Name              | Data Type       | Description                     | Restrictions |
 |---------|-------------------|-----------------|---------------------------------|--------------|
@@ -67,75 +113,9 @@ Schema::create('topics', function (Blueprint $table) {
 ```
 
 
-#### subjects table
-
-| Key     | Name              | Data Type       | Description                     | Restrictions |
-|---------|-------------------|-----------------|---------------------------------|--------------|
-| primary | id                | Unsigned Bigint | Unique Key                      | Unique       |
-|         | creator_user_id   | Unsigned Bigint | Foreign key of the creator  | Nullable     |
-|         | name              | String          | Name of the subject             |              |
-|         | created_at        | Timestamp       | Timestamp for creation |        |
-|         | updated_at        | Timestamp       | Timestamp for last update  |  |
-
-migration code:
-```php
-Schema::create('subjects', function (Blueprint $table) {
-    $table->id();
-    $table->foreignId('creator_user_id')->nullable()
-        ->references('id')->on('users')->cascadeOnDelete();
-    $table->string('name');
-    $table->timestamps();
-});
-```
 
 
-#### ranks table
-
-| Key     | Name     | Data Type    | Description                     | Restrictions |
-|---------|----------|--------------|---------------------------------|--------------|
-| primary | id       | Unsigned Bigint | Unique Key                      | Unique       |
-|         | name     | Enum         | Name of the rank                |              |
-|         |          |              | Possible values: zöldfülű, okostojás, zseni, lángész, bölcs |              |
-|         |          |              |                      
-
-migration code:
-```php
-Schema::create('ranks', function (Blueprint $table) {
-    $table->id();
-    $table->enum('name', ['zöldfülű', 'okostojás', 'zseni', 'lángész', 'bölcs']);
-    $table->timestamps();
-});
-```
-
-
-
-#### votes table
-
-| Key     | Name               | Data Type       | Description                            | Restrictions                 |
-|---------|--------------------|----------------|----------------------------------------|------------------------------|
-| primary | id                 | Unsigned Bigint | Unique Key                             | Unique                       |
-|         | owner_user_id      | Unsigned Bigint | Foreign key to the user who created it | Required                     |
-|         | reciever_user_id   | Unsigned Bigint | Foreign key to the user who received it | Required                     |
-|         | votable_id         | Unsigned Bigint | Morphed key to the type of the vote    | Required                     |
-|         | votable_type       | String          | Morphed type of the vote               | Required                     |
-|         | direction          | Enum           | Direction of the vote, 'up' or 'down'  | Required                     |
-|         | created_at         | Timestamp      | Timestamp for creation    |                              |
-|         | updated_at         | Timestamp      | Timestamp for last update  |                           |
-
-migration code:
-```php
-Schema::create('votes', function (Blueprint $table) {
-    $table->id();
-    $table->foreignId('owner_user_id')->references('id')->on('users')->cascadeOnDelete();
-    $table->foreignId('reciever_user_id')->references('id')->on('users')->cascadeOnDelete();
-    $table->morphs('votable');
-    $table->enum('direction', ['up', 'down']);
-    $table->timestamps();
-});
-```
-
-
-#### contents table
+### contents table
 
 | Key     | Name              | Data Type       | Description                     | Restrictions |
 |---------|-------------------|-----------------|---------------------------------|--------------|
@@ -160,7 +140,7 @@ Schema::create('contents', function (Blueprint $table) {
 ```
 
 
-#### questions table
+### questions table
 
 | Key     | Name              | Data Type       | Description                     | Restrictions |
 |---------|-------------------|-----------------|---------------------------------|--------------|
@@ -187,7 +167,37 @@ Schema::create('questions', function (Blueprint $table) {
 ```
 
 
-#### comments table
+
+
+
+### votes table
+
+| Key     | Name               | Data Type       | Description                            | Restrictions                 |
+|---------|--------------------|----------------|----------------------------------------|------------------------------|
+| primary | id                 | Unsigned Bigint | Unique Key                             | Unique                       |
+|         | owner_user_id      | Unsigned Bigint | Foreign key to the user who created it | Required                     |
+|         | reciever_user_id   | Unsigned Bigint | Foreign key to the user who received it | Required                     |
+|         | votable_id         | Unsigned Bigint | Morphed key to the type of the vote    | Required                     |
+|         | votable_type       | String          | Morphed type of the vote               | Required                     |
+|         | direction          | Enum           | Direction of the vote, 'up' or 'down'  | Required                     |
+|         | created_at         | Timestamp      | Timestamp for creation    |                              |
+|         | updated_at         | Timestamp      | Timestamp for last update  |                           |
+
+migration code:
+```php
+Schema::create('votes', function (Blueprint $table) {
+    $table->id();
+    $table->foreignId('owner_user_id')->references('id')->on('users')->cascadeOnDelete();
+    $table->foreignId('reciever_user_id')->references('id')->on('users')->cascadeOnDelete();
+    $table->morphs('votable');
+    $table->enum('direction', ['up', 'down']);
+    $table->timestamps();
+});
+```
+
+
+
+### comments table
 
 | Key     | Name                 | Data Type       | Description                         | Restrictions |
 |---------|----------------------|-----------------|-------------------------------------|--------------|
@@ -212,7 +222,7 @@ Schema::create('comments', function (Blueprint $table) {
 });
 ```
 
-#### images table
+### images table
 
 | Key     | Name              | Data Type       | Description                      | Restrictions |
 |---------|-------------------|-----------------|----------------------------------|--------------|
@@ -231,7 +241,6 @@ Schema::create('images', function (Blueprint $table) {
     $table->timestamps();
 });
 ```
-
 
 #### tickets table
 
@@ -254,25 +263,49 @@ Schema::create('tickets', function (Blueprint $table) {
 });
 ```
 
+### ranks table
+
+| Key     | Name     | Data Type    | Description                     | Restrictions |
+|---------|----------|--------------|---------------------------------|--------------|
+| primary | id       | Unsigned Bigint | Unique Key                      | Unique       |
+|         | name     | Enum         | Name of the rank                |              |
+|         |          |              | Possible values: zöldfülű, okostojás, zseni, lángész, bölcs |              |
+|         |          |              |                      
+
+migration code:
+```php
+Schema::create('ranks', function (Blueprint $table) {
+    $table->id();
+    $table->enum('name', ['zöldfülű', 'okostojás', 'zseni', 'lángész', 'bölcs']);
+    $table->timestamps();
+});
+```
+
+
+
 
 
 ## Rest API
 
-### Base URL: ```http://localhost:8881/api/```
+### Base URL: `https://localhost:8881/api/`
 
-**Controller: AuthController**
 
-| Name          | Method  | URL         | Action     | Description          | Minimum Role requirement |
+### User:
+* Model: User
+* Controller: AuthController
+* Requests: LoginUserRequest, RegisterUserRequest
+
+| Name          | Method  | URL         | Action     | Description          | Minimum role requirement |
 |---------------|---------|-------------|------------|----------------------|--------------------------|
 | auth.register | POST    | /register   | register   | Registers a new user | Guest                    |
 | auth.login    | POST    | /login      | meIndex    | Logs in a user       | Guest                    |
 
-### User
 
+* Controller: UserController
+* Policy: UserPolicy
+* Requests: UpdateUserRequest
 
-**Controller: UserController**
-
-| Name              | Method  | URL                 | Action     | Description               | Minimum Role requirement |
+| Name              | Method  | URL                 | Action     | Description               | Minimum role requirement |
 |-------------------|---------|---------------------|------------|---------------------------|--------------------------|
 | users.index       | GET     | /users              | index      | Gets all users            | Guest                    |
 | users.show        | GET     | /users/`{id}`       | show       | Gets a user by id         | Guest                    |
@@ -287,11 +320,13 @@ Schema::create('tickets', function (Blueprint $table) {
 
 
 
+### Content:
+* Model: Content
+* Controller: ContentController
+* Policy: ContentPolicy
+* Requests: StoreContentRequest, UpdateContentRequest
 
-
-**Controller: ContentController**
-
-| Name                 | Method  | URL               | Action     | Description            | Minimum Role requirement |
+| Name                 | Method  | URL               | Action     | Description            | Minimum role requirement |
 |----------------------|---------|-------------------|------------|------------------------|--------------------------|
 | contents.index       | GET     | /contents         | index      | Gets all contents      | Guest                    |
 | contents.meIndex     | GET     | /contents/me      | meIndex    | Gets all my contents   | User                     |
@@ -300,10 +335,13 @@ Schema::create('tickets', function (Blueprint $table) {
 | contents.update      | PUT     | /contents/`{id}`  | update     | Updates a content      | User                     |
 | contents.destroy     | DELETE  | /contents/`{id}`  | destroy    | Deletes a content      | User                     |
 
+### Question:
+* Model: Question
+* Controller: QuestionController
+* Policy: QuestionPolicy
+* Requests: StoreQuestionRequest, UpdateQuestionRequest
 
-**Controller: QuestionController**
-
-| Name                  | Method  | URL                | Action     | Description            | Minimum Role requirement |
+| Name                  | Method  | URL                | Action     | Description            | Minimum role requirement |
 |-----------------------|---------|--------------------|------------|------------------------|--------------------------|
 | questions.index       | GET     | /questions         | index      | Gets all questions     | Guest                    |
 | questions.meIndex     | GET     | /questions/me      | meIndex    | Gets all my questions  | User                     |
@@ -314,68 +352,46 @@ Schema::create('tickets', function (Blueprint $table) {
 
 
 
+### Comment:
+* Model: Comment
+* Controller: CommentController
+* Policy: CommentPolicy
+* Requests: StoreCommentRequest, UpdateCommentRequest
 
-**Controller: QuestionController**
-
-| Name                  | Method  | URL                | Action     | Description            | Minimum Role requirement |
-|-----------------------|---------|--------------------|------------|------------------------|--------------------------|
-| questions.index       | GET     | /questions         | index      | Gets all questions     | Guest                    |
-| questions.meIndex     | GET     | /questions/me      | meIndex    | Gets all my questions  | User                     |
-| questions.show        | GET     | /questions/`{id}`  | show       | Gets a question by id  | Guest                    |
-| questions.store       | CREATE  | /questions         | store      | Creates a question     | User                     |
-| questions.update      | PUT     | /questions/`{id}`  | update     | Updates a question     | User                     |
-| questions.destroy     | DELETE  | /questions/`{id}`  | destroy    | Deletes a question     | User                     |
-
-
-**Controller: CommentController**
-
-| Name                 | Method  | URL               | Action     | Description          | Minimum Role requirement |
-|----------------------|---------|-------------------|------------|-----------------------|--------------------------|
-| comments.index       | GET     | /comments         | index      | Gets all comments     | Guest                    |
-| comments.meIndex     | GET     | /comments/me      | meIndex    | Gets all my comments  | User                     |
-| comments.show        | GET     | /comments/`{id}`  | show       | Gets a comment by id  | Guest                    |
-| comments.store       | CREATE  | /comments         | store      | Creates a comment     | User                     |
-| comments.update      | PUT     | /comments/`{id}`  | update     | Updates a comment     | User                     |
-| comments.destroy     | DELETE  | /comments/`{id}`  | destroy    | Deletes a comment     | User                     |
+| Name                 | Method  | URL                              | Action     | Description           | Minimum role requirement |
+|----------------------|---------|----------------------------------|------------|-----------------------|--------------------------|
+| comments.index       | GET     | /comments                        | index      | Gets all comments     | Guest                    |
+| comments.meIndex     | GET     | /comments/me                     | meIndex    | Gets all my comments  | User                     |
+| comments.show        | GET     | /comments/`{id}`                 | show       | Gets a comment by id  | Guest                    |
+| comments.store       | CREATE  | /`{commentable}`/`{id}`/comments | store      | Creates a comment     | User                     |
+| comments.update      | PUT     | /comments/`{id}`                 | update     | Updates a comment     | User                     |
+| comments.destroy     | DELETE  | /comments/`{id}`                 | destroy    | Deletes a comment     | User                     |
 
 
-**Controller: VoteController**
+### Vote:
+* Model: Vote
+* Controller: VoteController
+* Policy: CommentPolicy
+* Requests: StoreVoteRequest, UpdateVoteRequest
 
-| Name                     | Method  | URL            | Action     | Description               | Minimum Role requirement |
-|--------------------------|---------|----------------|------------|---------------------------|--------------------------|
-| votes.meIndex            | GET     | /votes/me      | meIndex    | Gets all my votes         | User                     |
-| votes.store              | CREATE  | /votes         | store      | Creates a vote            | User                     |
-| votes.update             | PUT     | /votes/`{id}`  | update     | Updates a vote            | User                     |
-| votes.destroy            | DELETE  | /votes/`{id}`  | destroy    | Deletes a vote by id      | User                     |
-| votes.destroyByVotableId | DELETE  | /votes/`{id}`  | destroy    | Deletes a vote votable id | User                     |
+| Name                     | Method  | URL                       | Action             | Description               | Minimum role requirement |
+|--------------------------|---------|---------------------------|--------------------|---------------------------|--------------------------|
+| votes.meIndex            | GET     | /votes/me                 | meIndex            | Gets all my votes         | User                     |
+| votes.store              | CREATE  | /`{votable}`/`{id}`/votes | store              | Creates a vote            | User                     |
+| votes.update             | PUT     | /votes/`{id}`             | update             | Updates a vote            | User                     |
+| votes.destroy            | DELETE  | /votes/`{id}`             | destroy            | Deletes a vote by id      | User                     |
+| votes.destroyByVotableId | DELETE  | /`{votable}`/`{id}`/votes | destroyByVotableId | Deletes a vote votable id | User                     |
 
 
 
-**Controller: RankController**
+### Subject:
+* Model: Subject
+* Controller: SubjectController
+* Controller: SubjectController
+* Policy: SubjectPolicy
+* Requests: StoreSubjectRequest, UpdateSubjectRequest
 
-| Name            | Method  | URL           | Action  | Description       | Minimum Role requirement |
-|-----------------|---------|---------------|---------|-------------------|--------------------------|
-| ranks.index     | GET     | /ranks        | index   | Gets all ranks    | Guest                    |
-| ranks.show      | GET     | /ranks/`{id}` | show    | Gets a rank       | Guest                    |
-
-
-
-
-**Controller: ImageController**
-
-| Name             | Method  | URL            | Action     | Description       | Minimum Role requirement |
-|------------------|---------|----------------|------------|-------------------|--------------------------|
-| images.store     | CREATE  | /images        | store      | Uploads an image  | User                     |
-| images.show      | PUT     | /images/`{id}` | update     | Gets an image     | User                     |
-| images.destroy   | DELETE  | /images/`{id}` | destroy    | Deletes an image  | User                     |
-
-
-
-
-
-**Controller: SubjectController**
-
-| Name             | Method  | URL               | Action   | Description           | Minimum Role requirement |
+| Name             | Method  | URL               | Action   | Description           | Minimum role requirement |
 |------------------|---------|-------------------|----------|-----------------------|--------------------------|
 | subjects.index   | GET     | /subjects         | index    | Gets all subjects     | Guest                    |
 | subjects.show    | GET     | /subjects/`{id}`  | show     | Gets a subject by id  | Guest                    |
@@ -383,9 +399,14 @@ Schema::create('tickets', function (Blueprint $table) {
 | subjects.update  | PUT     | /subjects/`{id}`  | update   | Updates a subject     | Moderator                |
 | subjects.destroy | DELETE  | /subjects/`{id}`  | destroy  | Deletes a subject     | Moderator                |
 
-**Controller: TopicController**
 
-| Name           | Method  | URL             | Action   | Description         | Minimum Role requirement |
+### Topic:
+* Model: Topic
+* Controller: TopicController
+* Policy: TopicPolicy
+* Requests: StoreTopicRequest, UpdateTopicRequest
+
+| Name           | Method  | URL             | Action   | Description         | Minimum role requirement |
 |----------------|---------|-----------------|----------|---------------------|--------------------------|
 | topics.index   | GET     | /topics         | index    | Gets all topics     | Guest                    |
 | topics.show    | GET     | /topics/`{id}`  | show     | Gets a topic by id  | Guest                    |
@@ -394,9 +415,13 @@ Schema::create('tickets', function (Blueprint $table) {
 | topics.destroy | DELETE  | /topics/`{id}`  | destroy  | Deletes a topic     | Moderator                |
 
 
-**Controller: TicketController**
+### Ticket:
+* Model: Ticket
+* Controller: TicketController
+* Policy: TicketPolicy
+* Requests: StoreTicketRequest, UpdateTicketRequest
 
-| Name            | Method  | URL              | Action   | Description           | Minimum Role requirement |
+| Name            | Method  | URL              | Action   | Description           | Minimum role requirement |
 |-----------------|---------|------------------|----------|-----------------------|--------------------------|
 | tickets.index   | GET     | /tickets         | index    | Gets all tickets      | User                     |
 | tickets.meIndex | GET     | /tickets/me      | meIndex  | Gets all my tickets   | User                     |
@@ -404,3 +429,27 @@ Schema::create('tickets', function (Blueprint $table) {
 | tickets.store   | CREATE  | /tickets         | store    | Creates a ticket      | User                     |
 | tickets.update  | PUT     | /tickets/`{id}`  | update   | Updates a ticket      | User                     |
 | tickets.destroy | DELETE  | /tickets/`{id}`  | destroy  | Deletes a ticket      | User                     |
+
+### Rank:
+* Model: Rank
+* Controller: RankController
+* Policy: RankPolicy
+
+| Name            | Method  | URL           | Action  | Description       | Minimum role requirement |
+|-----------------|---------|---------------|---------|-------------------|--------------------------|
+| ranks.index     | GET     | /ranks        | index   | Gets all ranks    | Guest                    |
+| ranks.show      | GET     | /ranks/`{id}` | show    | Gets a rank       | Guest                    |
+
+
+### Image:
+* Model: Image
+* Controller: ImageController
+* Policy: ImagePolicy
+
+| Name             | Method  | URL            | Action     | Description       | Minimum role requirement |
+|------------------|---------|----------------|------------|-------------------|--------------------------|
+| images.store     | CREATE  | /images        | store      | Uploads an image  | User                     |
+| images.show      | PUT     | /images/`{id}` | update     | Gets an image     | User                     |
+| images.destroy   | DELETE  | /images/`{id}` | destroy    | Deletes an image  | User                     |
+
+

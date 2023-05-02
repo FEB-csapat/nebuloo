@@ -50,7 +50,7 @@ class QuestionController extends Controller
                 });
             }
         }else{
-            $questions = $questions->get()->sortBy('created_at');
+            $questions = $questions->get()->sortByDesc('created_at');
         }
         return PaginationHelper::paginate(SimpleQuestionResource::collection($questions));
     }
