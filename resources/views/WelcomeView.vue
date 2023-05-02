@@ -8,7 +8,7 @@
     </div>
 
     <div class="container bg-light rounded-4 mt-4 mx-auto text-center py-2 px-4 shadow">
-        <h4 class="m-3">Nem érted a Viète-formulákat? Kérdezz nyugodtan! Pont hogy érted? Oszdd meg a tudást a többiekkel!</h4>
+        <h4 class="m-3">Nem érted a Viète-formulákat? Kérdezz nyugodtan! Pont hogy érted? Oszd meg a tudást a többiekkel!</h4>
         <h5>Mászd meg a tudás ranglétráját és vállj bölcsé!</h5>
         
         <h5 class="text-start mt-4">Rangok:</h5>
