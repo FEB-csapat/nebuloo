@@ -24,8 +24,10 @@ use Illuminate\Support\Facades\Route;
 |
 |--- auth actions : register, login ---------------------------------------
 */
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, "login"]);
+Route::post('/register', [AuthController::class, 'register'])
+    ->name("auth.register");
+Route::post('/login', [AuthController::class, "login"])
+    ->name("auth.login");
 /*
 |--- end of auth actions --------------------------------------------------
 |
@@ -156,7 +158,7 @@ Route::middleware(['auth:sanctum', IsNotBanned::class])->group(function () {
     Route::get('contents/me', [ContentController::class, "meIndex"])
         ->name("me.contents.index");
     Route::post('contents', [ContentController::class, "store"])
-        ->name("me.contents.store");
+        ->name("contents.store");
     Route::put('contents/{id}', [ContentController::class, "update"])
         ->name("contents.update");
     Route::delete('contents/{id}', [ContentController::class, "destroy"])
@@ -199,7 +201,7 @@ Route::middleware(['auth:sanctum', IsNotBanned::class])->group(function () {
 |--- vote actions : meIndex, store, update, destroy, destroyByVotableId ---
 */
     Route::get('votes/me', [VoteController::class, "meIndex"])
-        ->name("votes.index");
+        ->name("votes.meIndex");
     Route::post('{votable}/{id}/votes', [VoteController::class, "store"])
         ->name("votes.store");
     Route::put('votes/{id}', [VoteController::class, "update"])
