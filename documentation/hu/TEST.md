@@ -4,6 +4,12 @@
 
 ## API tesztek
 
+### ApiRegisterTest
+
+| Név                                      | Leírás                                      | Előfeltételek                                                                       | Lépések                                                                                             | Várt végeredmény                                                                        |Sikeresség  | Szerző        | Dátum         |
+|------------------------------------------|---------------------------------------------|-------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|:----------:|---------------|---------------|
+| test_create_a_user                       | Regisztrációs kérést küldünk                | Az adatbázis és az API fut a Dockeren;<br/>Adatbázis migrációk futtatása megtörtént;|<br/>1. POST kérést küldünk a http://localhost:8881/api/register felé, TestUser-rel a tartalomban    | 201-es státusz üzenetet kapunk vissza, és a "users" táblában megtalálható a felhasználó |  &check;   | Truczán Bence | 2023. 05. 03. |
+
 
 ## Selenium tesztek
 
