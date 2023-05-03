@@ -1,8 +1,8 @@
 <template>
     <loading-spinner v-if="user == null"/>
     <div v-else class="col text-center" @click="navigateToUserProfileView()">
-        <h3  v-if="showDetailed && user.banned" class="text-danger">BANNOLVA</h3>
-        <p v-if="!showDetailed && user.banned" class="text-danger text-center">BANNOLVA</p>
+        <h3  v-if="showDetailed && user.banned" class="text-danger">KITILTVA</h3>
+        <p v-if="!showDetailed && user.banned" class="text-danger text-center">KITILTVA</p>
 
         <h6 v-if="user.role!=null && showDetailed
             && (user.role == 'admin' || user.role == 'moderator')"
