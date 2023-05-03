@@ -69,6 +69,6 @@ class Question extends Model
     }
 
     public function url(){
-        return route('questions.show', $this->id);
+        return env('APP_URL').'/questions/'.$this->id;
     }
 }

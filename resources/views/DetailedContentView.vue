@@ -74,6 +74,9 @@ export default{
         id: {
             type: Number,
             required: true
+        },
+        commentId: {
+            type: Number,
         } 
     },
     components:{
@@ -128,7 +131,12 @@ export default{
     },
     
     async mounted(){
-        this.getDetailedContent();
+        this.getDetailedContent().then(()=>{
+            if(this.commentId){
+                const element = document.getElementById('comment-'+this.commentId);
+                element?.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
 
         this.editor = new EasyMDE({
             element: this.$refs.editor,

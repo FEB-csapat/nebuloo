@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Comment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
@@ -13,7 +14,7 @@ class ContentCommentMailNotify extends Mailable
 {
     use Queueable, SerializesModels;
 
-    private $comment;
+    private Comment $comment;
 
     /**
      * Create a new message instance.

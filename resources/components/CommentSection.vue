@@ -16,7 +16,7 @@
         
         <p class="text-center" v-if="comments == null">Betöltés...</p>
         <div v-else-if="comments.length != 0" id="comment_cards_container">
-            <CommentCard v-for="comment in comments" :key="comment.id" :comment="comment" />
+            <CommentCard :id="`comment-${comment.id}`" v-for="comment in comments" :key="comment.id" :comment="comment" />
         </div>
 
         <p class="text-center mt-2" v-else>Nincs még komment</p>

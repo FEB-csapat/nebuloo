@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UpdateCommentRequest;
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
+use App\Models\Content;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreCommentRequest;
 
@@ -59,10 +60,11 @@ class CommentController extends Controller
 
         $newComment = Comment::create($data);
 
-        // Notify the creator of the content or question
-        $votableCreator = $data['commentable_type']::find($commentableId)->creator;
-        $votableCreator->notifyNewCommentToCommentable($newComment, $data['commentable_type']);
-
+        $contentCreator = Content::find($commentableId)->creator;
+        // is not the creator of the content and of the comment
+        if($contentCreator && $contentCreator->id != $request->user()->id){
+            $contentCreator->notifyNewCommentToCommentable($newComment, $data['commentable_type']);
+        }
         return new CommentResource($newComment);
     }
 

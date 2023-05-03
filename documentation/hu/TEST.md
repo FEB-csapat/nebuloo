@@ -120,6 +120,16 @@
 | test_delete_my_comment_as_admin                | DELETE kérést küldünk egy saját hozzászólásunkra az API-nak, adminisztrátorként                                | Az adatbázis és az API fut a Dockeren;<br/>Adatbázis migrációk futtatása megtörtént;|<br/>1. Létrehozunk egy hozzászólást?<br/>2. DELETE kérést küldünk a http://localhost:8881/api/comments/hozzászólásid felé, admin? hitelesítő zsetonjával a fejlécben                                                           | 200-as státusz üzenetet kapunk vissza, és a "comments" táblában nem szerepel a hozzászólás             |  &check;   | Truczán Bence | 2023. 05. 03. |
 | test_delete_my_comment_as_moderator            | DELETE kérést küldünk egy saját hozzászólásunkra az API-nak, moderátorként                                     | Az adatbázis és az API fut a Dockeren;<br/>Adatbázis migrációk futtatása megtörtént;|<br/>1. Létrehozunk egy hozzászólást?<br/>2. DELETE kérést küldünk a http://localhost:8881/api/comments/hozzászólásid felé, moderator? hitelesítő zsetonjával a fejlécben                                                       | 200-as státusz üzenetet kapunk vissza, és a "comments" táblában nem szerepel a hozzászólás             |  &check;   | Truczán Bence | 2023. 05. 03. |
 
+### ApiUserTest
+
+
+### ApiVoteTest
+
+
+### ApiTicketTest
+
+
+
 
 ## Selenium tesztek
 
