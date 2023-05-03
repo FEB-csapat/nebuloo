@@ -267,6 +267,7 @@ Schema::create('ranks', function (Blueprint $table) {
 
 
 ## Rest API
+[Postman collection](/documentation/NebulooAPI.postman_collection.json) elérhető json formátumban.
 
 ### Alap URL: `https://localhost:8881/api/`
 

@@ -9,14 +9,20 @@
 - Terminálban a `git clone https://github.com/FEB-csapat/nebuloo.git` parancs kiadása
 - A projekt könyvtárban `start.sh` shell script futattása
 
-## Funkciók
 
+## Felhasználói dokumentáció
+* [English](/documentation/en/USER.md)
+* [Magyar](/documentation/hu/USER.md)
 
-## Fejlesztői útmutató
+## Fejlesztői dokumentáció
+* [English](/documentation/en/DEVELOPER.md)
+* [Magyar](/documentation/hu/DEVELOPER.md)
 
-## Felhasználói útmutató
+## Tesztelési dokumentáció
+* [English](/documentation/en/TEST.md)
+* [Magyar](/documentation/hu/TEST.md)
 
-## Contributors
+## Készítők
 - [Ferencneu](https://github.com/Ferencneu)
 - [Ruffel1998](https://github.com/Ruffel1998)
 - [indeednt](https://github.com/indeednt)
