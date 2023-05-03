@@ -21,7 +21,7 @@ class VoteController extends Controller
     public function meIndex(Request $request)
     {
         $this->authorize('viewAny', Vote::class);
-        $votes = Vote::where('owner_user_id', auth()->user()->id)->get();
+        $votes = Vote::where('creator_user_id', auth()->user()->id)->get();
         return SimpleVoteResource::collection($votes);
     }
     
@@ -38,7 +38,7 @@ class VoteController extends Controller
         $this->authorize('create', Vote::class);
         $data = $request->validated();
 
-        $data['owner_user_id'] = $request->user()->id;
+        $data['creator_user_id'] = $request->user()->id;
         switch ($votableType) {
             case 'contents':
                 $data['votable_type'] = 'App\Models\Content';
@@ -63,7 +63,7 @@ class VoteController extends Controller
         $data['votable_id'] = $votableId;
 
         // check if vote for votable already exists
-        $existingVote = Vote::where('owner_user_id', $data['owner_user_id'])
+        $existingVote = Vote::where('creator_user_id', $data['creator_user_id'])
             ->where('votable_id', $data['votable_id'])
             ->where('votable_type', $data['votable_type'])
             ->where('reciever_user_id', $data['reciever_user_id'])
@@ -130,7 +130,7 @@ class VoteController extends Controller
     {
         $votes =
         Vote::where('votable_id', $votableId)
-            ->where('owner_user_id', $request->user()->id);
+            ->where('creator_user_id', $request->user()->id);
 
         if($votes){
             switch ($votableType) {

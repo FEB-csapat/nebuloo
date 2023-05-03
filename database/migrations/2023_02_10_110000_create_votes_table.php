@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('votes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('owner_user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreignId('creator_user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreignId('reciever_user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->morphs('votable');
             $table->enum('direction', ['up', 'down']);

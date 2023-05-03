@@ -21,7 +21,7 @@ class Question extends Model
 
         // Create a default up vote for the question creator
         Vote::create([
-            'owner_user_id' => $question->creator->id,
+            'creator_user_id' => $question->creator->id,
             'reciever_user_id' => $question->creator->id,
             'votable_type' => Question::class,
             'votable_id' => $question->id,

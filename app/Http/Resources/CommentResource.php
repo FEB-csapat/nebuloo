@@ -15,7 +15,7 @@ class CommentResource extends JsonResource
      */
     public function toArray($request)
     {
-        $requestUserVote = Vote::where('owner_user_id', $request->user()?->id)
+        $requestUserVote = Vote::where('creator_user_id', $request->user()?->id)
             ->where('votable_id', $this->id)
             ->where('votable_type', 'App\Models\Comment')
             ->first();

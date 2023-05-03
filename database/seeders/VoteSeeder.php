@@ -23,7 +23,7 @@ class VoteSeeder extends Seeder
         foreach ($contents as $content) {
             $votesCount = rand(0, 15);
             Vote::factory()->count($votesCount)->create([
-                'owner_user_id' => User::inRandomOrder()->first(),
+                'creator_user_id' => User::inRandomOrder()->first(),
                 'reciever_user_id' => $content->creator_user_id,
                 'votable_id' => $content->id,
                 'votable_type' => get_class($content),
@@ -35,7 +35,7 @@ class VoteSeeder extends Seeder
         foreach ($questions as $question) {
             $votesCount = rand(0, 15);
             Vote::factory()->count($votesCount)->create([
-                'owner_user_id' => User::inRandomOrder()->first(),
+                'creator_user_id' => User::inRandomOrder()->first(),
                 'reciever_user_id' => $question->creator_user_id,
                 'votable_id' => $question->id,
                 'votable_type' => get_class($question),

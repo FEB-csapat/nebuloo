@@ -32,7 +32,7 @@ class VoteFactory extends Factory
 
         $randomizedUsers = User::inRandomOrder()->get();
         return [
-            'owner_user_id' => $randomizedUsers->first()->id,
+            'creator_user_id' => $randomizedUsers->first()->id,
             'reciever_user_id' => $randomizedUsers->last()->id,
             'votable_id' => $votable->id,
             'votable_type' => $votableType,

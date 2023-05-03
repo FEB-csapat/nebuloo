@@ -12,7 +12,7 @@ class Comment extends Model
     protected $table = 'comments';
     protected $primaryKey = 'id';
 
-    protected $fillable = ['message', 'creator_user_id', 'parent_comment_id', 'commentable_id', 'commentable_type'];
+    protected $fillable = ['message', 'creator_user_id', 'commentable_id', 'commentable_type'];
 
     public static function create(array $attributes = [])
     {
@@ -20,7 +20,7 @@ class Comment extends Model
 
         // Create a default up vote for the comment creator
         Vote::create([
-            'owner_user_id' => $comment->creator->id,
+            'creator_user_id' => $comment->creator->id,
             'reciever_user_id' => $comment->creator->id,
             'votable_type' => Comment::class,
             'votable_id' => $comment->id,
@@ -30,10 +30,6 @@ class Comment extends Model
         return $comment;
     }
 
-    public function parent()
-    {
-        return $this->belongsTo(Comment::class, 'parent_comment_id');
-    }
 
     public function children()
     {

@@ -54,7 +54,7 @@ class VotePolicy
         if ($user === null) {
             return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
         }
-        if($user->id == $vote->owner_user_id){
+        if($user->id == $vote->creator_user_id){
             return Response::allow();
         }
 
@@ -76,7 +76,7 @@ class VotePolicy
         }
 
         // Only creator can delete votes
-        if($user->id == $vote->owner_user_id){
+        if($user->id == $vote->creator_user_id){
             return Response::allow();
         }
 

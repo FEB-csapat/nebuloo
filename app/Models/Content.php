@@ -20,7 +20,7 @@ class Content extends Model
         // Create a default up vote for the content creator
         Vote::create(
             [
-                'owner_user_id' => $content->creator->id,
+                'creator_user_id' => $content->creator->id,
                 'reciever_user_id' => $content->creator->id,
                 'votable_type' => Content::class,
                 'votable_id' => $content->id,
