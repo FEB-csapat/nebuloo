@@ -29,7 +29,6 @@ class CommentFactory extends Factory
             'creator_user_id' => (User::inRandomOrder()?->first() ?? User::factory()->create())->id,
             'commentable_id' => $commentable->id,
             'commentable_type' => $commentableType,
-            'parent_comment_id' => null,
             'message' => $this->faker->paragraph
         ];
     }

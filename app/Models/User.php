@@ -73,7 +73,7 @@ class User extends Authenticatable
 
     public function ownedVotes()
     {
-        return $this->hasMany(Vote::class, 'owner_user_id');
+        return $this->hasMany(Vote::class, 'creator_user_id');
     }
 
     public function recievedVotes()

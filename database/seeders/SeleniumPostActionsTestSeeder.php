@@ -50,14 +50,12 @@ class SeleniumPostActionsTestSeeder extends Seeder
             'creator_user_id' => 1,
             'commentable_id' => 1,
             'commentable_type' => 'App\Models\Content',
-            'parent_comment_id' => null,
             'message' => "Test comment...",
         ]);
         Comment::factory()->create([
             'creator_user_id' => 1,
             'commentable_id' => 1,
             'commentable_type' => 'App\Models\Question',
-            'parent_comment_id' => null,
             'message' => "Test comment...",
         ]);
     }

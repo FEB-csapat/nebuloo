@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('creator_user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->morphs('commentable');
-            $table->foreignId('parent_comment_id')->nullable()->references('id')->on('comments')->cascadeOnDelete();
             $table->longText('message');
             $table->timestamps();
         });

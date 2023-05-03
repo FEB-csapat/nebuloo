@@ -1,53 +1,53 @@
-# Nebuloo developer documentation
+# Nebuloo fejlesztői dokumentáció
 
-### Backend is written in the Laravel framework
+### Backend Laravelben lett megírva
 
-* API controllers: app/Http/Controllers folder
-* API requests: app/Http/Requests folder
-* API resources: app/Http/Resources folder
-* Models: app/Models folder
-* Policies: app/Policies folder
-* Models: app/Models folder
-* Migrations: database/migrations folder
-* Seeders: database/seeders folder
-* Factories: database/factories folder
-* Localization: lang folder
-* Selenium tests: NebulooWebTest folder
-* API tests: tests folder
-* API Routing: routes/api.php file
+* API kontrollerek: app/Http/Controllers könyvtár
+* API Requestek: app/Http/Requests könyvtár
+* API resource-k: app/Http/Resources könyvtár
+* Policy-k: app/Policies könyvtár
+* Modellek: app/Models könyvtár
+* Migrációk: database/migrations könyvtár
+* Seederek: database/seeders könyvtár
+* Factory-k: database/factories könyvtár
+* Lokalizáció: lang könyvtár
+* Selenium tesztek: NebulooWebTest könyvtár
+* API tesztek: tests könyvtár
+* API routing: routes/api.php file
 
-### Frontend is written in the Vue.js framework
-All the files used by the frontend are located in the resources folder.
+### Frontend Vue.js-ben let megírva
 
-* Images and style: resources/assets
-* Vue components: resources/components
-* Vue pages: resources/views
+A frontend által használt összes fájl a `resources` könyvtárban található
+
+* Képek és stílus: resources/assets
+* Vue komponensek: resources/components
+* Vue oldalak: resources/views
 * Javascript: resources/js
 * Web routing: resources/router/index.js
-* Helpers: resources/utils
+* Segéd osztályok: resources/utils
 
 
-## Database
+## Adatbázis
 
 
-### users table
+###felhasználóktábla
 
-| Key     | Name             | Data Type        | Description                                     | Restrictions  |
-|---------|------------------|------------------|-------------------------------------------------|---------------|
-| primary | id               | Unsigned Bigint  | Unique Key                                      | Unique        |
-|         | name             | String           | Name of the user                                | Unique        |
-|         | display_name     | String           | Display name of the user                        |               |
-|         | email            | String           | Email of the user                               | Unique        |
-|         | password         | String           | Password of the user                            | Nullable      |
-|         | remember_token   | String           | Token used for "remember me" functionality      |               |
-|         | bio              | String           | Short bio or description of the user            | Nullable      |
-|         | notify_by_email  | Boolean          | Whether the user wants to receive email updates | Default True  |
-|         | role             | Enumeration      | Role of the user                                | Default 'user'|
-|         | banned           | Boolean          | Whether the user is banned or not               | Default False |
-|         | created_at       | Timestamp        | Timestamp for creation                          |               |
-|         | updated_at       | Timestamp        | Timestamp for last update                       |               |
+| Kulcs      | Név              | Adattípus        | Leírás                                      | Megkötések    |
+|------------|------------------|------------------|---------------------------------------------|---------------|
+| elsődleges | id               | Unsigned Bigint  | Egyedi Kulcs                                | Egyedi        |
+|            | name             | Szöveg           | Felhasználónév                              | Egyedi        |
+|            | display_name     | Szöveg           | Felhasználó megjelentített neve             |               |
+|            | email            | Szöveg           | Felhasználó email címe                      | Egyedi        |
+|            | password         | Szöveg           | Felhasználó jelszava                        | Nullable      |
+|            | remember_token   | Szöveg           | Token az "emlékezz rám" funkcióhoz          |               |
+|            | bio              | Szöveg           | Felhasználó rövid leírása                   | Nullable      |
+|            | notify_by_email  | Logikai          | Akar-e a felhasználó email értesítést kapni | Default True  |
+|            | role             | Enum             | Felhasználó jogosultsága                    | Default 'user'|
+|            | banned           | Logikai          | Felhasználó ki van-e tiltva                 | Default False |
+|            | created_at       | Időbélyeg        | Létrehozás időbélyege                       |               |
+|            | updated_at       | Időbélyeg        | Módosítás időbélyege                        |               |
 
-migration code:
+migráció kód:
 ```php
 Schema::create('users', function (Blueprint $table) {
     $table->id();
@@ -64,20 +64,17 @@ Schema::create('users', function (Blueprint $table) {
 });
 ```
 
+### subjects tábla
 
+| Kulcs      | Név               | Adattípus       | Leírás                     | Megkötések |
+|------------|-------------------|-----------------|----------------------------|------------|
+| elsődleges | id                | Unsigned Bigint | Egyedi Kulcs               | Egyedi     |
+|            | creator_user_id   | Unsigned Bigint | Létrehozó idegen kulcsa    | Nullable   |
+|            | name              | Szöveg          | Tantárgy neve              |            |
+|            | created_at        | Időbélyeg       | Létrehozás időbélyege      |            |
+|            | updated_at        | Időbélyeg       | Módosítás időbélyege       |            |
 
-
-### subjects table
-
-| Key     | Name              | Data Type       | Description                     | Restrictions |
-|---------|-------------------|-----------------|---------------------------------|--------------|
-| primary | id                | Unsigned Bigint | Unique Key                      | Unique       |
-|         | creator_user_id   | Unsigned Bigint | Foreign key of the creator  | Nullable     |
-|         | name              | String          | Name of the subject             |              |
-|         | created_at        | Timestamp       | Timestamp for creation |        |
-|         | updated_at        | Timestamp       | Timestamp for last update  |  |
-
-migration code:
+migráció kód:
 ```php
 Schema::create('subjects', function (Blueprint $table) {
     $table->id();
@@ -88,19 +85,19 @@ Schema::create('subjects', function (Blueprint $table) {
 });
 ```
 
-### topics table
+### topics tábla
 
-| Key     | Name              | Data Type       | Description                     | Restrictions |
-|---------|-------------------|-----------------|---------------------------------|--------------|
-| primary | id                | Unsigned Bigint | Unique Key                      | Unique       |
-|         | subject_id        | Unsigned Bigint | Foreign key of the subject      | Nullable     |
-|         | creator_user_id   | Unsigned Bigint | Foreign key of the creator      | Nullable     |
-|         | name              | String          | Name of the topic               |              |
-|         | created_at        | Timestamp       | Timestamp for creation          |              |
-|         | updated_at        | Timestamp       | Timestamp for last update       |              |
+| Kulcs      | Név               | Adattípus       | Leírás                     | Megkötések   |
+|------------|-------------------|-----------------|----------------------------|--------------|
+| elsődleges | id                | Unsigned Bigint | Egyedi Kulcs               | Egyedi       |
+|            | subject_id        | Unsigned Bigint | Tantárgy idegen kulcsa     | Nullable     |
+|            | creator_user_id   | Unsigned Bigint | Létrehozó idegen kulcsa    | Nullable     |
+|            | name              | Szöveg          | Téma neve                  |              |
+|            | created_at        | Időbélyeg       | Létrehozás időbélyege      |              |
+|            | updated_at        | Időbélyeg       | Módosítás időbélyege       |              |
 
-migration code:
-```php
+migráció kód:
+```phpMegkötések
 Schema::create('topics', function (Blueprint $table) {
     $table->id();
     $table->foreignId('subject_id')->nullable()
@@ -112,22 +109,19 @@ Schema::create('topics', function (Blueprint $table) {
 });
 ```
 
+### contents tábla
 
+| Kulcs      | Név               | Adattípus       | Leírás                    | Megkötések   |
+|------------|-------------------|-----------------|---------------------------|--------------|
+| elsődleges | id                | Unsigned Bigint | Egyedi Kulcs              | Egyedi       |
+|            | creator_user_id   | Unsigned Bigint | Létrehozó idegen kulcsa   |              |
+|            | body              | Hosszú szöveg   | Tananyag tartalma         |              |
+|            | subject_id        | Unsigned Bigint | Tantárgy idegen kulcsa    | Nullable     |
+|            | topic_id          | Unsigned Bigint | Téma idegen kulcsa        | Nullable     |
+|            | created_at        | Időbélyeg       | Létrehozás időbélyege     |              |
+|            | updated_at        | Időbélyeg       | Módosítás időbélyege      |              |
 
-
-### contents table
-
-| Key     | Name              | Data Type       | Description                     | Restrictions |
-|---------|-------------------|-----------------|---------------------------------|--------------|
-| primary | id                | Unsigned Bigint | Unique Key                      | Unique       |
-|         | creator_user_id   | Unsigned Bigint | Foreign key of the creator  | Foreign Key to `users` table |
-|         | body              | LongText        | Body of the content              |              |
-|         | subject_id        | Unsigned Bigint | Foreign key of the subject | Foreign Key to `subjects` table, Nullable |
-|         | topic_id          | Unsigned Bigint | Foreign key of the topic   | Foreign Key to `topics` table, Nullable |
-|         | created_at         | Timestamp      | Timestamp for creation    |                              |
-|         | updated_at         | Timestamp      | Timestamp for last update  |                           |
-
-migration code:
+migráció kód:
 ```php
 Schema::create('contents', function (Blueprint $table) {
     $table->id();
@@ -139,19 +133,18 @@ Schema::create('contents', function (Blueprint $table) {
 });
 ```
 
+### questions tábla
 
-### questions table
+| Kulcs      | Név               | Adattípus       | Leírás                     | Megkötések   |
+|------------|-------------------|-----------------|----------------------------|--------------|
+| elsődleges | id                | Unsigned Bigint | Egyedi Kulcs               | Egyedi       |
+|            | creator_user_id   | Unsigned Bigint | Létrehozó idegen kulcsa    |              |
+|            | title             | Szöveg          | Kérdés címe                |              |
+|            | body              | Hosszú szöveg   | Kérdés tartalma            | Nullable     |
+|            | subject_id        | Unsigned Bigint | Idegen key of the subject  | Nullable     |
+|            | topic_id          | Unsigned Bigint | Idegen key of the topic    | Nullable     |
 
-| Key     | Name              | Data Type       | Description                     | Restrictions |
-|---------|-------------------|-----------------|---------------------------------|--------------|
-| primary | id                | Unsigned Bigint | Unique Key                      | Unique       |
-|         | creator_user_id   | Unsigned Bigint | Foreign key of the creator      |              |
-|         | title             | String          | Title of the question           |              |
-|         | body              | LongText        | Body of the question            | Nullable     |
-|         | subject_id        | Unsigned Bigint | Foreign key of the subject   | Nullable     |
-|         | topic_id          | Unsigned Bigint | Foreign key of the topic     | Nullable     |
-
-migration code:
+migráció kód:
 ```php
 Schema::create('questions', function (Blueprint $table) {
     $table->id();
@@ -166,28 +159,24 @@ Schema::create('questions', function (Blueprint $table) {
 });
 ```
 
+### votes tábla
 
+| Kulcs       | Név               | Adattípus       | Leírás                                 | Megkötések |
+|------------|--------------------|-----------------|----------------------------------------|------------|
+| elsődleges | id                 | Unsigned Bigint | Egyedi Kulcs                           | Egyedi     |
+|            | creator_user_id      | Unsigned Bigint | Létrehozó idegen kulcsa                |            |
+|            | reciever_user_id   | Unsigned Bigint | Címhzett idegen kulcsa                 |            |
+|            | votable_id         | Unsigned Bigint | Szavazható idegen kulcsa               |            |
+|            | votable_type       | Szöveg          | Szavazható típusa                      |            |
+|            | direction          | Enum            | Szavazás státusza 'up' vagy 'down'     |            |
+|            | created_at         | Időbélyeg       | Létrehozás időbélyege                  |            |
+|            | updated_at         | Időbélyeg       | Módosítás időbélyege                   |            |
 
-
-
-### votes table
-
-| Key     | Name               | Data Type       | Description                            | Restrictions                 |
-|---------|--------------------|----------------|----------------------------------------|------------------------------|
-| primary | id                 | Unsigned Bigint | Unique Key                             | Unique                       |
-|         | owner_user_id      | Unsigned Bigint | Foreign key to the user who created it | Required                     |
-|         | reciever_user_id   | Unsigned Bigint | Foreign key to the user who received it | Required                     |
-|         | votable_id         | Unsigned Bigint | Morphed key to the type of the vote    | Required                     |
-|         | votable_type       | String          | Morphed type of the vote               | Required                     |
-|         | direction          | Enum           | Direction of the vote, 'up' or 'down'  | Required                     |
-|         | created_at         | Timestamp      | Timestamp for creation    |                              |
-|         | updated_at         | Timestamp      | Timestamp for last update  |                           |
-
-migration code:
+migráció kód:
 ```php
 Schema::create('votes', function (Blueprint $table) {
     $table->id();
-    $table->foreignId('owner_user_id')->references('id')->on('users')->cascadeOnDelete();
+    $table->foreignId('creator_user_id')->references('id')->on('users')->cascadeOnDelete();
     $table->foreignId('reciever_user_id')->references('id')->on('users')->cascadeOnDelete();
     $table->morphs('votable');
     $table->enum('direction', ['up', 'down']);
@@ -195,42 +184,38 @@ Schema::create('votes', function (Blueprint $table) {
 });
 ```
 
+### comments tábla
 
+| Kulcs      | Név                  | Adattípus       | Leírás                      | Megkötések |
+|------------|----------------------|-----------------|-----------------------------|------------|
+| elsődleges | id                   | Unsigned Bigint | Egyedi Kulcs                | Egyedi     |
+|            | creator_user_id      | Unsigned Bigint | Létrehozó idegen kulcsa     |            |
+|            | commentable_id       | Unsigned Bigint | Kommentelhető idegen kulcsa |            |
+|            | commentable_type     | Szöveg          | Kommentelhető típusa        |            |
+|            | message              | Hosszú szöveg   | Komment tartalma            |            |
+|            | created_at           | Időbélyeg       | Létrehozás időbélyege       |            |
+|            | updated_at           | Időbélyeg       | Módosítás időbélyege        |            |
 
-### comments table
-
-| Key     | Name                 | Data Type       | Description                         | Restrictions |
-|---------|----------------------|-----------------|-------------------------------------|--------------|
-| primary | id                   | Unsigned Bigint | Unique Key                          | Unique       |
-|         | creator_user_id      | Unsigned Bigint | Foreign key of the creator     |              |
-|         | commentable_id       | Unsigned Bigint | Morphs to the id of the parent item |              |
-|         | commentable_type     | String          | Morphs to the type of the parent item|              |
-|         | parent_comment_id    | Unsigned Bigint | Foreign key to the parent comment   | Nullable     |
-|         | message              | Longtext        | The comment message content         |              |
-|         | created_at           | Timestamp       | Timestamp for creation |          |
-|         | updated_at           | Timestamp       | Timestamp for last update |      |
-
-migration code:
+migráció kód:
 ```php
 Schema::create('comments', function (Blueprint $table) {
     $table->id();
     $table->foreignId('creator_user_id')->references('id')->on('users')->cascadeOnDelete();
     $table->morphs('commentable');
-    $table->foreignId('parent_comment_id')->nullable()->references('id')->on('comments')->cascadeOnDelete();
     $table->longText('message');
     $table->timestamps();
 });
 ```
 
-### images table
+### images tábla
 
-| Key     | Name              | Data Type       | Description                      | Restrictions |
-|---------|-------------------|-----------------|----------------------------------|--------------|
-| primary | id                | Unsigned Bigint | Unique Key                       | Unique       |
-|         | path              | String          | Path of the image                |              |
-|         | creator_user_id   | Unsigned Bigint | Foreign key of the creator       |              |
-|         | created_at        | Timestamp       | Timestamp for creation creation  |              |
-|         | updated_at        | Timestamp       | Timestamp for last update update |              |
+| Kulcs      | Név               | Adattípus       | Leírás                      | Megkötések |
+|------------|-------------------|-----------------|-----------------------------|------------|
+| elsődleges | id                | Unsigned Bigint | Egyedi Kulcs                | Egyedi     |
+|            | path              | Szöveg          | Kép elérési útvonala        |            |
+|            | creator_user_id   | Unsigned Bigint | Létrehozó idegen kulcsa     |            |
+|            | created_at        | Időbélyeg       | Létrehozás időbélyege       |            |
+|            | updated_at        | Időbélyeg       | Módosítás időbélyege        |            |
 
 
 ```php
@@ -242,16 +227,16 @@ Schema::create('images', function (Blueprint $table) {
 });
 ```
 
-#### tickets table
+### tickets tábla
 
-| Key     | Name              | Data Type       | Description                     | Restrictions |
-|---------|-------------------|-----------------|---------------------------------|--------------|
-| primary | id                | Unsigned Bigint | Unique Key                      | Unique       |
-|         | creator_user_id   | Unsigned Bigint | Foreign key of the creator      |              |
-|         | body              | Longtext        | Body of ticket                  |              |
-|         | state             | Boolean         | Current state of ticket         |              |
-|         | created_at        | Timestamp       | Timestamp for creation time     |              |
-|         | updated_at        | Timestamp       | Timestamp for last update time  |              |
+| Kulcs      | Név              | Adattípus       | Leírás                    | Megkötések |
+|------------|------------------|-----------------|---------------------------|------------|
+| elsődleges | id               | Unsigned Bigint | Egyedi Kulcs              | Egyedi     |
+|            | creator_user_id  | Unsigned Bigint | Létrehozó idegen kulcsa   |            |
+|            | body             | Hosszú szöveg   | Hibajegy tartalma         |            |
+|            | state            | Logikai         | Hibajegy státusza         |            |
+|            | created_at       | Időbélyeg       | Létrehozás időbélyege     |            |
+|            | updated_at       | Időbélyeg       | Módosítás időbélyege      |            |
 
 ```php
 Schema::create('tickets', function (Blueprint $table) {
@@ -263,16 +248,15 @@ Schema::create('tickets', function (Blueprint $table) {
 });
 ```
 
-### ranks table
+### ranks tábla
 
-| Key     | Name     | Data Type    | Description                     | Restrictions |
-|---------|----------|--------------|---------------------------------|--------------|
-| primary | id       | Unsigned Bigint | Unique Key                      | Unique       |
-|         | name     | Enum         | Name of the rank                |              |
-|         |          |              | Possible values: zöldfülű, okostojás, zseni, lángész, bölcs |              |
-|         |          |              |                      
+| Kulcs      | Név      | Adattípus       | Leírás                                                         | Megkötések |
+|------------|----------|-----------------|----------------------------------------------------------------|------------|
+| elsődleges | id       | Unsigned Bigint | Egyedi Kulcs                                                   | Egyedi     |
+|            | name     | Enum            | Rang neve                                                      |            |
+|            |          |                 | Lehetséges értékek: zöldfülű, okostojás, zseni, lángész, bölcs |            |
 
-migration code:
+migráció kód:
 ```php
 Schema::create('ranks', function (Blueprint $table) {
     $table->id();
@@ -282,174 +266,159 @@ Schema::create('ranks', function (Blueprint $table) {
 ```
 
 
-
-
-
 ## Rest API
 
-### Base URL: `https://localhost:8881/api/`
+### Alap URL: `https://localhost:8881/api/`
 
 
-### User:
-* Model: User
-* Controller: AuthController
-* Requests: LoginUserRequest, RegisterUserRequest
+### Felhasználó:
+* Modell: User
+* Kontroller: AuthController
+* Requestek: LoginUserRequest, RegisterUserRequest
 
-| Name          | Method  | URL         | Action     | Description          | Minimum role requirement |
-|---------------|---------|-------------|------------|----------------------|--------------------------|
-| auth.register | POST    | /register   | register   | Registers a new user | Guest                    |
-| auth.login    | POST    | /login      | meIndex    | Logs in a user       | Guest                    |
+| Név          | Metódus  | URL         | Akció      | Leírás                        | Minimum jogosultság      |
+|---------------|---------|-------------|------------|-------------------------------|--------------------------|
+| auth.register | POST    | /register   | register   | Új felhasználó regisztrációja | Vendég                   |
+| auth.login    | POST    | /login      | meIndex    | Beléptet egy felhasználót     | Vendég                   |
 
 
-* Controller: UserController
+* Kontroller: UserController
 * Policy: UserPolicy
-* Requests: UpdateUserRequest
+* Requestek: UpdateUserRequest
 
-| Name              | Method  | URL                 | Action     | Description               | Minimum role requirement |
-|-------------------|---------|---------------------|------------|---------------------------|--------------------------|
-| users.index       | GET     | /users              | index      | Gets all users            | Guest                    |
-| users.show        | GET     | /users/`{id}`       | show       | Gets a user by id         | Guest                    |
-| users.showMe      | GET     | /me                 | showMe     | Gets the user themself    | User                     |
-| users.update      | PUT     | /users/`{id}`       | update     | Updates a user            | Moderator                |
-| users.updateMe    | PUT     | /me                 | updateMe   | Updates the user themself | User                     |
-| users.updateRole  | PUT     | /users/`{id}`/role  | updateRole | Updates the user's role   | Admin                    |
-| users.destroy     | DELETE  | /users/`{id}`       | destroy    | Deletes a user            | Admin                    |
-| users.destroyMe   | DELETE  | /me                 | destroyMe  | Deletes the user themself | User                     |
-| users.ban         | PUT     | /users/`{id}`/ban   | ban        | Bans a user               | Moderator                |
-| users.unban       | PUT     | /users/`{id}`/unban | unban      | Unbans a user             | Moderator                |
+| Név               | Metódus | URL                 | Akció      | Leírás                            | Minimum jogosultság |
+|-------------------|---------|---------------------|------------|-----------------------------------|---------------------|
+| users.index       | GET     | /users              | index      | Össze felhasználó                 | Vendég              |
+| users.show        | GET     | /users/`{id}`       | show       | Flehasználó id szerint            | Vendég              |
+| users.showMe      | GET     | /me                 | showMe     | Én adataim                        | Felhasználó         |
+| users.update      | PUT     | /users/`{id}`       | update     | Felhasználó módosítás             | Moderátor           |
+| users.updateMe    | PUT     | /me                 | updateMe   | Én adataim módosítás              | Felhasználó         |
+| users.updateRole  | PUT     | /users/`{id}`/role  | updateRole | Felhasználó jogosultság módosítás | Admin               |
+| users.destroy     | DELETE  | /users/`{id}`       | destroy    | Felhasználó törlése               | Admin               |
+| users.destroyMe   | DELETE  | /me                 | destroyMe  | Én fiókom törlése                 | Felhasználó         |
+| users.ban         | PUT     | /users/`{id}`/ban   | ban        | Felhasználó tiltása               | Moderátor           |
+| users.unban       | PUT     | /users/`{id}`/unban | unban      | Felhasználó tiltás feloldása      | Moderátor           |
 
-
-
-### Content:
-* Model: Content
-* Controller: ContentController
+### Tananyag:
+* Modell: Content
+* Kontroller: ContentController
 * Policy: ContentPolicy
-* Requests: StoreContentRequest, UpdateContentRequest
+* Requestek: StoreContentRequest, UpdateContentRequest
 
-| Name                 | Method  | URL               | Action     | Description            | Minimum role requirement |
-|----------------------|---------|-------------------|------------|------------------------|--------------------------|
-| contents.index       | GET     | /contents         | index      | Gets all contents      | Guest                    |
-| contents.meIndex     | GET     | /contents/me      | meIndex    | Gets all my contents   | User                     |
-| contents.show        | GET     | /contents/`{id}`  | show       | Gets a content by id   | Guest                    |
-| contents.store       | CREATE  | /contents         | store      | Creates a content      | User                     |
-| contents.update      | PUT     | /contents/`{id}`  | update     | Updates a content      | User                     |
-| contents.destroy     | DELETE  | /contents/`{id}`  | destroy    | Deletes a content      | User                     |
+| Név                  | Metódus | URL               | Akció      | Leírás              | Minimum jogosultság |
+|----------------------|---------|-------------------|------------|---------------------|---------------------|
+| contents.index       | GET     | /contents         | index      | Összes tananyag     | Vendég              |
+| contents.meIndex     | GET     | /contents/me      | meIndex    | Összes tananyagom   | Felhasználó         |
+| contents.show        | GET     | /contents/`{id}`  | show       | Tananyag id szerint | Vendég              |
+| contents.store       | CREATE  | /contents         | store      | Tananyag létrehozás | Felhasználó         |
+| contents.update      | PUT     | /contents/`{id}`  | update     | Tananyag módosítás  | Felhasználó         |
+| contents.destroy     | DELETE  | /contents/`{id}`  | destroy    | Tananyag törlése    | Felhasználó         |
 
-### Question:
-* Model: Question
-* Controller: QuestionController
+### Kérdés:
+* Modell: Question
+* Kontroller: QuestionController
 * Policy: QuestionPolicy
-* Requests: StoreQuestionRequest, UpdateQuestionRequest
+* Requestek: StoreQuestionRequest, UpdateQuestionRequest
 
-| Name                  | Method  | URL                | Action     | Description            | Minimum role requirement |
-|-----------------------|---------|--------------------|------------|------------------------|--------------------------|
-| questions.index       | GET     | /questions         | index      | Gets all questions     | Guest                    |
-| questions.meIndex     | GET     | /questions/me      | meIndex    | Gets all my questions  | User                     |
-| questions.show        | GET     | /questions/`{id}`  | show       | Gets a question by id  | Guest                    |
-| questions.store       | CREATE  | /questions         | store      | Creates a question     | User                     |
-| questions.update      | PUT     | /questions/`{id}`  | update     | Updates a question     | User                     |
-| questions.destroy     | DELETE  | /questions/`{id}`  | destroy    | Deletes a question     | User                     |
+| Név                   | Metódus | URL                | Akció      | Leírás             | Minimum jogosultság |
+|-----------------------|---------|--------------------|------------|--------------------|---------------------|
+| questions.index       | GET     | /questions         | index      | Összes kérdés      | Vendég              |
+| questions.meIndex     | GET     | /questions/me      | meIndex    | Összes kérdésem    | Felhasználó         |
+| questions.show        | GET     | /questions/`{id}`  | show       | Kérdés id szerint  | Vendég              |
+| questions.store       | CREATE  | /questions         | store      | Kérdés létrehozás  | Felhasználó         |
+| questions.update      | PUT     | /questions/`{id}`  | update     | Updates a question | Felhasználó         |
+| questions.destroy     | DELETE  | /questions/`{id}`  | destroy    | Deletes a question | Felhasználó         |
 
-
-
-### Comment:
-* Model: Comment
-* Controller: CommentController
+### Komment:
+* Modell: Comment
+* Kontroller: CommentController
 * Policy: CommentPolicy
-* Requests: StoreCommentRequest, UpdateCommentRequest
+* Requestek: StoreCommentRequest, UpdateCommentRequest
 
-| Name                 | Method  | URL                              | Action     | Description           | Minimum role requirement |
-|----------------------|---------|----------------------------------|------------|-----------------------|--------------------------|
-| comments.index       | GET     | /comments                        | index      | Gets all comments     | Guest                    |
-| comments.meIndex     | GET     | /comments/me                     | meIndex    | Gets all my comments  | User                     |
-| comments.show        | GET     | /comments/`{id}`                 | show       | Gets a comment by id  | Guest                    |
-| comments.store       | CREATE  | /`{commentable}`/`{id}`/comments | store      | Creates a comment     | User                     |
-| comments.update      | PUT     | /comments/`{id}`                 | update     | Updates a comment     | User                     |
-| comments.destroy     | DELETE  | /comments/`{id}`                 | destroy    | Deletes a comment     | User                     |
+| Név                  | Metódus | URL                              | Akció      | Leírás             | Minimum jogosultság |
+|----------------------|---------|----------------------------------|------------|------------------- |---------------------|
+| comments.index       | GET     | /comments                        | index      | Összes komment     | Vendég              |
+| comments.meIndex     | GET     | /comments/me                     | meIndex    | Összes kommentem   | Felhasználó         |
+| comments.show        | GET     | /comments/`{id}`                 | show       | Komment id szerint | Vendég              |
+| comments.store       | CREATE  | /`{commentable}`/`{id}`/comments | store      | Komment létrehozás | Felhasználó         |
+| comments.update      | PUT     | /comments/`{id}`                 | update     | Updates a comment  | Felhasználó         |
+| comments.destroy     | DELETE  | /comments/`{id}`                 | destroy    | Deletes a comment  | Felhasználó         |
 
-
-### Vote:
-* Model: Vote
-* Controller: VoteController
+### Szavazás:
+* Modell: Vote
+* Kontroller: VoteController
 * Policy: CommentPolicy
-* Requests: StoreVoteRequest, UpdateVoteRequest
+* Requestek: StoreVoteRequest, UpdateVoteRequest
 
-| Name                     | Method  | URL                       | Action             | Description               | Minimum role requirement |
-|--------------------------|---------|---------------------------|--------------------|---------------------------|--------------------------|
-| votes.meIndex            | GET     | /votes/me                 | meIndex            | Gets all my votes         | User                     |
-| votes.store              | CREATE  | /`{votable}`/`{id}`/votes | store              | Creates a vote            | User                     |
-| votes.update             | PUT     | /votes/`{id}`             | update             | Updates a vote            | User                     |
-| votes.destroy            | DELETE  | /votes/`{id}`             | destroy            | Deletes a vote by id      | User                     |
-| votes.destroyByVotableId | DELETE  | /`{votable}`/`{id}`/votes | destroyByVotableId | Deletes a vote votable id | User                     |
+| Név                      | Metódus | URL                       | Akció              | Leírás                              | Minimum jogosultság |
+|--------------------------|---------|---------------------------|--------------------|-------------------------------------|---------------------|
+| votes.meIndex            | GET     | /votes/me                 | meIndex            | Összes szavazásom                   | Felhasználó         |
+| votes.store              | CREATE  | /`{votable}`/`{id}`/votes | store              | Szavazás létrehozás                 | Felhasználó         |
+| votes.update             | PUT     | /votes/`{id}`             | update             | Szavazás módosítás                  | Felhasználó         |
+| votes.destroy            | DELETE  | /votes/`{id}`             | destroy            | Szavazás törlése id szerint         | Felhasználó         |
+| votes.destroyByVotableId | DELETE  | /`{votable}`/`{id}`/votes | destroyByVotableId | Szavazás törlése votable id szerint | Felhasználó         |
 
-
-
-### Subject:
-* Model: Subject
-* Controller: SubjectController
-* Controller: SubjectController
+### Tantárgy:
+* Modell: Subject
+* Kontroller: SubjectController
+* Kontroller: SubjectController
 * Policy: SubjectPolicy
-* Requests: StoreSubjectRequest, UpdateSubjectRequest
+* Requestek: StoreSubjectRequest, UpdateSubjectRequest
 
-| Name             | Method  | URL               | Action   | Description           | Minimum role requirement |
-|------------------|---------|-------------------|----------|-----------------------|--------------------------|
-| subjects.index   | GET     | /subjects         | index    | Gets all subjects     | Guest                    |
-| subjects.show    | GET     | /subjects/`{id}`  | show     | Gets a subject by id  | Guest                    |
-| subjects.store   | CREATE  | /subjects         | store    | Creates a subject     | User                     |
-| subjects.update  | PUT     | /subjects/`{id}`  | update   | Updates a subject     | Moderator                |
-| subjects.destroy | DELETE  | /subjects/`{id}`  | destroy  | Deletes a subject     | Moderator                |
+| Név              | Metódus | URL               | Akció    | Leírás                | Minimum jogosultság |
+|------------------|---------|-------------------|----------|-----------------------|---------------------|
+| subjects.index   | GET     | /subjects         | index    | Összes tantárgy       | Vendég              |
+| subjects.show    | GET     | /subjects/`{id}`  | show     | Tantárgy id szerint   | Vendég              |
+| subjects.store   | CREATE  | /subjects         | store    | Tantárgy létrehozás   | Felhasználó         |
+| subjects.update  | PUT     | /subjects/`{id}`  | update   | Tantárgy módosítás    | Moderátor           |
+| subjects.destroy | DELETE  | /subjects/`{id}`  | destroy  | Tantárgy törlése      | Moderátor           |
 
-
-### Topic:
-* Model: Topic
-* Controller: TopicController
+### Téma:
+* Modell: Topic
+* Kontroller: TopicController
 * Policy: TopicPolicy
-* Requests: StoreTopicRequest, UpdateTopicRequest
+* Requestek: StoreTopicRequest, UpdateTopicRequest
 
-| Name           | Method  | URL             | Action   | Description         | Minimum role requirement |
-|----------------|---------|-----------------|----------|---------------------|--------------------------|
-| topics.index   | GET     | /topics         | index    | Gets all topics     | Guest                    |
-| topics.show    | GET     | /topics/`{id}`  | show     | Gets a topic by id  | Guest                    |
-| topics.store   | CREATE  | /topics         | store    | Creates a topic     | User                     |
-| topics.update  | PUT     | /topics/`{id}`  | update   | Updates a topic     | Moderator                |
-| topics.destroy | DELETE  | /topics/`{id}`  | destroy  | Deletes a topic     | Moderator                |
+| Név            | Metódus | URL             | Akció    | Leírás              | Minimum jogosultság |
+|----------------|---------|-----------------|----------|---------------------|---------------------|
+| topics.index   | GET     | /topics         | index    | Összes téma         | Vendég              |
+| topics.show    | GET     | /topics/`{id}`  | show     | Téma id szerint     | Vendég              |
+| topics.store   | CREATE  | /topics         | store    | Téma létrehozás     | Felhasználó         |
+| topics.update  | PUT     | /topics/`{id}`  | update   | Téma módosítás      | Moderátor           |
+| topics.destroy | DELETE  | /topics/`{id}`  | destroy  | Téma törlése        | Moderátor           |
 
-
-### Ticket:
-* Model: Ticket
-* Controller: TicketController
+### Hibajegy:
+* Modell: Ticket
+* Kontroller: TicketController
 * Policy: TicketPolicy
-* Requests: StoreTicketRequest, UpdateTicketRequest
+* Requestek: StoreTicketRequest, UpdateTicketRequest
 
-| Name            | Method  | URL              | Action   | Description           | Minimum role requirement |
-|-----------------|---------|------------------|----------|-----------------------|--------------------------|
-| tickets.index   | GET     | /tickets         | index    | Gets all tickets      | User                     |
-| tickets.meIndex | GET     | /tickets/me      | meIndex  | Gets all my tickets   | User                     |
-| tickets.show    | GET     | /tickets/`{id}`  | show     | Gets a ticket by id   | User                     |
-| tickets.store   | CREATE  | /tickets         | store    | Creates a ticket      | User                     |
-| tickets.update  | PUT     | /tickets/`{id}`  | update   | Updates a ticket      | User                     |
-| tickets.destroy | DELETE  | /tickets/`{id}`  | destroy  | Deletes a ticket      | User                     |
+| Név             | Metódus | URL              | Akció    | Leírás                | Minimum jogosultság |
+|-----------------|---------|------------------|----------|-----------------------|---------------------|
+| tickets.index   | GET     | /tickets         | index    | Összes hibajegy       | Felhasználó         |
+| tickets.meIndex | GET     | /tickets/me      | meIndex  | Összes hibajegyeim    | Felhasználó         |
+| tickets.show    | GET     | /tickets/`{id}`  | show     | Hibajegy id szerint   | Felhasználó         |
+| tickets.store   | CREATE  | /tickets         | store    | Hibajegy létrehozása  | Felhasználó         |
+| tickets.update  | PUT     | /tickets/`{id}`  | update   | Hibajegy módosítás    | Felhasználó         |
+| tickets.destroy | DELETE  | /tickets/`{id}`  | destroy  | Hibajegy törlése      | Felhasználó         |
 
-### Rank:
-* Model: Rank
-* Controller: RankController
+### Rang:
+* Modell: Rank
+* Kontroller: RankController
 * Policy: RankPolicy
 
-| Name            | Method  | URL           | Action  | Description       | Minimum role requirement |
-|-----------------|---------|---------------|---------|-------------------|--------------------------|
-| ranks.index     | GET     | /ranks        | index   | Gets all ranks    | Guest                    |
-| ranks.show      | GET     | /ranks/`{id}` | show    | Gets a rank       | Guest                    |
+| Név             | Metódus | URL           | Akció   | Leírás          | Minimum jogosultság |
+|-----------------|---------|---------------|---------|-----------------|---------------------|
+| ranks.index     | GET     | /ranks        | index   | Összes rang     | Vendég              |
+| ranks.show      | GET     | /ranks/`{id}` | show    | Rang id szerint | Vendég              |
 
-
-### Image:
-* Model: Image
-* Controller: ImageController
+### Kép:
+* Modell: Image
+* Kontroller: ImageController
 * Policy: ImagePolicy
 
-| Name             | Method  | URL            | Action     | Description       | Minimum role requirement |
-|------------------|---------|----------------|------------|-------------------|--------------------------|
-| images.store     | CREATE  | /images        | store      | Uploads an image  | User                     |
-| images.show      | PUT     | /images/`{id}` | update     | Gets an image     | User                     |
-| images.destroy   | DELETE  | /images/`{id}` | destroy    | Deletes an image  | User                     |
-
-
+| Név              | Metódus | URL            | Akció      | Leírás            | Minimum jogosultság |
+|------------------|---------|----------------|------------|-------------------|---------------------|
+| images.store     | CREATE  | /images        | store      | Kép feltöltés     | Felhasználó         |
+| images.show      | PUT     | /images/`{id}` | update     | Kép rang szerint  | Felhasználó         |
+| images.destroy   | DELETE  | /images/`{id}` | destroy    | Kép törlése       | Felhasználó         |

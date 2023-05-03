@@ -51,7 +51,7 @@ class ApiVoteTest extends TestCase
             'direction' => 'up',
             'votable_type' => 'App\Models\Content',
             'votable_id' => $content->id,
-            'owner_user_id' => $this->user->id,
+            'creator_user_id' => $this->user->id,
             'reciever_user_id' => $content->creator_user_id,
         ]);
     }
@@ -67,7 +67,7 @@ class ApiVoteTest extends TestCase
 
         // create vote with up direction
         $vote = Vote::factory()->create([
-            'owner_user_id' => $this->user->id,
+            'creator_user_id' => $this->user->id,
             'reciever_user_id' => $reciever_user->id,
             'votable_id' => $content->id,
             'votable_type' => Content::class,
@@ -96,7 +96,7 @@ class ApiVoteTest extends TestCase
             'direction' => 'down',
             'votable_id' => $content->id,
             'votable_type' => Content::class,
-            'owner_user_id' => $this->user->id,
+            'creator_user_id' => $this->user->id,
             'reciever_user_id' => $reciever_user->id,
         ]);
     }
@@ -112,7 +112,7 @@ class ApiVoteTest extends TestCase
         ]);
 
         $vote = Vote::factory()->create([
-            'owner_user_id' => $this->user->id,
+            'creator_user_id' => $this->user->id,
             'reciever_user_id' => $reciever_user->id,
             'votable_id' => $content->id,
             'votable_type' => Content::class,
@@ -138,7 +138,7 @@ class ApiVoteTest extends TestCase
         ]);
 
         $vote = Vote::factory()->create([
-            'owner_user_id' => $this->user->id,
+            'creator_user_id' => $this->user->id,
             'reciever_user_id' => $content->creator->id,
             'votable_id' => $content->id,
             'votable_type' => Content::class,
