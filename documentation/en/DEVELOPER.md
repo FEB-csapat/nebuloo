@@ -267,6 +267,8 @@ Schema::create('ranks', function (Blueprint $table) {
 
 
 ## Rest API
+[Postman collection](/documentation/NebulooAPI.postman_collection.json) is available in json format.
+
 
 ### Base URL: `https://localhost:8881/api/`
 
