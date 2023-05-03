@@ -18,7 +18,9 @@ class ApiContentTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = User::factory()->create();
+        $this->user = User::factory()->create([
+            
+        ]);
     }
 
     public function test_show_only_user_content()

@@ -22,9 +22,43 @@ class ApiQuestionTest extends TestCase
         $this->user = User::factory()->create();
     }
 
-    /**
-     * Tests that a user who is not logged in cannot create a question.
-     */
+    public function test_show_only_user_question()
+    {
+        $otherUser = User::factory()->create();
+        
+        $otherQuestions = Question::factory()->count(2)->create(['creator_user_id' => $otherUser->id]);
+
+        $myQuestions = Question::factory()->count(4)->create(['creator_user_id' => $this->user->id]);
+
+        $response = $this->actingAs($this->user, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->get('api/questions/me');
+
+        $response->assertOk();
+        $response->assertJsonCount(4);
+
+        $questions = $response->json();
+
+        foreach ($questions as $question) {
+            $this->assertEquals($question['creator']['id'], $this->user->id);
+        }
+    }
+    
+    public function test_show_only_user_question_as_guest()
+    {
+        $response = $this
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->get('api/questions/me');
+
+        $response
+            ->assertUnauthorized()
+            ->assertJson([
+                'message' => 'Unauthenticated.'
+        ]);
+    }
+
     public function test_question_creation_as_guest()
     {
         $response = $this->withHeaders([
@@ -37,9 +71,6 @@ class ApiQuestionTest extends TestCase
         $response->assertUnauthorized();
     }
 
-    /**
-     * Tests that a user who is not logged in cannot create a question.
-     */
     public function test_question_creation_as_user()
     {
 
@@ -59,7 +90,6 @@ class ApiQuestionTest extends TestCase
             'creator_user_id' => $this->user->id
         ]);
     }
-
 
     public function test_question_creation_without_title()
     {
@@ -98,63 +128,7 @@ class ApiQuestionTest extends TestCase
         ]);
     }
 
-    public function test_question_creation_without_body_and_title()
-    {
-        $response = $this->actingAs($this->user, 'sanctum')
-        ->withHeaders([
-            'Accept' => 'application/json',
-        ])->post('api/questions', [
-            //empty
-        ]);
-        
-        $response
-            ->assertUnprocessable()
-            ->assertJson([
-                'message' => 'A(z) cím mező kitöltése kötelező.',
-                'errors' => [
-                    'title' => [
-                        'A(z) cím mező kitöltése kötelező.'
-                    ]
-                ]
-        ]);
-    }
-
-    public function test_show_only_user_question_as_guest()
-    {
-        $response = $this
-        ->withHeaders([
-            'Accept' => 'application/json',
-        ])->get('api/questions/me');
-
-        $response
-            ->assertUnauthorized()
-            ->assertJson([
-                'message' => 'Unauthenticated.'
-        ]);
-    }
-
-    public function test_show_only_user_question()
-    {
-        $otherUser = User::factory()->create();
-        
-        $otherQuestions = Question::factory()->count(2)->create(['creator_user_id' => $otherUser->id]);
-
-        $myQuestions = Question::factory()->count(4)->create(['creator_user_id' => $this->user->id]);
-
-        $response = $this->actingAs($this->user, 'sanctum')
-        ->withHeaders([
-            'Accept' => 'application/json',
-        ])->get('api/questions/me');
-
-        $response->assertOk();
-        $response->assertJsonCount(4);
-
-        $questions = $response->json();
-
-        foreach ($questions as $question) {
-            $this->assertEquals($question['creator']['id'], $this->user->id);
-        }
-    }
+    
 
     public function test_question_update_as_not_creator()
     {

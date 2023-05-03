@@ -19,7 +19,6 @@ class ApiLoginTest extends TestCase
 
         $this->user = User::factory()->create([
             'password' => Hash::make('Test123@')
-            
         ]);
 
         $this->data = [
