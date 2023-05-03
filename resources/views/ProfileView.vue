@@ -85,8 +85,8 @@
                     <button class="btn btn-info" name="edituserprofile" @click="navigateToEditProfileView()">Profil szerkesztése</button>
                 </div>
                 <div class="col-4">
-                    <button v-if="userData != null && !userData.banned" name="banuserprofile" class="btn btn-danger" @click="banUser()">Felhasználó bannolása</button>
-                    <button v-else class="btn btn-danger" @click="unbanUser()">Felhasználó bannolás feloldása</button>
+                    <button v-if="userData != null && !userData.banned" name="banuserprofile" class="btn btn-danger" @click="banUser()">Felhasználó kitiltása</button>
+                    <button v-else class="btn btn-danger" @click="unbanUser()">Felhasználó kitiltásának feloldása</button>
                 </div>
                 <div class="col-4" v-if="isAdmin">
                     <button class="btn btn-danger" name="deleteuserprofile" @click="deleteUser()">Felhasználó törlése</button>

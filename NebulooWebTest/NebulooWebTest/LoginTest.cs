@@ -6,7 +6,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace NebulooWebTest
 {
-    public class LoginTestChrome
+    public class LoginTest
     {
         IWebDriver driver;
         static string baseUrl = "http://localhost:8881/";
