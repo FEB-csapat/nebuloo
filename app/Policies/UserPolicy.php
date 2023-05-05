@@ -112,7 +112,7 @@ class UserPolicy
         // Admin can delete anybody, except admins
         if($userRequester->isAdmin()){
             if($userRequested->isAdmin()){
-                return Response::deny('Admin cannot be deleted!');
+                return Response::deny(__('messages.admin_cannot_be_deleted'));
             }
             return Response::allow();
         }

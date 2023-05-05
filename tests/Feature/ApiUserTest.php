@@ -193,7 +193,7 @@ class ApiUserTest extends TestCase
 
         $response->assertForbidden()
         ->assertJson([
-            'message' => 'Admin cannot be deleted!'
+            'message' => __('messages.admin_cannot_be_deleted')
         ]);
         $this->assertDatabaseHas('users', [
             'id' => $this->user->id
@@ -233,7 +233,7 @@ class ApiUserTest extends TestCase
 
         $response->assertForbidden()
         ->assertJson([
-            'message' => 'Admin cannot be deleted!'
+            'message' => __('messages.admin_cannot_be_deleted')
         ]);
         $this->assertDatabaseHas('users', [
             'id' => $this->user->id

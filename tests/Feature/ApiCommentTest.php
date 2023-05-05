@@ -79,7 +79,7 @@ class ApiCommentTest extends TestCase
         $response
             ->assertUnauthorized()
             ->assertJson([
-                'message' => 'Unauthenticated.'
+                'message' => __('messages.unauthenticated')
         ]);
     }
 
@@ -171,7 +171,7 @@ class ApiCommentTest extends TestCase
 
         $response->assertUnauthorized()
         ->assertJson([
-            'message' => 'Unauthenticated.'
+            'message' => __('messages.unauthenticated')
         ]);
     }
     
@@ -263,7 +263,7 @@ class ApiCommentTest extends TestCase
         $response
         ->assertUnauthorized()
         ->assertJson([
-            'message' => 'Unauthenticated.'
+            'message' => __('messages.unauthenticated')
         ]);
     }
 
@@ -379,7 +379,7 @@ public function test_show_a_comment_as_guest()
         $response
         ->assertUnauthorized()
         ->assertJson([
-            'message' => 'Unauthenticated.'
+            'message' => __('messages.unauthenticated')
         ]);
     }
 
@@ -484,7 +484,7 @@ public function test_show_a_comment_as_guest()
         $response
             ->assertUnauthorized()
             ->assertJson([
-                'message' => 'Unauthenticated.'
+                'message' => __('messages.unauthenticated')
         ]);
     }
 

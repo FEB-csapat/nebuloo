@@ -4,9 +4,20 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Auth\AuthenticationException;
 
 class Handler extends ExceptionHandler
 {
+
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        if ($request->expectsJson()){
+            return response()->json(['message' => __("messages.unauthenticated")], 401);
+        }
+        
+        return parent::render($request, $exception);
+    }
+
     /**
      * A list of exception types with their corresponding custom log levels.
      *
