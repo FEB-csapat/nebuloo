@@ -43,5 +43,8 @@ return [
 
     'admins_role_cannot_be_updated' => 'Admin\'s role cannot be updated!',
     'admin_cannot_be_banned' => 'Admin cannot be banned!',
+    'admin_cannot_be_deleted' => 'Admin nem törölhető!',
     'moderator_cannot_be_banned_as_moderator' => 'Moderator cannot be banned as moderator!',
+
+    'unauthenticated' => 'Unauthenticated!',
 ];

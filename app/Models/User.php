@@ -126,6 +126,7 @@ class User extends Authenticatable
             return;
         }
         if($commentableClass == Content::class){
+
             Mail::to($this->email)->send(new ContentCommentMailNotify($comment));
 
         }else {

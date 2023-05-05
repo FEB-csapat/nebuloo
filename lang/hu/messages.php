@@ -48,7 +48,8 @@ return [
 
     'admins_role_cannot_be_updated' => 'Admin jogosultsága nem módosítható!',
     'admin_cannot_be_banned' => 'Admin nem tiltható!',
+    'admin_cannot_be_deleted' => 'Admin nem törölhető!',
     'moderator_cannot_be_banned_as_moderator' => 'Moderátor nem tiltható moderátorként!',
 
-    
+    'unauthenticated' => 'Nem hitelesített!',
 ];

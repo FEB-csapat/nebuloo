@@ -55,7 +55,7 @@ class ApiQuestionTest extends TestCase
         $response
             ->assertUnauthorized()
             ->assertJson([
-                'message' => 'Unauthenticated.'
+                'message' => __('messages.unauthenticated')
         ]);
     }
 
@@ -252,7 +252,7 @@ class ApiQuestionTest extends TestCase
         $response
             ->assertUnauthorized()
             ->assertJson([
-                'message' => 'Unauthenticated.'
+                'message' => __('messages.unauthenticated')
         ]);
     }
 

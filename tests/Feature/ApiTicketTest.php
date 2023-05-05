@@ -92,7 +92,7 @@ class ApiTicketTest extends TestCase
         $response
             ->assertUnauthorized()
             ->assertJson([
-                'message' => 'Unauthenticated.'
+                'message' => __('messages.unauthenticated')
         ]);
     }
 
@@ -338,7 +338,7 @@ class ApiTicketTest extends TestCase
         $response
             ->assertUnauthorized()
             ->assertJson([
-                'message' => 'Unauthenticated.'
+                'message' => __('messages.unauthenticated')
         ]);
     }
 
@@ -371,7 +371,7 @@ class ApiTicketTest extends TestCase
         $response
             ->assertUnauthorized()
             ->assertJson([
-                'message' => 'Unauthenticated.'
+                'message' => __('messages.unauthenticated')
         ]);
     }
 
