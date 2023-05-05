@@ -22,8 +22,7 @@ class ApiVoteTest extends TestCase
         $this->user = User::factory()->create();
     }
 
-    /** @test */
-    public function test_user_can_vote_on_a_content()
+    public function test_user_can_vote()
     {
         $content = Content::factory()->create([
             'creator_user_id' => $this->user->id,
@@ -56,7 +55,7 @@ class ApiVoteTest extends TestCase
         ]);
     }
 
-    /** @test */
+    
     public function test_user_can_update_their_vote()
     {
         $reciever_user = User::factory()->create();
@@ -74,7 +73,7 @@ class ApiVoteTest extends TestCase
             'direction' => 'up'
         ]);
 
-        // update vote with down direction
+        // update vote with POST request with down direction
         $response = $this->actingAs($this->user, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',
@@ -101,9 +100,7 @@ class ApiVoteTest extends TestCase
         ]);
     }
 
-    
-    /** @test */
-    public function test_user_can_delete_a_vote()
+    public function test_user_can_delete_their_a_vote()
     {
         $reciever_user = User::factory()->create();
 
@@ -127,6 +124,39 @@ class ApiVoteTest extends TestCase
         $response->assertOk();
     
         $this->assertDatabaseMissing('votes', [
+            'id' => $vote->id,
+        ]);
+    }
+
+
+    public function test_user_can_not_delete_others_vote()
+    {
+        $otherUser = User::factory()->create();
+        $reciever_user = User::factory()->create();
+
+        $content = Content::factory()->create([
+            'creator_user_id' => $reciever_user->id,
+        ]);
+
+        $vote = Vote::factory()->create([
+            'creator_user_id' => $otherUser->id,
+            'reciever_user_id' => $reciever_user->id,
+            'votable_id' => $content->id,
+            'votable_type' => Content::class,
+            'direction' => 'up'
+        ]);
+
+        $response = $this->actingAs($this->user, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->delete("/api/contents/{$content->id}/votes");
+        
+        $response->assertForbidden()
+            ->assertJson([
+                'message' => __('messages.user_not_permitted_for_action')
+        ]);
+
+        $this->assertDatabaseHas('votes', [
             'id' => $vote->id,
         ]);
     }

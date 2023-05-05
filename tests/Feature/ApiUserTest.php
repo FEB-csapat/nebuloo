@@ -21,9 +21,8 @@ class ApiUserTest extends TestCase
         ]);
     }
 
-    public function test_update_profile()
+    public function test_update_profile_as_user()
     {
-
         $data = [
             'display_name' => 'Updated name',
             'bio' => 'Updated bio'
@@ -43,7 +42,7 @@ class ApiUserTest extends TestCase
         ]);
     }
 
-    public function test_update_profile_of_other()
+    public function test_update_profile_of_other_as_user()
     {
         $otherUser = User::factory()->create();
 
