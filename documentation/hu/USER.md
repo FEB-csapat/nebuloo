@@ -93,6 +93,11 @@ Amennyiben a saját profilunkat nézzük, lehetőségünk nyílik ezen felül eg
 
 Továbbá lehetőségünk van kommentjeink szerkesztésére is, ehhez görgessünk le a "Kommentjeim" szekcióhoz és a változtatni kívánt komment jobb oldalán kattintsunk a 'Szerkesztés' gombra, majd a változtatásaink után a 'Mentés' gombra. Amennyiben kommentünket elszeretnék távolítani, kattintsunk a 'Törlés' gombra.
 
+### **Hibajegy küldése oldal**
+Ha bármi hibát találunk az oldalon, vagy esetleg bármi olyan tartalmat látunk amely kifogásolható számunkra, ezt egy hibajegy küldésével jelenthetjük az oldal üzemeltetői felé. A hibajegy küldése oldalra, a láblécben található "Jelentés küldése" feliratű hivatkozásra kattintva juthatunk el, ahol az űrlap kitöltése után, a "Létrehozás" címkéjű gombra kattintva küldhetjük el hibajegyünket.
+
+Miután elküldtük hibajegyünket, a saját profilunk oldalán nyomon követhetjük az adott hibajegy állapotát.
+
 ## **Admin számára**
 
 Az oldal alapkezelése teljesen megegyező számára, mint egy átlag felhasználónak, viszont több funkcióval rendelkezik.
@@ -107,6 +112,15 @@ Amennyiben megnézzük egy felhasználó profilját, megjelenik előttünk az 'A
 * Felhasználó bannolása: A 'Felhasználó bannolása' gombra kattintva felugrik egy ellenőrző ablak, hogy biztos véghez szeretnénk-e vinni a folyamatot, itt az 'OK' gombra kattintva véglegesíthetjük. Ekkor a felhasználó fiókja inaktív állapotba kerül, a felhasználó **nem** fog tudni belépni, de feltöltött tartalmai továbbra is megtekinthetőek, viszont profilján fel lesz tüntetve az érvényben lévő tiltása. A tiltás bármikor feloldható.
 * Felhasználó törlése: A 'Felhasználó törlése' gombra kattinva szintén felugrik egy ellenőrző ablak, itt is az 'OK' gombra kattinva véglegesíthetjük. Ebben az esetben a felhasználó fiókja teljesen mértékben törlésre kerül, ezzel együtt az összes általa feltöltött tananyag, kérdés, komment és hibajegy is.
 
+### **Hibajegyek oldal**
+Az admin felhasználónak lehetősége van megtekinteni az összes hibajegyet, a hibajegyek oldalon. Egy hibajegyen látható, hogy melyik felhasználó küldte az adott hibajegyet, illetve, hogy mi a hibajegy üzenete. A hibajegyek alapértelmezett állapota "Várakozik", de ha úgy gondolja az adminisztrátor, hogy az adott hiba javítva van, akkor ezt a "Megjelölés mint: "Javítva"" címkéjű gombra kattintva megváltoztathatja "Javítva" állapotra.
+
+Ha valamilyen okból kifolyólag újra kell nyitni egy hibajegyet, ezt a "Hibajegy újranyitása" címkéjű gombra kattintva megteheti az adminisztrátor. Így a hibajegy állapota, visszaváltozik "Várakozik" állapotra.
+
+Továbbá az adminnak lehetősége van törölni egy adott hibajegyet az "Elutasítás" címkéjű gombra kattintva.
+
 ## **Moderátor számára**
 
-Az oldal kezelése teljesen megegyező számára, mint egy átlag felhasználóé, viszont nincs annyi jogosúltsága mint egy adminnak. Amíg egy admin (admin társain kívül) bárkit (köztük moderátorokat is) kitilthat és törölhet, addig egy moderátor csak a felhasználókat kezelheti, moderátor társait nem. Továbbá jogosultságokat sem tud adni felhasználóknak.
+Az oldal kezelése teljesen megegyező számára, mint egy átlag felhasználóé, viszont nincs annyi jogosúltsága mint egy adminnak. Amíg egy admin (admin társain kívül) bárkit (köztük moderátorokat is) kitilthat és törölhet, addig egy moderátor csak a felhasználókat kezelheti, moderátor társait nem, illetve hibajegyeket kezelni is ugyanannyi jogosultsága van mint az adminisztrátornak.
+
+Továbbá jogosultságokat sem tud adni felhasználóknak.
