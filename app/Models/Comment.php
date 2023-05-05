@@ -57,6 +57,6 @@ class Comment extends Model
     }
 
     public function url(){
-        return $this->commentable->url() . '#comment-' . $this->id;
+        return $this->commentable->url() . '/comments/' . $this->id;
     }
 }

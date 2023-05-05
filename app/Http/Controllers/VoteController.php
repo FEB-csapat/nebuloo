@@ -91,11 +91,8 @@ class VoteController extends Controller
     public function update(UpdateVoteRequest $request, $id)
     {
         $vote = Vote::findOrFail($id);
-
         $this->authorize('update', $vote);
-
         $data = $request->validated();
-        
         if($vote->update($data)){
             return new SimpleVoteResource($vote);
         }
@@ -128,34 +125,36 @@ class VoteController extends Controller
      */
     public function destroyByVotableId(Request $request, $votableType, $votableId)
     {
-        $votes =
-        Vote::where('votable_id', $votableId)
-            ->where('creator_user_id', $request->user()->id);
+        $votes = Vote::where('votable_id', $votableId);
 
-        if($votes){
+        if($votes->count() > 0){
             switch ($votableType) {
                 case 'contents':
                     $vote = $votes
-                        ->where('votable_type', 'App\Models\Content')
-                        ->first();
+                        ->where('votable_type', 'App\Models\Content');
                     break;
                 case 'questions':
                     $vote = $votes
-                        ->where('votable_type', 'App\Models\Question')
-                        ->first();
+                        ->where('votable_type', 'App\Models\Question');
                     break;
                 case 'comments':
                     $vote = $votes
-                        ->where('votable_type', 'App\Models\Comment')
-                        ->first();
+                        ->where('votable_type', 'App\Models\Comment');
                     break;
                 default:
                     abort(404, __('messages.votable_type_not_found'));
                     break;
             }
         }else{
-            abort(404, __('messages.vote_not_found'));
+            abort(404, __('messages.not_found'));
         }
+
+        $votes = $votes->where('creator_user_id', $request->user()->id);
+        if($votes->count() == 0){
+            abort(403, __('messages.user_not_permitted_for_action'));
+        }
+
+        $vote = $votes->first();
 
         $this->authorize('delete', $vote);
         if($vote->delete()){

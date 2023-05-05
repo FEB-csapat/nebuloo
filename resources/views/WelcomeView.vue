@@ -55,13 +55,13 @@
             <div class="row p-3 d-flex justify-content-center text-center">
                 <div class="col-md-4">
                     <router-link class="nav-link active" aria-current="page" :to="{ name: 'login'}">
-                        <button class="btn nebuloobutton">Fiókkal</button>
+                        <button class="btn nebuloobutton" style="width: 150px">Fiókkal</button>
                     </router-link>
                 </div>
                 <p class="col-md-4 align-self-center">Vagy</p>
                 <div class="col-md-4">
                     <router-link class="nav-link active" aria-current="page" :to="{ name: 'contents'}">
-                        <button class="btn nebuloobutton" name="enterasguest">Fiók nélkül</button>
+                        <button class="btn nebuloobutton" style="width: 150px" name="enterasguest">Fiók nélkül</button>
                     </router-link>
                 </div>
             </div>

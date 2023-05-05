@@ -21,9 +21,8 @@ class ApiUserTest extends TestCase
         ]);
     }
 
-    public function test_update_profile()
+    public function test_update_profile_as_user()
     {
-
         $data = [
             'display_name' => 'Updated name',
             'bio' => 'Updated bio'
@@ -43,7 +42,7 @@ class ApiUserTest extends TestCase
         ]);
     }
 
-    public function test_update_profile_of_other()
+    public function test_update_profile_of_other_as_user()
     {
         $otherUser = User::factory()->create();
 
@@ -193,7 +192,7 @@ class ApiUserTest extends TestCase
 
         $response->assertForbidden()
         ->assertJson([
-            'message' => 'Admin cannot be deleted!'
+            'message' => __('messages.admin_cannot_be_deleted')
         ]);
         $this->assertDatabaseHas('users', [
             'id' => $this->user->id
@@ -233,7 +232,7 @@ class ApiUserTest extends TestCase
 
         $response->assertForbidden()
         ->assertJson([
-            'message' => 'Admin cannot be deleted!'
+            'message' => __('messages.admin_cannot_be_deleted')
         ]);
         $this->assertDatabaseHas('users', [
             'id' => $this->user->id

@@ -80,7 +80,10 @@ export default{
         id: {
             type: Number,
             required: true
-        }
+        },
+        commentId: {
+            type: Number,
+        } 
     },
     methods:{
         navigateToEditView(){
@@ -120,8 +123,12 @@ export default{
         },
     },
     mounted(){
-        this.getDetailedQuestion();
-
+        this.getDetailedQuestion().then(()=>{
+            if(this.commentId){
+                const element = document.getElementById('comment-'+this.commentId);
+                element?.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
     },
 };
 </script>

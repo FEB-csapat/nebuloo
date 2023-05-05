@@ -44,7 +44,7 @@ class QuestionPolicy
     public function viewMe(?User $user): Response
     {
         if ($user === null) {
-            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
+            return Response::deny(__('messages.guest_not_permitted_for_action'));
         }
         return Response::allow();
     }
@@ -60,7 +60,7 @@ class QuestionPolicy
     {
         // visitors cannot create question
         if ($user === null) {
-            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
+            return Response::deny(__('messages.guest_not_permitted_for_action'));
         }
         return Response::allow();
     }
@@ -76,7 +76,7 @@ class QuestionPolicy
     {
         // visitors cannot update question
         if ($user === null) {
-            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
+            return Response::deny(__('messages.guest_not_permitted_for_action'));
         }
 
         if($user->hasAnyRole(['admin', 'moderator']) ){
@@ -100,7 +100,7 @@ class QuestionPolicy
     {
         // visitors cannot delete question
         if ($user === null) {
-            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
+            return Response::deny(__('messages.guest_not_permitted_for_action'));
         }
 
         if($user->hasAnyRole(['admin', 'moderator'])){

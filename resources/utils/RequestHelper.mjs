@@ -33,7 +33,10 @@ export class RequestHelper {
     static async createTicket(data){
         return RequestHelper.http.post('tickets',data)
     };
-    static async editTicket(data,id){
+    static async editTicket(state,id){
+        var data = {
+            state: state
+        };
         return RequestHelper.http.put('tickets/'+id,data)
     };
     static async deleteTicket(id){
@@ -150,7 +153,10 @@ export class RequestHelper {
         return RequestHelper.http.post(commentableType+ '/' + commentableId+ '/comments', data)
         
     };
-    static async editComment(data,id){
+    static async editComment(message, id){
+        var data={
+            message: message
+        };
         return RequestHelper.http.put('comments/'+id, data)
         
     };

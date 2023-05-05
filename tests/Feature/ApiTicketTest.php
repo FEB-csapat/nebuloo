@@ -28,7 +28,10 @@ class ApiTicketTest extends TestCase
             'body' => 'test body'
         ]);
 
-        $response->assertUnauthorized();
+        $response->assertForbidden()
+        ->assertJson([
+            'message' => __('messages.guest_not_permitted_for_action')
+        ]);
     }
 
     public function test_ticket_creation_as_user()
@@ -90,9 +93,9 @@ class ApiTicketTest extends TestCase
         ])->get('api/tickets/me');
 
         $response
-            ->assertUnauthorized()
+            ->assertForbidden()
             ->assertJson([
-                'message' => 'Unauthenticated.'
+                'message' => __('messages.guest_not_permitted_for_action')
         ]);
     }
 
@@ -184,7 +187,7 @@ class ApiTicketTest extends TestCase
             'state' => false
         ]);
 
-        $response->assertUnauthorized();
+        $response->assertForbidden();
         $this->assertDatabaseHas('tickets', [
             'id' => $ticket->id,
             'body' => 'test body',
@@ -314,7 +317,10 @@ class ApiTicketTest extends TestCase
             'state' => false
         ]);
 
-        $response->assertForbidden();
+        $response->assertForbidden()
+        ->assertJson([
+            'message' => __('messages.user_not_permitted_for_action')
+        ]);
         $this->assertDatabaseMissing('tickets', [
             'id' => $ticket->id,
             'body' => 'test body',
@@ -336,9 +342,9 @@ class ApiTicketTest extends TestCase
 
 
         $response
-            ->assertUnauthorized()
+            ->assertForbidden()
             ->assertJson([
-                'message' => 'Unauthenticated.'
+                'message' => __('messages.guest_not_permitted_for_action')
         ]);
     }
 
@@ -369,9 +375,9 @@ class ApiTicketTest extends TestCase
         ])->delete("/api/tickets/{$ticket->id}");
 
         $response
-            ->assertUnauthorized()
+            ->assertForbidden()
             ->assertJson([
-                'message' => 'Unauthenticated.'
+                'message' => __('messages.guest_not_permitted_for_action')
         ]);
     }
 

@@ -76,6 +76,14 @@ const router = createRouter({
       component: DetailedContentView,
       props: true
     },
+    
+    {
+      path: '/contents/:id/comments/:commentId',
+      name: 'contentByIdCommentScroll',
+      component: DetailedContentView,
+      props: true
+    },
+    
     {
       path: '/contents/create',
       name: 'createContent',
@@ -103,6 +111,12 @@ const router = createRouter({
     {
       path: '/questions/:id',
       name: 'questionById',
+      component: DetailedQuestionView,
+      props: true
+    },
+    {
+      path: '/questions/:id/comments/:commentId',
+      name: 'questionByIdCommentScroll',
       component: DetailedQuestionView,
       props: true
     },

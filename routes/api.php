@@ -138,7 +138,7 @@ Route::get('images/{id}', [ImageController::class, "show"])
 | API routes accessible only to: users, moderators, admins
 |--------------------------------------------------------------------------
 */
-Route::middleware(['auth:sanctum', IsNotBanned::class])->group(function () {
+Route::middleware(['role:user|moderator|admin'])->group(function () {
 /*
 |--- me actions : showMe, updateMe, destroyMe -----------------------------
 */
@@ -275,7 +275,7 @@ Route::middleware(['auth:sanctum', IsNotBanned::class])->group(function () {
 | API routes accessible only to: moderators, admins
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => ['role:admin|moderator', IsNotBanned::class]], function () {
+Route::group(['role:moderator|admin'], function () {
 
 /*
 |--- user actions : update, ban, unban ------------------------------------
@@ -328,7 +328,7 @@ Route::group(['middleware' => ['role:admin|moderator', IsNotBanned::class]], fun
 | API routes accessible only to: admins
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => ['role:admin', IsNotBanned::class]], function () {
+Route::group(['role:admin'], function () {
 /*
 |--- user actions : update, destroy ---------------------------------------
 */

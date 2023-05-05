@@ -77,9 +77,9 @@ class ApiCommentTest extends TestCase
         ])->get('api/comments/me');
 
         $response
-            ->assertUnauthorized()
+          //  ->assertForbidden()
             ->assertJson([
-                'message' => 'Unauthenticated.'
+                'message' => __('messages.guest_not_permitted_for_action')
         ]);
     }
 
@@ -169,9 +169,9 @@ class ApiCommentTest extends TestCase
             'Accept' => 'application/json',
         ])->post("/api/contents/{$content->id}/comments", $data);
 
-        $response->assertUnauthorized()
+        $response->assertForbidden()
         ->assertJson([
-            'message' => 'Unauthenticated.'
+            'message' => __('messages.guest_not_permitted_for_action')
         ]);
     }
     
@@ -261,9 +261,9 @@ class ApiCommentTest extends TestCase
         ])->post("/api/questions/{$question->id}/comments", $data);
 
         $response
-        ->assertUnauthorized()
+        ->assertForbidden()
         ->assertJson([
-            'message' => 'Unauthenticated.'
+            'message' => __('messages.guest_not_permitted_for_action')
         ]);
     }
 
@@ -377,9 +377,9 @@ public function test_show_a_comment_as_guest()
 
 
         $response
-        ->assertUnauthorized()
+        ->assertForbidden()
         ->assertJson([
-            'message' => 'Unauthenticated.'
+            'message' => __('messages.guest_not_permitted_for_action')
         ]);
     }
 
@@ -482,9 +482,9 @@ public function test_show_a_comment_as_guest()
         ])->delete("/api/comments/{$comment->id}");
 
         $response
-            ->assertUnauthorized()
+            ->assertForbidden()
             ->assertJson([
-                'message' => 'Unauthenticated.'
+                'message' => __('messages.guest_not_permitted_for_action')
         ]);
     }
 

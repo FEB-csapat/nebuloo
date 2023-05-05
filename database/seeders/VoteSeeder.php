@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Comment;
 use App\Models\Content;
 use App\Models\Question;
 use App\Models\User;
@@ -27,7 +28,7 @@ class VoteSeeder extends Seeder
                 'reciever_user_id' => $content->creator_user_id,
                 'votable_id' => $content->id,
                 'votable_type' => get_class($content),
-                'direction' => rand(0, 1) == 0 ? 'up' : 'down'
+                'direction' => rand(0, 4) == 0 ? 'down' : 'up'
             ]);
         }
 
@@ -39,7 +40,19 @@ class VoteSeeder extends Seeder
                 'reciever_user_id' => $question->creator_user_id,
                 'votable_id' => $question->id,
                 'votable_type' => get_class($question),
-                'direction' => rand(0, 1) == 0 ? 'up' : 'down'
+                'direction' => rand(0, 4) == 0 ? 'down' : 'up'
+            ]);
+        }
+
+        $comments = Comment::take(10)->get();
+        foreach ($comments as $comment) {
+            $votesCount = rand(0, 15);
+            Vote::factory()->count($votesCount)->create([
+                'creator_user_id' => User::inRandomOrder()->first(),
+                'reciever_user_id' => $comment->creator_user_id,
+                'votable_id' => $comment->id,
+                'votable_type' => get_class($comment),
+                'direction' => rand(0, 4) == 0 ? 'down' : 'up'
             ]);
         }
     }

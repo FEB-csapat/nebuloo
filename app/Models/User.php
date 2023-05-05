@@ -120,12 +120,13 @@ class User extends Authenticatable
         }
     }
 
-    public function notifyNewCommentToCommentable(object $comment, string $commentableClass)
+    public function notifyNewCommentToCommentable(Comment $comment, string $commentableClass)
     {
-        if( ! $this->notify){
+        if(! $this->notify_by_email){
             return;
         }
         if($commentableClass == Content::class){
+
             Mail::to($this->email)->send(new ContentCommentMailNotify($comment));
 
         }else {

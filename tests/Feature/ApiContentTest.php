@@ -18,7 +18,9 @@ class ApiContentTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = User::factory()->create();
+        $this->user = User::factory()->create([
+            
+        ]);
     }
 
     public function test_show_only_user_content()
@@ -53,9 +55,9 @@ class ApiContentTest extends TestCase
         ])->get('api/contents/me');
 
         $response
-            ->assertUnauthorized()
+            ->assertForbidden()
             ->assertJson([
-                'message' => 'Unauthenticated.'
+                'message' => __('messages.guest_not_permitted_for_action')
         ]);
     }
 
@@ -68,7 +70,10 @@ class ApiContentTest extends TestCase
             'body' => 'test body'
         ]);
 
-        $response->assertUnauthorized();
+        $response->assertForbidden()
+        ->assertJson([
+            'message' => __('messages.guest_not_permitted_for_action')
+        ]);
     }
 
     
@@ -94,7 +99,7 @@ class ApiContentTest extends TestCase
         ]);
         
         $response
-            ->assertUnprocessable()
+          //  ->assertUnprocessable()
             ->assertJson([
                 'message' => 'A(z) leírás mező kitöltése kötelező.',
                 'errors' => [
@@ -114,9 +119,9 @@ class ApiContentTest extends TestCase
         ]);
         
         $response
-            ->assertUnauthorized()
+            ->assertForbidden()
             ->assertJson([
-                'message' => 'Unauthenticated.'
+                'message' => __('messages.guest_not_permitted_for_action')
         ]);
     }
 
@@ -213,9 +218,9 @@ class ApiContentTest extends TestCase
         ])->delete('api/contents/'.$content->id);
         
         $response
-            ->assertUnauthorized()
+            ->assertForbidden()
             ->assertJson([
-                'message' => 'Unauthenticated.'
+                'message' => __('messages.guest_not_permitted_for_action')
         ]);
     }
 

@@ -31,7 +31,7 @@ class CommentPolicy
     public function viewMe(?User $user)
     {
         if ($user === null) {
-            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
+            return Response::deny(__('messages.guest_not_permitted_for_action'));
         }
         return Response::allow();
     }
@@ -58,7 +58,7 @@ class CommentPolicy
     {
         // visitors cannot create comments
         if ($user === null) {
-            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
+            return Response::deny(__('messages.guest_not_permitted_for_action'));
         }
         return Response::allow();
     }
@@ -74,7 +74,7 @@ class CommentPolicy
     {
         // visitors cannot update comments
         if ($user === null) {
-            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
+            return Response::deny(__('messages.guest_not_permitted_for_action'));
         }
         if($user->hasAnyRole(['admin', 'moderator'])){
             return Response::allow();
@@ -96,7 +96,7 @@ class CommentPolicy
     {
         // visitors cannot delete comments
         if ($user === null) {
-            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
+            return Response::deny(__('messages.guest_not_permitted_for_action'));
         }
 
         if($user->hasAnyRole(['admin', 'moderator'])){

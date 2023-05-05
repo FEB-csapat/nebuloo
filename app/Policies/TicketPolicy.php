@@ -20,7 +20,7 @@ class TicketPolicy
     public function view(?User $user): Response
     {
         if ($user === null) {
-            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
+            return Response::deny(__('messages.guest_not_permitted_for_action'));
         }
 
         if($user->hasAnyRole(['admin', 'moderator']) ){
@@ -32,7 +32,7 @@ class TicketPolicy
     public function viewMe(?User $user): Response
     {
         if ($user === null) {
-            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
+            return Response::deny(__('messages.guest_not_permitted_for_action'));
         }
         return Response::allow();
     }
@@ -41,7 +41,7 @@ class TicketPolicy
     {
         // visitors cannot update question
         if ($user === null) {
-            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
+            return Response::deny(__('messages.guest_not_permitted_for_action'));
         }
 
         if($user->hasAnyRole(['admin', 'moderator']) ){
@@ -55,7 +55,7 @@ class TicketPolicy
     {
         // visitors cannot delete ticket
         if ($user === null) {
-            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
+            return Response::deny(__('messages.guest_not_permitted_for_action'));
         }
 
         if($user->hasAnyRole(['admin', 'moderator'])){
@@ -73,7 +73,7 @@ class TicketPolicy
     {
         //visitors cannot create ticket
         if ($user === null) {
-            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
+            return Response::deny(__('messages.guest_not_permitted_for_action'));
         }
 
         if($user->hasAnyRole(['admin', 'moderator']) ){

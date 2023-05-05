@@ -8,19 +8,25 @@
                 {{ticket.body}}
             </p>
             <div class="text-end" v-if="canEditAndDelete">
-                <button class="btn btn-outline-info btn-sm mx-1" @click="AcceptTicket()" name="acceptticket" v-if="isOpen">
+                <button class="btn btn-info btn-sm mx-1" @click="AcceptTicket()" name="acceptticket" v-if="isOpen">
                     Megjelölés mint: "Javítva"
                 </button>
-                <button class="btn btn-outline-warning btn-sm mx-1" @click="ReopenTicket()" name="reopenticket" v-if="!isOpen">
+                <button class="btn btn-warning btn-sm mx-1" @click="ReopenTicket()" name="reopenticket" v-if="!isOpen">
                     Hibajegy újranyitása
                 </button>
-                <button class="btn btn-outline-danger btn-sm mx-1" @click="deleteTicket()" name="denyticket"> 
+                <button class="btn btn-danger btn-sm mx-1" @click="deleteTicket()" name="denyticket"> 
                     Elutasítás
                 </button>
             </div>
-            <h6 class="text-end m-1">Állapot: {{ this.state }}</h6>
+
+
+            <div class="row justify-content-start align-items-center me-1">
+                <div class="col">
+                    <h6 class="text-end m-1">Állapot: </h6>
+                </div>
+                    <span style="width: 90px" :class="['badge', 'm-1', 'p-2', 'fs-6', {'bg-green': !isOpen, 'bg-blue': isOpen}]">{{ this.state }}</span>
+            </div>
         </div>
-        
     </div>
 </template>
 
@@ -43,15 +49,13 @@ export default{
     },
     methods:{
         async AcceptTicket(){
-            const data = JSON.stringify(this.ticketAcceptData);
-            RequestHelper.editTicket(data,this.ticket.id)
+            RequestHelper.editTicket(true, this.ticket.id)
             window.alert("Hibajegy sikeresen elfogadva!");
             this.isOpen=true;
             window.location.reload();
         },
         async ReopenTicket(){
-            const data = JSON.stringify(this.ticketReopenData);
-            RequestHelper.editTicket(data,this.ticket.id)
+            RequestHelper.editTicket(false, this.ticket.id)
             window.alert("Hibajegy sikeresen újranyitva!");
             this.isOpen=false;
             window.location.reload();
@@ -61,35 +65,20 @@ export default{
             window.alert("Hibajegy sikeresen törölve!");
             window.location.reload();
         },
-        
-        ticketState(){
-            if (this.ticket.state==0) {
-                this.state = "Várakozik"
-                this.isOpen = true;
-            }
-            else{
-                this.state = "Javítva";
-                this.isOpen = false;
-            }
-        },
     },
     computed:{
         canEditAndDelete(){
             return ( UserManager.isAdmin() || UserManager.isModerator());
         },
-        ticketAcceptData(){
-            return{
-                state:true
-            }
-        },
-        ticketReopenData(){
-            return{
-                state:false
-            }
-        },
     },
     mounted(){
-        this.ticketState();
+        this.isOpen = this.ticket.state==0;
+        if (this.isOpen) {
+            this.state = "Várakozik"
+        }
+        else{
+            this.state = "Javítva";
+        }
     }
 }
 </script>

@@ -7,7 +7,7 @@
         </div>
         <div v-else class="col">
             <i :class="['fas', 'fa-up-long', 'fa-lg', 'is-guest']" @click="NotLoggedInVote()" name="unauthupvote_arrow"/>
-            <p class="pt-3 text-center" style="margin-left: 3px;">{{voteCounted + voteState}}</p>
+            <p class="pt-3 text-center">{{voteCounted + voteState}}</p>
             <i :class="['fas', 'fa-down-long', 'fa-lg', 'is-guest']" @click="NotLoggedInVote()" name="unauthdownvote_arrow"/>
         </div>
     </div>

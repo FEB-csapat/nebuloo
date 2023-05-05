@@ -48,7 +48,7 @@ class ContentPolicy
     public function viewMe(?User $user): Response
     {
         if ($user === null) {
-            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
+            return Response::deny(__('messages.guest_not_permitted_for_action'));
         }
         return Response::allow();
     }
@@ -64,11 +64,7 @@ class ContentPolicy
     {
         // visitors cannot create content
         if ($user === null) {
-            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
-        }
-
-        if($user->hasAnyRole(['admin', 'moderator']) ){
-            return Response::allow();
+            return Response::deny(__('messages.guest_not_permitted_for_action'));
         }
         
         return Response::allow();
@@ -85,7 +81,7 @@ class ContentPolicy
     {
         // visitors cannot update content
         if ($user === null) {
-            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
+            return Response::deny(__('messages.guest_not_permitted_for_action'));
         }
 
         if($user->hasAnyRole(['admin', 'moderator']) ){
@@ -109,7 +105,7 @@ class ContentPolicy
     {
         // visitors cannot delete content
         if ($user === null) {
-            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
+            return Response::deny(__('messages.guest_not_permitted_for_action'));
         }
 
         if($user->hasAnyRole(['admin', 'moderator'])){

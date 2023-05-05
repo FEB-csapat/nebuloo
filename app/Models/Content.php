@@ -68,6 +68,6 @@ class Content extends Model
     }
 
     public function url(){
-        return route('contents.show', $this->id);
+        return env('APP_URL').'/contents/'.$this->id;
     }
 }

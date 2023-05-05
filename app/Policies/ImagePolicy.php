@@ -33,7 +33,7 @@ class ImagePolicy
     {
         // visitors cannot upload images
         if ($user === null) {
-            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
+            return Response::deny(__('messages.guest_not_permitted_for_action'));
         }
         return Response::allow();
     }
@@ -49,7 +49,7 @@ class ImagePolicy
     {
         // visitors cannot delete comments
         if ($user === null) {
-            return Response::deny(__('messages.guests_are_not_permitted_for_this_action'));
+            return Response::deny(__('messages.guest_not_permitted_for_action'));
         }
 
         if($user->hasAnyRole(['admin', 'moderator'])){

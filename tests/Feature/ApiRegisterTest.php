@@ -226,7 +226,7 @@ class ApiRegisterTest extends TestCase
             ]
     ]);
     }
-    public function test_create_a_user_without_name()
+    public function test_create_a_user_without_username()
     {
         $this->data = array_merge($this->data, [
             'username' => null
@@ -272,7 +272,7 @@ class ApiRegisterTest extends TestCase
             ]
     ]);
     }
-    public function test_create_a_user_with_short_name()
+    public function test_create_a_user_with_short_username()
     {
         $this->data = array_merge($this->data, [
             'username' => 'Te',
@@ -295,7 +295,7 @@ class ApiRegisterTest extends TestCase
             ]
     ]);
     }
-    public function test_create_a_user_with_long_name()
+    public function test_create_a_user_with_long_username()
     {
         $this->data = array_merge($this->data, [
             'username' => 'TestTestTestTestTestTestTest',
@@ -341,7 +341,7 @@ class ApiRegisterTest extends TestCase
             ]
         ]);
     }
-    public function test_create_a_user_that_already_exists_with_name()
+    public function test_create_a_user_that_already_exists_with_username()
     {
         $otherUser = User::factory()->create([
             'username'=>'otherUserName'
@@ -393,7 +393,7 @@ class ApiRegisterTest extends TestCase
         ]);
     }
 
-    public function test_create_a_user_with_special_character_in_name()
+    public function test_create_a_user_with_special_character_in_username()
     {
         $this->data = array_merge($this->data, [
             'username' => 'Test@',
