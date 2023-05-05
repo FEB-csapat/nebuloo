@@ -4,12 +4,30 @@
         <h1>
             Nebuloo official dokumentáció
         </h1>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a porttitor tellus. Morbi consequat mauris eget nunc ultrices, non pellentesque turpis vestibulum. Mauris bibendum iaculis neque, sed cursus urna elementum vitae. Cras ut mattis arcu, ut tempor libero. Morbi pellentesque nisi enim, eget mattis erat congue quis. Quisque at tellus vitae mi interdum cursus. Praesent diam lacus, vestibulum venenatis maximus vel, posuere non libero. 
-        </p>
-        <p>
-            Proin vestibulum ex venenatis nibh sagittis vestibulum. Nunc viverra ante justo, in commodo elit sagittis vel. Aliquam sagittis eleifend tempus. Fusce non efficitur ante, a consequat neque. Proin non ipsum imperdiet sem fermentum sodales eu id sapien. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque nisl felis, commodo sed euismod vitae, pharetra in ligula. 
-        </p>
+        <table class="table table-striped p-2">
+            <th class="text-center">Magyar</th>
+            <th class="text-center">English</th>
+            <tr>
+                <td>
+                    <a href="https://github.com/FEB-csapat/nebuloo/blob/main/documentation/hu/DEVELOPER.md" class="nav-link px-2 mt-1">Fejlesztői dokumentáció</a>
+                </td>
+                <td>
+                    <a href="https://github.com/FEB-csapat/nebuloo/blob/main/documentation/en/DEVELOPER.md" class="nav-link px-2 mt-1">Developer documentation</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="https://github.com/FEB-csapat/nebuloo/blob/main/documentation/hu/USER.md" class="nav-link px-2 mt-1">Felhasználói dokumentáció</a>
+                </td>
+                <td>User documentation</td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="https://github.com/FEB-csapat/nebuloo/blob/main/documentation/hu/TEST.md" class="nav-link px-2 mt-1">Tesztelési dokumentáció</a>
+                </td>
+                <td>Testing documentation</td>
+            </tr>
+        </table>
     </div>
 </div>
 </template>

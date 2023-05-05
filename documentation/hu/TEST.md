@@ -127,8 +127,16 @@
 
 
 ### ApiTicketTest
+| Név                                            | Leírás                                                                                                         | Előfeltételek                                                                       | Lépések                                                                                                                                                                                                                        | Várt végeredmény                                                                                       |Sikeresség  | Szerző        | Dátum         |
+|------------------------------------------------|----------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|:----------:|---------------|---------------|
+| test_ticket_creation_as_user               | GET lekéréssel lekérjük az összes hozzászólást az API-ról, vendégként                                          | Az adatbázis és az API fut a Dockeren;<br/>Adatbázis migrációk futtatása megtörtént;|<br/>1. GET kérést küldünk a http://localhost:8881/api/comments felé                                                                                                                                                            | 200-as státusz üzenetet kapunk vissza, és a válaszban megkapjuk az összes hozzászólást                 |  &check;   | Truczán Bence | 2023. 05. 03. |
+| test_ticket_creation_as_moderator               | GET lekéréssel lekérjük az összes hozzászólást az API-ról, vendégként                                          | Az adatbázis és az API fut a Dockeren;<br/>Adatbázis migrációk futtatása megtörtént;|<br/>1. GET kérést küldünk a http://localhost:8881/api/comments felé                                                                                                                                                            | 200-as státusz üzenetet kapunk vissza, és a válaszban megkapjuk az összes hozzászólást                 |  &check;   | Truczán Bence | 2023. 05. 03. |
 
-
+| test_ticket_creation_as_guest
+| test_ticket_creation_as_user
+| test_ticket_creation_as_moderator
+| test_ticket_creation_as_admin
+| test_show_only_user_ticket_as_guest
 
 
 ## Selenium tesztek
