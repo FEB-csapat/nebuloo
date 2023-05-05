@@ -154,7 +154,7 @@ class VoteController extends Controller
                     break;
             }
         }else{
-            abort(404, __('messages.vote_not_found'));
+            abort(404, __('messages.not_found'));
         }
 
         $this->authorize('delete', $vote);

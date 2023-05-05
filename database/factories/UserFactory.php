@@ -23,7 +23,8 @@ class UserFactory extends Factory
             'display_name' => $username,
             'email' => fake()->unique()->safeEmail(),
             'bio' => $this->faker->realText(200),
-            'password' => Hash::make('Jelszo123@')
+            'password' => Hash::make('Jelszo123@'),
+            'role' => 'user'
         ];
     }
 }

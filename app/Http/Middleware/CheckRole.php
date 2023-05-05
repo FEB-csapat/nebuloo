@@ -18,8 +18,23 @@ class CheckRole
     {
         $user = $request->user();
     
-        if (!$user->role == $roles ) {
-            return response()->json(['message' => __('messages.unauthenticated')], 401);
+        if ($user == null) {
+            abort(403, __('messages.guest_not_permitted_for_action'));
+        }
+
+        if($user->banned){
+            abort(403, __('messages.user_banned'));
+        }
+
+        if (strpos($roles, $user->role) === false) {
+            if($user->role == 'moderator'){
+                abort(403, __('messages.moderator_not_permitted_for_action'));
+            }
+            if($user->role == 'user'){
+                abort(403, __('messages.user_not_permitted_for_action'));
+            }
+
+            return abort(401, __('messages.unauthenticated'));
         }
         
         return $next($request);

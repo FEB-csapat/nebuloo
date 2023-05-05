@@ -53,9 +53,9 @@ class ApiQuestionTest extends TestCase
         ])->get('api/questions/me');
 
         $response
-            ->assertUnauthorized()
+            ->assertForbidden()
             ->assertJson([
-                'message' => __('messages.unauthenticated')
+            'message' => __('messages.guest_not_permitted_for_action')
         ]);
     }
 
@@ -68,7 +68,11 @@ class ApiQuestionTest extends TestCase
             'body' => 'test body'
         ]);
 
-        $response->assertUnauthorized();
+        $response
+            ->assertForbidden()
+            ->assertJson([
+            'message' => __('messages.guest_not_permitted_for_action')
+        ]);
     }
 
     public function test_question_creation_as_user()
@@ -250,9 +254,9 @@ class ApiQuestionTest extends TestCase
         ])->delete('api/questions/'.$question->id);
         
         $response
-            ->assertUnauthorized()
+            ->assertForbidden()
             ->assertJson([
-                'message' => __('messages.unauthenticated')
+                'message' => __('messages.guest_not_permitted_for_action')
         ]);
     }
 
