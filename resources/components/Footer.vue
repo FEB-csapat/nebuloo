@@ -13,7 +13,7 @@
             <router-link class="nav-link text-muted px-2 mt-1 " aria-current="page" :to="{ name: 'documentation'}" name="footerdocs">Dokumentációk</router-link>
           </div>
           <div class="col-sm-3 text-center">
-            <router-link class="nav-link text-muted px-2 mt-1 " aria-current="page" :to="{ name: 'createTicket'}" name="footerticket">Jelentés küldése</router-link>
+            <router-link class="nav-link text-muted px-2 mt-1 " aria-current="page" :to="{ name: 'createTicket'}" name="footerticket">Hibajegy küldése</router-link>
           </div>
           <div class="col-sm-3 text-center">
             <a href="https://github.com/FEB-csapat/nebuloo" class="nav-link px-2 text-muted mt-1" name="footersource">Forrás kód</a>

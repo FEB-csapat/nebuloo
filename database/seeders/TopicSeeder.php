@@ -84,96 +84,91 @@ class TopicSeeder extends Seeder
             'name' => "Atomfizika",
         ]);
 
-        // Kémia
-        Topic::factory()->create([
-            'subject_id' => 4,
-            'name' => "Szerves kémia",
-        ]);
-        Topic::factory()->create([
-            'subject_id' => 4,
-            'name' => "Kémiai reakciók",
-        ]);
-
+        
         // Biológia
         Topic::factory()->create([
-            'subject_id' => 5,
+            'subject_id' => 4,
             'name' => "Sejtek",
         ]);
         Topic::factory()->create([
-            'subject_id' => 5,
+            'subject_id' => 4,
             'name' => "Állatok",
         ]);
         Topic::factory()->create([
-            'subject_id' => 5,
+            'subject_id' => 4,
             'name' => "Növények",
         ]);
 
         // Informatika
         Topic::factory()->create([
-            'subject_id' => 7,
+            'subject_id' => 5,
             'name' => "Programozás",
         ]);
         Topic::factory()->create([
-            'subject_id' => 7,
+            'subject_id' => 5,
             'name' => "Algoritmusok",
         ]);
         Topic::factory()->create([
-            'subject_id' => 7,
+            'subject_id' => 5,
             'name' => "Adatbázisok",
         ]);
         Topic::factory()->create([
-            'subject_id' => 7,
+            'subject_id' => 5,
             'name' => "Hálózatok",
         ]);
 
         // Angol
         Topic::factory()->create([
-            'subject_id' => 8,
+            'subject_id' => 6,
             'name' => "Grammar",
         ]);
         Topic::factory()->create([
-            'subject_id' => 8,
+            'subject_id' => 6,
             'name' => "Vocabulary",
         ]);
         Topic::factory()->create([
-            'subject_id' => 8,
+            'subject_id' => 6,
             'name' => "Reading",
         ]);
 
         // Nyelvtan
         Topic::factory()->create([
-            'subject_id' => 9,
+            'subject_id' => 7,
             'name' => "Szóalakok",
         ]);
         Topic::factory()->create([
-            'subject_id' => 9,
+            'subject_id' => 7,
             'name' => "Szófajok",
         ]);
         Topic::factory()->create([
-            'subject_id' => 9,
+            'subject_id' => 7,
             'name' => "Szótagok",
         ]);
         Topic::factory()->create([
-            'subject_id' => 9,
+            'subject_id' => 7,
             'name' => "Szótagrendszerek",
         ]);
 
         // Irodalom
         Topic::factory()->create([
-            'subject_id' => 10,
+            'subject_id' => 8,
             'name' => "Költészet",
         ]);
         Topic::factory()->create([
-            'subject_id' => 10,
+            'subject_id' => 8,
             'name' => "Próza",
         ]);
         Topic::factory()->create([
-            'subject_id' => 10,
+            'subject_id' => 8,
             'name' => "Színház",
         ]);
         Topic::factory()->create([
-            'subject_id' => 10,
+            'subject_id' => 8,
             'name' => "Realizmus",
+        ]);
+        Topic::factory()->create([
+            'subject_id' => 8,
+            'name' => "Kortárs",
         ]);
     }
 }

@@ -121,6 +121,46 @@ Dosztojevszkij műveiben gyakran az ártatlanok szenvedése és a bűnösök meg
 Dosztojevszkij munkássága az orosz irodalom történetében egyedülálló, és még ma is inspiráló hatással van az olvasókra és a követő írókra. Dosztojevszkij nagy jelentőséggel bír az orosz realizmusban, mivel művei általában az emberi szenvedélyeket és a lelki problémákat elemzik, és a társadalom problémáit is kritikusan vizsgálják.',
         ]);
         
+
+        Content::factory()->create([
+            'creator_user_id' => 2,
+            'subject_id' => Subject::where('name', 'Angol')->first()->id,
+            'topic_id' => Topic::where('name', 'Grammar')->first()->id,
+            'body' => '# Present continuous
+Az angol nyelv egyik alapvető időtartamú (tense) az úgynevezett "present continuous" idő, amely a jelen időt fejezi ki és folyamatban lévő cselekvésekre utal. Ezt az időtartamút általában jelen folyamatosnak vagy jelen folyamatban lévőnek is nevezik.
+            
+Az angol nyelvben a present continuous időt a "to be" segédigével és a főige -ing végződéssel történő együttállításával alakítjuk ki. Például: "I am writing" (írok), "She is reading a book" (olvas egy könyvet).
+            
+A present continuous idő a jelenben folyamatban lévő tevékenységeket fejezi ki, és általában olyan kifejezésekkel kezdődik, mint például: "I am currently...", "She is currently...", "They are currently..." stb.
+
+Ezen időtartamú használható egyéni és többes szám harmadik személyben is, és az "am", "is" vagy "are" segédigékkel kell kifejezni. Az ige -ing végződése mindig a főige mögött áll.
+
+A present continuous időt az alábbi esetekben használhatjuk:
+
+* Folyamatban lévő cselekvések kifejezése:
+    Példa: "I am currently studying for my exam."
+
+* Jövő idő kifejezése előre megtervezett tevékenységekre:
+    Példa: "We are leaving for vacation tomorrow."
+
+* Ideiglenes tevékenységek kifejezése:
+    Példa: "She is currently working at a coffee shop, but she plans to quit soon."
+
+* Időszakos tevékenységek kifejezése:
+    Példa: "We are usually having lunch together on Mondays."
+
+Folyamatban lévő változások kifejezése:
+    Példa: "The weather is getting colder and colder every day."
+
+Fontos megjegyezni, hogy a present continuous időnek nincs jövőbeli használata, csak akkor használjuk, ha egy előre megtervezett tevékenységet kifejezünk.
+
+A present continuous idő az angol nyelv egyik legfontosabb időtartamú, és gyakran használják az angol beszélők mindennapi beszédben. Ha szeretnénk jól kommunikálni angolul, akkor érdemes gyakorolni ezt az időtartamút, és megtanulni használni a megfelelő helyzetekben.',
+        ]);
+        
+
+
+
+
         Content::factory()->count(20)->create();
     }
 }

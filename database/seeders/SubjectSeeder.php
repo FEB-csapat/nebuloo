@@ -24,13 +24,7 @@ class SubjectSeeder extends Seeder
             'name' => "Fizika",
         ]);
         Subject::factory()->create([
-            'name' => "Kémia",
-        ]);
-        Subject::factory()->create([
             'name' => "Biológia",
-        ]);
-        Subject::factory()->create([
-            'name' => "Földrajz",
         ]);
         Subject::factory()->create([
             'name' => "Informatika",
