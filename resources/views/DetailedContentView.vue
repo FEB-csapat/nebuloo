@@ -60,7 +60,6 @@ import User from '../components/User.vue';
 import TagList from '../components/TagList.vue';
 
 import CommentSection from '../components/CommentSection.vue';
-import html2pdf from 'html2pdf.js';
 import SnackBar from '../components/snackbars/SnackBar.vue';
 
 import LoadingSpinner from '../components/LoadingSpinner.vue';
@@ -121,7 +120,12 @@ export default{
             })
         },
         downloadContent(){
-            html2pdf(document.getElementById('contentid'), {image : {type: 'jpeg', quality: 1}, filename: 'Tananyag.pdf'});
+            if(this.content != null){
+                var a = document.createElement("a");
+                a.href = window.URL.createObjectURL(new Blob([this.content.body], {type: "text/plain"}));
+                a.download =  this.content.body.substring(0, 20) + " - " + this.content.creator.display_name + ".md";
+                a.click(); 
+            }
         },
 
         commentAdded(){

@@ -13,10 +13,10 @@
                 <button class="btn btn-success  m-2" @click="editModeOff()" v-if="isEditing" name="savecomment"> 
                     Mentés
                 </button>
-                <button class="btn btn-outline-info btn-sm mx-1" @click="editModeOn()" v-if="!isEditing" name="editcomment">
+                <button class="btn btn-info btn-sm mx-1" @click="editModeOn()" v-if="!isEditing" name="editcomment">
                     Szerkesztés
                 </button>
-                <button class="btn btn-outline-danger btn-sm mx-1" @click="deleteComment()" v-if="!isEditing" name="deletecomment"> 
+                <button class="btn btn-danger btn-sm mx-1" @click="deleteComment()" v-if="!isEditing" name="deletecomment"> 
                     Törlés
                 </button>
             </div>
@@ -75,20 +75,12 @@ export default{
             }
         },
         async editComment(){
-            const data = JSON.stringify(this.commentData);
-            
-            this.comment.message = this.commentbody;
-            var response = (await RequestHelper.editComment(data,this.comment.id));
+            (await RequestHelper.editComment(this.commentbody,this.comment.id));
         },
     },
     computed:{
         canEditAndDelete(){
             return (UserManager.isMine(this.comment?.creator.id) || UserManager.isAdmin() || UserManager.isModerator());
-        },
-        commentData(){
-            return{
-                message:this.commentbody
-            }
         }
     }
 }

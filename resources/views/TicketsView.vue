@@ -55,7 +55,7 @@ export default{
     computed:{
         IsModeratorOrAdmin() {
         return ( UserManager.isAdmin() || UserManager.isModerator());
-      },
+    },
     },
     mounted(){
         this.getAllTickets();
