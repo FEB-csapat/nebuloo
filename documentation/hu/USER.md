@@ -8,16 +8,15 @@ Ha egy felhasználónak bármilyen problémája van az oldallal kapcsolatban, va
 
 ## Rendszerkövetelmények
 
+Mivel a weboldal dockerizáltan készült, ezért a rendszerkövetelmények megfelelnek a Docker Desktop használatának minimális követelményeinek:
+* Windows 10 operációs rendszer
+* 64 bites processzor
+* Legalább 4 GB RAM
+
 Szükséges alkalmazások, beállítások:
 * Docker Desktop, amely letölthető a következő címről: https://docs.docker.com/desktop/ 
 * WSL2 használatának engedélyezése
 * A számítógép BIOS-ában engedélyezni kell a virtualizációt
-
-
-Mivel a weboldal dockerizáltan készült, ezért a rendszerkövetelmények megfelelnek a Docker Desktop használatának minimális követelményeinek
-* Windows 10 operációs rendszer
-* 64 bites processzor
-* Legalább 4 GB RAM
 
 
 ## Telepítés:
@@ -25,7 +24,7 @@ Mivel a weboldal dockerizáltan készült, ezért a rendszerkövetelmények megf
 2. A projekt gyökér könyvtárában start.sh shell script futattása: `sh start.sh`
 
 Amennyiben a script futtatása sikertelen, a parancsokat manuálisan kell kiadni:
-1. Az “.env.example” fájl átnevezése “.env”-re
+1. `copy .env.example .env` az “.env.example” fájl átnevezése “.env”-re
 2. `docker compose up` parancs kiadása konténerek indításához
 3. `docker compose exec app fish` parancs kiadás a konténerbe való belépéshez
 
@@ -53,9 +52,9 @@ Ha nincsen még felhasználói fiókunk, létrehozhatunk egyet a bejelentkezési
 
 A regisztrációs oldalon egy űrlap vár minket, mely kitöltése után a  “Regisztráció” feliratú gombra kattintva létrehozhatjuk felhasználói fiókunkat. Sikeres regisztráció esetén, az oldal átirányít minket a bejelentkező felületre, ahol a felhasználó bejelentkezhet a frissen létrehozott fiókjával.
 
-### **Tananyag oldal**
+### **Tananyagok oldal**
 
-![Folytatási lehetőségek](/documentation/demo_contents_view.png)
+![Tananyagok oldal](/documentation/demo_contents_view.png)
 
 Ezen az oldalon megtekinthetjük általunk, illetve a többi felhasználó által feltöltött különböző tananyagokat. Alapvetően a legfrissebb dokumentumokat látjuk legelöl, de ezen a 'rendezés' lenyíló listára kattintva változtathatunk és másféle rendezési szempontot válaszhatunk ki.
 Ezen felül a megjelenített tananyagokat le is válogathatjuk az általunk preferált tantárgyak, azon belül pedig témakörök kiválasztásával, a bal oldalon található zöld 'tantárgy' lenyíló listára kattinva, illetve miután kiválasztottuk a nekünk megfelelő tantárgyat, a felugró listában a témakört. Amennyiben szeretnék törölni az alkalmazott szűrőket, kattintsunk a 'Szűrők törlése' szövegre.
@@ -66,34 +65,43 @@ Egy dokumentumot részletesebben is megtudunk tekinteni, ehhez kattinsuk rá ann
 
 ### **Részletes tananyag oldal**
 
-![Folytatási lehetőségek](/documentation/demo_detailed_content_view.png)
+![Részletes tananyag oldal](/documentation/demo_detailed_content_view.png)
 
 A részletes tananyag oldalon lehetőségünk van szavazni, a tananyagot markdown fájlformátumban letölteni, a létrehozó profilját megtekinteni, illetve amennyiben mi vagyunk a létrehozók vagy pedig admin vagy moderátor jogosultsággal rendelkezünk, a tananyagot szerkesztésére és törölésére is lehetőségünk van.
 
 Továbbá tudunk hozzászólást is írni az adott tananyag alá, melynek létrehozójának a rendszer email értesítést is küld az új eseményről.
 
 ### **Hozzászólás**
-![Folytatási lehetőségek](/documentation/demo_comment_section_component.png)
+![Hozzászólás](/documentation/demo_comment_section_component.png)
 
 A 'Küldés' gombra kattintva tudjuk elküldeni hozzászólásunkat a kérdés vagy tananyag alá.
 
 A meglévő hozzászólást szerkeszteni és törölni tudjuk amennyiben mi vagyunk a létrehozók vagy pedig admin vagy moderátor jogosultsággal rendelkezünk.
 
+#### **E-mail értesítés**
+![E-mail értesítés](/documentation/demo_email_notification.png)
+
+A rendszer a tananyag vagy kérdés létrehozójának e-mail értesítést küld, amennyiben új hozzászólás érkezet (ha bejelölte a létrehozó hogy kér e-mail értesítést).
+
+Ahhoz hogy az e-mail értesítés működjön, a `.env` fájlban kell konfigurálni az alábbi paramétereket:
+![E-mail értesítés konfiguráció](/documentation/demo_mail_config.png)
+
+
 ### **Új tananyag létrehozása**
 
-![Új tananyag oldal](/documentation/demo_create_content_view.png)
+![Tananyag létrehozása oldal](/documentation/demo_create_content_view.png)
 
 Ezen az oldalom a markdown szövegformázás funkcióinak segítségévPel tudunk igényesen megformázott tartalmat felvinni. A szövegdoboz felett, megkell adjuk a tantárgyat és azon belül a témakört. Ezután felvihetjük a szöveget és azt tetszésünk szerint megformázhatjuk, illetve képeket is beszúrhatunk. Majd a 'Létrehozás' gombra kattintva felküldhetjük az elkészített tananyagunkat.
 
 Útmutató a markdown használatához:
-* Címsorok: `# Első szintű címsor`, `## Második szintű címsor`
-* Dölt: `*dőlt*`
-* Félkövér: `**félkövér**`
-* Áthúzott: `~~áthúzott~~`
+* Címsorok: `# Első szintű címsor`,` ## Második szintű címsor`
+* *Dölt*: `*dőlt*`
+* **Félkövér**: `**félkövér**`
+* ~~Áthúzott~~: `~~áthúzott~~`
 * Számozott lista: `1. Első elem`, `2. Második elem`
 * Felsorolás: `- Első elem`, `- Második elem`
 * Hivatkozás: `[Nebuloo](http://www.localhost:8881)`
-* Képek: `![Nebuloo logo](/documentation/logo.png)`
+* Képek: `![Nebuloo logo](/documentation/face.png)`
 
 ### **Kérdések oldal**
 ![Kérdések oldal](/documentation/demo_questions_view.png)
@@ -185,4 +193,4 @@ felhasználónév: annakiss
 email cím: anna@fakemail.com  
 jelszó: Jelszo123!
 
-További felhasználók adatai a UserSeeder.php fájlban találhatóak.
+További felhasználók adatai a `UserSeeder.php` fájlban találhatóak.
