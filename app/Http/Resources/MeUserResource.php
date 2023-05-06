@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class MeUserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,6 +18,7 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'email' => $this->email,
             'username' => $this->username,
             'display_name' => $this->display_name,
             'bio' => $this->bio,
@@ -25,9 +26,11 @@ class UserResource extends JsonResource
             'contents' => SimpleContentResource::collection($this->contents),
             'questions' => SimpleQuestionResource::collection($this->questions),
             'comments' => SimpleCommentResource::collection($this->comments),
+            'tickets' => TicketResource::collection($this->tickets),
             'recieved_votes' => $this->sumVoteScore(),
             'rank'=>$this->getRank(),
             'banned'=>$this->banned,
+            'notify_by_email'=>$this->notify_by_email,
             'created_at' => Carbon::parse($this->created_at)->format('Y.m.d H:i'),
             'updated_at' => Carbon::parse($this->updated_at)->format('Y.m.d H:i'),
         ];

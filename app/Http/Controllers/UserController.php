@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateRoleRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Resources\MeUserResource;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\SimpleUserResource;
 use App\Models\User;
@@ -39,12 +40,12 @@ class UserController extends Controller
     /**
      * Display the user's information.
      *
-     * @return \App\Http\Resources\UserResource
+     * @return \App\Http\Resources\MeUserResource
      */
     public function showMe(Request $request)
     {
         $this->authorize('viewMe', User::class);
-        return new UserResource(auth()->user());
+        return new MeUserResource(auth()->user());
     }
 
     /**
