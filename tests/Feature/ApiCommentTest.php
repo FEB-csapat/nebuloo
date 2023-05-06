@@ -84,7 +84,7 @@ class ApiCommentTest extends TestCase
     }
 
     
-    public function test_create_a_comment_on_content_as_user()
+    public function test_create_comment_on_content_as_user()
     {
         $content = Content::factory()->create();
 
@@ -106,7 +106,7 @@ class ApiCommentTest extends TestCase
         ]);
     }
 
-    public function test_create_a_comment_on_content_as_admin()
+    public function test_create_comment_on_content_as_admin()
     {
         $content = Content::factory()->create();
 
@@ -131,7 +131,7 @@ class ApiCommentTest extends TestCase
         ]);
     }
 
-    public function test_create_a_comment_on_content_as_moderator()
+    public function test_create_comment_on_content_as_moderator()
     {
         $content = Content::factory()->create();
 
@@ -156,7 +156,7 @@ class ApiCommentTest extends TestCase
         ]);
     }
 
-    public function test_create_a_comment_on_content_as_guest()
+    public function test_create_comment_on_content_as_guest()
     {
         $content = Content::factory()->create();
 
@@ -175,7 +175,7 @@ class ApiCommentTest extends TestCase
         ]);
     }
     
-    public function test_create_a_comment_on_question_as_user()
+    public function test_create_comment_on_question_as_user()
     {
         $question = Question::factory()->create();
 
@@ -197,7 +197,7 @@ class ApiCommentTest extends TestCase
         ]);
     }
 
-    public function test_create_a_comment_on_question_as_admin()
+    public function test_create_comment_on_question_as_admin()
     {
         $question = Question::factory()->create();
 
@@ -222,7 +222,7 @@ class ApiCommentTest extends TestCase
         ]);
     }
 
-    public function test_create_a_comment_on_question_as_moderator()
+    public function test_create_comment_on_question_as_moderator()
     {
         $question = Question::factory()->create();
 
@@ -247,7 +247,7 @@ class ApiCommentTest extends TestCase
         ]);
     }
 
-    public function test_create_a_comment_on_question_as_guest()
+    public function test_create_comment_on_question_as_guest()
     {
         $question = Question::factory()->create();
 
@@ -268,7 +268,7 @@ class ApiCommentTest extends TestCase
     }
 
     
-    public function test_show_a_comment_as_user()
+    public function test_show_comment_as_user()
     {
         $comment = Comment::factory()->create();
 
@@ -284,7 +284,7 @@ class ApiCommentTest extends TestCase
         ]);
     }
 
-    public function test_show_a_comment_as_admin()
+    public function test_show_comment_as_admin()
     {
         $comment = Comment::factory()->create();
 
@@ -303,7 +303,7 @@ class ApiCommentTest extends TestCase
         ]);
     }
 
-    public function test_show_a_comment_as_moderator()
+    public function test_show_comment_as_moderator()
     {
         $comment = Comment::factory()->create();
 
@@ -322,7 +322,7 @@ class ApiCommentTest extends TestCase
         ]);
     }
 
-public function test_show_a_comment_as_guest()
+public function test_show_comment_as_guest()
     {
         $comment = Comment::factory()->create();
 

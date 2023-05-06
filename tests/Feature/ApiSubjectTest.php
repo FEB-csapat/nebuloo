@@ -2,9 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\Comment;
-use App\Models\Content;
-use App\Models\Question;
 use App\Models\Subject;
 use App\Models\User;
 use Tests\TestCase;
@@ -24,7 +21,7 @@ class ApiSubjectTest extends TestCase
         $this->user = User::factory()->create();
     }
     
-    public function test_create_a_subject_as_admin()
+    public function test_create_subject_as_admin()
     {
         $data = [
             'name' => 'Test'
@@ -41,7 +38,7 @@ class ApiSubjectTest extends TestCase
         ]);
     }
 
-    public function test_create_a_subject_as_moderator()
+    public function test_create_subject_as_moderator()
     {
         $this->user->setRoleToModerator();
         $data = [
@@ -60,7 +57,7 @@ class ApiSubjectTest extends TestCase
     }
 
 
-    public function test_create_a_subject_as_user()
+    public function test_create_subject_as_user()
     {
         $this->user->setRoleToAdmin();
         $data = [
@@ -79,7 +76,7 @@ class ApiSubjectTest extends TestCase
     }
 
 
-    public function test_update_a_subject_as_admin()
+    public function test_update_subject_as_admin()
     {
         $admin = User::factory()->create([
             'role' => 'admin'
@@ -105,7 +102,7 @@ class ApiSubjectTest extends TestCase
         ]);
     }
 
-    public function test_update_a_subject_as_moderator()
+    public function test_update_subject_as_moderator()
     {
         $moderator = User::factory()->create([
             'role' => 'moderator'
@@ -131,7 +128,7 @@ class ApiSubjectTest extends TestCase
         ]);
     }
 
-    public function test_update_a_subject_as_user()
+    public function test_update_subject_as_user()
     {
         $subject = Subject::factory()->create([
             'creator_user_id' => $this->user->id,
@@ -155,7 +152,7 @@ class ApiSubjectTest extends TestCase
     }
 
 
-    public function test_delete_a_subject_as_admin()
+    public function test_delete_subject_as_admin()
     {
         $admin = User::factory()->create([
             'role' => 'admin'
@@ -176,7 +173,7 @@ class ApiSubjectTest extends TestCase
         ]);
     }
 
-    public function test_delete_a_subject_as_moderator()
+    public function test_delete_subject_as_moderator()
     {
         $moderator = User::factory()->create([
             'role' => 'moderator'
@@ -198,7 +195,7 @@ class ApiSubjectTest extends TestCase
         ]);
     }
 
-    public function test_delete_a_subject_as_user()
+    public function test_delete_subject_as_user()
     {
         $subject = Subject::factory()->create([
             'creator_user_id' => $this->user->id,

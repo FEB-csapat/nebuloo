@@ -26,7 +26,7 @@ class ApiRegisterTest extends TestCase
     }
 
     private $user;
-    public function test_create_a_user()
+    public function test_create_user()
     {
         $response = $this
         ->withHeaders([
@@ -39,7 +39,7 @@ class ApiRegisterTest extends TestCase
             ]);
     }
 
-    public function test_create_a_user_with_mismatched_password()
+    public function test_create_user_with_mismatched_password()
     {
         $this->data = array_merge($this->data, [
             'password_confirmation' => 'Test12@'
@@ -60,7 +60,7 @@ class ApiRegisterTest extends TestCase
     ]);
     }
 
-    public function test_create_a_user_with_password_without_special()
+    public function test_create_user_with_password_without_special()
     {
         $this->data = array_merge($this->data, [
             'password' => 'Test12345',
@@ -82,7 +82,7 @@ class ApiRegisterTest extends TestCase
         ]);
     }
 
-    public function test_create_a_user_with_short_password()
+    public function test_create_user_with_short_password()
     {
         $this->data = array_merge($this->data, [
             'password' => 'Te',
@@ -107,7 +107,7 @@ class ApiRegisterTest extends TestCase
             ]
     ]);
     }
-    public function test_create_a_user_with_password_without_uppercase()
+    public function test_create_user_with_password_without_uppercase()
     {
         $this->data = array_merge($this->data, [
             'password' => 'testing123@',
@@ -132,7 +132,7 @@ class ApiRegisterTest extends TestCase
         ]);
     }
 
-    public function test_create_a_user_with_password_without_numeric()
+    public function test_create_user_with_password_without_numeric()
     {
         $this->data = array_merge($this->data, [
             'password' => 'testingtest@',
@@ -156,7 +156,7 @@ class ApiRegisterTest extends TestCase
             ]
     ]);
     }
-    public function test_create_a_user_with_password_without_lowercase()
+    public function test_create_user_with_password_without_lowercase()
     {
         $this->data = array_merge($this->data, [
             'password' => 'TESTINGTEST12@',
@@ -180,7 +180,7 @@ class ApiRegisterTest extends TestCase
             ]
         ]);
     }
-    public function test_create_a_user_without_filling_password_confirmation()
+    public function test_create_user_without_filling_password_confirmation()
     {
         $this->data = array_merge($this->data, [
             'password_confirmation' => null
@@ -203,7 +203,7 @@ class ApiRegisterTest extends TestCase
             ]
     ]);
     }
-    public function test_create_a_user_without_email()
+    public function test_create_user_without_email()
     {
         $this->data = array_merge($this->data, [
             'email' => null
@@ -226,7 +226,7 @@ class ApiRegisterTest extends TestCase
             ]
     ]);
     }
-    public function test_create_a_user_without_username()
+    public function test_create_user_without_username()
     {
         $this->data = array_merge($this->data, [
             'username' => null
@@ -249,7 +249,7 @@ class ApiRegisterTest extends TestCase
             ]
     ]);
     }
-    public function test_create_a_user_with_invalid_email()
+    public function test_create_user_with_invalid_email()
     {
         $this->data = array_merge($this->data, [
             'email' => 'Testingtesttest',
@@ -272,7 +272,7 @@ class ApiRegisterTest extends TestCase
             ]
     ]);
     }
-    public function test_create_a_user_with_short_username()
+    public function test_create_user_with_short_username()
     {
         $this->data = array_merge($this->data, [
             'username' => 'Te',
@@ -295,7 +295,7 @@ class ApiRegisterTest extends TestCase
             ]
     ]);
     }
-    public function test_create_a_user_with_long_username()
+    public function test_create_user_with_long_username()
     {
         $this->data = array_merge($this->data, [
             'username' => 'TestTestTestTestTestTestTest',
@@ -318,7 +318,7 @@ class ApiRegisterTest extends TestCase
             ]
     ]);
     }
-    public function test_create_a_user_without_password()
+    public function test_create_user_without_password()
     {
         $this->data = array_merge($this->data, [
             'password' => null,
@@ -341,7 +341,7 @@ class ApiRegisterTest extends TestCase
             ]
         ]);
     }
-    public function test_create_a_user_that_already_exists_with_username()
+    public function test_create_user_that_already_exists_with_username()
     {
         $otherUser = User::factory()->create([
             'username'=>'otherUserName'
@@ -367,7 +367,7 @@ class ApiRegisterTest extends TestCase
         ]);
     }
 
-    public function test_create_a_user_that_already_exists_with_email()
+    public function test_create_user_that_already_exists_with_email()
     {
         $otherUser = User::factory()->create([
             'email'=>'other.user@fakemail.com'
@@ -393,7 +393,7 @@ class ApiRegisterTest extends TestCase
         ]);
     }
 
-    public function test_create_a_user_with_special_character_in_username()
+    public function test_create_user_with_special_character_in_username()
     {
         $this->data = array_merge($this->data, [
             'username' => 'Test@',

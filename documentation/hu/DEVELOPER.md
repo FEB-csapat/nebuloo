@@ -29,6 +29,9 @@ A frontend által használt fájlok a `resources` könyvtárban találhatóak.
 * Web tesztek (NebulooWebTest könyvtár): Selenium framework segítségével megírt automatizált web teszteket tartalmaz.
 
 ## Adatbázis
+
+![Database model](/documentation/demo_database_model.png)
+
 ### users tábla
 
 | Kulcs      | Név              | Adattípus        | Leírás                                      | Megkötések    |
@@ -40,9 +43,9 @@ A frontend által használt fájlok a `resources` könyvtárban találhatóak.
 |            | password         | Szöveg           | Felhasználó jelszava                        | Nullable      |
 |            | remember_token   | Szöveg           | Token az "emlékezz rám" funkcióhoz          |               |
 |            | bio              | Szöveg           | Felhasználó rövid leírása                   | Nullable      |
-|            | notify_by_email  | Logikai          | Akar-e a felhasználó email értesítést kapni | Default True  |
-|            | role             | Enum             | Felhasználó jogosultsága                    | Default 'user'|
-|            | banned           | Logikai          | Felhasználó ki van-e tiltva                 | Default False |
+|            | notify_by_email  | Logikai          | Akar-e a felhasználó email értesítést kapni | Alapértelmezett Igaz  |
+|            | role             | Enum             | Felhasználó jogosultsága                    | Alapértelmezett 'user'|
+|            | banned           | Logikai          | Felhasználó ki van-e tiltva                 | Alapértelmezett Hamis |
 |            | created_at       | Időbélyeg        | Létrehozás időbélyege                       |               |
 |            | updated_at       | Időbélyeg        | Módosítás időbélyege                        |               |
 
@@ -253,7 +256,7 @@ Schema::create('tickets', function (Blueprint $table) {
 |------------|----------|-----------------|----------------------------------------------------------------|------------|
 | elsődleges | id       | Unsigned Bigint | Egyedi Kulcs                                                   | Egyedi     |
 |            | name     | Enum            | Rang neve                                                      |            |
-|            |          |                 | Lehetséges értékek: zöldfülű, okostojás, zseni, lángész, bölcs |            |
+|            |          |                 | Lehetséges értékek: zöldfülű, okostojás, zseni, lángész, bölcs |   |
 
 migráció kód:
 ```php

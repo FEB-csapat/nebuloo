@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Subject;
 use App\Models\topic;
 use App\Models\User;
 use Tests\TestCase;
@@ -21,10 +22,14 @@ class ApiTopicTest extends TestCase
         $this->user = User::factory()->create();
     }
     
-    public function test_create_a_topic_as_admin()
+    public function test_create_topic_as_admin()
     {
+        $subject = Subject::factory()->create([
+            'name' => 'Subject Test'
+        ]);
         $data = [
-            'name' => 'Test'
+            'subject_id' => $subject->id,
+            'name' => 'Topic Test'
         ];
 
         $response = $this->actingAs($this->user, 'sanctum')
@@ -34,15 +39,19 @@ class ApiTopicTest extends TestCase
 
         $response->assertCreated();
         $this->assertDatabaseHas('topics', [
-            'name' => 'Test'
+            'name' => 'Topic Test'
         ]);
     }
 
-    public function test_create_a_topic_as_moderator()
+    public function test_create_topic_as_moderator()
     {
         $this->user->setRoleToModerator();
+        $subject = Subject::factory()->create([
+            'name' => 'Subject Test'
+        ]);
         $data = [
-            'name' => 'Test'
+            'subject_id' => $subject->id,
+            'name' => 'Topic Test'
         ];
 
         $response = $this->actingAs($this->user, 'sanctum')
@@ -52,16 +61,19 @@ class ApiTopicTest extends TestCase
 
         $response->assertCreated();
         $this->assertDatabaseHas('topics', [
-            'name' => 'Test'
+            'name' => 'Topic Test'
         ]);
     }
 
 
-    public function test_create_a_topic_as_user()
+    public function test_create_topic_as_user()
     {
-        $this->user->setRoleToAdmin();
+        $subject = Subject::factory()->create([
+            'name' => 'Subject Test'
+        ]);
         $data = [
-            'name' => 'Test'
+            'subject_id' => $subject->id,
+            'name' => 'Topic Test'
         ];
 
         $response = $this->actingAs($this->user, 'sanctum')
@@ -71,22 +83,47 @@ class ApiTopicTest extends TestCase
 
         $response->assertCreated();
         $this->assertDatabaseHas('topics', [
+            'name' => 'Topic Test'
+        ]);
+    }
+
+
+
+    public function test_create_topic_without_subject()
+    {
+        $data = [
+            'name' => 'Test'
+        ];
+
+        $response = $this->actingAs($this->user, 'sanctum')
+        ->withHeaders([
+            'Accept' => 'application/json',
+        ])->post("/api/topics", $data);
+
+        $response->assertUnprocessable();
+        $this->assertDatabaseMissing('topics', [
             'name' => 'Test'
         ]);
     }
 
 
-    public function test_update_a_topic_as_admin()
+    public function test_update_topic_as_admin()
     {
         $admin = User::factory()->create([
             'role' => 'admin'
         ]);
-        $topic = topic::factory()->create([
+
+        $topic = Topic::factory()->create([
             'creator_user_id' => $this->user->id,
             'name' => 'Test'
         ]);
 
+        $otherSubject = Subject::factory()->create([
+            'name' => 'Other Subject Test'
+        ]);
+
         $data = [
+            'subject_id' => $otherSubject->id,
             'name' => 'Updated Test'
         ];
 
@@ -102,17 +139,22 @@ class ApiTopicTest extends TestCase
         ]);
     }
 
-    public function test_update_a_topic_as_moderator()
+    public function test_update_topic_as_moderator()
     {
         $moderator = User::factory()->create([
             'role' => 'moderator'
         ]);
-        $topic = topic::factory()->create([
+        $topic = Topic::factory()->create([
             'creator_user_id' => $this->user->id,
             'name' => 'Test'
         ]);
 
+        $otherSubject = Subject::factory()->create([
+            'name' => 'Other Subject Test'
+        ]);
+
         $data = [
+            'subject_id' => $otherSubject->id,
             'name' => 'Updated Test'
         ];
 
@@ -128,14 +170,19 @@ class ApiTopicTest extends TestCase
         ]);
     }
 
-    public function test_update_a_topic_as_user()
+    public function test_update_topic_as_user()
     {
-        $topic = topic::factory()->create([
+        $topic = Topic::factory()->create([
             'creator_user_id' => $this->user->id,
             'name' => 'Test'
         ]);
 
+        $otherSubject = Subject::factory()->create([
+            'name' => 'Other Subject Test'
+        ]);
+
         $data = [
+            'subject_id' => $otherSubject->id,
             'name' => 'Updated Test'
         ];
 
@@ -151,13 +198,12 @@ class ApiTopicTest extends TestCase
         ]);
     }
 
-
-    public function test_delete_a_topic_as_admin()
+    public function test_delete_topic_as_admin()
     {
         $admin = User::factory()->create([
             'role' => 'admin'
         ]);
-        $topic = topic::factory()->create([
+        $topic = Topic::factory()->create([
             'creator_user_id' => $this->user->id,
             'name' => 'Test'
         ]);
@@ -173,13 +219,13 @@ class ApiTopicTest extends TestCase
         ]);
     }
 
-    public function test_delete_a_topic_as_moderator()
+    public function test_delete_topic_as_moderator()
     {
         $moderator = User::factory()->create([
             'role' => 'moderator'
         ]);
 
-        $topic = topic::factory()->create([
+        $topic = Topic::factory()->create([
             'creator_user_id' => $this->user->id,
             'name' => 'Test'
         ]);
@@ -195,9 +241,9 @@ class ApiTopicTest extends TestCase
         ]);
     }
 
-    public function test_delete_a_topic_as_user()
+    public function test_delete_topic_as_user()
     {
-        $topic = topic::factory()->create([
+        $topic = Topic::factory()->create([
             'creator_user_id' => $this->user->id,
             'name' => 'Test'
         ]);

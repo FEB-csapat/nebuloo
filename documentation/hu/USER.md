@@ -1,6 +1,6 @@
 # Nebuloo felhasználói dokumentáció
 
-A Nebuloo egy olyan tananyag megosztó fórum, amely lehetőséget nyújt a tanulni vágyóknak tananyagot keresni, megosztani, kérdéseket feltenni és azokara válaszolni.
+A Nebuloo egy olyan tananyagmegosztó fórum, amely lehetőséget nyújt a tanulni vágyóknak tananyagot keresni, megosztani, kérdéseket feltenni és azokra válaszolni.
 A létrehozott kérdésekhez, illetve tananyagokhoz más felhasználók hozzá tudnak szólni, illetve tudnak rá szavazni, hogy az adott tartalom hasznos volt-e számukra, vagy sem.
 Egy felhasználó tartalmaira érkezett szavazatok a felhasználó profilján látszódnak összeadódva, mely alapján rangot kap, így ösztökélve őt aktivitásra.
 Ha egy felhasználónak bármilyen problémája van az oldallal kapcsolatban, vagy az oldalon szereplő bármelyik tartalommal, ezt hibajegy formájában továbbíthatja az oldal üzelmetetői felé.
@@ -44,7 +44,7 @@ Végül a Vite élő szerver futtatásához az `npm run dev` parancs kiadása sz
 ### **Főoldal**
 Az oldal főoldalán dönthetjük el, hogyan szeretnénk belépni az oldalra. A belépésre két opciónk van. Beléphetünk fiókkal, vagy vendégként, melyhez nem szükséges felhasználói fiók.
 
-![Folytatási lehetőségek](/documentation/demo_1.png)
+![Folytatási lehetőségek](/documentation/demo_continue_component.png)
 
 Ha fiókkal szeretnénk belépni, miután rákattintunk a “Fiókkal” feliratú gombra, az oldal átirányít minket a bejelentkező ablakra, ahol beírhatjuk bejelentkezési adatainkat. Miután beírtuk adatainkat, a “Bejelentkezés”   feliratú gombra kattintva, az oldal beléptet minket, majd átirányít a “Tananyagok” oldalra.
 
@@ -59,15 +59,15 @@ A regisztrációs oldalon egy űrlap vár minket, mely kitöltése után a  “R
 Ezen az oldalon megtekinthetjük általunk, illetve a többi felhasználó által feltöltött különböző tananyagokat. Alapvetően a legfrissebb dokumentumokat látjuk legelöl, de ezen a 'rendezés' lenyíló listára kattintva változtathatunk és másféle rendezési szempontot válaszhatunk ki.
 Ezen felül a megjelenített tananyagokat le is válogathatjuk az általunk preferált tantárgyak, azon belül pedig témakörök kiválasztásával, a bal oldalon található zöld 'tantárgy' lenyíló listára kattinva, illetve miután kiválasztottuk a nekünk megfelelő tantárgyat, a felugró listában a témakört. Amennyiben szeretnék törölni az alkalmazott szűrőket, kattintsunk a 'Szűrők törlése' szövegre.
 
-Minden tananyag előképe tartalmazza annak tantárgyát és témáját, a feltöltés dátumát, a feltöltő nevét, a tananyag sor illetve szó számát, a hozzászólások- és szavazatok számát. Itt lehetőségünk nyílik nekünk is szavazni a tananyagra, a felfelé nyílra kattinva +1, míg a lefelé nyílra -1 értékelést tudunk adni a tananyagra. A felhasználó képére kattintva pedig megtudjuk nézni a profilját. 
+Minden tananyag előképe tartalmazza annak tantárgyát és témáját, a feltöltés dátumát, a feltöltő nevét, a tananyag sor illetve szó számát, a hozzászólások- és szavazatok számát. Itt lehetőségünk nyílik nekünk is szavazni a tananyagra, a felfelé nyílra kattinva +1, míg a lefelé nyílra -1 értékelést tudunk adni a tananyagra. A felhasználó képére kattintva pedig meg tudjuk nézni a profilját. 
 
-Egy dokumentumot részletesebben is megtudunk tekinteni, ehhez kattinsuk rá annak szövegére és az oldal átirányít minket a részletes oldalára.
+Egy dokumentumot részletesebben is meg tudunk tekinteni, ehhez kattinsuk rá annak szövegére és az oldal átirányít minket a részletes oldalára.
 
 ### **Részletes tananyag oldal**
 
 ![Részletes tananyag oldal](/documentation/demo_detailed_content_view.png)
 
-A részletes tananyag oldalon lehetőségünk van szavazni, a tananyagot markdown fájlformátumban letölteni, a létrehozó profilját megtekinteni, illetve amennyiben mi vagyunk a létrehozók vagy pedig admin vagy moderátor jogosultsággal rendelkezünk, a tananyagot szerkesztésére és törölésére is lehetőségünk van.
+A részletes tananyag oldalon lehetőségünk van szavazni, a tananyagot markdown fájlformátumban letölteni, a létrehozó profilját megtekinteni, illetve amennyiben mi vagyunk a létrehozók vagy pedig admin vagy moderátor jogosultsággal rendelkezünk, a tananyag szerkesztésére és törlésére is lehetőségünk van.
 
 Továbbá tudunk hozzászólást is írni az adott tananyag alá, melynek létrehozójának a rendszer email értesítést is küld az új eseményről.
 
@@ -81,7 +81,7 @@ A meglévő hozzászólást szerkeszteni és törölni tudjuk amennyiben mi vagy
 #### **E-mail értesítés**
 ![E-mail értesítés](/documentation/demo_email_notification.png)
 
-A rendszer a tananyag vagy kérdés létrehozójának e-mail értesítést küld, amennyiben új hozzászólás érkezet (ha bejelölte a létrehozó hogy kér e-mail értesítést).
+A rendszer a tananyag vagy kérdés létrehozójának e-mail értesítést küld, amennyiben új hozzászólás érkezett (ha bejelölte a létrehozó hogy kér e-mail értesítést).
 
 Ahhoz hogy az e-mail értesítés működjön, a `.env` fájlban kell konfigurálni az alábbi paramétereket:
 ![E-mail értesítés konfiguráció](/documentation/demo_mail_config.png)
@@ -91,7 +91,7 @@ Ahhoz hogy az e-mail értesítés működjön, a `.env` fájlban kell konfigurá
 
 ![Tananyag létrehozása oldal](/documentation/demo_create_content_view.png)
 
-Ezen az oldalom a markdown szövegformázás funkcióinak segítségévPel tudunk igényesen megformázott tartalmat felvinni. A szövegdoboz felett, megkell adjuk a tantárgyat és azon belül a témakört. Ezután felvihetjük a szöveget és azt tetszésünk szerint megformázhatjuk, illetve képeket is beszúrhatunk. Majd a 'Létrehozás' gombra kattintva felküldhetjük az elkészített tananyagunkat.
+Ezen az oldalom a markdown szövegformázás funkcióinak segítségévPel tudunk igényesen megformázott tartalmat felvinni. A szövegdoboz felett, meg kell adnunk a tantárgyat és azon belül a témakört. Ezután felvihetjük a szöveget és azt tetszésünk szerint megformázhatjuk, illetve képeket is beszúrhatunk. Majd a 'Létrehozás' gombra kattintva felküldhetjük az elkészített tananyagunkat.
 
 Útmutató a markdown használatához:
 * Címsorok: `# Első szintű címsor`,` ## Második szintű címsor`
@@ -109,9 +109,9 @@ Ezen az oldalom a markdown szövegformázás funkcióinak segítségévPel tudun
 Ezen az oldalon megtekinthetjük általunk, illetve a többi felhasználó által feltöltött különböző kérdéseket. Alapvetően a legfrissebb kérdéseket látjuk legelöl, de ezen a 'rendezés' lenyíló listára kattintva változtathatunk és másféle rendezési szempontot válaszhatunk ki.
 Ezen felül a megjelenített kérdéseket le is válogathatjuk az általunk preferált tantárgyak, azon belül pedig témakörök kiválasztásával, a bal oldalon található zöld 'tantárgy' lenyíló listára kattinva, illetve miután kiválasztottuk a nekünk megfelelő tantárgyat, a felugró listában a témakört. Amennyiben szeretnék törölni az alkalmazott szűrőket, kattintsunk a 'Szűrők törlése' szövegre.
 
-Minden kérdés előképe tartalmazza annak tantárgyát és témáját, a feltöltés dátumát, a feltöltő nevét, a hozzászólások- és szavazatok számát. Itt lehetőségünk nyílik nekünk is szavazni a kérdés hasznosságára, a felfelé nyílra kattinva +1, míg a lefelé nyílra -1 értékelést tudunk adni a kérdésre. A felhasználó képére kattintva pedig megtudjuk nézni a profilját. 
+Minden kérdés előképe tartalmazza annak tantárgyát és témáját, a feltöltés dátumát, a feltöltő nevét, a hozzászólások- és szavazatok számát. Itt lehetőségünk nyílik nekünk is szavazni a kérdés hasznosságára, a felfelé nyílra kattinva +1, míg a lefelé nyílra -1 értékelést tudunk adni a kérdésre. A felhasználó képére kattintva pedig meg tudjuk nézni a profilját. 
 
-Egy kérdést részletesebben is megtudunk vizsgálni, ehhez kattinsuk rá annak szövegére és az oldal átirányít minket a részletes oldalára. Itt lehetőségünk van választ is írni az adott kérdésre.
+Egy kérdést részletesebben is meg tudunk vizsgálni, ehhez kattinsuk rá annak szövegére és az oldal átirányít minket a részletes oldalára. Itt lehetőségünk van választ is írni az adott kérdésre.
 
 Az oldal jobb alsó sarkában található lebegő "Új kérdés létrehozása +" gombra kattinva lehetőségünk nyílik nekünk is kérdést feltenni a többi felhasználó számára.
 
@@ -120,7 +120,7 @@ Az oldal jobb alsó sarkában található lebegő "Új kérdés létrehozása +"
 
 ![Részletes kérdés oldal](/documentation/demo_detailed_question_view.png)
 
-A részletes kérdés oldalon lehetőségünk van szavazni, a létrehozó profilját megtekinteni, illetve amennyiben mi vagyunk a létrehozók vagy pedig admin vagy moderátor jogosultsággal rendelkezünk, a kérdés szerkesztésére és törölésére is lehetőségünk van.
+A részletes kérdés oldalon lehetőségünk van szavazni, a létrehozó profilját megtekinteni, illetve amennyiben mi vagyunk a létrehozók vagy pedig admin vagy moderátor jogosultsággal rendelkezünk, a kérdés szerkesztésére és törlésére is lehetőségünk van.
 
 Továbbá tudunk hozzászólást is írni az adott kérdés alá, melynek létrehozójának a rendszer email értesítést is küld az új eseményről.
 
@@ -135,15 +135,15 @@ Saját kérdéseinkben továbbá módunkban áll bármikor szerkeszteni a késő
 A profil oldalon láthatjuk az vizsgált felhasználó információit, mint például a nevét, rangját, bio-ját és a statisztikáit. Lentebb görgetve látjuk a felhasználó által feltett kérdéseket, feltöltött tananyagokat, megírt hozzászólásokat és válaszokat, illetve benyújtott hibajegyeket. Bármelyiket megnézhetjük részletesen, amennyiben ezeknek a szövegére kattintunk.
 
 Amennyiben a saját profilunkat nézzük, lehetőségünk nyílik ezen felül egyéb opciókra. 
-* A 'Profilom szerkesztése' gombra kattintva, átkerülünk egy oldalra, ahol megváltoztathatjuk a megjelenítési nevünket, illetve a bionkat. Ezután kattintsunk az 'Elmentés' gombra, hogy változtatásainkat véglegesítsük. Eztuán visszakerülünk a profilunkra.
+* A 'Profilom szerkesztése' gombra kattintva, átkerülünk egy oldalra, ahol megváltoztathatjuk a megjelenítési nevünket, illetve a bionkat. Ezután kattintsunk az 'Elmentés' gombra, hogy változtatásainkat véglegesítsük. Ezután visszakerülünk a profilunkra.
 * A 'Fiókom törlése' gombra kattinva lehetőségünk van törölni fiókunkat, megnyomása után egy ellenőrző ablak ugrik fel, melyen az 'OK' gombra kattintva véglegesíthetjük a törlést.
 * A 'Kijelentkezés' gombra kattintva pedig kijelentkezhetünk a fiókunkból.
 
-Továbbá lehetőségünk van hozzászólásaink szerkesztésére is, ehhez görgessünk le a "Kommentjeim" szekcióhoz és a változtatni kívánt hozzászólás jobb oldalán kattintsunk a 'Szerkesztés' gombra, majd a változtatásaink után a 'Mentés' gombra. Amennyiben hozzászólásunkat elszeretnék távolítani, kattintsunk a 'Törlés' gombra.
+Továbbá lehetőségünk van hozzászólásaink szerkesztésére is, ehhez görgessünk le a "Kommentjeim" szekcióhoz és a változtatni kívánt hozzászólás jobb oldalán kattintsunk a 'Szerkesztés' gombra, majd a változtatásaink után a 'Mentés' gombra. Amennyiben hozzászólásunkat el szeretnék távolítani, kattintsunk a 'Törlés' gombra.
 
 ### **Hibajegy küldése oldal**
 ![Hibajegy küldése oldal](/documentation/demo_create_ticket_view.png)
-Ha bármi hibát találunk az oldalon, vagy esetleg bármi olyan tartalmat látunk amely kifogásolható számunkra, ezt egy hibajegy küldésével jelenthetjük az oldal üzemeltetői felé. A hibajegy küldése oldalra, a láblécben található "Hibajegy küldése" feliratű hivatkozásra kattintva juthatunk el, ahol az űrlap kitöltése után, a "Létrehozás" címkéjű gombra kattintva küldhetjük el hibajegyünket.
+Ha bármi hibát találunk az oldalon, vagy esetleg bármi olyan tartalmat látunk amely kifogásolható számunkra, ezt egy hibajegy küldésével jelenthetjük az oldal üzemeltetői felé. A hibajegy küldése oldalra, a láblécben található "Hibajegy küldése" feliratú hivatkozásra kattintva juthatunk el, ahol az űrlap kitöltése után, a "Létrehozás" címkéjű gombra kattintva küldhetjük el hibajegyünket.
 
 Miután elküldtük hibajegyünket, a saját profilunk oldalán nyomon követhetjük az adott hibajegy állapotát.
 
@@ -160,7 +160,7 @@ Amennyiben megnézzük egy felhasználó profilját, megjelenik előttünk az 'A
 * Jogosultság adása a felhasználónak: Egy lenyíló listából kiválaszhatjuk, hogy milyen engedélykört adjunk a felhasználónak. Itt 'moderátor' és 'user' közül válaszhatunk. Majd ezután a 'Mentés' gombra kattintva véglegesíthetjük az engedély adást.
 * Profil szerkesztése: Itt akárcsak a saját információnkat, lehetőségünk van az felhasználó megjelenítési nevét és bió-ját megváltoztatni.
 * Felhasználó bannolása: A 'Felhasználó bannolása' gombra kattintva felugrik egy ellenőrző ablak, hogy biztos véghez szeretnénk-e vinni a folyamatot, itt az 'OK' gombra kattintva véglegesíthetjük. Ekkor a felhasználó fiókja inaktív állapotba kerül, a felhasználó **nem** fog tudni belépni, de feltöltött tartalmai továbbra is megtekinthetőek, viszont profilján fel lesz tüntetve az érvényben lévő tiltása. A tiltás bármikor feloldható.
-* Felhasználó törlése: A 'Felhasználó törlése' gombra kattinva szintén felugrik egy ellenőrző ablak, itt is az 'OK' gombra kattinva véglegesíthetjük. Ebben az esetben a felhasználó fiókja teljesen mértékben törlésre kerül, ezzel együtt az összes általa feltöltött tananyag, kérdés, hozzászólás és hibajegy is.
+* Felhasználó törlése: A 'Felhasználó törlése' gombra kattintva szintén felugrik egy ellenőrző ablak, itt is az 'OK' gombra kattinva véglegesíthetjük. Ebben az esetben a felhasználó fiókja teljesen mértékben törlésre kerül, ezzel együtt az összes általa feltöltött tananyag, kérdés, hozzászólás és hibajegy is.
 
 ### **Hibajegyek oldal**
 ![Hibajegyek oldal](/documentation/demo_tickets_view.png)
@@ -171,7 +171,7 @@ Ha valamilyen okból kifolyólag újra kell nyitni egy hibajegyet, ezt a "Hibaje
 Továbbá az adminnak lehetősége van törölni egy adott hibajegyet az "Elutasítás" címkéjű gombra kattintva.
 
 ## **Moderátor számára**
-Az oldal kezelése teljesen megegyező számára, mint egy átlag felhasználóé, viszont nincs annyi jogosúltsága mint egy adminnak. Amíg egy admin (admin társain kívül) bárkit (köztük moderátorokat is) kitilthat és törölhet, addig egy moderátor csak a felhasználókat kezelheti, moderátor társait nem, illetve hibajegyeket kezelni is ugyanannyi jogosultsága van mint az adminisztrátornak.
+Az oldal kezelése teljesen megegyező számára, mint egy átlag felhasználóé, viszont nincs annyi jogosultsága mint egy adminnak. Amíg egy admin (admin társain kívül) bárkit (köztük moderátorokat is) kitilthat és törölhet, addig egy moderátor csak a felhasználókat kezelheti, moderátortársait nem, illetve hibajegyeket kezelni is ugyanannyi jogosultsága van mint az adminisztrátornak.
 
 Továbbá jogosultságokat sem tud adni felhasználóknak.
 

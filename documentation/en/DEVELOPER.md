@@ -28,6 +28,9 @@ All the files used by the frontend are located in the resources folder
 
 
 ## Database
+
+![Database model](/documentation/demo_database_model.png)
+
 ### users table
 
 | Key     | Name             | Data Type        | Description                                     | Restrictions  |
