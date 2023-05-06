@@ -39,8 +39,8 @@ body{
     transition: box-shadow 0.1s ease-in-out; 
 }
 
-.btn:focus,
-.btn:active{
+.nebuloobutton:focus,
+.nebuloobutton:active{
     background-color: #A2E0F3 !important;
 }
 
