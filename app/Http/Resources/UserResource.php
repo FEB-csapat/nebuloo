@@ -24,7 +24,7 @@ class UserResource extends JsonResource
             'bio' => $this->bio,
 
             'role' => $this->role,
-            
+            'tickets' => $this->tickets,
             'comments' => SimpleCommentResource::collection($this->comments),
             'contents' => SimpleContentResource::collection($this->contents),
             'questions' => SimpleQuestionResource::collection($this->questions),
