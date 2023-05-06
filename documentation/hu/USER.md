@@ -166,3 +166,23 @@ Továbbá az adminnak lehetősége van törölni egy adott hibajegyet az "Elutas
 Az oldal kezelése teljesen megegyező számára, mint egy átlag felhasználóé, viszont nincs annyi jogosúltsága mint egy adminnak. Amíg egy admin (admin társain kívül) bárkit (köztük moderátorokat is) kitilthat és törölhet, addig egy moderátor csak a felhasználókat kezelheti, moderátor társait nem, illetve hibajegyeket kezelni is ugyanannyi jogosultsága van mint az adminisztrátornak.
 
 Továbbá jogosultságokat sem tud adni felhasználóknak.
+
+# Seedelt felhasználók adatai
+Pár seedelt felhasználó adatai a bejelentkezéshez:
+
+### Admin
+felhasználónév: lacika33  
+email cím: admin@fakemail.com  
+jelszó: Jelszo123!
+
+### Moderátor
+felhasználónév: fecko123  
+email cím: feco@fakemail.com  
+jelszó: Jelszo123!
+
+### Felhasználó
+felhasználónév: annakiss  
+email cím: anna@fakemail.com  
+jelszó: Jelszo123!
+
+További felhasználók adatai a UserSeeder.php fájlban találhatóak.

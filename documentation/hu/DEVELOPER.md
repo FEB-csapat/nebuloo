@@ -2,40 +2,38 @@
 
 ### Backend Laravelben lett megírva
 
-* API kontrollerek: app/Http/Controllers könyvtár
-* API Requestek: app/Http/Requests könyvtár
-* API resource-k: app/Http/Resources könyvtár
-* Policy-k: app/Policies könyvtár
-* Modellek: app/Models könyvtár
-* Migrációk: database/migrations könyvtár
-* Seederek: database/seeders könyvtár
-* Factory-k: database/factories könyvtár
-* Lokalizáció: lang könyvtár
-* Selenium tesztek: NebulooWebTest könyvtár
-* API tesztek: tests könyvtár
-* API routing: routes/api.php file
+* API kontrollerek (app/Http/Controllers könyvtár): Meghatározzák, hogyan kell kezelni az egyes API kéréseket, válaszolnak az API kérésekre, végzik az adatfeldolgozást és adatmanipulációt, majd a választ visszaküldik a kliensnek.
+* API Requestek (app/Http/Requests könyvtár): Tartalmazza az összes HTTP kérések validálására szolgáló osztályokat.
+* API resource-k (app/Http/Resources könyvtár): Ez a könyvtár az adatok API-k számára történő előkészítésére szolgál.
+* Policy-k (app/Policies könyvtár): Az hitelesítés szolgáltatás részeként engedélyezik vagy letiltják a felhasználói interakciókat az alkalmazásban.
+* Modellek (app/Models könyvtár): Az adatbázis tábláknak megfelelő osztályok. A modellek lehetővé teszik az adatok kezelését, például az adatok lekérdezését, módosítását vagy törlését az adatbázisból.
+* Migrációk (database/migrations könyvtár): Lehetővé teszik az adatbázis változásainak és frissítéseinek kezelését.
+* Seederek (database/seeders könyvtár): Adatokat adnak hozzá az adatbázis táblákhoz, amelyek tesztelésre vagy más célokra használhatók.
+* Factory-k (database/factories könyvtár): Automatikusan hoznak létre tesztadatokat az adatbázis táblákhoz, és lehetővé teszik az adatbázisban található nagy mennyiségű adat gyors és hatékony generálását.
+* Lokalizáció (lang könyvtár): Lehetővé teszi, hogy az alkalmazás szövegét más nyelvekre fordítsuk.
+* API routing (routes/api.php file): Meghatározza az összes API útvonalat, amelyekre az alkalmazás válaszolni tud és az azokhoz kapcsolódó vezérlő osztályokat.
+* API tesztek (tests könyvtár): Az API tesztek lehetővé teszik az alkalmazás API-jának automatikus tesztelését, hogy megbizonyosodjunk arról, hogy a kérések és válaszok megfelelnek-e az elvártaknak.
+
 
 ### Frontend Vue.js-ben let megírva
 
-A frontend által használt összes fájl a `resources` könyvtárban található
+A frontend által használt fájlok a `resources` könyvtárban találhatóak.
 
-* Képek és stílus: resources/assets
-* Vue komponensek: resources/components
-* Vue oldalak: resources/views
-* Javascript: resources/js
-* Web routing: resources/router/index.js
-* Segéd osztályok: resources/utils
-
+* Képek és stílus (resources/assets): Tartalmazza a web kliens által használt képeket és stílust.
+* Vue komponensek (resources/components)
+* Vue oldalak (resources/views)
+* Javascript (resources/js)
+* Web routing(resources/router/index.js): Tartalmazza a web kliens által használt útvonalakhoz tartozó view-kat
+* Segéd osztályok (resources/utils)
+* Web tesztek (NebulooWebTest könyvtár): Selenium framework segítségével megírt automatizált web teszteket tartalmaz.
 
 ## Adatbázis
-
-
-###felhasználóktábla
+### users tábla
 
 | Kulcs      | Név              | Adattípus        | Leírás                                      | Megkötések    |
 |------------|------------------|------------------|---------------------------------------------|---------------|
 | elsődleges | id               | Unsigned Bigint  | Egyedi Kulcs                                | Egyedi        |
-|            | name             | Szöveg           | Felhasználónév                              | Egyedi        |
+|            | username             | Szöveg           | Felhasználónév                              | Egyedi        |
 |            | display_name     | Szöveg           | Felhasználó megjelentített neve             |               |
 |            | email            | Szöveg           | Felhasználó email címe                      | Egyedi        |
 |            | password         | Szöveg           | Felhasználó jelszava                        | Nullable      |
@@ -281,7 +279,7 @@ Schema::create('ranks', function (Blueprint $table) {
 |---------------|---------|-------------|------------|-------------------------------|--------------------------|
 | auth.register | POST    | /register   | register   | Új felhasználó regisztrációja | Vendég                   |
 | auth.login    | POST    | /login      | meIndex    | Beléptet egy felhasználót     | Vendég                   |
-
+---
 
 * Kontroller: UserController
 * Policy: UserPolicy
@@ -299,6 +297,7 @@ Schema::create('ranks', function (Blueprint $table) {
 | users.destroyMe   | DELETE  | /me                 | destroyMe  | Én fiókom törlése                 | Felhasználó         |
 | users.ban         | PUT     | /users/`{id}`/ban   | ban        | Felhasználó tiltása               | Moderátor           |
 | users.unban       | PUT     | /users/`{id}`/unban | unban      | Felhasználó tiltás feloldása      | Moderátor           |
+---
 
 ### Tananyag:
 * Modell: Content
@@ -314,6 +313,7 @@ Schema::create('ranks', function (Blueprint $table) {
 | contents.store       | CREATE  | /contents         | store      | Tananyag létrehozás | Felhasználó         |
 | contents.update      | PUT     | /contents/`{id}`  | update     | Tananyag módosítás  | Felhasználó         |
 | contents.destroy     | DELETE  | /contents/`{id}`  | destroy    | Tananyag törlése    | Felhasználó         |
+---
 
 ### Kérdés:
 * Modell: Question
@@ -329,6 +329,7 @@ Schema::create('ranks', function (Blueprint $table) {
 | questions.store       | CREATE  | /questions         | store      | Kérdés létrehozás  | Felhasználó         |
 | questions.update      | PUT     | /questions/`{id}`  | update     | Updates a question | Felhasználó         |
 | questions.destroy     | DELETE  | /questions/`{id}`  | destroy    | Deletes a question | Felhasználó         |
+---
 
 ### Komment:
 * Modell: Comment
@@ -344,6 +345,7 @@ Schema::create('ranks', function (Blueprint $table) {
 | comments.store       | CREATE  | /`{commentable}`/`{id}`/comments | store      | Komment létrehozás | Felhasználó         |
 | comments.update      | PUT     | /comments/`{id}`                 | update     | Updates a comment  | Felhasználó         |
 | comments.destroy     | DELETE  | /comments/`{id}`                 | destroy    | Deletes a comment  | Felhasználó         |
+---
 
 ### Szavazás:
 * Modell: Vote
@@ -358,6 +360,7 @@ Schema::create('ranks', function (Blueprint $table) {
 | votes.update             | PUT     | /votes/`{id}`             | update             | Szavazás módosítás                  | Felhasználó         |
 | votes.destroy            | DELETE  | /votes/`{id}`             | destroy            | Szavazás törlése id szerint         | Felhasználó         |
 | votes.destroyByVotableId | DELETE  | /`{votable}`/`{id}`/votes | destroyByVotableId | Szavazás törlése votable id szerint | Felhasználó         |
+---
 
 ### Tantárgy:
 * Modell: Subject
@@ -373,6 +376,7 @@ Schema::create('ranks', function (Blueprint $table) {
 | subjects.store   | CREATE  | /subjects         | store    | Tantárgy létrehozás   | Felhasználó         |
 | subjects.update  | PUT     | /subjects/`{id}`  | update   | Tantárgy módosítás    | Moderátor           |
 | subjects.destroy | DELETE  | /subjects/`{id}`  | destroy  | Tantárgy törlése      | Moderátor           |
+---
 
 ### Téma:
 * Modell: Topic
@@ -387,6 +391,7 @@ Schema::create('ranks', function (Blueprint $table) {
 | topics.store   | CREATE  | /topics         | store    | Téma létrehozás     | Felhasználó         |
 | topics.update  | PUT     | /topics/`{id}`  | update   | Téma módosítás      | Moderátor           |
 | topics.destroy | DELETE  | /topics/`{id}`  | destroy  | Téma törlése        | Moderátor           |
+---
 
 ### Hibajegy:
 * Modell: Ticket
@@ -402,6 +407,7 @@ Schema::create('ranks', function (Blueprint $table) {
 | tickets.store   | CREATE  | /tickets         | store    | Hibajegy létrehozása  | Felhasználó         |
 | tickets.update  | PUT     | /tickets/`{id}`  | update   | Hibajegy módosítás    | Felhasználó         |
 | tickets.destroy | DELETE  | /tickets/`{id}`  | destroy  | Hibajegy törlése      | Felhasználó         |
+---
 
 ### Rang:
 * Modell: Rank
@@ -412,6 +418,7 @@ Schema::create('ranks', function (Blueprint $table) {
 |-----------------|---------|---------------|---------|-----------------|---------------------|
 | ranks.index     | GET     | /ranks        | index   | Összes rang     | Vendég              |
 | ranks.show      | GET     | /ranks/`{id}` | show    | Rang id szerint | Vendég              |
+---
 
 ### Kép:
 * Modell: Image
@@ -423,3 +430,4 @@ Schema::create('ranks', function (Blueprint $table) {
 | images.store     | CREATE  | /images        | store      | Kép feltöltés     | Felhasználó         |
 | images.show      | PUT     | /images/`{id}` | update     | Kép rang szerint  | Felhasználó         |
 | images.destroy   | DELETE  | /images/`{id}` | destroy    | Kép törlése       | Felhasználó         |
+---

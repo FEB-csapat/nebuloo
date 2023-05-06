@@ -2,39 +2,37 @@
 
 ### Backend is written in Laravel
 
-* API controllers: app/Http/Controllers folder
-* API requests: app/Http/Requests folder
-* API resources: app/Http/Resources folder
-* Policies: app/Policies folder
-* Models: app/Models folder
-* Migrations: database/migrations folder
-* Seeders: database/seeders folder
-* Factories: database/factories folder
-* Localization: lang folder
-* Selenium tests: NebulooWebTest folder
-* API tests: tests folder
-* API Routing: routes/api.php file
+* API Controllers (app/Http/Controllers directory): Define how to handle each API request, respond to API requests, perform data processing and manipulation, and return the response to the client.
+* API Requests (app/Http/Requests directory): Contains the classes used to validate all HTTP requests.
+* API Resources (app/Http/Resources directory): This directory is used to prepare data for APIs.
+* Policies (app/Policies directory): Allow or deny user interactions within the application as part of the authentication service.
+* Models (app/Models directory): Classes that correspond to database tables. Models allow you to handle data, such as querying, modifying, or deleting data from the database.
+* Migrations (database/migrations directory): Allow handling database changes and updates.
+* Seeders (database/seeders directory): Add data to database tables that can be used for testing or other purposes.
+* Factories (database/factories directory): Automatically create test data for database tables and enable fast and efficient generation of large amounts of data in the database.
+* Localization (lang directory): Allows the translation of the application text into other languages.
+* API Routing (routes/api.php file): Defines all API routes that the application can respond to and the corresponding controller classes.
+* API Tests (tests directory): API tests allow for automatic testing of the application's API to ensure that requests and responses meet expectations.
 
 ### Frontend is written in Vue.js
 All the files used by the frontend are located in the resources folder
 
-* Images and style: resources/assets
-* Vue components: resources/components
-* Vue pages: resources/views
-* Javascript: resources/js
-* Web routing: resources/router/index.js
-* Helpers: resources/utils
+* Images and styles (resources/assets): Contains the images and styles used by the web client.
+* Vue components (resources/components)
+* Vue pages (resources/views)
+* JavaScript (resources/js)
+* Web routing (resources/router/index.js): Contains the views corresponding to the web client's routes.
+* Helper classes (resources/utils)
+* Web tests (NebulooWebTest directory): Contains automated web tests written using the Selenium framework.
 
 
 ## Database
-
-
 ### users table
 
 | Key     | Name             | Data Type        | Description                                     | Restrictions  |
 |---------|------------------|------------------|-------------------------------------------------|---------------|
 | primary | id               | Unsigned Bigint  | Unique Key                                      | Unique        |
-|         | name             | String           | Name of the user                                | Unique        |
+|         | username             | String           | Name of the user                                | Unique        |
 |         | display_name     | String           | Display name of the user                        |               |
 |         | email            | String           | Email of the user                               | Unique        |
 |         | password         | String           | Password of the user                            | Nullable      |
@@ -272,7 +270,6 @@ Schema::create('ranks', function (Blueprint $table) {
 
 ### Base URL: `https://localhost:8881/api/`
 
-
 ### User:
 * Model: User
 * Controller: AuthController
@@ -282,7 +279,7 @@ Schema::create('ranks', function (Blueprint $table) {
 |---------------|---------|-------------|------------|----------------------|--------------------------|
 | auth.register | POST    | /register   | register   | Registers a new user | Guest                    |
 | auth.login    | POST    | /login      | meIndex    | Logs in a user       | Guest                    |
-
+---
 
 * Controller: UserController
 * Policy: UserPolicy
@@ -300,6 +297,7 @@ Schema::create('ranks', function (Blueprint $table) {
 | users.destroyMe   | DELETE  | /me                 | destroyMe  | Deletes the user themself | User                     |
 | users.ban         | PUT     | /users/`{id}`/ban   | ban        | Bans a user               | Moderator                |
 | users.unban       | PUT     | /users/`{id}`/unban | unban      | Unbans a user             | Moderator                |
+---
 
 ### Content:
 * Model: Content
@@ -315,6 +313,7 @@ Schema::create('ranks', function (Blueprint $table) {
 | contents.store       | CREATE  | /contents         | store      | Creates a content      | User                     |
 | contents.update      | PUT     | /contents/`{id}`  | update     | Updates a content      | User                     |
 | contents.destroy     | DELETE  | /contents/`{id}`  | destroy    | Deletes a content      | User                     |
+---
 
 ### Question:
 * Model: Question
@@ -330,6 +329,7 @@ Schema::create('ranks', function (Blueprint $table) {
 | questions.store       | CREATE  | /questions         | store      | Creates a question     | User                     |
 | questions.update      | PUT     | /questions/`{id}`  | update     | Updates a question     | User                     |
 | questions.destroy     | DELETE  | /questions/`{id}`  | destroy    | Deletes a question     | User                     |
+---
 
 ### Comment:
 * Model: Comment
@@ -345,6 +345,7 @@ Schema::create('ranks', function (Blueprint $table) {
 | comments.store       | CREATE  | /`{commentable}`/`{id}`/comments | store      | Creates a comment     | User                     |
 | comments.update      | PUT     | /comments/`{id}`                 | update     | Updates a comment     | User                     |
 | comments.destroy     | DELETE  | /comments/`{id}`                 | destroy    | Deletes a comment     | User                     |
+---
 
 ### Vote:
 * Model: Vote
@@ -359,6 +360,7 @@ Schema::create('ranks', function (Blueprint $table) {
 | votes.update             | PUT     | /votes/`{id}`             | update             | Updates a vote            | User                     |
 | votes.destroy            | DELETE  | /votes/`{id}`             | destroy            | Deletes a vote by id      | User                     |
 | votes.destroyByVotableId | DELETE  | /`{votable}`/`{id}`/votes | destroyByVotableId | Deletes a vote votable id | User                     |
+---
 
 ### Subject:
 * Model: Subject
@@ -374,6 +376,7 @@ Schema::create('ranks', function (Blueprint $table) {
 | subjects.store   | CREATE  | /subjects         | store    | Creates a subject     | User                     |
 | subjects.update  | PUT     | /subjects/`{id}`  | update   | Updates a subject     | Moderator                |
 | subjects.destroy | DELETE  | /subjects/`{id}`  | destroy  | Deletes a subject     | Moderator                |
+---
 
 ### Topic:
 * Model: Topic
@@ -388,6 +391,7 @@ Schema::create('ranks', function (Blueprint $table) {
 | topics.store   | CREATE  | /topics         | store    | Creates a topic     | User                     |
 | topics.update  | PUT     | /topics/`{id}`  | update   | Updates a topic     | Moderator                |
 | topics.destroy | DELETE  | /topics/`{id}`  | destroy  | Deletes a topic     | Moderator                |
+---
 
 ### Ticket:
 * Model: Ticket
@@ -403,6 +407,7 @@ Schema::create('ranks', function (Blueprint $table) {
 | tickets.store   | CREATE  | /tickets         | store    | Creates a ticket      | User                     |
 | tickets.update  | PUT     | /tickets/`{id}`  | update   | Updates a ticket      | User                     |
 | tickets.destroy | DELETE  | /tickets/`{id}`  | destroy  | Deletes a ticket      | User                     |
+---
 
 ### Rank:
 * Model: Rank
@@ -413,6 +418,7 @@ Schema::create('ranks', function (Blueprint $table) {
 |-----------------|---------|---------------|---------|-------------------|--------------------------|
 | ranks.index     | GET     | /ranks        | index   | Gets all ranks    | Guest                    |
 | ranks.show      | GET     | /ranks/`{id}` | show    | Gets a rank       | Guest                    |
+---
 
 ### Image:
 * Model: Image
@@ -424,3 +430,4 @@ Schema::create('ranks', function (Blueprint $table) {
 | images.store     | CREATE  | /images        | store      | Uploads an image  | User                     |
 | images.show      | PUT     | /images/`{id}` | update     | Gets an image     | User                     |
 | images.destroy   | DELETE  | /images/`{id}` | destroy    | Deletes an image  | User                     |
+---

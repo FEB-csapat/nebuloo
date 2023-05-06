@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
@@ -20,7 +19,7 @@ class UserSeeder extends Seeder
             'username' => 'lacika33',
             'display_name' => 'Lajos',
             'bio' => 'Bélyegeket gyüjtök',
-            'password' => Hash::make('admin123'),
+            'password' => Hash::make('Jelszo123!'),
             'role' => 'admin'
         ]);
 
@@ -30,7 +29,7 @@ class UserSeeder extends Seeder
             'username' => 'erikov123',
             'display_name' => 'Erik',
             'bio' => 'Szeretek olvasni meg ilyesmi...',      
-            'password' => Hash::make('Jelszo123'),
+            'password' => Hash::make('Jelszo123!'),
             'role' => 'moderator'
         ]);
 
@@ -40,6 +39,7 @@ class UserSeeder extends Seeder
             'display_name' => 'Fecó',
             'bio' => 'Puskával játszok',
             'email' => 'feco@fakemail.com',
+            'password' => Hash::make('Jelszo123!'),
             'role' => 'moderator'
         ]);
 
@@ -49,6 +49,7 @@ class UserSeeder extends Seeder
             'username' => 'bencus',
             'display_name' => 'Bencus',
             'bio' => 'Bence vagyok',
+            'password' => Hash::make('Jelszo123!'),
             'role' => 'moderator'
         ]);
 
@@ -58,7 +59,7 @@ class UserSeeder extends Seeder
             'username' => 'annakiss',
             'display_name' => 'Anna',
             'bio' => 'Szeretek sportolni és utazni',
-            'password' => Hash::make('jelszo123'),
+            'password' => Hash::make('Jelszo123!'),            
             'role' => 'user'
         ]);
         
@@ -67,7 +68,7 @@ class UserSeeder extends Seeder
             'username' => 'peterkozma',
             'display_name' => 'Péter',
             'bio' => 'IT szakember vagyok',
-            'password' => Hash::make('jelszo123'),
+            'password' => Hash::make('Jelszo123!'),
             'role' => 'user'
         ]);
     
@@ -76,7 +77,7 @@ class UserSeeder extends Seeder
             'username' => 'dorika',
             'display_name' => 'Dóra',
             'bio' => 'Kertész vagyok és imádom a növényeket',
-            'password' => Hash::make('jelszo123'),
+            'password' => Hash::make('Jelszo123'),
             'role' => 'user'
         ]);
     
@@ -85,7 +86,7 @@ class UserSeeder extends Seeder
             'username' => 'julcsika',
             'display_name' => 'Júlia',
             'bio' => 'Szeretek főzni és a gasztronómiával foglalkozni',
-            'password' => Hash::make('jelszo123'),
+            'password' => Hash::make('Jelszo123'),
             'role' => 'user'
         ]);
     }
