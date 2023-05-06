@@ -262,6 +262,182 @@ A trianoni békeszerződés jelentős hatást gyakorolt Magyarországra és az o
 A trianoni békeszerződés azonban nem csak Magyarországot érintette, hanem az egész régiót is. A békeszerződés következtében új államok jöttek létre,amelyek között az etnikai, gazdasági és politikai problémák folyamatosan jelen voltak. A trianoni békeszerződés jelentőségét nehéz túlbecsülni, hiszen az ország történelmének egyik legtragikusabb eseménye volt, és az ország sorsát hosszú időre meghatározta. A trianoni békeszerződés napjára azóta is emlékeznek, és az ország újrarendezésének nehéz korszaka egy olyan emlékezetes pillanatává vált, amely az ország történelmében mindig megmarad.'
 ]);
 
+Content::factory()->create([
+    'creator_user_id' => 3,
+    'subject_id' => Subject::where('name', 'Angol')->first()->id,
+    'topic_id' => Topic::where('name', 'Grammar')->first()->id,
+    'body' => '# Present Simple
+    A Present Simple időt az angol nyelvben használjuk olyan esetekben, amikor rendszerességet vagy állandó állapotot fejezünk ki. Ez az időforma meglehetősen egyszerű, és alapvetően három fő részből áll: az állító, a tagadó és a kérdő mondatokból.
+
+1. Állító mondatok:
+    Az állító mondatokban a Present Simple időt a következőképpen alkalmazzuk:
+-   Általános igazságok vagy állandó tények kifejezésére:
+    Példa: Az eső esik. - The rain falls.
+
+-   Rendszeres tevékenységek leírására:
+    Példa: Minden reggel futok. - I run every morning.
+
+-   Időbeosztási rend szerinti események kifejezésére:
+    Példa: Az előadás délután 3-kor kezdődik. - The lecture starts at 3 p.m.
+
+-   Szokások, preferenciák vagy vélemények kifejezésére:
+    Példa: Szeretem az almát. - I like apples.
+
+A Present Simple idő az alany személyének és számának megfelelően igazodik. Az állító mondatokban az alany után következik az ige alakja. A harmadik személyben (egyes szám harmadik személyben) az ige végéhez -s vagy -es ragot kap. Példa: He watches TV every evening.
+
+2. Tagadó mondatok:
+    A tagadó mondatokat a következőképpen alkalmazzuk a Present Simple időben:
+
+-   Állítás tagadása: egyszerűen hozzáadunk egy "do not" (rövidítve "dont") segédigét az állító mondatokhoz.
+    Példa: Nem szeretem a hagymát. - I don t like onions.
+
+-   Harmadik személy tagadása: az does not (rövidítve doesn t) segédige használata.
+    Példa: Ő nem dolgozik itt. - He doesn t work here.
+
+A segédigéket az alany elé helyezzük, majd az ige alakja marad változatlan.
+
+3. Kérdő mondatok:
+    A kérdő mondatokban a Present Simple időt a következőképpen alkalmazzuk:
+
+-   Általános kérdések: a "do" segédigét helyezzük az alany elé.
+    Példa: Szereted a zenét? - Do you like music?
+
+-   Harmadik személy kérdése: az "does" segédigét használjuk.
+    Példa: Dolgozik ő itt? - Does he work here?
+
+Az ige alakja változatlan
+
+Az állító, tagadó és kérdő mondatok mellett érdemes megemlíteni néhány fontos részletet a Present Simple idő használatával kapcsolatban:
+
+- Állandóan ismétlődő események kifejezése: A Present Simple idővel rendszeresen ismétlődő tevékenységeket vagy rutinszerű eseményeket is kifejezhetünk. Példa: Mindig megreggelizem. - I always have breakfast.
+
+- Időhatározók használata: Az időhatározók segítségével pontosíthatjuk, hogy milyen gyakorisággal történik egy adott cselekvés. Példa: Néha olvasok könyvet. - I sometimes read books.
+
+- Általános igazságok: A Present Simple időt használhatjuk általános igazságok kifejezésére. Példa: A Nap keleten kel. - The sun rises in the east.
+
+- Állandó jellegű tulajdonságok: A Present Simple idővel kifejezhetjük az állandó jellegű tulajdonságokat, melyek az adott személyre vagy dologra jellemzőek. Példa: Ő egy tehetséges festő. - He is a talented painter.
+
+- Időbeosztási rendszerű események: A Present Simple idővel kifejezhetjük olyan eseményeket, amelyek meghatározott időpontban vagy rendszeresen következnek be. Példa: A vonat mindig 8-kor érkezik. - The train always arrives at 8 o clock.
+
+- Állítások valóságtartalma: Fontos megjegyezni, hogy a Present Simple idő a jelenre vonatkozik, és általában olyan állításokat fejez ki, amelyeknek hosszú távon is igaznak kell lenniük. Példa: A Föld a Nap körül forog. - The Earth revolves around the sun.
+
+Fontos gyakorolni a Present Simple idő használatát különböző kontextusokban és példamondatokban, hogy megerősítsük és elmélyítsük az időforma helyes alkalmazását.'
+]);
+
+Content::factory()->create([
+    'creator_user_id' => 3,
+    'subject_id' => Subject::where('name', 'Fizika')->first()->id,
+    'topic_id' => Topic::where('name', 'Hőtan')->first()->id,
+    'body' => '# Hőtan alapjai
+
+## Bevezetés
+
+A hőtan a fizikai tudományág, amely az anyagok hőmozgásával és hőenergiával foglalkozik. A hőtan segít megérteni, hogyan terjed a hő és hogyan változik az anyag hőmérséklete különböző körülmények között.
+
+## Hő és hőenergia
+
+- A **hő** az energia átadásának folyamata az anyagok között, amely a részecskék mozgásának eredményeként történik. 
+
+- A **hőenergia** az anyagokban tárolódó energia, amely az anyag részecskéinek mozgásával és rendezetlenségével kapcsolatos.
+
+## Hőmérséklet
+
+- A **hőmérséklet** az anyag részecskéinek átlagos mozgási energiájának mértéke. A hőmérsékletet általában Celsius vagy Kelvin skálán mérjük.
+
+- A hőmérséklet két test közötti különbség határozza meg, hogy melyik testből melyik felé áramlik a hőenergia.
+
+## Hőterjedési módok
+
+A hőterjedésnek három fő módja van:
+
+1. **Kondukció**: A kondukció során a hő a részecskék közvetlen ütközése révén terjed az anyagban.
+
+2. **Konvekció**: A konvekció során a hőmozgás áramlással történik, általában gázok vagy folyadékok között.
+
+3. **Sugárzás**: A sugárzás során a hőenergia elektromágneses hullámok formájában terjed.
+
+## Hőkapacitás és hőmennyiség
+
+- A **hőkapacitás** egy anyag tulajdonsága, amely jellemzi, hogy mekkora hőmennyiség szükséges ahhoz, hogy az anyag hőmérséklete adott értékkell emelkedjen.
+
+- A **hőmennyiség** pedig a hőenergia mennyiségét jelenti, amely átadódik vagy elnyelődik egy anyagban.
+
+## Összefoglalás
+
+A hőtan alapjainak megértése kulcsfontosságú ahhoz, hogy jobban megismerjük az anyagok hőmozgását és a hőenergia terjedését. A hő, hőmérséklet, hőterjedési módok, hőkapacitás és hőmennyiség alapvető fogalmait megismerve felkészültebben állhatunk szemben a hőtan további részleteivel és alkalmazásaival.'
+]);
+
+Content::factory()->create([
+    'creator_user_id' => 3,
+    'subject_id' => Subject::where('name', 'Történelem')->first()->id,
+    'topic_id' => Topic::where('name', 'Római Birodalom')->first()->id,
+    'body' => '# A Római Birodalom
+
+## Bevezetés
+
+A Római Birodalom az ókori Róma által létrehozott hatalmas birodalom volt. Ez a birodalom egész Európára, részben Ázsiára és Észak-Afrikára is kiterjedt. A Római Birodalom meghatározó szerepet játszott a történelem során politikailag, gazdaságilag, kulturálisan és katonailag.
+
+## Kialakulás és Terjeszkedés
+
+- A Római Birodalom alapjait a legendák szerint Romulus és Remus, Róma alapítói fektették le i. e. 753-ban. A birodalom az idők során terjeszkedett és hatalmas területeket foglalt el.
+
+- A Római Birodalom terjeszkedése során olyan területeket vontak ellenőrzésük alá, mint Gallia (Franciaország), Britannia (Egyesült Királyság), Hispania (Spanyolország) és Egyiptom, valamint jelentős részeket Délkelet-Ázsiából.
+
+## Politikai Szervezet és Kormányzás
+
+- A Római Birodalom politikai szervezete összetett volt. Kezdetben a Római Királyság formájában működött, majd i. e. 509-től köztársasági rendszer alakult ki. Később Augustus császárságával i. e. 27-ben kezdődött a császárság kora, és a Római Birodalom a hatalmi központot egészen Konstantinápolyig áthelyezte.
+
+- A birodalom területén a császár volt a legfelsőbb hatalom, és egy összetett adminisztrációs rendszerrel kormányozta a birodalmat. A birodalom katonai ereje, jogrendszere és infrastruktúrája nagyban hozzájárult a birodalom stabilitásához és hatalmához.
+
+## Gazdaság és Élet Róma Városában
+
+- A Római Birodalom gazdasága rendkívül fejlett volt. Az agrártermelés, az ipar és a kereskedelem mind kulcsfontosságú szerepet játszottak a birodalom gazdasági sikereiben.
+
+- Róma városa központi szerepet játszott az életben. Hatalmas épületek, fórumok, fürdők és amfiteátrumok voltak jelen. A birodalom különböző részeiből származó emberek hoztak létre egy sokszínű és gazdag kulturális életet Rómában.
+
+## Hódítás és Kulturális Hatás
+
+- A Római Birodalom terjeszkedése jelentős kulturális hatást gyakorolt az elfoglalt területekre. A római kultúra, nyelv és jogrendszer elterjedt az egész birodalomban.
+
+- A birodalom építészete, irodalma és művészete kiemelkedő volt, és a korabeli civilizáció egyik legjelentősebb kulturális központja volt.
+
+## Válság és Bukás
+
+- A Római Birodalom a 3. századtól kezdve belső válságokkal, gazdasági problémákkal és barbár inváziókkal szembesült. A birodalom kezdett gyengülni, és végül 476-ban a nyugati Római Birodalom hivatalosan is megszűnt.
+
+- Azonban az elsőszámú birodalom keleti része, azaz a Keleti Római (Bizánci) Birodalom még évszázadokig fennmaradt.
+
+## Összegzés
+
+A Római Birodalom rendkívül fontos és befolyásos civilizáció volt az ókorban. Gazdag történelemmel, kulturális örökséggel és politikai rendszerrel rendelkezett. A birodalom katonai ereje és hatalma sokáig meghatározta Európa és a középkori világ eseményeit. A Római Birodalom hagyatéka továbbra is jelen van a modern kultúrában és jogrendszerben.'
+]);
+
+Content::factory()->create([
+    'creator_user_id' => 3,
+    'subject_id' => Subject::where('name', 'Matematika')->first()->id,
+    'topic_id' => Topic::where('name', 'Analízis')->first()->id,
+    'body' => '# Az Analízis Alapjai
+
+## Bevezetés
+
+Az analízis a matematika egy ága, amely a folytonos változókat és azok tulajdonságait tanulmányozza. Az analízis alapvetően két területre osztható: differenciálszámításra és integrálszámításra. Ezen túlmenően foglalkozik a határértékekkel, sorozatokkal, függvényekkel és sok más alapvető fogalommal.
+
+## Differenciálszámítás
+
+A differenciálszámítás az analízis egyik fő része, amely a függvények változását tanulmányozza. Ennek a területnek az alapját a határértékek képezik. A határérték lehetővé teszi, hogy meghatározzuk, hogyan változik egy függvény értéke, amikor a bemenet közelít egy adott pontban. A derivált segítségével kiszámíthatjuk a függvények meredekségét és változását egy adott pontban.
+
+## Integrálszámítás
+
+Az integrálszámítás a másik fő része az analízisnek. Az integrál segítségével meghatározhatjuk egy függvény területét vagy összegzhetjük annak értékeit egy adott tartományon belül. Az integrál alapvetően az antiderivált fogalmán alapul. Az integrálszámítás lehetővé teszi számunkra, hogy meghatározzuk a függvények területét, a görbék alatti területeket, a tömegközéppontokat és számos más fontos matematikai mennyiséget.
+
+## Alkalmazások
+
+Az analízis számos területen hasznos és alkalmazható. Például a fizikában az analízis segít megérteni az anyagok mozgását és változásait. Az ökonómiában és a pénzügyekben az analízis segít az optimalizálásban és a döntéshozatalban. Az építészetben és a mérnöki tervezésben az analízis segít a szerkezetek stabilitásának és terhelhetőségének elemzésében.
+
+## Összegzés
+
+Az analízis az egyik legfontosabb ága a matematikának, amely mélyrehatóan tanulmányozza a függvények tulajdonságait, változásait és területeit. A differenciálszámítás és az integrálszámítás kulcsfontosságú eszközöket nyújtanak a függvények meredekségének, változásának, területének és összegzésének megértéséhez. Az analízis széles körben alkalmazható a természettudományoktól az alkalmazott tudományokig, és kulcsfontosságú szerepet játszik a tudományos kutatásban és az ipari alkalmazásokban.'
+]);
         Content::factory()->count(20)->create();
     }
 }
