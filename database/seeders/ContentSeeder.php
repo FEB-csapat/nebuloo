@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Content;
+use App\Models\Comment;
 use App\Models\Subject;
 use App\Models\Topic;
 use Illuminate\Database\Seeder;
@@ -159,7 +160,7 @@ A present continuous idő az angol nyelv egyik legfontosabb időtartamú, és gy
         
 
 
-        Content::factory()->create([
+   $content1 = Content::factory()->create([
             'creator_user_id' => 3,
             'subject_id' => Subject::where('name', 'Fizika')->first()->id,
             'topic_id' => Topic::where('name', 'Atomfizika')->first()->id,
@@ -177,7 +178,19 @@ Az atommagokat protonok és neutronok alkotják, és a protonok száma határozz
 
 Az atomok és az atommagok megértése segíthet a tudósoknak a környezet védelme, az orvoslás és az ipar fejlesztése, valamint az energiatermelés hatékonyabbá tétele területén.'
 ]);
-        Content::factory()->create([
+Comment::factory()->create([
+    'creator_user_id' => 2,
+    'commentable_id' => $content1->id,
+    'commentable_type' => 'App\Models\Content',
+    'message' => "Végre valamennyire átlátom, hogy miről van szó! Hasznos lecke, köszönöm szépen! :)",
+]);
+Comment::factory()->create([
+    'creator_user_id' => 4,
+    'commentable_id' => $content1->id,
+    'commentable_type' => 'App\Models\Content',
+    'message' => "Szépen össze van foglalva, ment az upvote!",
+]);
+    $content2 = Content::factory()->create([
             'creator_user_id' => 3,
             'subject_id' => Subject::where('name', 'Informatika')->first()->id,
             'topic_id' => Topic::where('name', 'Hálózatok')->first()->id,
@@ -193,6 +206,12 @@ Az IPv6-os címek többféle típusba sorolhatók. Az egyik típus az ún. unica
 ## Az IPv6-os címek használata
 Az IPv6-os címeket a hálózati eszközök egyedi azonosítására használják az interneten. Az IPv6-os címet a hálózati eszközök operációs rendszere automatikusan generálja vagy az internetes szolgáltató biztosítja. Az IPv6-os címek használatának előnye, hogy lehetővé teszik a nagyobb eszközszámú hálózatok létrehozását és a hatékonyabb adatátvitelt. Az IPv6-os címek használata azonban nem teljesen elterjedt még az interneten, és az IPv4-es címeket továbbra is használják a legtöbb esetben'
 ]);
+Comment::factory()->create([
+    'creator_user_id' => 4,
+    'commentable_id' => $content2->id,
+    'commentable_type' => 'App\Models\Content',
+    'message' => "Miért nem inkább ezzel kezdték annó? Sokkal jobb lenne, hogy ha most nem kéne az átállással vacakolni...",
+]);
         Content::factory()->create([
             'creator_user_id' => 3,
             'subject_id' => Subject::where('name', 'Matematika')->first()->id,
@@ -207,7 +226,7 @@ A valószínűség számítása matematikailag összetett, és sok esetben szám
 Az alapvető valószínűségi fogalmak és számítási módszerek megértése segíthet abban, hogy jobban megértsük a valószínűségi eseményeket és ezáltal javíthassuk a döntéshozatali folyamatainkat.'
 ]);
         
-        Content::factory()->create([
+     $content3 = Content::factory()->create([
             'creator_user_id' => 3,
             'subject_id' => Subject::where('name', 'Történelem')->first()->id,
             'topic_id' => Topic::where('name', '2. világháború')->first()->id,
@@ -223,7 +242,19 @@ A csata során a szovjeteknek sikerült visszavonulniuk a Don folyó túloldalá
 
 ## A Sztálingrádi csata következményei
 A Sztálingrádi csata stratégiai fontosságú volt a háború kimenetele szempontjából, mert megakadályozta a németek előrenyomulását a Szovjetunió területén. A csata után a szovjetek fokozatosan előnybe kerültek a háborúban, és a németek előretörésének megakadályozása miatt elvesztették a lehetőséget, hogy kiterjesszék területi uralmukat a szovjetek fölött. A Sztálingrádi csata után a szovjetek elkezdtek áttérni a támadó hadviselésre, és a kezdeményezés visszavételével fokozatosan visszaverték a német erőket. A csata szimbolikus jelentőséggel is bír, hiszen az egész világ számára világossá vált, hogy a Szovjetunió nem lesz könnyen legyőzhető, és hogy a háború végkimenetele még nem eldöntött. A Sztálingrádi csata a második világháború egyik legnagyobb tragédiája volt, és azóta is emlékezetes eseményként él a történelemkönyvekben.'
-        ]);
+]);
+Comment::factory()->create([
+    'creator_user_id' => 2,
+    'commentable_id' => $content3->id,
+    'commentable_type' => 'App\Models\Content',
+    'message' => "Az biztos, hogy ha ez a csata máshogy alakul, akkor az egész háború kimenetele megváltozott volna...",
+]);
+Comment::factory()->create([
+    'creator_user_id' => 1,
+    'commentable_id' => $content3->id,
+    'commentable_type' => 'App\Models\Content',
+    'message' => "Abban biztos lehetsz!",
+]);
         Content::factory()->create([
             'creator_user_id' => 3,
             'subject_id' => Subject::where('name', 'Történelem')->first()->id,
@@ -262,7 +293,7 @@ A trianoni békeszerződés jelentős hatást gyakorolt Magyarországra és az o
 A trianoni békeszerződés azonban nem csak Magyarországot érintette, hanem az egész régiót is. A békeszerződés következtében új államok jöttek létre,amelyek között az etnikai, gazdasági és politikai problémák folyamatosan jelen voltak. A trianoni békeszerződés jelentőségét nehéz túlbecsülni, hiszen az ország történelmének egyik legtragikusabb eseménye volt, és az ország sorsát hosszú időre meghatározta. A trianoni békeszerződés napjára azóta is emlékeznek, és az ország újrarendezésének nehéz korszaka egy olyan emlékezetes pillanatává vált, amely az ország történelmében mindig megmarad.'
 ]);
 
-Content::factory()->create([
+$content4 = Content::factory()->create([
     'creator_user_id' => 3,
     'subject_id' => Subject::where('name', 'Angol')->first()->id,
     'topic_id' => Topic::where('name', 'Grammar')->first()->id,
@@ -323,7 +354,12 @@ Az állító, tagadó és kérdő mondatok mellett érdemes megemlíteni néhán
 
 Fontos gyakorolni a Present Simple idő használatát különböző kontextusokban és példamondatokban, hogy megerősítsük és elmélyítsük az időforma helyes alkalmazását.'
 ]);
-
+Comment::factory()->create([
+    'creator_user_id' => 4,
+    'commentable_id' => $content4->id,
+    'commentable_type' => 'App\Models\Content',
+    'message' => "Sokkal jobban elmagyaráztad mint az angol tanárom, ezek után lehet megmerek majd szólalni az angol órákon.",
+]);
 Content::factory()->create([
     'creator_user_id' => 3,
     'subject_id' => Subject::where('name', 'Fizika')->first()->id,
@@ -412,7 +448,7 @@ A Római Birodalom az ókori Róma által létrehozott hatalmas birodalom volt. 
 A Római Birodalom rendkívül fontos és befolyásos civilizáció volt az ókorban. Gazdag történelemmel, kulturális örökséggel és politikai rendszerrel rendelkezett. A birodalom katonai ereje és hatalma sokáig meghatározta Európa és a középkori világ eseményeit. A Római Birodalom hagyatéka továbbra is jelen van a modern kultúrában és jogrendszerben.'
 ]);
 
-Content::factory()->create([
+$content5 = Content::factory()->create([
     'creator_user_id' => 3,
     'subject_id' => Subject::where('name', 'Matematika')->first()->id,
     'topic_id' => Topic::where('name', 'Analízis')->first()->id,
@@ -437,6 +473,12 @@ Az analízis számos területen hasznos és alkalmazható. Például a fizikába
 ## Összegzés
 
 Az analízis az egyik legfontosabb ága a matematikának, amely mélyrehatóan tanulmányozza a függvények tulajdonságait, változásait és területeit. A differenciálszámítás és az integrálszámítás kulcsfontosságú eszközöket nyújtanak a függvények meredekségének, változásának, területének és összegzésének megértéséhez. Az analízis széles körben alkalmazható a természettudományoktól az alkalmazott tudományokig, és kulcsfontosságú szerepet játszik a tudományos kutatásban és az ipari alkalmazásokban.'
+]);
+Comment::factory()->create([
+    'creator_user_id' => 4,
+    'commentable_id' => $content5->id,
+    'commentable_type' => 'App\Models\Content',
+    'message' => "Hát az igazat megvallva még mindig nem teljesen értem, de határozottan messzebbre jutottam ezzel, mint a matek órákkal :D",
 ]);
         Content::factory()->count(20)->create();
     }
