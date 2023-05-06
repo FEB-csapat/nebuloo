@@ -12,6 +12,7 @@
 * Factories (database/factories directory): Automatically create test data for database tables and enable fast and efficient generation of large amounts of data in the database.
 * Localization (lang directory): Allows the translation of the application text into other languages.
 * API Routing (routes/api.php file): Defines all API routes that the application can respond to and the corresponding controller classes.
+* E-mail notifications (app/Mail directory): Enable the creation and formatting of emails, as well as sending them to users.
 * API Tests (tests directory): API tests allow for automatic testing of the application's API to ensure that requests and responses meet expectations.
 
 ### Frontend is written in Vue.js

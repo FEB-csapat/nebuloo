@@ -11,7 +11,8 @@
 * Seederek (database/seeders könyvtár): Adatokat adnak hozzá az adatbázis táblákhoz, amelyek tesztelésre vagy más célokra használhatók.
 * Factory-k (database/factories könyvtár): Automatikusan hoznak létre tesztadatokat az adatbázis táblákhoz, és lehetővé teszik az adatbázisban található nagy mennyiségű adat gyors és hatékony generálását.
 * Lokalizáció (lang könyvtár): Lehetővé teszi, hogy az alkalmazás szövegét más nyelvekre fordítsuk.
-* API routing (routes/api.php file): Meghatározza az összes API útvonalat, amelyekre az alkalmazás válaszolni tud és az azokhoz kapcsolódó vezérlő osztályokat.
+* API routing (routes/api.php fájl): Meghatározza az összes API útvonalat, amelyekre az alkalmazás válaszolni tud és az azokhoz kapcsolódó vezérlő osztályokat.
+* E-mail értesítések (app/Mail könyvtár): Lehetővé teszik az e-mailek előállítását és formázását, valamint a felhasználókhoz történő küldését.
 * API tesztek (tests könyvtár): Az API tesztek lehetővé teszik az alkalmazás API-jának automatikus tesztelését, hogy megbizonyosodjunk arról, hogy a kérések és válaszok megfelelnek-e az elvártaknak.
 
 
@@ -331,7 +332,7 @@ Schema::create('ranks', function (Blueprint $table) {
 | questions.destroy     | DELETE  | /questions/`{id}`  | destroy    | Deletes a question | Felhasználó         |
 ---
 
-### Komment:
+### Hozzászólás:
 * Modell: Comment
 * Kontroller: CommentController
 * Policy: CommentPolicy
