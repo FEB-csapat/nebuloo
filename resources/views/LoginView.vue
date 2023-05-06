@@ -18,7 +18,7 @@
             <div class="col-sm-12 my-3">
                 <hr>
                 <p>
-                    Nincs még felhasználód? Regisztrálj egyet!
+                    Nincs még fiókod? Regisztrálj egyet!
                 </p>
                 <button class="btn nebuloobutton">
                     <router-link class="nav-link active" aria-current="page" :to="{ name: 'registration'}">Regisztráció</router-link>

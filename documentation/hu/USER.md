@@ -22,7 +22,7 @@ Mivel a weboldal dockerizáltan készült, ezért a rendszerkövetelmények megf
 
 ## Telepítés:
 1. A projekt forráskódját az alábbi parancs terminálban való kiadásával lehet letölteni: `git clone https://github.com/FEB-csapat/nebuloo.git` 
-2. A projekt gyökér könyvtárában start.sh shell script futattása: sh start.sh
+2. A projekt gyökér könyvtárában start.sh shell script futattása: `sh start.sh`
 
 Amennyiben a script futtatása sikertelen, a parancsokat manuálisan kell kiadni:
 1. Az “.env.example” fájl átnevezése “.env”-re
@@ -36,7 +36,7 @@ A konténeren belül:
 6. `php artisan migrate:fresh --seed` parancs kiadása az adatbázis migrációk és seederek lefutatásához
 7. `npm install` parancs kiadása Vue-hoz kapcsolódó függőségek letöltéséhez
 
-Végül a Vite élő szerver futtatásához az `npm run dev` parancs kiadása szükséges, mely után a weboldal a https://localhost:8881/api/ címen érhető el.
+Végül a Vite élő szerver futtatásához az `npm run dev` parancs kiadása szükséges, mely után a weboldal a https://localhost:8881 címen érhető el.
 
 
 # A weboldal működése
@@ -93,7 +93,7 @@ Ezen az oldalom a markdown szövegformázás funkcióinak segítségévPel tudun
 * Számozott lista: `1. Első elem`, `2. Második elem`
 * Felsorolás: `- Első elem`, `- Második elem`
 * Hivatkozás: `[Nebuloo](http://www.localhost:8881)`
-* Képek: `[Nebuloo logo](/documentation/logo.png)`
+* Képek: `![Nebuloo logo](/documentation/logo.png)`
 
 ### **Kérdések oldal**
 ![Kérdések oldal](/documentation/demo_questions_view.png)
@@ -134,6 +134,7 @@ Amennyiben a saját profilunkat nézzük, lehetőségünk nyílik ezen felül eg
 Továbbá lehetőségünk van hozzászólásaink szerkesztésére is, ehhez görgessünk le a "Kommentjeim" szekcióhoz és a változtatni kívánt hozzászólás jobb oldalán kattintsunk a 'Szerkesztés' gombra, majd a változtatásaink után a 'Mentés' gombra. Amennyiben hozzászólásunkat elszeretnék távolítani, kattintsunk a 'Törlés' gombra.
 
 ### **Hibajegy küldése oldal**
+![Hibajegy küldése oldal](/documentation/demo_create_ticket_view.png)
 Ha bármi hibát találunk az oldalon, vagy esetleg bármi olyan tartalmat látunk amely kifogásolható számunkra, ezt egy hibajegy küldésével jelenthetjük az oldal üzemeltetői felé. A hibajegy küldése oldalra, a láblécben található "Hibajegy küldése" feliratű hivatkozásra kattintva juthatunk el, ahol az űrlap kitöltése után, a "Létrehozás" címkéjű gombra kattintva küldhetjük el hibajegyünket.
 
 Miután elküldtük hibajegyünket, a saját profilunk oldalán nyomon követhetjük az adott hibajegy állapotát.
@@ -146,6 +147,7 @@ Az oldal alapkezelése teljesen megegyező számára, mint egy átlag felhaszná
 Az admin felhasználónak lehetősége nyílik nem csak saját, de az összes kérdés, tananyag, hozzászólás és hibajegy szerkesztésére és törlésére. Ennek folyamata azonos, mint a felhasználónak a saját anyagával való műveleteivel.
 
 ### **Felhasználók kezelése**
+![Admin panel](/documentation/demo_admin_panel.png)
 Amennyiben megnézzük egy felhasználó profilját, megjelenik előttünk az 'Admin panel' (saját profilunkon ezt nem látjuk). Itt az alábbi funkciókat érhetjük el:
 * Jogosultság adása a felhasználónak: Egy lenyíló listából kiválaszhatjuk, hogy milyen engedélykört adjunk a felhasználónak. Itt 'moderátor' és 'user' közül válaszhatunk. Majd ezután a 'Mentés' gombra kattintva véglegesíthetjük az engedély adást.
 * Profil szerkesztése: Itt akárcsak a saját információnkat, lehetőségünk van az felhasználó megjelenítési nevét és bió-ját megváltoztatni.
