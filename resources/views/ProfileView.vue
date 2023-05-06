@@ -229,6 +229,7 @@ methods:{
         this.responseBody = (await RequestHelper.getMyDatas()).data;
         this.userData = this.responseBody;
         this.isWaiting=false;
+        console.log(this.userData);
     },
     async getProfileData(){
         this.isWaiting=true;

@@ -49,19 +49,19 @@ export default{
     },
     methods:{
         async AcceptTicket(){
-            RequestHelper.editTicket(true, this.ticket.id)
+            await RequestHelper.editTicket(true, this.ticket.id)
             window.alert("Hibajegy sikeresen elfogadva!");
             this.isOpen=true;
             window.location.reload();
         },
         async ReopenTicket(){
-            RequestHelper.editTicket(false, this.ticket.id)
+            await RequestHelper.editTicket(false, this.ticket.id)
             window.alert("Hibajegy sikeresen újranyitva!");
             this.isOpen=false;
             window.location.reload();
         },
         async deleteTicket(){
-            RequestHelper.deleteTicket(this.ticket.id)
+            await RequestHelper.deleteTicket(this.ticket.id)
             window.alert("Hibajegy sikeresen törölve!");
             window.location.reload();
         },

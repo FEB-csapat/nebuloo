@@ -75,5 +75,92 @@ class QuestionSeeder extends Seeder
             'commentable_type' => 'App\Models\Question',
             'message' => "Áh. Azt hiszem értem. Köszi a választ!",
         ]);
+
+    $question5 = Question::factory()->create([
+            'creator_user_id' => 3,
+            'title' => "Frontend vs Backend",
+            'body' => "Mi a különbség a frontend és a backend fejlesztés között?",
+        ]);
+        Comment::factory()->create([
+            'creator_user_id' => 1,
+            'commentable_id' => $question5->id,
+            'commentable_type' => 'App\Models\Question',
+            'message' => "A frontend fejlesztés az olyan részét jelenti a weblap fejlesztésnek, amely a felhasználó számára látható és interaktív részekkel foglalkozik. Ez magában foglalja az UI/UX tervezést, HTML-t, CSS-t és JavaScriptet. A backend fejlesztés pedig az olyan részét jelenti, amely a háttérben működik és a weblap működését biztosítja. Ez magában foglalja az adatbázis-kezelést, a szerveroldali programozást és az API integrációkat.",
+        ]);
+        Comment::factory()->create([
+            'creator_user_id' => 3,
+            'commentable_id' => $question5->id,
+            'commentable_type' => 'App\Models\Question',
+            'message' => "Köszi szépen, így már tiszta minden.",
+        ]);
+
+    $question6 = Question::factory()->create([
+            'creator_user_id' => 3,
+            'title' => "SEO, webkódolás",
+            'body' => "Milyen szerepet játszik az SEO a weblap fejlesztésében?",
+        ]);
+        Comment::factory()->create([
+            'creator_user_id' => 1,
+            'commentable_id' => $question6->id,
+            'commentable_type' => 'App\Models\Question',
+            'message' => "Az SEO (Search Engine Optimization) kulcsfontosságú a weblap fejlesztésében, mivel segít a weboldal magasabb rangsorolásában a keresőmotorokban. Néhány fontos elem:
+
+            Megfelelő kulcsszókutatás és használat a tartalomban
+            Jól strukturált és olvasható URL-ek
+            Meta címkék és leírások optimalizálása
+            Használható linkek és szociális megosztási lehetőségek",
+        ]);
+
+    $question7 = Question::factory()->create([
+            'creator_user_id' => 3,
+            'title' => "Derivált",
+            'body' => "Mi a derivált és hogyan számolható ki?",
+        ]);
+        Comment::factory()->create([
+            'creator_user_id' => 4,
+            'commentable_id' => $question7->id,
+            'commentable_type' => 'App\Models\Question',
+            'message' => "A derivált a függvény változásának mértékét mutatja a bemeneti változóhoz képest. A derivált kiszámítása az alábbi lépésekből áll: válasszunk ki egy pontot a függvényen, közelítsük a pontot egy másik ponthoz, majd számítsuk ki a két pont közötti meredekséget. Ez a közelítő meredekség az adott pontban a derivált.",
+        ]);
+        Comment::factory()->create([
+            'creator_user_id' => 2,
+            'commentable_id' => $question7->id,
+            'commentable_type' => 'App\Models\Question',
+            'message' => "Áhhh, gyorsabbak voltak nálam! :D",
+        ]);
+    $question8 = Question::factory()->create([
+            'creator_user_id' => 3,
+            'title' => "Matek, valószínűség",
+            'body' => "Mi a valószínűség fogalma és hogyan számítható ki?",
+        ]);
+        Comment::factory()->create([
+            'creator_user_id' => 1,
+            'commentable_id' => $question8->id,
+            'commentable_type' => 'App\Models\Question',
+            'message' => "A valószínűség a valamilyen esemény bekövetkezésének mértéke. Matematikailag a valószínűség az esemény kedvező kimenetelének a lehetőséges kimenetek számához viszonyított aránya. A valószínűség kiszámítása a kedvező kimenetek számát és a lehetséges kimenetek számát osztva egymással.",
+        ]);
+        Comment::factory()->create([
+            'creator_user_id' => 3,
+            'commentable_id' => $question8->id,
+            'commentable_type' => 'App\Models\Question',
+            'message' => "Köszi, szerintem sikerült megérteni",
+        ]);
+    $question9 = Question::factory()->create([
+            'creator_user_id' => 3,
+            'title' => "Lineáris egyenletek",
+            'body' => "Mi a lineáris egyenlet és hogyan oldható meg?",
+        ]);
+        Comment::factory()->create([
+            'creator_user_id' => 2,
+            'commentable_id' => $question9->id,
+            'commentable_type' => 'App\Models\Question',
+            'message' => "A lineáris egyenlet egy olyan matematikai egyenlet, amelyben a ismeretlenek lineárisan vannak összekapcsolva. Az egyenlet általában a következő formában írható: ax + b = 0, ahol az 'a' és 'b' konstansok, 'x' pedig az ismeretlen. A lineáris egyenletet meg lehet oldani a következő lépésekkel: isoláljuk az 'x'-et az egyenlet bal oldalára, majd osszuk el az együtthatóval 'a', hogy megtaláljuk az ismeretlen értékét.",
+        ]);
+        Comment::factory()->create([
+            'creator_user_id' => 3,
+            'commentable_id' => $question9->id,
+            'commentable_type' => 'App\Models\Question',
+            'message' => "Köszi",
+        ]);
     }
 }

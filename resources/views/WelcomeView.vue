@@ -75,7 +75,7 @@
             </div>
 
             <router-link class="text-center nav-link active mb-2" aria-current="page" :to="{ name: 'contents'}">
-                <button class="btn shadow" style="background-color: #ffffff; color: #4285f4;">Folytatás</button>
+                <button class="btn nebuloobutton">Folytatás</button>
             </router-link>
         </div>
     </div>

@@ -3,14 +3,17 @@
         <div class="row bg-light shadow rounded-3 p-2">
             <Form @submit="Login">
                 <label for="identifier" class="form-label mt-2">E-mail cím vagy felhasználónév</label>
-                <Field id="identifier_field" type="text" name='identifier' placeholder="Email vagy felhasználónév" class="form-control"/>
+                <Field rules="required" id="identifier_field" type="text" name="identifier" placeholder="Email vagy felhasználónév" class="form-control"/>
+                <ErrorMessage name="identifier" class="alert alert-danger d-flex p-2 mt-2" />
 
                 <label for="password" class="form-label mt-2">Jelszó:</label>
-                <Field id="password_field" type="password" name="password" placeholder="Jelszó" class="form-control"/>
+                <Field :rules="{ required: true, regex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/ }"
+                 id="password_field" type="password" name="password" placeholder="Jelszó" class="form-control"/>
+                <ErrorMessage name="password" class="alert alert-danger d-flex p-2 mt-2" />
 
                 <button type="submit" class="my-3 btn nebuloobutton" name="login">Bejelentkezés</button>
 
-                <div v-if="errorMessage" name="errormessage" class="error-message bg-opacity-25 border border-danger p-2 d-flex">{{errorMessage}}</div>
+                <div v-if="errorMessage" name="errormessage" class="alert alert-danger d-flex p-2 mt-2">{{errorMessage}}</div>
             </Form>
 
             <loading-spinner v-if="isWaiting"/>
@@ -32,7 +35,7 @@
 
 </template>
 <script>
-import { Form ,Field } from 'vee-validate';
+import { Form ,Field, ErrorMessage } from 'vee-validate';
 import axios from 'axios'
 import { RequestHelper } from '../utils/RequestHelper';
 import router from '../router/index';
@@ -50,7 +53,7 @@ export default{
         }
     },
     components: {
-        SnackBar,Field, Form, LoadingSpinner
+        SnackBar,Field, Form, LoadingSpinner, ErrorMessage
     },
     methods:{
         async Login(values){

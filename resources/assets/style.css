@@ -35,10 +35,14 @@ body{
 }
 .nebuloobutton:hover{
     background-color: #A2E0F3;
-    box-shadow: 2px 4px rgba(0, 0, 0, 0.2);
-    transition: box-shadow 0.1s ease-in-out;
+    box-shadow: 2px 4px rgba(0, 0, 0, 0.2); 
+    transition: box-shadow 0.1s ease-in-out; 
 }
 
+.nebuloobutton:focus,
+.nebuloobutton:active{
+    background-color: #A2E0F3 !important;
+}
 
 #tag{
     background-color: #A2E0F3;
