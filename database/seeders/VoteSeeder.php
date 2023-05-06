@@ -44,9 +44,9 @@ class VoteSeeder extends Seeder
             ]);
         }
 
-        $comments = Comment::take(10)->get();
+        $comments = Comment::take(15)->get();
         foreach ($comments as $comment) {
-            $votesCount = rand(0, 15);
+            $votesCount = rand(0, 5);
             Vote::factory()->count($votesCount)->create([
                 'creator_user_id' => User::inRandomOrder()->first(),
                 'reciever_user_id' => $comment->creator_user_id,

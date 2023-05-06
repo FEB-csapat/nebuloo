@@ -15,9 +15,18 @@ class TicketSeeder extends Seeder
     public function run()
     {
         Ticket::factory()->create([
-            'creator_user_id'=> 1,
-            'body' => 'I have this bug, where the bug bugs'
+            'creator_user_id'=> 4,
+            'body' => 'Amikor megpróbáltam betölteni az oldalt ahol a tananyagok vannak, az rendkívül lassan töltött be. Ez így használhatatlan.'
         ]);
-        Ticket::factory()->count(10)->create();
+        
+        Ticket::factory()->create([
+            'creator_user_id'=> 3,
+            'body' => 'Tananyag letöltés nem működik, hiába nyomom meg a gombot, nem történik semmi.'
+        ]);
+        
+        Ticket::factory()->create([
+            'creator_user_id'=> 2,
+            'body' => 'Nem tudok tantárgyat választani, mert nem jelennek meg a tantárgyak a listában.'
+        ]);
     }
 }
