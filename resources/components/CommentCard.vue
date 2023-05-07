@@ -69,6 +69,7 @@ export default{
             if (window.confirm("Biztosan szerkeszteni szeretné hozzászólását?")) {
                 this.editComment();
                 this.isEditing = false;
+                this.comment.message = this.commentbody;
             }
             else{
                 this.isEditing = false;

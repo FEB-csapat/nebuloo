@@ -59,12 +59,6 @@ class CommentController extends Controller
         $data['commentable_id'] = $commentableId;
 
         $newComment = Comment::create($data);
-
-        $contentCreator = $data['commentable_type']::find($commentableId)->creator;
-        // is not the creator of the content and of the comment
-        if($contentCreator && $contentCreator->id != $request->user()->id){
-            $contentCreator->notifyNewCommentToCommentable($newComment, $data['commentable_type']);
-        }
         return new CommentResource($newComment);
     }
 
