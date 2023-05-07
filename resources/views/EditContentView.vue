@@ -59,7 +59,6 @@ export default{
                 alert("Sikeres szerkesztés!",this.$router.push({name: 'contentById', params:{id: response.data.id}}))
             })
             .catch(error=>{
-             //   console.log(error)
             })
         },
         handleSubjectItemSelected(subjectId) {

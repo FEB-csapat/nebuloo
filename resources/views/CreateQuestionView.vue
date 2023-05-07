@@ -48,7 +48,6 @@ export default{
             }
             RequestHelper.createQuestion(this.title, this.body, this.subjectId, this.topicId)
             .then(()=>{
-                console.log(this.body);
                 alert("Sikeres létrehozás!");
                 this.$router.push({
                     name: 'myUserProfile',

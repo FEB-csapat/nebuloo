@@ -71,7 +71,6 @@ export default{
 
         },
         async updateQuestion(){
-            console.log(this.body);
             if(this.body==""){
                 alert("A poszt nem lehet üres!");
                 return;
@@ -84,7 +83,6 @@ export default{
                 this.navigateToDetailedView();
             }else{
                 this.$refs.snackBar.showSnackbar('Sikertelen szerkesztés', null, function () {
-                    console.log('callback');
                 });
             }
         },

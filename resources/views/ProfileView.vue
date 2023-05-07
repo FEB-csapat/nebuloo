@@ -173,7 +173,6 @@ export default {
                         this.fetchUserData();
                     })
                     .catch(error => {
-                        console.log(error)
                     });
             }
         },
@@ -185,7 +184,6 @@ export default {
                         this.fetchUserData();
                     })
                     .catch(error => {
-                        console.log(error)
                     });
             }
         },
@@ -197,7 +195,6 @@ export default {
                         this.fetchUserData();
                     })
                     .catch(error => {
-                        console.log(error)
                     });
             }
         },
@@ -219,7 +216,6 @@ export default {
                         });
                     })
                     .catch(error => {
-                        console.log(error)
                     });
             }
         },
@@ -229,7 +225,6 @@ export default {
             this.responseBody = (await RequestHelper.getMyDatas()).data;
             this.userData = this.responseBody;
             this.isWaiting = false;
-            console.log(this.userData);
         },
         async getProfileData() {
             this.isWaiting = true;

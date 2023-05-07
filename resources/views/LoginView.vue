@@ -75,7 +75,6 @@ export default{
                 this.$router.push({name: 'contents'});
             })
             .catch(error=>{
-                console.log(error);
                 this.isWaiting = false;
                 this.errorMessage = error.response.data.message;
             })
