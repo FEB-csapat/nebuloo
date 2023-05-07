@@ -9,7 +9,7 @@
                 <label for="password" class="form-label mt-2">Jelszó:</label>
                 <Field :rules="{ required: true, regex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/ }"
                  id="password_field" type="password" name="password" placeholder="Jelszó" class="form-control"/>
-                <ErrorMessage name="password" class="alert alert-danger d-flex p-2 mt-2" />
+                <ErrorMessage name="password" class="alert alert-danger d-flex p-2 mt-2" id="passwordloginerror"/>
 
                 <button type="submit" class="my-3 btn nebuloobutton" name="login">Bejelentkezés</button>
 

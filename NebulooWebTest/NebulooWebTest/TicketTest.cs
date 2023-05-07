@@ -100,9 +100,9 @@ namespace NebulooWebTest
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
             IAlert successfulticketacceptionAlert = driver.SwitchTo().Alert();
             successfulticketacceptionAlert.Accept();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath("/html/body/div/div[1]/div[1]/div[2]/div/button[1]")));
-            var stateLabel = driver.FindElement(By.XPath("/html/body/div/div[1]/div[1]/div[2]/h6"));
-            Assert.AreEqual(stateLabel.Text, "Állapot: Javítva");
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath("/html/body/div/div[1]/div[1]/div[2]/div[2]/span")));
+            var stateLabel = driver.FindElement(By.XPath("/html/body/div/div[1]/div[1]/div[2]/div[2]/span"));
+            Assert.AreEqual(stateLabel.Text, "Javítva");
         }
         [Test]
         public void TicketReopenAs_AdminTest()
@@ -126,9 +126,9 @@ namespace NebulooWebTest
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
             IAlert successfulticketacceptionAlert = driver.SwitchTo().Alert();
             successfulticketacceptionAlert.Accept();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath("/html/body/div/div[1]/div[2]/div[2]/div/button[1]")));
-            var stateLabel = driver.FindElement(By.XPath("/html/body/div/div[1]/div[2]/div[2]/h6"));
-            Assert.AreEqual(stateLabel.Text, "Állapot: Várakozik");
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath("/html/body/div/div[1]/div[2]/div[2]/div[2]/span")));
+            var stateLabel = driver.FindElement(By.XPath("/html/body/div/div[1]/div[2]/div[2]/div[2]/span"));
+            Assert.AreEqual(stateLabel.Text, "Várakozik");
         }
         [Test]
         public void TicketDeletionAs_AdminTest()

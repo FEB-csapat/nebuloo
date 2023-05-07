@@ -66,7 +66,7 @@ namespace NebulooWebTest
             var submitButton = driver.FindElement(By.Name("login"));
             submitButton.Click();
 
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("errormessage")));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id("passwordloginerror")));
         }
 
         [Test]
@@ -82,7 +82,7 @@ namespace NebulooWebTest
             var submitButton = driver.FindElement(By.Name("login"));
             submitButton.Click();
 
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("errormessage")));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id("passwordloginerror")));
         }
         [TearDown]
         public void TearDown()

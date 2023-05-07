@@ -138,7 +138,7 @@ namespace NebulooWebTest
             var contentupdateButton = driver.FindElement(By.Name("contentupdate"));
             contentupdateButton.Click();
 
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("contentupdatetagselector")));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath("/html/body/div/div[1]/div/div[1]/div[2]/div[2]/div[1]/textarea")));
             var contentbodyTextArea = driver.FindElement(By.XPath("/html/body/div/div[1]/div/div[1]/div[2]/div[2]/div[1]/textarea"));
             contentbodyTextArea.SendKeys("Test content");
             var savecontentupdateButton = driver.FindElement(By.Name("contentupdatesave"));

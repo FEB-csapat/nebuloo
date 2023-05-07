@@ -39,6 +39,7 @@ namespace NebulooWebTest
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("upvote_arrow")));
             var upvoteButton = driver.FindElement(By.Name("upvote_arrow"));
             upvoteButton.Click();
+            Thread.Sleep(600);
             driver.Url = baseUrl + "me";
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("votescore")));
             var votescoreLabel = driver.FindElement(By.Name("votescore"));
@@ -62,6 +63,7 @@ namespace NebulooWebTest
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("downvote_arrow")));
             var upvoteButton = driver.FindElement(By.Name("downvote_arrow"));
             upvoteButton.Click();
+            Thread.Sleep(600);
             driver.Url = baseUrl + "me";
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("votescore")));
             var votescoreLabel = driver.FindElement(By.Name("votescore"));
@@ -85,6 +87,7 @@ namespace NebulooWebTest
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("upvote_arrow")));
             var upvoteButton = driver.FindElement(By.Name("upvote_arrow"));
             upvoteButton.Click();
+            Thread.Sleep(600);
             driver.Url = baseUrl + "me";
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("votescore")));
             var votescoreLabel = driver.FindElement(By.Name("votescore"));
@@ -108,6 +111,7 @@ namespace NebulooWebTest
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("downvote_arrow")));
             var upvoteButton = driver.FindElement(By.Name("downvote_arrow"));
             upvoteButton.Click();
+            Thread.Sleep(600);
             driver.Url = baseUrl + "me";
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("votescore")));
             var votescoreLabel = driver.FindElement(By.Name("votescore"));
@@ -132,6 +136,7 @@ namespace NebulooWebTest
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath("/html/body/div/div[1]/div[2]/div/div/div[3]/div/div/i[1]")));
             var upvoteButton = driver.FindElement(By.XPath("/html/body/div/div[1]/div[2]/div/div/div[3]/div/div/i[1]"));
             upvoteButton.Click();
+            Thread.Sleep(600);
             driver.Url = baseUrl + "me";
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("votescore")));
             var votescoreLabel = driver.FindElement(By.Name("votescore"));
@@ -151,11 +156,11 @@ namespace NebulooWebTest
             submitButtonLogin.Click();
 
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "contents"));
-
             driver.Url = baseUrl + "contents/1";
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath("/html/body/div/div[1]/div[2]/div/div/div[3]/div/div/i[2]")));
             var downvoteButton = driver.FindElement(By.XPath("/html/body/div/div[1]/div[2]/div/div/div[3]/div/div/i[2]"));
             downvoteButton.Click();
+            Thread.Sleep(600);
             driver.Url = baseUrl + "me";
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("votescore")));
             var votescoreLabel = driver.FindElement(By.Name("votescore"));
@@ -230,8 +235,8 @@ namespace NebulooWebTest
         [TearDown]
         public void TearDown()
         {
-            driver.Quit();
-            SeederHandler.TestSeederTearDown("SeleniumPostActionsTestTearDownSeeder");
+            //driver.Quit();
+            //SeederHandler.TestSeederTearDown("SeleniumPostActionsTestTearDownSeeder");
         }
     }
 }
