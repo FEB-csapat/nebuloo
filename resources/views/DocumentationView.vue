@@ -9,7 +9,9 @@
                 <td>
                     <a href="https://github.com/FEB-csapat/nebuloo/blob/main/documentation/hu/USER.md" class="nav-link px-2 mt-1">Felhasználói dokumentáció</a>
                 </td>
-                <td>User documentation</td>
+                <td>
+                    <a href="https://github.com/FEB-csapat/nebuloo/blob/main/documentation/en/USER.md" class="nav-link px-2 mt-1">User documentation</a>
+                </td>
             </tr>
             <tr>
                 <td>
@@ -23,7 +25,6 @@
                 <td>
                     <a href="https://github.com/FEB-csapat/nebuloo/blob/main/documentation/hu/TEST.md" class="nav-link px-2 mt-1">Tesztelési dokumentáció</a>
                 </td>
-                <td>Testing documentation</td>
             </tr>
         </table>
     </div>
