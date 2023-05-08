@@ -83,7 +83,7 @@ A meglévő hozzászólást szerkeszteni és törölni tudjuk amennyiben mi vagy
 
 A rendszer a tananyag vagy kérdés létrehozójának e-mail értesítést küld, amennyiben új hozzászólás érkezett (ha bejelölte a létrehozó hogy kér e-mail értesítést).
 
-Ahhoz hogy az e-mail értesítés működjön, a `.env` fájlban kell konfigurálni az alábbi paramétereket:
+Ahhoz hogy az e-mail értesítés működjön, a `.env` fájlban kell konfigurálni a MAIL paramétereket:  
 ![E-mail értesítés konfiguráció](/documentation/demo_mail_config.png)
 
 

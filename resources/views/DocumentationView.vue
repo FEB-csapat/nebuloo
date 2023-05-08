@@ -18,12 +18,15 @@
                     <a href="https://github.com/FEB-csapat/nebuloo/blob/main/documentation/hu/DEVELOPER.md" class="nav-link px-2 mt-1">Fejlesztői dokumentáció</a>
                 </td>
                 <td>
-                    <a href="https://github.com/FEB-csapat/nebuloo/blob/main/documentation/en/DEVELOPER.md" class="nav-link ">Developer documentation</a>
+                    <a href="https://github.com/FEB-csapat/nebuloo/blob/main/documentation/en/DEVELOPER.md" class="nav-link px-2 mt-1">Developer documentation</a>
                 </td>
             </tr>
             <tr>
                 <td>
                     <a href="https://github.com/FEB-csapat/nebuloo/blob/main/documentation/hu/TEST.md" class="nav-link px-2 mt-1">Tesztelési dokumentáció</a>
+                </td>
+                <td>
+                    <a href="https://github.com/FEB-csapat/nebuloo/blob/main/documentation/en/TEST.md" class="nav-link px-2 mt-1">Test documentation</a>
                 </td>
             </tr>
         </table>

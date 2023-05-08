@@ -83,7 +83,7 @@ We can edit and delete existing comments if we are the creators or have admin or
 
 The system sends an email notification to the creator of the course or question if a new comment is posted (if the creator has enabled email notifications).
 
-To enable email notifications, the following parameters need to be configured in the `.env` file:
+To enable email notifications, the following parameters need to be configured in the `.env` file:  
 ![Email Notification Configuration](/documentation/demo_mail_config.png)
 
 
