@@ -69,8 +69,6 @@ class CommentController extends Controller
         }catch(\Exception $e){
             // something went wrong while sending email notification.
         }
-        
-
         return new CommentResource($newComment);
     }
 

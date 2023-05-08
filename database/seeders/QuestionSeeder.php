@@ -19,12 +19,15 @@ class QuestionSeeder extends Seeder
     {
         Question::factory()->create([
             'creator_user_id' => 1,
+            'subject_id' => Subject::where('name', 'Irodalom')->first()->id,
             'title' => "Melyik irodalmi műfajra jellemző a szatíra?",
             'body' => ""
         ]);
         
         Question::factory()->create([
             'creator_user_id' => 2,
+            'subject_id' => Subject::where('name', 'Informatika')->first()->id,
+            'topic_id' => Topic::where('name', 'Programozás')->first()->id,
             'title' => "Mi a különbség az objektumorientált és a procedurális programozás között?",
             'body' => ""
         ]);
@@ -79,6 +82,8 @@ class QuestionSeeder extends Seeder
     $question5 = Question::factory()->create([
             'creator_user_id' => 3,
             'title' => "Frontend vs Backend",
+            'subject_id' => Subject::where('name', 'Fizika')->first()->id,
+            'topic_id' => Topic::where('name', 'Mechanika')->first()->id,
             'body' => "Mi a különbség a frontend és a backend fejlesztés között?",
         ]);
         Comment::factory()->create([
@@ -97,6 +102,8 @@ class QuestionSeeder extends Seeder
     $question6 = Question::factory()->create([
             'creator_user_id' => 3,
             'title' => "SEO, webkódolás",
+            'subject_id' => Subject::where('name', 'Informatika')->first()->id,
+            'topic_id' => Topic::where('name', 'Programozás')->first()->id,
             'body' => "Milyen szerepet játszik az SEO a weblap fejlesztésében?",
         ]);
         Comment::factory()->create([
@@ -114,6 +121,7 @@ class QuestionSeeder extends Seeder
     $question7 = Question::factory()->create([
             'creator_user_id' => 3,
             'title' => "Derivált",
+            'subject_id' => Subject::where('name', 'Matematika')->first()->id,
             'body' => "Mi a derivált és hogyan számolható ki?",
         ]);
         Comment::factory()->create([
@@ -131,6 +139,7 @@ class QuestionSeeder extends Seeder
     $question8 = Question::factory()->create([
             'creator_user_id' => 3,
             'title' => "Matek, valószínűség",
+            'subject_id' => Subject::where('name', 'Matematika')->first()->id,
             'body' => "Mi a valószínűség fogalma és hogyan számítható ki?",
         ]);
         Comment::factory()->create([
@@ -148,6 +157,7 @@ class QuestionSeeder extends Seeder
     $question9 = Question::factory()->create([
             'creator_user_id' => 3,
             'title' => "Lineáris egyenletek",
+            'subject_id' => Subject::where('name', 'Matematika')->first()->id,
             'body' => "Mi a lineáris egyenlet és hogyan oldható meg?",
         ]);
         Comment::factory()->create([
