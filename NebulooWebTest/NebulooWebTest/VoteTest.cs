@@ -235,8 +235,8 @@ namespace NebulooWebTest
         [TearDown]
         public void TearDown()
         {
-            //driver.Quit();
-            //SeederHandler.TestSeederTearDown("SeleniumPostActionsTestTearDownSeeder");
+            driver.Quit();
+            SeederHandler.TestSeederTearDown("SeleniumPostActionsTestTearDownSeeder");
         }
     }
 }
