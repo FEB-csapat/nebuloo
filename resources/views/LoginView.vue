@@ -7,7 +7,7 @@
                 <ErrorMessage name="identifier" class="alert alert-danger d-flex p-2 mt-2" />
 
                 <label for="password" class="form-label mt-2">Jelszó:</label>
-                <Field :rules="{ required: true, regex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/ }"
+                <Field :rules="{ required: true, regex: /^(?=.*?[A-ZÁÉŐÚÜŰÓÖÜÍ])(?=.*?[a-zóöüúőáéí])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/ }"
                  id="password_field" type="password" name="password" placeholder="Jelszó" class="form-control"/>
                 <ErrorMessage name="password" class="alert alert-danger d-flex p-2 mt-2" id="passwordloginerror"/>
 

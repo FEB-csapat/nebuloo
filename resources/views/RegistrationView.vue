@@ -16,7 +16,7 @@
                     class="d-inline-flex mt-2 error-message bg-danger text-white bg-opacity-25 border border-danger p-2">{{ possibError.email }}</span>
 
                 <label for="password" class="form-label mt-2 d-flex">Jelszó:</label>
-                <Field :rules="{ required: true, regex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/ }" type="password"
+                <Field :rules="{ required: true, regex: /^(?=.*?[A-ZÁÉŐÚÜŰÓÖÜÍ])(?=.*?[a-zóöüúőáéí])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/ }" type="password"
                     name="password" placeholder="Jelszó" ref="password" class="form-control" />
                 <ErrorMessage name="password" class="alert alert-danger d-flex p-2 mt-2" />
                 <p class="text-muted ms-1">
