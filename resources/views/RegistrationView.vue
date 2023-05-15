@@ -4,7 +4,7 @@
             <Form @submit="Register">
 
                 <label for="username" class="form-label mt-2">Felhasználó név:</label>
-                <Field rules="required|alpha_num" type="text" name="username" placeholder="Felhasználó név" class="form-control" />
+                <Field rules="required|alpha_num|min:4" type="text" name="username" placeholder="Felhasználó név" class="form-control" />
                 <ErrorMessage name="username" class="alert alert-danger d-flex p-2 mt-2" />
                 <span v-if="possibError.name"
                     class="d-inline-flex mt-2 error-message bg-danger text-white bg-opacity-25 border border-danger p-2">{{ possibError.name }}</span>
@@ -16,7 +16,7 @@
                     class="d-inline-flex mt-2 error-message bg-danger text-white bg-opacity-25 border border-danger p-2">{{ possibError.email }}</span>
 
                 <label for="password" class="form-label mt-2 d-flex">Jelszó:</label>
-                <Field :rules="{ required: true, regex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/ }" type="password"
+                <Field :rules="{ required: true, regex: /^(?=.*?[A-ZÁÉŐÚÜŰÓÖÜÍ])(?=.*?[a-zóöüúőáéí])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/ }" type="password"
                     name="password" placeholder="Jelszó" ref="password" class="form-control" />
                 <ErrorMessage name="password" class="alert alert-danger d-flex p-2 mt-2" />
                 <p class="text-muted ms-1">
@@ -40,7 +40,7 @@
 
                 <div class="col my-2">
                     <button class="btn btn-primary">
-                        <router-link class="nav-link active" aria-current="page" :to="{ name: 'aszf' }">ÁSZF</router-link>
+                        <router-link class="nav-link active" aria-current="page" :to="{ name: 'aszf' }" target="_blank">ÁSZF</router-link>
                     </button>
                 </div>
 
