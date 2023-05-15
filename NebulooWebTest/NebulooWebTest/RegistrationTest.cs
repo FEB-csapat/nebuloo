@@ -69,7 +69,7 @@ namespace NebulooWebTest
             submitButton.Click();
 
             var Error_message = driver.FindElement(By.XPath("/html/body/div/div[1]/div/form/span"));
-            if (Error_message.Text.Contains("name is not valid"))
+            if (Error_message.Text.Contains("A(z) felhasználó név kizárólag betűket és számokat tartalmazhat"))
             {
                 Assert.Pass();
             }
@@ -100,7 +100,7 @@ namespace NebulooWebTest
             submitButton.Click();
 
             var Error_message = driver.FindElement(By.XPath("/html/body/div/div[1]/div/form/span"));
-            if (Error_message.Text.Contains("email is not valid"))
+            if (Error_message.Text.Contains("A(z) e-mail cím nem érvényes email formátum"))
             {
                 Assert.Pass();
             }
@@ -131,7 +131,7 @@ namespace NebulooWebTest
             submitButton.Click();
 
             var Error_message = driver.FindElement(By.XPath("/html/body/div/div[1]/div/form/span"));
-            if (Error_message.Text.Contains("password is not valid"))
+            if (Error_message.Text.Contains("A(z) jelszó formátuma érvénytelen"))
             {
                 Assert.Pass();
             }
@@ -162,7 +162,7 @@ namespace NebulooWebTest
             submitButton.Click();
 
             var Error_message = driver.FindElement(By.XPath("/html/body/div/div[1]/div/form/span"));
-            if (Error_message.Text.Contains("password_confirmation is not valid."))
+            if (Error_message.Text.Contains("A(z) jelszó ellenőrző nem egyezik a megerősítéssel"))
             {
                 Assert.Pass();
             }
@@ -190,16 +190,16 @@ namespace NebulooWebTest
             passwordAgainTextbox.SendKeys("jelszo12");
 
             var Error_message = driver.FindElement(By.XPath("/html/body/div/div[1]/div/form/span[1]"));
-            if (Error_message.Text.Contains("name is not valid"))
+            if (Error_message.Text.Contains("A(z) felhasználó név kizárólag betűket és számokat tartalmazhat"))
             {
                 Error_message = driver.FindElement(By.XPath("/html/body/div/div[1]/div/form/span[2]"));
-                if (Error_message.Text.Contains("email is not valid"))
+                if (Error_message.Text.Contains("A(z) e-mail cím nem érvényes email formátum"))
                 {
                     Error_message = driver.FindElement(By.XPath("/html/body/div/div[1]/div/form/span[2]"));
-                    if (Error_message.Text.Contains("password is not valid"))
+                    if (Error_message.Text.Contains("A(z) jelszó formátuma érvénytelen"))
                     {
                         Error_message = driver.FindElement(By.XPath("/html/body/div/div[1]/div/form/span[4]"));
-                        if (Error_message.Text.Contains("password_confirmation is not valid"))
+                        if (Error_message.Text.Contains("A(z) jelszó ellenőrző nem egyezik a megerősítéssel"))
                         {
                             Assert.Pass();
                         }
