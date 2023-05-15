@@ -40,7 +40,7 @@
 
                 <div class="col my-2">
                     <button class="btn btn-primary">
-                        <router-link class="nav-link active" aria-current="page" :to="{ name: 'aszf' }">ÁSZF</router-link>
+                        <router-link class="nav-link active" aria-current="page" :to="{ name: 'aszf' }" target="_blank">ÁSZF</router-link>
                     </button>
                 </div>
 
