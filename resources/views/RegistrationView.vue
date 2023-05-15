@@ -76,6 +76,8 @@ import { Form, Field, ErrorMessage } from 'vee-validate';
 import axios from 'axios';
 import SnackBar from "../components/snackbars/SnackBar.vue";
 import LoadingSpinner from "../components/LoadingSpinner.vue";
+import hu from '@vee-validate/i18n/dist/locale/hu.json';
+import { setLocale } from '@vee-validate/i18n';
 
 export default {
     data() {
