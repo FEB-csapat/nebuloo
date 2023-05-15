@@ -73,7 +73,7 @@ class ApiVoteTest extends TestCase
             'direction' => 'up'
         ]);
 
-        // update vote with POST request with down direction
+        // update vote via POST request with down direction
         $response = $this->actingAs($this->user, 'sanctum')
         ->withHeaders([
             'Accept' => 'application/json',

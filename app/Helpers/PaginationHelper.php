@@ -57,7 +57,7 @@ class PaginationHelper
         }
 
         return [
-            'data' => $items,//$paginator->items(),// $items->toArray(),
+            'data' => $items,
             'links' => [
                 'first' => $paginator->url(1),
                 'last' => $paginator->url($paginator->lastPage()),

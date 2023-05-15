@@ -25,7 +25,7 @@
         <form v-if="showSearchBar" class="d-flex pe-2" @submit.prevent="search">
           <input v-model="searchTerm" style="max-width: 160px" class="form-control me-1" type="search" placeholder="Keresés" aria-label="Search"/>
           
-          <button class="btn btn-outline-light" type="submit">
+          <button class="btn btn-light" type="submit">
             <i class="fa-solid fa-magnifying-glass"/>
           </button>
         </form>
@@ -90,7 +90,6 @@ export default{
     data() {
       return {
         searchTerm: '',
-        // user: null,
       }
     },
 

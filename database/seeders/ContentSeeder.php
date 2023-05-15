@@ -81,6 +81,54 @@ Dosztojevszkij munkássága az orosz irodalom történetében egyedülálló, é
 
 
         Content::factory()->create([
+            'creator_user_id' => 6,
+            'subject_id' => Subject::where('name', 'Irodalom')->first()->id,
+            'topic_id' => Topic::where('name', 'Realizmus')->first()->id,
+            'body' => '# Kosztolányi Dezső
+![Kosztolányi](https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Kosztol%C3%A1nyi_Dezs%C5%91_portr%C3%A9ja_%28Sz%C3%A9kely_Alad%C3%A1r%2C_1935%29_%E2%80%93_crop.jpg/250px-Kosztol%C3%A1nyi_Dezs%C5%91_portr%C3%A9ja_%28Sz%C3%A9kely_Alad%C3%A1r%2C_1935%29_%E2%80%93_crop.jpg)
+Kosztolányi Dezső (1885-1936) magyar író, költő, műfordító és publicista volt. Az 1900-as évek elején kezdte meg írói tevékenységét, és az 1920-as években vált az egyik legismertebb magyar íróvá. Műveiben a modernista irodalom eszközeit használta, és a magyar irodalom egyik legfontosabb alakja lett.
+
+### Életútja
+Kosztolányi Dezső 1885-ben született Szabadkán, majd családjával Budapestre költözött. Az írói pályáját a Nyugat című folyóiratnál kezdte, ahol verseket és novellákat publikált. Az első világháború után Kosztolányi a Magyarországi Írók Szövetségének elnöke lett, és a folyóiratok mellett regényeket és drámákat is írt.
+
+### Művei
+Kosztolányi Dezső műveiben a modernista irodalom eszközeit használta, és a magyar irodalom egyik legfontosabb alakja lett. Legismertebb művei közé tartozik az Édes Anna című regény, amely a magyar irodalom egyik legjelentősebb műve. A regény a 20. századi magyar társadalomról szól, és az író a műben a társadalom problémáit és a szegénységet mutatja be.
+
+Kosztolányi Dezső másik fontos műve a **Pacsirta** című regény, amely a 20. századi magyar irodalom egyik legjelentősebb alkotása. A regény a fiatalokról szól, akik az életüket próbálják megtalálni a 20. század elején. Az író a műben a fiatalok életének nehézségeit és a társadalom változásait mutatja be.
+
+### Irodalmi jelentősége
+Kosztolányi Dezső az 1900-as évek elején kezdte meg írói tevékenységét, és az 1920-as években vált az egyik legismertebb magyar íróvá. Műveiben a modernista irodalom eszközeit használta, és a magyar irodalom egyik legfontosabb alakja lett. Az író művei a magyar társadalom problémáit és a szegénységet mutatják be, és az író a társadalom változásaira is reflektál.'
+        ]);
+
+        Content::factory()->create([
+            'creator_user_id' => 5,
+            'subject_id' => Subject::where('name', 'Irodalom')->first()->id,
+            'topic_id' => Topic::where('name', 'Színház')->first()->id,
+            'body' => '# A görög dráma
+
+![Szíházi maszk](https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/New_comedy_first_slave_theatre_mask_NAMA3373_Athens_Greece.jpg/170px-New_comedy_first_slave_theatre_mask_NAMA3373_Athens_Greece.jpg)
+
+A görög dráma az ókori görögországi irodalom egyik legfontosabb műfaja volt. A görög dráma a görög színházban született, és a drámaírók a görög mitológiából merítették az ihletet. A görög dráma a tragédia és a komédia két fő műfajára osztható.
+
+### Tragédia
+A görög tragédia a görög dráma egyik legfontosabb műfaja volt. A tragédiákban a főszereplők általában hősök voltak, akik valamilyen tragikus sorsot éltek át. A tragédiákban a főszereplők gyakran küzdenek az istenekkel, és a történetekben gyakran szerepelnek isteni beavatkozások is.
+
+A görög tragédiákban a drámaírók gyakran foglalkoztak az emberi szenvedéssel és a halállal. A tragédiákban a főszereplők gyakran tragikus sorsot élnek át, és a történetekben gyakran szerepelnek isteni beavatkozások is.
+
+### Komédia
+A görög komédia a görög dráma másik fontos műfaja volt. A komédiákban a főszereplők általában hétköznapi emberek voltak, akik vicces helyzetekbe kerültek. A komédiákban a drámaírók gyakran foglalkoztak a társadalommal és a politikával.
+
+A görög komédiákban a drámaírók gyakran kritizálták a társadalmat és a politikát. A komédiákban a főszereplők gyakran vicces helyzetekbe kerülnek, és a történetekben gyakran szerepelnek humoros párbeszédek is.
+
+### A görög dráma jelentősége
+A görög dráma az ókori görögországi irodalom egyik legfontosabb műfaja volt. A drámaírók a görög mitológiából merítették az ihletet, és a drámákban gyakran foglalkoztak az emberi szenvedéssel és a halállal. A görög dráma a tragédia és a komédia két fő műfajára osztható.
+
+A görög dráma jelentősége azonban nem csak az ókori görög irodalomra korlátozódik, hanem az egész világirodalomra is hatással volt. A görög dráma a modern dráma egyik legfontosabb előfutára, és az ókori görög drámaírók művei azóta is olvasottak és tanulmányozottak. A görög dráma az irodalom és a színház történetének egyik legfontosabb műfaja, és az ókori görög kultúra egyik legnagyobb kincse.'
+        ]);
+
+
+
+        Content::factory()->create([
             'creator_user_id' => 2,
             'subject_id' => Subject::where('name', 'Angol')->first()->id,
             'topic_id' => Topic::where('name', 'Grammar')->first()->id,

@@ -94,7 +94,7 @@ namespace NebulooWebTest
             loginButton.Click();
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl + "login"));
         }
-        //TODO:searchbar
+        
         [TearDown]
         public void TearDown()
         {

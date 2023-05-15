@@ -99,7 +99,7 @@ class ApiContentTest extends TestCase
         ]);
         
         $response
-          //  ->assertUnprocessable()
+            ->assertUnprocessable()
             ->assertJson([
                 'message' => 'A(z) leírás mező kitöltése kötelező.',
                 'errors' => [

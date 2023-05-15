@@ -40,7 +40,6 @@ export default{
         async createContent(){
             const body = this.editor.value();
             if(body == ""){
-                // TODO: handle error properly
                 alert("A poszt nem lehet üres!");
                 return;
             }
@@ -49,7 +48,6 @@ export default{
             if(response.status == 201){
                 this.$router.push({ name: 'contentById', params:  {id: response.data.id} })
             }else{
-                // TODO: handle error properly
                 alert("Hiba történt a poszt létrehozása közben!");
             }
         }, 

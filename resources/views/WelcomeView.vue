@@ -17,31 +17,31 @@
         <div class="row justify-content-evenly align-items-end" >
             <div class="col-4 col-md-2">
                 <div class="d-flex justify-content-center mb-2 flex-column" style="letter-spacing: 4px">        
-                    <p class="text-secondary"><br>alap</p>
+                    <p><br>alap</p>
                     <user :user="zoldfulu" :clickable="false" :showDetailed="true"/>
                 </div>
             </div>
             <div class="col-4 col-md-2">
                 <div class="d-flex justify-content-center mb-2 flex-column" style="letter-spacing: 4px">
-                    <p class="text-secondary">10 szavazat fölött</p>
+                    <p>10 szavazat fölött</p>
                     <user :user="okostojas" :clickable="false" :showDetailed="true"/>
                 </div>
             </div>
             <div class="col-4 col-md-2">
                 <div class="d-flex justify-content-center mb-2 flex-column" style="letter-spacing: 4px">
-                    <p class="text-secondary">25 szavazat fölött</p>
+                    <p>25 szavazat fölött</p>
                     <user :user="zseni" :clickable="false" :showDetailed="true"/>
                 </div>
             </div>
             <div class="col-4 col-md-2">
                 <div class="d-flex justify-content-center mb-2 flex-column" style="letter-spacing: 4px">
-                    <p class="text-secondary">50 szavazat fölött</p>
+                    <p>50 szavazat fölött</p>
                     <user :user="langesz" :clickable="false" :showDetailed="true"/>
                 </div>
             </div>
             <div class="col-4 col-md-2">
                 <div class="d-flex justify-content-center mb-2 flex-column" style="letter-spacing: 4px">
-                    <p class="text-secondary">100 szavazat fölött</p>
+                    <p>100 szavazat fölött</p>
                     <user :user="bolcs" :clickable="false" :showDetailed="true"/>
                 </div>
             </div>
@@ -91,24 +91,19 @@ export default {
         return{
             token: '',
             zoldfulu: {
-                display_name: 'Zöldfülű',
-                rank: { id: 1},
+                rank: { id: 1, name: 'Zöldfülű'},
             },
             okostojas: {
-                display_name: 'Okostojás',
-                rank: { id: 2},
+                rank: { id: 2, name: 'Okostojás'},
             },
             zseni: {
-                display_name: 'Zseni',
-                rank: { id: 3},
+                rank: { id: 3, name: 'Zseni'},
             },
             langesz: {
-                display_name: 'Lángész',
-                rank: { id: 4},
+                rank: { id: 4, name: 'Lángész'},
             },
             bolcs: {
-                display_name: 'Bölcs',
-                rank: { id: 5},
+                rank: { id: 5, name: 'Bölcs'},
             },
         }
     },

@@ -99,27 +99,6 @@ namespace NebulooWebTest
             logoutmyprofileButton.Click();
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(baseUrl));
         }
-        //[Test]
-        //public void ShowMyContentMyProfileTest()
-        //{
-        //    driver.Url = baseUrl + "me";
-        //    wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("contentcard")));
-
-        //    var mycontentcardButton = driver.FindElement(By.Name("contentcard"));
-        //    mycontentcardButton.SendKeys(Keys.Return);
-
-        //    wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Name("detailedcontenttags")));
-
-        //    var mycontent = driver.FindElement(By.Name("contentupdate"));
-        //    if (mycontent.Text == "Szerkesztés")
-        //    {
-        //        Assert.Pass();
-        //    }
-        //    else
-        //    {
-        //        Assert.Fail();
-        //    }
-        //}
 
         [TearDown]
         public void TearDown()

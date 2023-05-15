@@ -1,5 +1,24 @@
 # Nebuloo fejlesztői dokumentáció
 
+## Telepítés:
+1. A projekt forráskódját az alábbi parancs terminálban való kiadásával lehet letölteni: `git clone https://github.com/FEB-csapat/nebuloo.git` 
+2. A projekt gyökér könyvtárában start.sh shell script futattása: `sh start.sh`
+
+Amennyiben a script futtatása sikertelen, a parancsokat manuálisan kell kiadni:
+1. `copy .env.example .env` az “.env.example” fájl átnevezése “.env”-re
+2. `docker compose up` parancs kiadása konténerek indításához
+3. `docker compose exec app fish` parancs kiadás a konténerbe való belépéshez
+
+A konténeren belül:
+
+4. `composer install` parancs kiadása a Laravel-hez kapcsolódó függőségek letöltéséhez
+5. `php artisan key:generate` parancs kiadása az API-hoz szükséges kulcs generálásához
+6. `php artisan migrate:fresh --seed` parancs kiadása az adatbázis migrációk és seederek lefutatásához
+7. `npm install` parancs kiadása Vue-hoz kapcsolódó függőségek letöltéséhez
+
+Végül a Vite élő szerver futtatásához az `npm run dev` parancs kiadása szükséges, mely után a weboldal a https://localhost:8881 címen érhető el.
+
+
 ### Backend Laravelben lett megírva
 
 * API kontrollerek (app/Http/Controllers könyvtár): Meghatározzák, hogyan kell kezelni az egyes API kéréseket, válaszolnak az API kérésekre, végzik az adatfeldolgozást és adatmanipulációt, majd a választ visszaküldik a kliensnek.

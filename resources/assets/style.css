@@ -21,6 +21,9 @@
 }
 
 
+.bg-primary{
+    background-color: #2b79ee !important;
+}
 
 body{
     background-color: #A2E0F3;
@@ -30,37 +33,33 @@ body{
     height: 45px;
 }
 .nebuloobutton{
-    background-color: #A2E0F3;
+    background-color: #74d9f8;
     width: 12em;
 }
+
+.nebuloobutton:focus,
+.nebuloobutton:focus-visible,
 .nebuloobutton:hover{
-    background-color: #A2E0F3;
+    background-color: #74d9f8;
     box-shadow: 2px 4px rgba(0, 0, 0, 0.2); 
     transition: box-shadow 0.1s ease-in-out; 
 }
 
-.nebuloobutton:focus,
 .nebuloobutton:active{
-    background-color: #A2E0F3 !important;
+    background-color: #74d9f8 !important;
 }
 
-#tag{
-    background-color: #A2E0F3;
-    width: 8em;
-    height: 1.7em;
-    font-size: 18px;
-    text-align: center;
-}
 .fab-button {
     position: fixed;
-    background-color: #3585db;
+    background-color: #1c73f5;
     border: none;
     color: white;
     padding: 16px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 17px;
+    font-size: 18px;
+    font-weight: 500;
     margin: 4px 2px;
     padding: 16px;
     cursor: pointer;
@@ -124,7 +123,7 @@ body{
 }
 
 .detailed_content_view_textarea .CodeMirror-vscrollbar{
-    display: block;
+    display: none !important;
 }
 
 .detailed_content_view_textarea .CodeMirror-scroll{
@@ -135,7 +134,7 @@ body{
 .card_content_view_textarea .editor-preview{
     padding: 0;
     position: relative;
-    max-height: 220px  ;
+    max-height: 220px;
     overflow: hidden;
     background-color: white;
 }
@@ -145,11 +144,14 @@ body{
 }
 
 .card_content_view_textarea .EasyMDEContainer .CodeMirror{
-    padding: 6px;
+    padding-left: 6px;
+    padding-top: 6px;
+    padding-right: 6px;
+    padding-bottom: 0px;
 }
 
 .card_content_view_textarea .CodeMirror-vscrollbar{
-    display: block;
+    display: none !important;
 }
 
 .card_content_view_textarea .CodeMirror-scroll{
@@ -159,6 +161,7 @@ body{
 .card_content_view_textarea .editor-statusbar .cursor {
     display: none;
 }
+
 
 .detailed_content_view_textarea .editor-statusbar .cursor {
     display: none;
@@ -191,6 +194,8 @@ body{
 
 .editor-statusbar span {
     min-width: 2em;
+    color:black;
+    font-size: 14px;
 }
 
 .editor-statusbar .lines:before {
@@ -202,4 +207,13 @@ body{
 
 .editor-statusbar .cursor:before {
     content: 'kurzor: ';
+}
+
+#paginator{
+    font-size: 18px;
+}
+
+#paginator :any-link{
+    font-size: 18px;
+    color:rgb(2, 74, 182)
 }

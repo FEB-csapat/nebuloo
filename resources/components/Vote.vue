@@ -90,22 +90,24 @@ export default{
 #vote_container{
     min-width: 50px;
 }
-fa-up-long{
-    color: blue;
-    transition: transform 1s ease-in-out;
-}
+
+#upvote:focus,
+#upvote:focus-visible,
 #upvote:hover{
-    color: #0000FF;
+    color: #0084ff;
     transform: scale(1.2);
     transition: transform 0.1s ease-in-out;
 }
+
+#downvote:focus,
+#downvote:focus-visible,
 #downvote:hover{
     color: #FF0000;
     transform: scale(1.2);
     transition: transform 0.1s ease-in-out;
 }
 .upvoted {
-    color: blue;
+    color: #0084ff;
     transform: scale(1.2);
     }
 
@@ -119,3 +121,5 @@ fa-up-long{
 }
 
 </style>
+
+

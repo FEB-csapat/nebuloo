@@ -22,7 +22,7 @@ A konténeren belül:
 6. `php artisan migrate:fresh --seed` parancs kiadása az adatbázis migrációk és seederek lefutatásához
 7. `npm install` parancs kiadása Vue-hoz kapcsolódó függőségek letöltéséhez
 
-Végül a Vite élő szerver futtatásához az `npm run dev` parancs kiadása szükséges, mely után a weboldal a https://localhost:8881 címen érhető el.
+Végül a Vite élő szerver futtatásához az `npm run dev` parancs kiadása szükséges, mely után a weboldal a http://localhost:8881 címen érhető el.
 
 
 

@@ -77,7 +77,7 @@ class ApiCommentTest extends TestCase
         ])->get('api/comments/me');
 
         $response
-          //  ->assertForbidden()
+            ->assertForbidden()
             ->assertJson([
                 'message' => __('messages.guest_not_permitted_for_action')
         ]);
@@ -577,7 +577,6 @@ public function test_show_comment_as_guest()
         ]);
     }
 
-    // tearDown
     protected function tearDown(): void
     {
         $this->user->delete();

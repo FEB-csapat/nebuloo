@@ -11,18 +11,19 @@
                 </div>
 
                 <div class="ms-1">
-                    <label for="search" class="form-label">Rendezés:</label>
-                    <select class="form-select" style="width:160px" v-model="orderBy" @change="handleOrderBy">
+                    <label for="sort-selector" class="form-label">Rendezés:</label>
+                    <select id="sort-selector" class="form-select" style="width:160px" v-model="orderBy" @change="handleOrderBy">
                         <option value="newest">Legújabbak</option>
                         <option value="oldest">Legrégebbiek</option>
                         <option value="popular">Legnépszerűbbek</option>
                     </select>
                 </div>
             </div>
-            <p @click="removeFilters" class="text-center text-secondary">Szürők törlése</p>    
+            <p @click="removeFilters" class="text-center">Szürők törlése</p>    
         </div>
-        
-        <h3 v-if="searchTerm != ''" class="text-center mb-4">Keresési találatok: {{ $route.query.search }}</h3>
+
+        <h3 v-if="searchTerm != null && searchTerm != ''" class="text-center mb-4">Keresési találatok "{{ searchTerm }}" kifejezésre:</h3>
+        <h3 v-else class="text-center mb-4">Keresési találatok:</h3>
 
         <loading-spinner v-if="isWaiting"/>
 

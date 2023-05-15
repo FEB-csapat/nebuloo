@@ -1,5 +1,5 @@
 <template>
-  <div class="row mb-3 p-2">
+  <div id="paginator" class="row mb-3 p-2">
     <nav>
       <ul class="pagination mx-auto">
         <li v-for="link in meta.links" :class="{ 'active': link.active }">

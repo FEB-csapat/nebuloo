@@ -1,7 +1,7 @@
 <template>
     <loading-spinner v-if="user == null"/>
     <div v-else class="col text-center" @click="navigateToUserProfileView()">
-        <h3  v-if="showDetailed && user.banned" class="text-danger">KITILTVA</h3>
+        <h3 v-if="showDetailed && user.banned" class="text-danger">KITILTVA</h3>
         <p v-if="!showDetailed && user.banned" class="text-danger text-center">KITILTVA</p>
 
         <h6 v-if="user.role!=null && showDetailed
@@ -10,7 +10,7 @@
 
         <img class="mx-auto border border-2 border-dark rounded shadow" :style="{ width: showDetailed ? '120px' : '60px' }" v-bind:src="profileImage" :alt="user.rank.name" :title="user.rank.name" id="profpicture"/>
 
-        <p class="text-secondary" v-if="user.rank!=null && showDetailed">{{user.rank.name}}</p>
+        <h6 class="pt-1" v-if="user.rank!=null && showDetailed">{{user.rank.name}}</h6>
 
         <h5 v-if="showDetailed" class="mt-1">{{user.display_name ?? user.username}}</h5>
         <h6 v-else-if="!showDetailed" class="mt-1">{{user.display_name ?? user.username}}</h6>
@@ -85,4 +85,3 @@ export default{
     },
 }
 </script>
-

@@ -1,5 +1,24 @@
 # Nebuloo developer documentation
 
+## Installation:
+1. The source code of the project can be downloaded by running the following command in the terminal: `git clone https://github.com/FEB-csapat/nebuloo.git`
+2. Run start.sh shell script in the root directory of the project: `sh start.sh`
+
+If running the script fails, the commands must be runned manually:
+1. `copy .env.example .env` rename file “.env.example” to “.env”
+2. Run `docker compose up` command to start containers
+3. Run `docker compose exec app fish` command to enter the container
+
+Inside the container:
+
+4. Run `composer install` command to download Laravel related dependencies
+5. Run `php artisan key:generate` command to generate the key required for the API
+6. Run `php artisan migrate:fresh --seed` command to run database migrations and seeders
+7. Run the `npm install` command to download Vue-related dependencies
+
+Finally, to run the Vite live server, you need to run the `npm run dev` command, after which the website can be accessed at https://localhost:8881
+
+
 ### Backend is written in Laravel
 
 * API Controllers (app/Http/Controllers directory): Define how to handle each API request, respond to API requests, perform data processing and manipulation, and return the response to the client.

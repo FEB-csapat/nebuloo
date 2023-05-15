@@ -2,7 +2,7 @@
 <loading-spinner v-if="isWaiting" />
 <div v-else class="d-flex mb-2 align-items-end">
     <div>
-        <label for="search" class="form-label">Tantárgy:</label>
+        <label for="subject-selector" class="form-label">Tantárgy:</label>
         <select id="subject-selector" class="form-select" v-model="subject" @change="subjectItemSelected()">
             <option v-for="subj in subjects" :key="subj.id" :value="subj">{{ subj.name }}</option>
         </select>
@@ -10,13 +10,13 @@
 
 
     <div v-if="subject != null" class="m-2" >
-        <i style="color:gray; " :class="['fas', 'fa-right-long', 'fa-lg',]"/>
+        <i :class="['fas', 'fa-right-long', 'fa-lg',]"/>
     </div>
 
     <div v-if="subject != null" >
         <div class="row align-items-start">
             <div>
-                <label for="" class="form-label">Témakör:</label>
+                <label for="topic-selector" class="form-label">Témakör:</label>
                 <select id="topic-selector" class="form-select" v-model="topic" @change="topicItemSelected()">
                     <option v-for="top in topics" :key="top.id" :value="top">{{ top.name }}</option>
                 </select>

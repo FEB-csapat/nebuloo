@@ -42,6 +42,6 @@ export default{
 
 .bg-blue {
     color: black;
-    background-color: steelblue;
+    background-color: rgb(42, 113, 172);
 }
 </style>

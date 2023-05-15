@@ -1,7 +1,7 @@
 <template>
-    <h1 class="text-center mt-4">
-        Felhasználói jelentések:
-    </h1>
+    <h2 class="text-center mt-4">
+        Felhasználói hibajegyek:
+    </h2>
     <loading-spinner v-if="isWaiting"/>
     <h4 v-if="!IsModeratorOrAdmin" name="ticketunauthentry" class="text-center"> 
         Csak megfelelő jogosultsággal rendelkező személy láthatja a hibajegyeket!

@@ -134,7 +134,7 @@ export default{
             // set the focus to the end of text
             this.editor.codemirror.setCursor(this.editor.codemirror.lineCount(), 0);
         } else {
-            // TODO: error handling: Something went wrong
+            alert("Hiba történt a tartalom betöltése közben!",router.back())
         }
 
         this.isWaiting = false;

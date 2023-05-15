@@ -74,7 +74,7 @@ class VoteController extends Controller
             $existingVote->update($data);
             return new SimpleVoteResource($existingVote);
         }else{
-            // vote doesn't exist, update it
+            // vote doesn't exist, create one
             $newVote = Vote::create($data);
             return new SimpleVoteResource($newVote);
         }

@@ -23,8 +23,6 @@ class VoteResource extends JsonResource
             'reciever' => new SimpleUserResource($this->reciever),
             'votable_type' => $this->votable_type,
             'votable' => $this->votable,
-            
-           // 'votable_id' => $this->votable_id,
             'direction' => $this->direction,
         ];
     }

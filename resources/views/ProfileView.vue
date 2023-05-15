@@ -259,11 +259,12 @@ export default {
         },
 
         initialize(){
-            if (this.id == null) //MyProfile
-            {
+            if (this.id == null){
+                // Is my profile
                 this.getMyData();
                 this.isMyProfile = true;
             } else if (UserManager.isMine(this.id)) {
+                // Is my profile
                 this.$router.push({
                     name: 'myUserProfile',
                 });
@@ -271,6 +272,7 @@ export default {
                 this.isMyProfile = true;
             }
             else {
+                // Is other's profile
                 this.getProfileData();
                 this.isMyProfile = false;
             }
@@ -309,7 +311,7 @@ export default {
     },
 
     watch: {
-        // helps to refresh the page when the route changes to /me
+        // helps to refresh the page when the path changes to /me
         $route(to, from) {
             this.initialize();
         }

@@ -2,24 +2,24 @@
   <div class="container d-flex flex-wrap align-items-center py-3 my-4 border-top">
     <footer style="margin-bottom: 50px;">
       <div class="row">
-        <p class="mb-3 text-muted">
-          <router-link class="nav-link text-muted px-2" aria-current="page" :to="{ name: 'welcome'}">
+        <p class="mb-3">
+          <router-link class="nav-link px-2" aria-current="page" :to="{ name: 'welcome'}">
             Nebuloo
           </router-link>
         </p>
       </div>
         <div class="row">
           <div class="col-sm-3 text-center">
-            <router-link class="nav-link text-muted px-2 mt-1 " aria-current="page" :to="{ name: 'documentation'}" name="footerdocs">Dokumentációk</router-link>
+            <router-link class="nav-link px-2 mt-1 " aria-current="page" :to="{ name: 'documentation'}" name="footerdocs">Dokumentációk</router-link>
           </div>
           <div class="col-sm-3 text-center">
-            <router-link class="nav-link text-muted px-2 mt-1 " aria-current="page" :to="{ name: 'createTicket'}" name="footerticket">Hibajegy küldése</router-link>
+            <router-link class="nav-link px-2 mt-1 " aria-current="page" :to="{ name: 'createTicket'}" name="footerticket">Hibajegy küldése</router-link>
           </div>
           <div class="col-sm-3 text-center">
-            <a href="https://github.com/FEB-csapat/nebuloo" class="nav-link px-2 text-muted mt-1" name="footersource">Forrás kód</a>
+            <a href="https://github.com/FEB-csapat/nebuloo" class="nav-link px-2 mt-1" name="footersource">Forrás kód</a>
           </div>
           <div class="col-sm-3 text-center">
-            <router-link class="nav-link text-muted px-2 mt-1 " aria-current="page" :to="{ name: 'aszf'}" name="footeraszf">ÁSZF</router-link>
+            <router-link class="nav-link px-2 mt-1 " aria-current="page" :to="{ name: 'aszf'}" name="footeraszf">ÁSZF</router-link>
           </div>
         </div>      
     </footer>
