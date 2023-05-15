@@ -4,7 +4,7 @@
             <Form @submit="Register">
 
                 <label for="username" class="form-label mt-2">Felhasználó név:</label>
-                <Field rules="required|alpha_num" type="text" name="username" placeholder="Felhasználó név" class="form-control" />
+                <Field rules="required|alpha_num|min:4" type="text" name="username" placeholder="Felhasználó név" class="form-control" />
                 <ErrorMessage name="username" class="alert alert-danger d-flex p-2 mt-2" />
                 <span v-if="possibError.name"
                     class="d-inline-flex mt-2 error-message bg-danger text-white bg-opacity-25 border border-danger p-2">{{ possibError.name }}</span>
